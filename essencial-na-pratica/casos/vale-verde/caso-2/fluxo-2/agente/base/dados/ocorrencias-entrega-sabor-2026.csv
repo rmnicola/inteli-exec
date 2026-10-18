@@ -1,0 +1,19 @@
+Data;Unidade;Região;Pedido;Tipo;Atraso (horas);Observação
+03/07/2026;Sabor & Cia Tatuapé;Grande SP;PV-2026-04812;Atraso;5;Entregue às 14h40, durante o serviço do almoço
+09/07/2026;Sabor & Cia Pinheiros;Grande SP;PV-2026-04977;Atraso;3;Veículo sem vaga para parar, segunda tentativa
+16/07/2026;Sabor & Cia Guarulhos;Grande SP;PV-2026-05140;Atraso;26;Carga ficou no transbordo de Barueri, entregue no dia seguinte
+28/07/2026;Sabor & Cia Vila Mariana;Grande SP;PV-2026-05433;Atraso;4;Motorista substituto não conhecia o endereço
+04/08/2026;Sabor & Cia Osasco;Grande SP;PV-2026-05601;Atraso;6;Entregue às 15h, conferência feita sem o responsável da cozinha
+07/08/2026;Sabor & Cia Tatuapé;Grande SP;PV-2026-05688;Atraso;24;Carga ficou no transbordo de Barueri
+12/08/2026;Sabor & Cia Moema;Grande SP;PV-2026-05790;Atraso;3;Chegou no horário do almoço, 2 caixas amassadas registradas
+14/08/2026;Sabor & Cia Guarulhos;Grande SP;PV-2026-05842;Atraso;5;Rota alterada pela transportadora sem aviso
+19/08/2026;Sabor & Cia Santana;Grande SP;PV-2026-05951;Atraso;4;Entregue às 14h
+21/08/2026;Sabor & Cia Tatuapé;Grande SP;PV-2026-06003;Ruptura;;Desengordurante (12 un.) não entregue, pedido saiu completo do CD, falta no transbordo. Unidade tirou 2 pratos do cardápio
+26/08/2026;Sabor & Cia Itaim Bibi;Grande SP;PV-2026-06122;Atraso;3;Entregue às 13h30
+01/09/2026;Sabor & Cia Lapa;Grande SP;PV-2026-06240;Atraso;5;Motorista substituto
+03/09/2026;Sabor & Cia Osasco;Grande SP;PV-2026-06301;Sem recebimento;;Unidade fechada para recebimento no horário da entrega, reentrega no dia seguinte (não conta como atraso da Vale Verde)
+09/09/2026;Sabor & Cia Guarulhos;Grande SP;PV-2026-06418;Ruptura;;Sacos de lixo 100 L (20 fardos) não entregues, unidade comprou no atacarejo
+11/09/2026;Sabor & Cia Pinheiros;Grande SP;PV-2026-06467;Atraso;4;Sem vaga para descarga
+15/09/2026;Sabor & Cia Perdizes;Grande SP;PV-2026-06555;Atraso;3;Entregue às 13h
+18/09/2026;Sabor & Cia Osasco;Grande SP;PV-2026-06630;Atraso;25;Carga ficou no transbordo de Barueri
+22/09/2026;Sabor & Cia São Bernardo do Campo;Grande SP;PV-2026-06712;Atraso;4;Entregue às 14h10

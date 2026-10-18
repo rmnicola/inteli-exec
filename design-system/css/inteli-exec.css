@@ -1,0 +1,268 @@
+/* Design system Inteli: apresentações em HTML (graduação, com as telas do Exec preservadas).
+   Tela fixa de 1600 × 900. O deck.js escala a tela para caber na janela.
+   Paleta, fontes e hierarquia vêm do Template de Apresentação Inteli (segmento Exec e Pós/MBA).
+
+   Os layouts da seção "Pontos de partida" são opcionais. Um slide pode ser composto
+   livremente no <style> do próprio deck, usando as variáveis e os ingredientes daqui. */
+
+@import url("../assets/fonts/fonts.css");
+
+:root {
+  /* Paleta institucional */
+  --roxo: #2e2640;
+  --coral: #ff4545;
+  --lilas: #90a5e5;
+  --verde: #89cea5;
+  --verde-escuro: #066d73;     /* cor do segmento MBA & EXEC */
+  --cinza-escuro: #b2b6bf;
+  --cinza-medio: #caced6;
+  --cinza-claro: #e6eaeb;
+  --branco: #ffffff;
+
+  /* Papéis */
+  --fundo: var(--cinza-claro);
+  --texto: var(--roxo);
+  --texto-suave: #5d5870;
+  --coral-texto: #d63333;      /* coral levemente escurecido: só para TEXTO sobre fundo claro (contraste 3,96). Formas usam --coral */
+  --destaque: var(--coral-texto);
+
+  /* Tipografia (Platypi substitui a Azurio, como orienta o template) */
+  --f-capitulo: "Platypi", Georgia, serif;
+  --f-texto: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --f-destaque: "Space Mono", "Courier New", monospace;
+
+  /* Escala, em px da tela de 1600 × 900. Nada abaixo de 28px na tela. */
+  --t-capitulo: 96px;
+  --t-titulo: 64px;
+  --t-ideia: 72px;
+  --t-subtitulo: 40px;
+  --t-texto: 34px;
+  --t-destaque: 28px;
+  --t-legenda: 28px;
+
+  /* Grade */
+  --margem-x: 120px;
+  --margem-y: 96px;
+  --vao: 48px;
+}
+
+/* ---------- Estrutura e apresentação na tela ---------- */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; background: #111; overflow: hidden; }
+
+.deck { position: fixed; inset: 0; }
+
+.slide {
+  position: absolute; top: 50%; left: 50%;
+  width: 1600px; height: 900px;
+  transform-origin: center center;
+  transform: translate(-50%, -50%) scale(var(--escala, 1));
+  background: var(--fundo); color: var(--texto);
+  font-family: var(--f-texto); font-size: var(--t-texto); line-height: 1.35;
+  overflow: hidden;
+  display: none;
+}
+.slide.atual { display: block; }
+
+.slide > .conteudo {
+  position: absolute;
+  inset: var(--margem-y) var(--margem-x);
+  display: flex; flex-direction: column; justify-content: center; gap: var(--vao);
+}
+
+/* Notas do professor: nunca aparecem no slide. */
+.slide .notas { display: none !important; }
+
+/* Passos: entram um a um a cada avanço (deck.js). O espaço fica reservado, então nada pula. */
+.slide .passo { transition: opacity .4s ease, visibility .4s; }   /* visibility também transiciona, para o elemento esmaecer ao sair */
+.slide .passo:not(.visivel) { opacity: 0; visibility: hidden; }
+
+/* Número do slide, discreto, no canto inferior direito. */
+.slide::after {
+  content: attr(data-numero);
+  position: absolute; right: 40px; bottom: 28px;
+  font-family: var(--f-destaque); font-size: 20px; color: var(--cinza-escuro);
+}
+.slide.sem-numero::after { content: none; }
+
+/* Logo inteli (logo-inteli-*.png na graduação, logo-exec-*.png no Exec): canto superior direito nos slides de conteúdo. */
+.slide .logo {
+  position: absolute; top: 56px; right: 64px; height: 56px; width: auto;
+}
+
+/* ---------- Hierarquia tipográfica (do template) ---------- */
+
+.capitulo {
+  font-family: var(--f-capitulo); font-weight: 400;
+  font-size: var(--t-capitulo); line-height: 1.2;
+  text-transform: uppercase; color: var(--texto);
+}
+.titulo { font-weight: 700; font-size: var(--t-titulo); line-height: 1.12; }
+.subtitulo { font-weight: 400; font-size: var(--t-subtitulo); line-height: 1.3; color: var(--texto-suave); }
+.destaque {
+  font-family: var(--f-destaque); font-weight: 700; font-size: var(--t-destaque);
+  text-transform: uppercase; letter-spacing: .04em; color: var(--destaque);
+}
+.texto { font-size: var(--t-texto); max-width: 30ch; }
+.legenda { font-size: var(--t-legenda); color: var(--texto-suave); }
+strong, b { font-weight: 800; }
+em { font-style: normal; color: var(--destaque); }
+
+/* Termo em destaque: o nome de um conceito, discreto, no slide em que ele acontece.
+   Não existe slide só de termo: o termo aparece dentro da explicação. Posicione com style ou CSS do deck. */
+.rotulo-termo { position: absolute; font-family: var(--f-destaque); font-weight: 700; font-size: 28px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--destaque); }
+
+/* Moldura coral em volta de uma palavra: o motivo visual do template. */
+.moldura {
+  display: inline-block; padding: 0 .16em; line-height: 1.12;
+  outline: 3px solid var(--coral); outline-offset: 0;
+}
+
+/* Retângulo cinza translúcido, grafismo do template. */
+.bloco-cinza {
+  position: absolute; background: var(--cinza-medio); opacity: .55; z-index: 0;
+}
+.slide > .conteudo, .slide > .logo { z-index: 1; }
+
+/* ---------- Variantes de fundo ---------- */
+
+.slide.escuro { --fundo: var(--roxo); --texto: var(--branco); --texto-suave: var(--cinza-medio); --destaque: var(--coral); }
+.slide.verde { --fundo: var(--verde-escuro); --texto: var(--branco); --texto-suave: var(--cinza-claro); --destaque: var(--verde); }
+.slide.painel .lado { --destaque: var(--coral); }
+.slide.branco { --fundo: var(--branco); }
+.slide.escuro::after, .slide.verde::after { color: rgba(255,255,255,.45); }
+
+.slide .esfera {
+  position: absolute; right: -160px; top: 90px;   /* sem translateY: no PDF, o deslocamento quebraria a página */
+  height: 720px; width: auto; opacity: .9; z-index: 0;
+}
+
+/* Objeto: algo de fora representado no slide (página de artigo, tela de sistema, documento).
+   Dentro dele vale a aparência do objeto: fonte própria, texto pequeno. As verificações de
+   tamanho mínimo, contraste e contagem de palavras não se aplicam ao que está dentro dele. */
+.objeto { position: absolute; background: var(--branco); color: #1a1a1a; box-shadow: 0 18px 50px rgba(46, 38, 64, .18); }
+
+/* ---------- Pontos de partida (layouts opcionais) ----------
+   Capa: abertura das aulas da graduação. Boas-vindas e pesquisa: telas oficiais do Exec.
+   Os demais são recorrentes, não obrigatórios. */
+
+/* Boas-vindas: tela oficial da Educação Executiva. */
+.slide.boas-vindas .bloco-cinza { left: 0; top: 0; width: 512px; height: 778px; }
+.slide.boas-vindas .logo { position: static; height: 64px; align-self: flex-start; }
+.slide.boas-vindas .conteudo { justify-content: flex-start; gap: 40px; padding-top: 8px; }
+.slide.boas-vindas .capitulo { font-size: 92px; line-height: 1.12; }
+.slide.boas-vindas .capitulo b { font-weight: 700; }
+.slide.boas-vindas .rodape {
+  position: absolute; right: var(--margem-x); bottom: 140px; text-align: center;
+  font-family: var(--f-capitulo); font-size: 30px; line-height: 1.35;
+}
+
+/* Capa da graduação: a capa triangular das aulas do M11 (02-aulas/(2026) M11 - Encontro N.pptx).
+   Medidas convertidas do slide original (1920 × 1080) para 1600 × 900. */
+.slide.capa::before, .slide.capa::after { content: ""; position: absolute; inset: 0; }
+.slide.capa::before { background: var(--roxo); clip-path: polygon(0 0, 508px 0, 508px 517px, 0 883px); }
+.slide.capa::after  { background: var(--coral); clip-path: polygon(508px 517px, 1183px 900px, 0 900px, 0 883px); }
+.slide.capa .logo { top: 90px; right: 91px; height: 123px; }
+.slide.capa .conteudo { left: 560px; right: 119px; align-items: flex-end; text-align: right; gap: 8px; }
+.slide.capa .titulo-capa { font-size: 80px; font-weight: 300; line-height: 1.15; }
+.slide.capa .autor { font-size: 64px; font-weight: 300; line-height: 1.15; }
+
+/* Agenda: a mesma lista em todos os slides de agenda, com o item atual destacado (data-agora, a partir de 0).
+   O deck monta os itens de uma fonte única: <div class="itens"><p class="rotulo-agenda">Agenda</p><p class="item"><span class="marcador">…</span>texto</p>…</div>.
+   O marcador é o horário (Exec) ou o número do item (graduação). Itens que já passaram ficam suaves. */
+.slide.agenda .itens { position: absolute; left: 330px; top: 60px; bottom: 0; width: 1000px;
+  display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+.slide.agenda .rotulo-agenda { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--destaque); padding: 0 30px 14px; }
+.slide.agenda .item { cursor: pointer; display: flex; align-items: center; gap: 40px; padding: 9px 30px; border-radius: 14px; font-size: 34px; font-weight: 600; }
+.slide.agenda .item .marcador { font-family: var(--f-destaque); font-weight: 700; font-size: 32px; width: 120px; flex: none; }
+.slide.agenda .item.passou { color: var(--texto-suave); font-weight: 500; }
+.slide.agenda .item.passou .marcador { color: var(--texto-suave); font-weight: 400; }
+.slide.agenda .item.agora { background: var(--roxo); color: var(--branco); font-weight: 800; }
+.slide.agenda .item:not(.agora):hover { background: var(--branco); }
+.slide.agenda .item.agora .marcador { color: var(--coral); }
+.slide.agenda.curta .item { font-size: 44px; padding: 14px 30px; }
+.slide.agenda.curta .item .marcador { font-size: 40px; width: 96px; }
+
+/* Capítulo: abre uma parte da aula. */
+.slide.capitulo-slide .bloco-cinza { left: 0; top: 0; width: 420px; height: 100%; }
+.slide.capitulo-slide .conteudo { justify-content: center; }
+.slide.capitulo-slide .numero-capitulo { font-family: var(--f-destaque); font-size: 32px; color: var(--destaque); }
+
+/* Ideia: uma frase só, grande. O slide mais comum de um deck minimalista. */
+.slide.ideia .frase { font-weight: 700; font-size: var(--t-ideia); line-height: 1.15; max-width: 22ch; }
+
+/* Termo: apresenta um conceito (token, contexto, agente...). */
+.slide.termo .palavra { font-family: var(--f-capitulo); font-size: 128px; line-height: 1; }
+.slide.termo .definicao { font-size: 40px; line-height: 1.3; max-width: 28ch; }
+
+/* Painel: texto à esquerda, painel colorido à direita com imagem ou palavra. */
+.slide.painel .conteudo { right: calc(560px + var(--margem-x)); }
+.slide.painel .lado {
+  position: absolute; top: 0; right: 0; width: 560px; height: 100%;
+  background: var(--roxo); color: var(--branco);
+  display: flex; align-items: center; justify-content: center; padding: 64px;
+}
+.slide.painel .lado.verde { background: var(--verde-escuro); }
+.slide.painel .lado img { max-width: 100%; max-height: 100%; }
+.slide.painel .lado .grande { font-family: var(--f-capitulo); font-size: 88px; line-height: 1.05; text-align: center; }
+
+/* Imagem: a imagem ocupa o slide; legenda opcional embaixo. */
+.slide.imagem .conteudo { inset: 64px var(--margem-x) 96px; align-items: center; }
+.slide.imagem .conteudo img { max-width: 100%; max-height: 100%; object-fit: contain; min-height: 0; }
+
+/* Citação. */
+.slide.citacao .aspas { font-size: 52px; line-height: 1.3; max-width: 26ch; }
+.slide.citacao .autor { font-weight: 700; font-size: 32px; color: var(--destaque); }
+
+/* Pesquisa: QR code da avaliação do encontro. */
+.slide.pesquisa .dia { position: absolute; top: 96px; left: 96px; font-family: var(--f-capitulo); font-size: 30px; }
+.slide.pesquisa .conteudo { flex-direction: row; align-items: center; justify-content: flex-start; gap: 40px; left: 200px; }
+.slide.pesquisa .qr {
+  width: 400px; height: 400px; background: var(--branco); padding: 28px; flex: none;
+  outline: 3px solid var(--coral);
+}
+.slide.pesquisa .qr img { width: 100%; height: 100%; image-rendering: pixelated; }
+.slide.pesquisa .chamada { display: flex; flex-direction: column; gap: 28px; }
+.slide.pesquisa .capitulo { font-size: 80px; }
+.slide.pesquisa .instrucao { display: flex; gap: 20px; align-items: center; font-size: 34px; line-height: 1.3; }
+.slide.pesquisa .seta {
+  flex: none; width: 76px; height: 60px; border: 3px solid var(--coral); border-radius: 6px;
+  display: grid; place-items: center; color: var(--coral-texto); font-size: 40px; line-height: 1;
+}
+
+/* ---------- Ajuda guiada (deck.js): botão "?" e balões ---------- */
+.slide .ajuda-botao { position: absolute; right: 84px; bottom: 18px; width: 48px; height: 48px; border-radius: 50%; z-index: 20;
+  border: 3px solid var(--roxo); background: var(--branco); color: var(--roxo); font: 700 28px/1 var(--f-destaque); cursor: pointer; }
+.slide .ajuda-camada { position: absolute; inset: 0; z-index: 30; }
+.slide .ajuda-foco { position: absolute; outline: 5px solid var(--coral); border-radius: 10px;
+  box-shadow: 0 0 0 3000px rgba(46, 38, 64, .45); pointer-events: none; transition: all .25s ease; }
+.slide .ajuda-balao { position: absolute; background: var(--branco); color: var(--roxo); border: 3px solid var(--roxo); border-radius: 14px;
+  padding: 24px 28px; box-shadow: 0 18px 50px rgba(46, 38, 64, .3); }
+.slide .ajuda-balao p { font-size: 30px; line-height: 1.3; }
+.slide .ajuda-notas { margin-top: 14px; padding-top: 10px; border-top: 2px solid var(--cinza-medio); display: flex; flex-direction: column; gap: 4px;
+  font-size: 28px; line-height: 1.25; color: var(--texto-suave); }
+.slide .ajuda-notas b { font-family: var(--f-destaque); font-weight: 700; color: var(--texto); }
+.slide .ajuda-acoes { display: flex; gap: 14px; align-items: center; justify-content: flex-end; margin-top: 18px; }
+.slide .ajuda-acoes .ajuda-conta { margin-right: auto; font: 28px var(--f-destaque); color: var(--texto-suave); }
+.slide .ajuda-acoes button { font: 28px/1.2 var(--f-texto); padding: 4px 18px; border: 3px solid var(--roxo); background: transparent; color: var(--roxo); cursor: pointer; border-radius: 8px; }
+.slide .ajuda-acoes button.ativo { background: var(--roxo); color: var(--branco); }
+@media print { .slide .ajuda-botao, .slide .ajuda-camada { display: none !important; } }
+
+/* ---------- Impressão / PDF: um slide por página ---------- */
+
+@page { size: 1600px 900px; margin: 0; }
+@media print {
+  html, body { background: none; overflow: visible; height: auto; }
+  .deck { position: static; }
+  .slide {
+    display: block !important; position: relative; top: auto; left: auto; transform: none;
+    page-break-after: always; break-after: page;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .slide .passo:not(.visivel) { opacity: 0 !important; visibility: hidden !important; }   /* o PDF mostra o último estado do slide */
+}

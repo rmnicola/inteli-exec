@@ -1,0 +1,23 @@
+# Gerados localmente
+_site/
+__pycache__/
+**/qa/
+**/dist/*.pdf
+design-system/exemplos/dist/
+
+# Dados de turma: nunca publicar
+essencial-na-pratica/03-OUT/
+**/alunos.md
+**/questionario-respostas.md
+
+# Documentos internos e templates (originais e conversões)
+*.docx
+*.pptx
+*.eml
+learning-log-toolkit.md
+Learning_Log_Toolkit.pdf
+**/descritivo-do-programa.md
+template/
+
+# Artigos de referência: cópias de terceiros, ficam só locais
+referencias/artigos/*.pdf

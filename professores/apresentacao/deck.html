@@ -1,0 +1,1334 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uso de IA nos processos acadêmicos · Dia 1</title>
+<link rel="stylesheet" href="../../design-system/css/inteli-exec.css">
+<link rel="stylesheet" href="../../design-system/assets/fonts/objetos/objetos.css">
+<style>
+/* Estilos sob medida deste deck. Cada slide sob medida é estilizado só pelo seu id. */
+
+/* ---- Capa: título numa linha e três autores numa linha (ajuste da capa do design system) ---- */
+#capa .conteudo { left: 530px; }
+#capa .titulo-capa { font-size: 56px; white-space: nowrap; }
+#capa .autor { font-size: 36px; font-weight: 400; margin-top: 16px; white-space: nowrap; }
+
+/* ---- Linha do tempo (slide que volta ao longo da aula, preenchido aos poucos) ---- */
+/* Uma linha só. As distâncias seguem o tempo de forma comprimida: acúmulo nas pontas,
+   vazio entre 1958 e 1990 (os invernos da IA). */
+.linha-do-tempo .trilho { position: absolute; top: 500px; left: 110px; width: 1380px; height: 3px; background: var(--roxo); }
+.linha-do-tempo .marco { position: absolute; top: 300px; width: 140px; margin-left: -70px; height: 300px; text-align: center; cursor: pointer; }
+.linha-do-tempo .marco .ponto { transition: transform .15s ease; }
+.linha-do-tempo .marco:hover .ponto { transform: scale(1.35); }
+.linha-do-tempo .marco .o-que {
+  position: absolute; bottom: 120px; left: 0; right: 0;
+  font-family: var(--f-capitulo); font-size: 88px; line-height: 1; color: var(--texto-suave);
+}
+.linha-do-tempo .marco .ponto {
+  position: absolute; top: 189px; left: 50%; width: 26px; height: 26px; margin-left: -13px;
+  border-radius: 50%; background: var(--fundo); border: 4px solid var(--coral);
+}
+.linha-do-tempo .marco .ano {
+  position: absolute; top: 236px; left: 0; right: 0;
+  font-family: var(--f-destaque); font-size: 34px; color: var(--texto);
+}
+
+/* ---- Primeira página do artigo de Turing: o slide é a própria página ---- */
+/* Marco preenchido: o "?" vira texto curto, em duas linhas no máximo */
+.linha-do-tempo .marco.preenchido .o-que {
+  font-family: var(--f-texto); font-weight: 700; font-size: 28px; line-height: 1.15;
+  color: var(--texto); bottom: 124px; left: -50px; right: -50px;
+}
+/* Marcos alternados: o rótulo de um ano fica acima da linha, o do seguinte abaixo do ano. */
+.linha-do-tempo .marco.preenchido.largo .o-que { left: -90px; right: -90px; }   /* rótulo longo: 320px */
+.linha-do-tempo .marco.baixo .o-que { bottom: auto; top: 296px; }
+.linha-do-tempo .marco.baixo.preenchido .o-que { top: 304px; }
+.linha-do-tempo .marco.preenchido .ponto { background: var(--coral); }
+.linha-do-tempo .lacuna { position: absolute; top: 418px; width: 60px; height: 60px; margin-left: -30px; color: var(--lilas); }
+.linha-do-tempo .lacuna svg { display: block; width: 100%; height: 100%; }
+
+/* ---- Corpo de artigo: trechos grifados um a um, o resto desfocado (slides .corpo-artigo) ---- */
+.corpo-artigo { --fundo: var(--cinza-medio); }
+.corpo-artigo .objeto {
+  left: 200px; right: 200px; top: -40px; height: 1000px; padding: 190px 110px 0;
+  font-family: "EB Garamond", Georgia, serif; font-size: 37px; line-height: 1.55; color: #1a1a1a; text-align: left;
+}
+.corpo-artigo p { text-indent: 1.5em; }
+.corpo-artigo .cap { font-variant: small-caps; letter-spacing: .04em; }
+/* Todo o texto começa desfocado. A cada passo, os trechos .tN do passo ficam nítidos e grifados e os anteriores continuam
+   grifados: o grifo só se acumula. O estado vem de data-estado, que o deck.js põe no slide. */
+.corpo-artigo .desfocado, .corpo-artigo .trecho {
+  filter: blur(3.5px); color: #4a4a4a; padding: 0 .06em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  transition: filter .45s ease, color .45s ease, background-color .45s ease;
+}
+.corpo-artigo:is([data-estado="1"], [data-estado="2"], [data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"]) .t1,
+.corpo-artigo:is([data-estado="2"], [data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"]) .t2,
+.corpo-artigo:is([data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"]) .t3,
+.corpo-artigo:is([data-estado="4"], [data-estado="5"], [data-estado="6"]) .t4 {
+  filter: none; color: #1a1a1a;
+  background: linear-gradient(transparent 14%, rgba(255, 69, 69, .30) 14%, rgba(255, 69, 69, .30) 90%, transparent 90%);
+}
+.corpo-artigo .marcadores { display: none; }
+.corpo-artigo.compacto .objeto { font-size: 36px; line-height: 1.5; padding-top: 110px; }
+.corpo-artigo p + p { margin-top: .4em; }
+.corpo-artigo sup { font-size: .6em; line-height: 0; vertical-align: .7em; }
+
+
+/* Documento datilografado (proposta de Dartmouth) */
+.corpo-artigo.datilografado .objeto { font-family: "Courier Prime", "Courier New", monospace; font-size: 30px; line-height: 1.6; }
+.corpo-artigo .topico { font-weight: 700; text-indent: 0; margin-top: .9em; }
+.corpo-artigo .topico + p { margin-top: .2em; }
+.corpo-artigo.topicos .objeto { padding-top: 120px; }
+
+/* Segunda página que entra por cima do slide (o backprop de 1986; o ViT de 2020) */
+.objeto.pagina-sobre {
+  position: absolute; left: 560px; right: auto; top: 470px; width: 900px; height: 620px; z-index: 3; padding: 34px 64px 0 96px; text-align: left;
+  background: var(--branco); color: #1a1a1a; box-shadow: 0 -8px 50px rgba(46, 38, 64, .28);
+  font-family: "EB Garamond", Georgia, serif; font-size: 26px; line-height: 1.45;
+  transform: rotate(1.5deg); transition: opacity .5s ease, transform .5s ease, visibility .5s;
+}
+.objeto.pagina-sobre:not(.visivel) { transform: translateY(90px) rotate(1.5deg); }
+.pagina-sobre .carimbo {
+  position: absolute; left: 22px; top: 40px; transform-origin: left top; transform: rotate(90deg) translateY(-100%);
+  font-family: "Courier Prime", monospace; font-size: 20px; color: #9a9a9a; white-space: nowrap; letter-spacing: .02em;
+}
+.pagina-sobre h3 { font-size: 38px; font-weight: 600; text-align: center; line-height: 1.2; }
+.pagina-sobre .autores { text-align: center; font-size: 26px; margin-top: 10px; }
+.pagina-sobre .resumo-titulo { text-align: center; font-weight: 600; font-size: 24px; margin-top: 14px; }
+.pagina-sobre .resumo { font-size: 26px; margin-top: 6px; text-indent: 0; }
+.pagina-sobre .desfocado { filter: blur(3.5px); color: #4a4a4a; }
+.pagina-sobre .cab-revista { display: flex; justify-content: space-between; font-size: 20px; letter-spacing: .08em; border-bottom: 1px solid #1a1a1a; padding-bottom: 6px; margin-bottom: 22px; }
+.pagina-sobre .resumo .grifado {
+  background: linear-gradient(transparent 14%, rgba(255, 69, 69, .30) 14%, rgba(255, 69, 69, .30) 90%, transparent 90%);
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; font-size: 30px;
+}
+
+/* Capa de documento: tudo nítido; no passo 1, o resto desfoca e "Artificial Intelligence" é grifado */
+#capa-dartmouth .objeto { text-align: center; padding-top: 170px; font-size: 40px; line-height: 1.5; }
+#capa-dartmouth .autores { font-size: 30px; margin-top: 110px; }
+#capa-dartmouth .data { font-size: 30px; margin-top: 80px; }
+#capa-dartmouth .desfocado-capa, #capa-dartmouth .ia { transition: filter .45s ease, color .45s ease, background-color .45s ease; padding: 0 .06em; }
+#capa-dartmouth[data-estado="1"] .desfocado-capa { filter: blur(3.5px); color: #4a4a4a; }
+#capa-dartmouth[data-estado="1"] .ia {
+  background: linear-gradient(transparent 14%, rgba(255, 69, 69, .30) 14%, rgba(255, 69, 69, .30) 90%, transparent 90%);
+}
+
+/* Capa do Perceptron: página da Psychological Review; as três perguntas grifadas uma a uma (.resumo-grifos), depois juntas */
+#capa-rosenblatt { --fundo: var(--cinza-medio); }
+#capa-rosenblatt .objeto {
+  left: 200px; right: 200px; top: 56px; height: 1000px; padding: 60px 100px 0;
+  font-family: "EB Garamond", Georgia, serif; color: #1a1a1a;
+}
+#capa-rosenblatt .revista { font-style: italic; font-size: 24px; line-height: 1.3; }
+#capa-rosenblatt .titulo-artigo { text-align: center; font-size: 37px; line-height: 1.25; letter-spacing: .03em; margin-top: 46px; }
+#capa-rosenblatt .autor { text-align: center; font-size: 26px; letter-spacing: .12em; margin-top: 26px; }
+#capa-rosenblatt .instituicao { text-align: center; font-size: 26px; font-style: italic; margin-top: 4px; }
+#capa-rosenblatt .colunas { columns: 2; column-gap: 56px; margin-top: 46px; font-size: 24px; line-height: 1.45; text-align: justify; }
+#capa-rosenblatt .colunas p { text-indent: 1.4em; }
+
+/* ---- Perceptron: esquemático em passos (entradas, pesos, soma, limiar, saída, aprendizado) ---- */
+#perceptron svg.diagrama { position: absolute; inset: 0; width: 1600px; height: 900px; }
+#perceptron .rotulo { position: absolute; width: 240px; margin-left: -120px; text-align: center; font-weight: 800; font-size: 30px; }
+#perceptron .rotulo small { display: block; font-family: var(--f-destaque); font-weight: 400; font-size: 28px; text-transform: uppercase; color: var(--texto-suave); }
+#perceptron .aprende { position: absolute; left: 800px; top: 790px; transform: translateX(-50%); font-weight: 800; font-size: 32px; color: var(--coral-texto); white-space: nowrap; }
+#perceptron svg .passo { transition: opacity .4s ease, visibility .4s; }
+/* A Fig. 1 de Rosenblatt: grande no passo 0; depois, miniatura no topo, como referência para o esquema */
+#perceptron .fig-rosenblatt { left: 200px; top: 180px; width: 1200px; padding: 40px; transform-origin: 50% 0;
+  transform: translateY(-140px) scale(.42); transition: transform .6s ease; }
+#perceptron[data-estado="0"] .fig-rosenblatt { transform: none; }
+#perceptron .fig-rosenblatt img { display: block; width: 100%; height: auto; }
+#perceptron .fonte-fig { position: absolute; left: 0; right: 0; top: 680px; text-align: center; }
+
+/* ---- Recorte de jornal (New York Times, 1958) ---- */
+#jornal-1958 { --fundo: var(--cinza-medio); }
+#jornal-1958 .objeto {
+  left: 50%; top: 40px; width: 600px; height: 900px; margin-left: -300px; padding: 40px 44px 0;
+  background: #f3efe4; color: #161616; font-family: "EB Garamond", Georgia, serif; text-align: center;
+  transform: rotate(-1.5deg); box-shadow: 0 20px 50px rgba(46, 38, 64, .25);
+  clip-path: polygon(0 1%, 6% 0, 14% 1.2%, 23% .2%, 31% 1%, 40% 0, 49% 1.1%, 58% .3%, 67% 1%, 76% 0, 85% 1.2%, 93% .2%, 100% 1%, 100% 100%, 0 100%);
+}
+#jornal-1958 .jornal { font-size: 22px; letter-spacing: .06em; border-bottom: 1px solid #161616; padding-bottom: 8px; }
+#jornal-1958 .manchete { font-weight: 800; font-size: 46px; line-height: 1.02; letter-spacing: .01em; margin-top: 26px; }
+#jornal-1958 .fio { width: 120px; height: 2px; background: #161616; margin: 20px auto; }
+#jornal-1958 .sub { font-weight: 700; font-size: 30px; line-height: 1.12; }
+#jornal-1958 .linha { width: 60px; height: 1px; background: #161616; margin: 20px auto; }
+#jornal-1958 .corpo { text-align: justify; font-size: 25px; line-height: 1.38; text-indent: 1.2em; }
+#jornal-1958 .local { font-variant: small-caps; letter-spacing: .03em; }
+#jornal-1958 .preenchimento { filter: blur(3px); color: #555; }
+#jornal-1958 .frase { transition: background-color .45s ease; padding: 0 .05em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+#jornal-1958[data-estado="1"] .frase { background: linear-gradient(transparent 12%, rgba(255, 69, 69, .32) 12%, rgba(255, 69, 69, .32) 92%, transparent 92%); }
+
+
+/* ---- Limitação do perceptron: a capa do livro de Minsky e Papert; o artigo do backprop entra por cima ---- */
+#limitacao-simples .livro { left: 190px; top: 120px; width: 420px; height: 634px; padding: 0; background: none; transform: rotate(-2deg);
+  box-shadow: 0 24px 60px rgba(46, 38, 64, .30); }
+#limitacao-simples .livro img { display: block; width: 100%; height: 100%; object-fit: cover; }
+#limitacao-simples .fonte { position: absolute; left: 190px; width: 420px; top: 790px; text-align: center; }
+#limitacao-simples .pagina-sobre { left: 660px; top: 290px; }
+
+/* ---- Capas de documento (base compartilhada): página branca, cabeçalho nítido, corpo desfocado ---- */
+.capa-doc { --fundo: var(--cinza-medio); }
+.capa-doc .objeto { left: 200px; right: 200px; top: 56px; height: 1000px; padding: 56px 100px 0; font-family: "EB Garamond", Georgia, serif; color: #1a1a1a; }
+.capa-doc .borrado { filter: blur(3px); color: #4a4a4a; }
+.capa-doc .colunas { columns: 2; column-gap: 56px; font-size: 24px; line-height: 1.45; text-align: justify; }
+.capa-doc .colunas p { text-indent: 1.4em; }
+
+/* Cognitive Science, 1990: título centralizado, resumo e introdução */
+#capa-elman .revista { font-size: 22px; letter-spacing: .12em; }
+#capa-elman .titulo-artigo { text-align: center; font-size: 54px; margin-top: 26px; }
+#capa-elman .objeto { top: -30px; padding-top: 80px; }
+#capa-elman .autor { text-align: center; font-size: 26px; letter-spacing: .16em; margin-top: 20px; }
+#capa-elman .instituicao { text-align: center; font-size: 26px; font-style: italic; margin-top: 4px; }
+#capa-elman .resumo { font-size: 28px; line-height: 1.42; text-align: left; margin: 26px 10px 0; }
+/* ---- Prever a próxima palavra: as palavras entram uma a uma e o contexto acumula ---- */
+#proxima-palavra .palavra { position: absolute; top: 250px; width: 210px; height: 96px; margin-left: -105px;
+  display: grid; place-items: center; background: var(--branco); border: 4px solid var(--roxo); border-radius: 14px;
+  font-weight: 800; font-size: 40px; }
+#proxima-palavra .palavra.vazia { background: transparent; border: 4px dashed var(--cinza-escuro); color: var(--cinza-escuro); }
+#proxima-palavra .palavra.prevista { background: var(--branco); border: 4px solid var(--coral); color: var(--coral-texto); }
+#proxima-palavra .rotulo-prev { position: absolute; left: 1270px; top: 180px; width: 300px; margin-left: -150px; text-align: center;
+  font-family: var(--f-destaque); font-weight: 700; font-size: 28px; color: var(--coral-texto); text-transform: uppercase; }
+#proxima-palavra .contexto { position: absolute; left: 200px; top: 560px; width: 920px; height: 150px; border-radius: 18px;
+  background: var(--verde); color: var(--roxo); }
+#proxima-palavra .nome-contexto { position: absolute; left: 230px; top: 726px; color: var(--roxo); font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; }
+#proxima-palavra .contexto .lido { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-size: 40px; font-weight: 700; }
+#proxima-palavra svg.setas { position: absolute; inset: 0; width: 1600px; height: 900px; }
+#proxima-palavra svg .passo { transition: opacity .4s ease, visibility .4s; }
+
+/* ---- Resumo com grifos em passos (base): tudo desfocado; .t1, .t2... acendem no seu passo e continuam acesos ---- */
+.resumo-grifos span { filter: blur(3.5px); color: #4a4a4a; padding: 0 .05em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  transition: filter .45s ease, color .45s ease, background-color .45s ease; }
+:is([data-estado="1"], [data-estado="2"], [data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"]) .resumo-grifos .t1,
+:is([data-estado="2"], [data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"]) .resumo-grifos .t2,
+:is([data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"]) .resumo-grifos .t3,
+:is([data-estado="4"], [data-estado="5"], [data-estado="6"]) .resumo-grifos .t4 {
+  filter: none; color: #1a1a1a;
+  background: linear-gradient(transparent 14%, rgba(255, 69, 69, .30) 14%, rgba(255, 69, 69, .30) 90%, transparent 90%);
+}
+
+/* ================= Attention, GPT-3 e ReAct ================= */
+
+.capa-doc .carimbo { position: absolute; left: 26px; top: 60px; transform-origin: left top; transform: rotate(90deg) translateY(-100%);
+  font-family: "Courier Prime", monospace; font-size: 22px; color: #8a8a8a; white-space: nowrap; }
+.capa-doc .titulo-c { text-align: center; font-size: 58px; font-weight: 600; line-height: 1.15; }
+.capa-doc .resumo-t { text-align: center; font-weight: 600; font-size: 25px; margin-top: 22px; letter-spacing: .04em; }
+.capa-doc .resumo-x { font-size: 30px; line-height: 1.4; margin-top: 8px; }
+.capa-doc .grade-autores { display: grid; gap: 12px 24px; text-align: center; margin-top: 30px; font-size: 26px; line-height: 1.25; }
+.capa-doc .grade-autores small { display: block; font-size: 20px; color: #555; }
+#capa-attention .grade-autores { grid-template-columns: repeat(4, 1fr); }
+#capa-gpt3 .grade-autores { grid-template-columns: repeat(6, 1fr); font-size: 19px; gap: 4px 12px; }
+#capa-gpt3 .resumo-x { font-size: 28px; }
+#capa-gpt3 .objeto { top: 0; }
+#capa-gpt3 .org { text-align: center; font-size: 26px; margin-top: 12px; }
+#capa-react .conf { font-size: 22px; }
+#capa-react .titulo-c { font-variant: small-caps; letter-spacing: .04em; margin-top: 30px; }
+#capa-react .autores-l { text-align: center; font-size: 26px; margin-top: 20px; line-height: 1.35; }
+#capa-react .resumo-x { font-size: 28px; }
+
+/* Atenção × recorrência: as palavras numa linha; embaixo, a cadeia de memórias da rede recorrente (passo 0);
+   em cima, os arcos da atenção saindo de "era" (passo 1). Montado por script, a partir de FRASE_ATENCAO. */
+#atencao svg.diagrama { position: absolute; inset: 0; width: 1600px; height: 900px; }
+#atencao svg .passo { transition: opacity .4s ease, visibility .4s; }
+#atencao svg .palavra rect { fill: var(--branco); stroke: var(--roxo); stroke-width: 4; }
+#atencao svg .palavra text { font-family: var(--f-texto); font-weight: 800; font-size: 32px; fill: var(--roxo); }
+#atencao svg .palavra.origem rect { stroke: var(--coral); }
+#atencao svg .palavra.foco rect { fill: var(--roxo); }
+#atencao svg .palavra.foco text { fill: var(--branco); }
+/* A cadeia entra da esquerda para a direita quando o slide abre (no PDF, já completa) */
+#atencao.atual[data-estado="0"] svg .seq { animation: atencao-entra .35s ease both; animation-delay: calc(var(--i) * .35s + .3s); }
+@keyframes atencao-entra { from { opacity: 0; } }
+@media print { #atencao svg .seq { animation: none !important; } }
+
+/* Tokens: a frase e os pedaços (espaço maior entre palavras, menor entre pedaços da mesma palavra).
+   Os pedaços vêm do tokenizador real (tokenizador.js + tokens-vocab.js), montados por montarTokens. */
+.tokens .inteira { position: absolute; left: 120px; font-weight: 700; font-size: 52px; }
+.tokens .cortes { position: absolute; left: 120px; display: flex; flex-wrap: wrap; gap: 14px 24px; max-width: 1360px; }
+.tokens .pal { display: flex; gap: 6px; }
+.tokens .cortes i { font-style: normal; font-weight: 700; font-size: 42px; padding: 10px 15px; border-radius: 10px; white-space: pre;
+  background: var(--branco); border: 3px solid var(--roxo); }
+.tokens .pal i:nth-child(even) { background: var(--cinza-medio); }
+.tokens .cortes.miudo { gap: 10px 18px; }
+.tokens .cortes.miudo i { font-size: 30px; padding: 6px 10px; }
+/* Um caractere que o tokenizador corta no meio dos bytes (um acento, um emoji) fica num pedaço só, tracejado, com o número de tokens */
+.tokens .cortes i.bytes { border-style: dashed; position: relative; }
+.tokens .cortes i.bytes sup { font-family: var(--f-destaque); font-size: .5em; color: var(--coral-texto); margin-left: 4px; }
+.tokens .conta-tk { position: absolute; left: 120px; font-family: var(--f-destaque); font-weight: 700; font-size: 30px; color: var(--coral-texto); text-transform: uppercase; }
+.tokens .morango { position: absolute; left: 1110px; top: 240px; width: 400px; padding-left: 50px; border-left: 4px solid var(--cinza-escuro); height: 520px; }
+.tokens .morango .pergunta-tk { font-weight: 700; font-size: 36px; line-height: 1.25; }
+.tokens .morango .pergunta-tk b { color: var(--coral-texto); }
+.tokens .morango .cortes { position: static; margin-top: 50px; }
+/* Slide interativo: a frase é editável (clique, digite, Enter) e o seletor troca o tokenizador.
+   A coluna da esquerda flui de cima para baixo (frase, pedaços, inglês) e para antes do strawberry. */
+#token .coluna-tk { position: absolute; left: 120px; top: 220px; width: 940px; display: flex; flex-direction: column; gap: 40px; }
+#token .inteira { position: static; outline: none; cursor: text; border-bottom: 4px dashed transparent; transition: border-color .2s; }
+#token .inteira:hover, #token .inteira:focus { border-bottom-color: var(--cinza-escuro); }
+#token .saida-tk { display: flex; flex-direction: column; gap: 22px; }
+#token .saida-tk .cortes, #token .saida-tk .conta-tk { position: static; max-width: 940px; }
+#token .rodape-tk { display: flex; align-items: center; gap: 30px; }
+#token .saida-tk.ingles { margin-top: 60px; }
+/* Passo 4: tudo desfoca e a página do ViT entra por cima, como a do backprop */
+#token :is(.coluna-tk, .morango, .rotulo-termo) { transition: filter .45s ease, opacity .45s ease; }
+#token[data-estado="4"] :is(.coluna-tk, .morango, .rotulo-termo) { filter: blur(6px); opacity: .55; }
+#token .pagina-sobre.vit { left: 330px; top: 170px; width: 940px; height: 780px; }
+#token .pagina-sobre.vit h3 { font-size: 40px; }
+#token .pagina-sobre.vit .autores { font-size: 22px; line-height: 1.35; }
+#token .modelo-tk { display: flex; gap: 8px; }
+#token .modelo-tk button { font: 700 28px/1 var(--f-destaque); padding: 6px 14px; border-radius: 8px; border: 3px solid var(--roxo);
+  background: transparent; color: var(--roxo); cursor: pointer; }
+#token .modelo-tk button.ativo { background: var(--roxo); color: var(--branco); }
+
+/* Janela de contexto */
+#janela .faixa { position: absolute; left: 110px; top: 430px; display: flex; gap: 8px; }
+#janela .faixa i { display: block; width: 48px; height: 70px; border-radius: 8px; background: var(--cinza-escuro); transition: opacity .5s ease; }
+#janela[data-estado="1"] .faixa i.fora, #janela[data-estado="2"] .faixa i.fora { opacity: .18; }
+#janela .moldura-j { position: absolute; left: 434px; top: 410px; width: 630px; height: 110px; border: 5px solid var(--coral); border-radius: 14px; }
+#janela .rotulo-j { position: absolute; left: 750px; top: 340px; width: 600px; margin-left: -300px; text-align: center; font-family: var(--f-destaque); font-weight: 700; font-size: 30px; color: var(--coral-texto); text-transform: uppercase; }
+#janela .fora-j { position: absolute; left: 300px; top: 545px; width: 560px; margin-left: -280px; text-align: center; font-size: 30px; color: var(--texto-suave); }
+#janela .numeros { position: absolute; left: 0; right: 0; top: 650px; display: flex; justify-content: center; gap: 120px; text-align: center; }
+#janela .numeros b { display: block; font-family: var(--f-capitulo); font-weight: 400; font-size: 64px; }
+#janela .numeros span { font-size: 30px; color: var(--texto-suave); }
+
+/* Prompt, zero-shot, one-shot e few-shot no formato da Figura 2.1: o prompt numa caixa com as linhas numeradas,
+   à direita o papel de cada linha, embaixo a resposta do modelo */
+.prompt-fig .prompt-f { position: absolute; left: 160px; top: 200px; display: flex; gap: 40px; }
+.prompt-fig .linhas { width: 900px; background: var(--branco); border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(46, 38, 64, .10); }
+.prompt-fig .linhas p { display: flex; height: 76px; align-items: center; font-family: var(--f-destaque); font-size: 32px; color: var(--roxo); }
+.prompt-fig .linhas .num { flex: none; width: 64px; height: 100%; display: grid; place-items: center; background: var(--cinza-medio); color: var(--texto-suave); font-size: 28px; }
+.prompt-fig .linhas .txt { padding-left: 28px; white-space: nowrap; }
+.prompt-fig .linhas .vazio { display: inline-block; width: 240px; margin-left: 20px; border-bottom: 3px dotted var(--cinza-escuro); vertical-align: middle; }
+.prompt-fig .rotulos { display: flex; flex-direction: column; }
+.prompt-fig .rotulos p { height: 76px; display: flex; align-items: center; gap: 14px; font-style: italic; font-size: 28px; color: var(--texto-suave); white-space: nowrap; }
+.prompt-fig .rotulos p span { font-style: normal; color: var(--texto-suave); }
+.prompt-fig .rotulos .r3 { height: 228px; }
+.prompt-fig .rotulos .chave { position: relative; }
+.prompt-fig .rotulos .chave::before { content: ""; position: absolute; left: -16px; top: 26px; bottom: 26px; width: 10px;
+  border: 3px solid var(--cinza-escuro); border-left: 0; border-radius: 0 6px 6px 0; }
+.prompt-fig .balao-c { position: absolute; border-radius: 22px; padding: 22px 30px; font-family: var(--f-texto); font-size: 32px; line-height: 1.35; }
+.prompt-fig .balao-c small { display: block; font-family: var(--f-destaque); font-size: 28px; text-transform: uppercase; margin-bottom: 6px; }
+.prompt-fig .modelo { left: 160px; background: var(--roxo); color: var(--branco); }
+.prompt-fig .modelo small { color: var(--lilas); }
+.prompt-fig .modelo.curta { font-size: 44px; font-weight: 800; }
+
+/* Personas dos processos acadêmicos: a lista de nomes à esquerda; a ficha da persona escolhida abre ao lado.
+   Montado por script a partir de PERSONAS. */
+#personas .lista-p { position: absolute; left: 120px; top: 190px; width: 420px; display: flex; flex-direction: column; gap: 14px; }
+#personas .item-p { display: flex; align-items: center; gap: 20px; height: 90px; padding: 0 20px; border-radius: 14px; cursor: pointer;
+  background: var(--branco); border: 3px solid transparent; font-weight: 800; font-size: 34px; transition: background-color .2s, color .2s; }
+#personas .item-p:hover { border-color: var(--roxo); }
+#personas .item-p .ini { flex: none; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--verde); color: var(--roxo); font-size: 28px; }
+#personas .item-p.ativo { background: var(--roxo); color: var(--branco); }
+#personas .item-p.ativo .ini { background: var(--coral); color: var(--branco); }
+#personas .ficha-p { position: absolute; left: 600px; top: 190px; width: 880px; min-height: 622px; padding: 44px 50px; border-radius: 18px;
+  background: var(--branco); box-shadow: 0 18px 50px rgba(46, 38, 64, .12); opacity: 0; transform: translateX(-30px); transition: opacity .35s ease, transform .35s ease; }
+#personas .ficha-p.aberta { opacity: 1; transform: none; }
+#personas .ficha-p .cargo { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
+#personas .ficha-p .nome { font-weight: 800; font-size: 60px; line-height: 1.1; margin-top: 6px; }
+#personas .ficha-p .rot { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--texto-suave); margin-top: 34px; }
+#personas .ficha-p .dor { font-size: 34px; line-height: 1.35; margin-top: 8px; }
+#personas .ficha-p .tem { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+#personas .ficha-p .tem span { font-size: 28px; font-weight: 700; padding: 6px 16px; border-radius: 10px; background: var(--cinza-claro); }
+
+/* Prompt: a anatomia de um bom prompt e os recursos que viram contexto */
+#prompt .bloco-p { position: absolute; left: 160px; width: 640px; border-radius: 14px; padding: 0 30px; display: flex; flex-direction: column; justify-content: center;
+  background: var(--roxo); color: var(--branco); }
+#prompt .bloco-p b { font-size: 36px; }
+#prompt .bloco-p span { font-size: 28px; opacity: .9; }
+#prompt .bloco-p.ctx { background: var(--verde); color: var(--roxo); }
+/* Formato e Exemplos entram logo abaixo da Tarefa; no passo 5 descem e abrem o espaço onde entra o Contexto */
+#prompt .bloco-p { transition: opacity .4s ease, visibility .4s, transform .6s ease; }
+#prompt:is([data-estado="5"], [data-estado="6"]) .bloco-p.desce { transform: translateY(160px); }
+#prompt svg.fios { position: absolute; inset: 0; width: 1600px; height: 900px; }
+#prompt .recurso { position: absolute; left: 1020px; width: 440px; padding: 12px 22px; border-radius: 12px; background: var(--branco);
+  border: 3px solid var(--verde); font-weight: 700; font-size: 30px; color: var(--roxo); }
+
+/* O que ocupa a janela de contexto, na ordem em que a mensagem é montada para o modelo:
+   em cima, o que é fixo e tem precedência; no meio, o histórico, que perde as mensagens antigas primeiro;
+   embaixo, a memória mais recente (a mensagem atual e o turno do modelo, onde a skill é carregada) */
+#camadas .janela-c { position: absolute; left: 280px; top: 140px; width: 740px; height: 700px; border: 5px solid var(--coral); border-radius: 16px;
+  padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+#camadas .cam { flex: none; height: 64px; border-radius: 10px; padding: 0 22px; display: flex; align-items: center; justify-content: space-between;
+  font-weight: 800; font-size: 30px; overflow: hidden; transition: height .5s ease, opacity .4s ease, visibility .4s, margin .5s ease, border-width .5s ease; }
+#camadas .cam small { font-weight: 500; font-size: 28px; }
+#camadas .sys { background: var(--roxo); color: var(--branco); }
+#camadas .desc { background: var(--lilas); color: var(--roxo); }
+#camadas .ins { background: var(--verde); color: var(--roxo); }
+#camadas .hist { height: auto; display: block; padding: 8px 14px 10px; background: var(--cinza-escuro); color: var(--roxo); }
+#camadas .hist .nome-h { display: block; height: 36px; line-height: 36px; padding-left: 8px; }
+#camadas .hist .m { display: flex; align-items: center; height: 32px; margin-top: 6px; border-radius: 8px; padding: 0 14px; overflow: hidden;
+  transition: height .5s ease, margin .5s ease, opacity .4s ease, visibility .4s; }
+#camadas .hist .m.voce { background: var(--branco); margin-left: 120px; }
+#camadas .hist .m.modelo { background: var(--cinza-medio); margin-right: 120px; }
+#camadas .hist .m .anexo { font-family: var(--f-destaque); font-size: 28px; font-weight: 700; color: var(--roxo); }
+#camadas[data-estado="6"] .hist .m.velha { opacity: .35; outline: 4px dashed var(--coral); outline-offset: -4px; }
+#camadas[data-estado="7"] .hist .m.velha, #camadas[data-estado="8"] .hist .m.velha { height: 0; margin-top: 0; opacity: 0; visibility: hidden; }
+#camadas .msg { background: var(--branco); border: 3px solid var(--roxo); color: var(--roxo); }
+#camadas .turno { height: 100px; display: block; padding: 6px 18px; border: 3px dashed var(--roxo); color: var(--roxo); }
+#camadas .turno .nome-t { display: block; height: 38px; line-height: 38px; }
+#camadas .turno .chips { display: flex; gap: 12px; }
+#camadas .turno .chip-t { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; padding: 0 14px; height: 40px; line-height: 40px; border-radius: 8px;
+  background: var(--cinza-medio); }
+#camadas .turno .chip-t.sk { display: none; background: var(--branco); border: 4px solid var(--coral); line-height: 32px; }
+#camadas[data-estado="8"] .turno .chip-t.sk { display: block; }
+#camadas .desc { height: 0; opacity: 0; margin-top: -8px; }
+#camadas[data-estado="7"] .desc, #camadas[data-estado="8"] .desc { height: 64px; opacity: 1; margin-top: 0; }
+#camadas svg.setas-c { position: absolute; inset: 0; width: 1600px; height: 900px; }
+#camadas .lado { position: absolute; font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; }
+#camadas .precedencia { left: 40px; top: 190px; width: 200px; text-align: right; color: var(--texto-suave); }
+#camadas .conversa-g .seta-rec { position: absolute; left: -46px; top: 14px; bottom: 26px; width: 4px; background: var(--roxo); }
+#camadas .conversa-g .seta-rec::after { content: ""; position: absolute; left: -9px; bottom: -18px; border: 11px solid transparent; border-top: 18px solid var(--roxo); border-bottom: 0; }
+#camadas .conversa-g .rec { left: -230px; top: 50%; width: 260px; margin-top: -17px; text-align: center; transform: rotate(90deg); color: var(--roxo); }
+#camadas .conversa-g { flex: none; position: relative; display: flex; flex-direction: column; gap: 8px; margin-top: 14px; padding: 18px 10px 10px;
+  border: 3px solid var(--roxo); border-radius: 12px; }
+#camadas .conversa-g .nome-g { position: absolute; left: 16px; top: -20px; padding: 0 10px; background: var(--fundo); font-family: var(--f-destaque); font-weight: 700;
+  font-size: 28px; line-height: 34px; text-transform: uppercase; color: var(--roxo); }
+#camadas .recente-g { flex: none; position: relative; display: flex; flex-direction: column; gap: 8px; }
+#camadas .recente-g .colchete { position: absolute; left: calc(100% + 40px); top: 0; bottom: 0; width: 22px; border: 4px solid var(--roxo); border-left: 0; }
+#camadas .recente-g .recente { left: calc(100% + 86px); top: 50%; width: 300px; margin-top: -18px; color: var(--roxo); }
+#camadas .saem { position: absolute; left: 1065px; top: 300px; width: 440px; font-weight: 800; font-size: 34px; line-height: 1.25; color: var(--coral-texto); }
+#camadas .estante { position: absolute; left: 1080px; top: 160px; width: 420px; }
+#camadas .estante .skill-c { background: var(--branco); border: 3px solid var(--roxo); border-radius: 12px; padding: 12px 22px; font-weight: 700; font-size: 30px;
+  margin-top: 16px; transition: border-color .4s ease; }
+#camadas[data-estado="8"] .estante .skill-c.usada { border: 5px solid var(--coral); }
+/* Interativo: editar a mensagem atual e apertar Enter carrega a skill que combina com o pedido, se houver.
+   Depois da primeira interação, quem manda é a classe .interagiu. */
+#camadas .msg { white-space: nowrap; gap: 24px; }
+#camadas .msg small { display: flex; min-width: 0; }
+#camadas .pedido { display: inline-block; max-width: 520px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: bottom;
+  outline: none; cursor: text; border-bottom: 3px dashed transparent; }
+#camadas .pedido:focus { text-overflow: clip; }
+#camadas .turno .chip-t { white-space: nowrap; padding: 0 10px; letter-spacing: -.04em; }
+#camadas .turno .chips { gap: 8px; }
+#camadas .pedido:hover, #camadas .pedido:focus { border-bottom-color: var(--cinza-escuro); }
+#camadas.interagiu .turno .chip-t.sk { display: none; }
+#camadas.interagiu .turno .chip-t.sk.ligada { display: block; }
+#camadas.interagiu .estante .skill-c.usada { border: 3px solid var(--roxo); }
+#camadas.interagiu .estante .skill-c.ligada { border: 5px solid var(--coral); }
+
+/* ReAct: o ciclo pensa → age → observa; a cada linha do rastro, o nó correspondente acende */
+#ciclo-react .pergunta { position: absolute; left: 120px; top: 120px; width: 1300px; font-weight: 800; font-size: 40px; line-height: 1.2; }
+#ciclo-react svg.ciclo { position: absolute; inset: 0; width: 1600px; height: 900px; }
+#ciclo-react svg .no-c { transition: opacity .35s ease; }
+#ciclo-react:is([data-estado="1"], [data-estado="2"], [data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"], [data-estado="7"], [data-estado="8"], [data-estado="9"]) svg .no-c { opacity: .25; }
+#ciclo-react:is([data-estado="1"], [data-estado="4"], [data-estado="7"]) svg .n-pe,
+#ciclo-react:is([data-estado="2"], [data-estado="5"], [data-estado="8"]) svg .n-ac,
+#ciclo-react:is([data-estado="3"], [data-estado="6"], [data-estado="9"]) svg .n-ob { opacity: 1; }
+#ciclo-react .rastro { position: absolute; left: 720px; top: 220px; width: 820px; display: grid; grid-template-columns: 170px 1fr; row-gap: 12px; align-items: baseline; }
+#ciclo-react .rastro b { justify-self: start; padding: 0 12px; border-radius: 8px; font-family: var(--f-destaque); font-size: 28px; text-transform: uppercase; }
+#ciclo-react .rastro span { font-size: 30px; line-height: 1.25; }
+#ciclo-react .rastro code { font-family: var(--f-destaque); font-size: 28px; }
+#ciclo-react .rastro .pe { background: var(--verde); color: var(--roxo); }
+#ciclo-react .rastro .ac { background: var(--coral-texto); color: var(--branco); }
+#ciclo-react .rastro .ob { background: var(--roxo); color: var(--branco); }
+#ciclo-react .rastro .re { grid-column: 1 / -1; font-weight: 800; font-size: 36px; margin-top: 10px; }
+
+/* Harness: raio-x de um app de chat. O que você vê → o que está por trás (harness) → o modelo */
+#harness .titulo-col { position: absolute; top: 96px; font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--texto-suave); }
+#harness .app { left: 110px; top: 150px; width: 580px; height: 620px; border-radius: 18px; font-family: var(--f-texto); color: var(--roxo);
+  transition: opacity .5s ease; }
+#harness:not([data-estado="0"]) .app { opacity: .9; }
+#harness .app .barra { display: flex; justify-content: space-between; align-items: center; height: 64px; padding: 0 18px; border-bottom: 2px solid var(--cinza-claro); }
+#harness .app .ctl { position: relative; display: inline-block; padding: 6px 14px; border-radius: 999px; border: 2px solid var(--cinza-escuro); font-size: 24px; font-weight: 600; }
+#harness .app .voce { position: absolute; overflow: visible; right: 22px; top: 96px; width: 360px; padding: 14px 18px; border-radius: 16px; background: var(--cinza-claro); font-size: 26px; line-height: 1.25; }
+#harness .app .resp { position: absolute; left: 22px; top: 230px; width: 400px; }
+#harness .app .resp i { display: block; height: 18px; margin-bottom: 12px; border-radius: 9px; background: var(--cinza-medio); }
+#harness .app .entrada { position: absolute; left: 18px; right: 18px; bottom: 18px; height: 150px; border: 2px solid var(--cinza-escuro); border-radius: 16px; padding: 14px 16px; }
+#harness .app .entrada .ph { font-size: 26px; color: #8a8597; }
+#harness .app .entrada .ctls { position: absolute; left: 14px; bottom: 14px; display: flex; gap: 10px; }
+#harness .selo { position: absolute; right: -16px; top: -24px; width: 44px; height: 44px; border-radius: 50%; background: var(--coral); color: var(--branco);
+  font-family: var(--f-destaque); font-weight: 700; font-size: 28px; line-height: 44px; text-align: center; }
+#harness .camada-h { position: absolute; left: 770px; top: 150px; width: 470px; height: 620px; border-radius: 18px; background: var(--verde); color: var(--roxo); padding: 22px 26px; }
+#harness .camada-h .nome { font-weight: 800; font-size: 36px; margin-bottom: 10px; }
+#harness .camada-h .peca { display: flex; align-items: center; gap: 16px; height: 78px; font-weight: 700; font-size: 30px; border-top: 1px solid rgba(46, 38, 64, .25); }
+#harness .camada-h .peca b { flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--coral); color: var(--branco); font-family: var(--f-destaque); font-size: 28px; line-height: 44px; text-align: center; }
+#harness .modelo-h { position: absolute; left: 1320px; top: 150px; width: 200px; height: 620px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+#harness .modelo-h .bola { width: 180px; height: 180px; border-radius: 50%; background: var(--roxo); color: var(--branco); display: grid; place-items: center; font-weight: 800; font-size: 32px; }
+#harness svg.liga { position: absolute; inset: 0; width: 1600px; height: 900px; }
+
+/* ---- Manchetes: o impacto do GPT-3 e da onda que ele abriu (recortes, sem animação) ---- */
+#manchetes { --fundo: var(--cinza-medio); }
+#manchetes .parede { inset: 0; background: none; box-shadow: none; }
+#manchetes .recorte { position: absolute; padding: 24px 30px; box-shadow: 0 14px 34px rgba(46, 38, 64, .22); color: #121212; }
+#manchetes .recorte .veiculo { font-size: 26px; line-height: 1.1; }
+#manchetes .recorte .data { font-family: "Courier Prime", monospace; font-size: 20px; color: #666; margin-top: 6px; }
+#manchetes .recorte h3 { margin-top: 12px; line-height: 1.12; }
+#manchetes .jornal { background: #f6f3ea; font-family: "EB Garamond", Georgia, serif; }
+#manchetes .jornal .veiculo { font-weight: 700; font-size: 34px; border-bottom: 2px solid #121212; padding-bottom: 8px; }
+#manchetes .jornal h3 { font-weight: 600; font-size: 42px; }
+#manchetes .guardian .veiculo { color: #052962; }
+#manchetes .web { background: #ffffff; font-family: var(--f-texto); }
+#manchetes .web .veiculo { font-weight: 800; letter-spacing: .04em; }
+#manchetes .web h3 { font-weight: 800; font-size: 36px; }
+#manchetes .reuters .veiculo { color: #d4580b; font-size: 30px; }
+#manchetes .cnn .veiculo b { display: inline-block; background: #c00; color: #fff; padding: 2px 10px; margin-right: 8px; }
+#manchetes .capa-time { background: #121212; color: #fff; border: 16px solid #e90606; padding: 30px 34px; font-family: "EB Garamond", Georgia, serif; }
+#manchetes .capa-time .veiculo { font-size: 110px; font-weight: 700; color: #e90606; letter-spacing: .02em; line-height: .9; }
+#manchetes .capa-time .data { color: #bbb; }
+#manchetes .capa-time h3 { font-size: 54px; font-weight: 600; margin-top: 60px; line-height: 1.05; }
+
+/* ---- Jogo da imitação: a mesma cena em três estados (data-cena) ---- */
+.jogo .parede { position: absolute; left: 656px; top: 170px; width: 8px; height: 600px; background: var(--cinza-escuro); border-radius: 4px; }
+.jogo .figura { position: absolute; top: 360px; width: 240px; margin-left: -120px; text-align: center; }
+.jogo .figura svg { display: block; width: 200px; height: 300px; margin: 0 auto; }
+.jogo .figura .nome { font-weight: 800; font-size: 32px; margin-top: 14px; }
+.jogo .papel { position: absolute; top: 719px; width: 240px; margin-left: -120px; text-align: center; font-size: 28px; font-weight: 700; }
+.jogo .papel.engana { color: var(--coral-texto); }
+.jogo .papel.verdade { color: var(--roxo); }
+.jogo .cartas { position: absolute; left: 470px; top: 420px; width: 380px; height: 220px; }
+.jogo .cartas svg { width: 100%; height: 100%; overflow: visible; }
+.jogo .balao {
+  position: absolute; left: 360px; top: 262px; transform: translateX(-50%);
+  background: var(--branco); border-radius: 22px; padding: 18px 34px; white-space: nowrap;
+  font-weight: 800; font-size: 36px; box-shadow: 0 10px 30px rgba(46, 38, 64, .12);
+}
+.jogo .balao::after {
+  content: ""; position: absolute; left: 50%; bottom: -18px; margin-left: -14px;
+  border: 14px solid transparent; border-top-color: var(--branco); border-bottom: 0; border-top-width: 20px;
+}
+
+/* ---- ENIAC: foto de ponta a ponta ---- */
+#eniac { --fundo: #000; }
+#eniac .foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 78%; }
+
+
+#artigo-turing { --fundo: var(--cinza-medio); }
+#artigo-turing .objeto {
+  left: 200px; right: 200px; top: 56px; height: 1000px; padding: 64px 110px;
+  font-family: "EB Garamond", Georgia, serif; color: #1a1a1a; text-align: center;
+}
+#artigo-turing .cab { display: flex; justify-content: space-between; font-size: 24px; letter-spacing: .06em; }
+#artigo-turing .revista { font-size: 104px; letter-spacing: .32em; margin: 26px 0 0 .32em; line-height: 1.1; }
+#artigo-turing .sub { font-size: 22px; letter-spacing: .16em; padding-bottom: 26px; border-bottom: 1.5px solid #1a1a1a; }
+#artigo-turing .titulo-artigo { font-size: 40px; font-weight: 400; letter-spacing: .08em; margin-top: 44px; }
+#artigo-turing .autor { font-size: 26px; letter-spacing: .14em; margin-top: 14px; }
+#artigo-turing .secao { font-size: 32px; font-style: italic; margin-top: 46px; }
+#artigo-turing .frase { font-size: 38px; text-align: left; margin-top: 22px; text-indent: 1.5em; }
+#artigo-turing .frase .cap { font-variant: small-caps; letter-spacing: .04em; }
+</style>
+</head>
+<body>
+<main class="deck">
+
+  <!-- Capa (identidade Inteli) -->
+  <section class="slide capa sem-numero" id="capa">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <div class="conteudo">
+      <h1 class="titulo-capa">Uso de IA: ferramentas e tendências</h1>
+      <p class="autor">Prof. Nicola, Prof. César e Prof. Romualdo</p>
+    </div>
+    <aside class="notas">Workshop em dois dias, conduzido pelos três professores. Dia 1: contexto histórico e terminologia da inteligência artificial, e uma forma de criar fluxos de trabalho com IA. Dia 2: aplicação.</aside>
+  </section>
+
+  <!-- Agenda: Desmistificando a IA -->
+  <section class="slide agenda curta" id="agenda-desmistificando" data-agora="0">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Agenda: agora, Desmistificando a IA.</aside>
+  </section>
+
+  <!-- 2. Linha do tempo: só os anos, tudo em aberto -->
+  <section class="slide linha-do-tempo" id="linha-do-tempo-0" data-modelo="linha-do-tempo" data-ate="">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Linha do tempo em aberto. Ela volta depois de cada artigo, com o marco daquele ano preenchido.</aside>
+  </section>
+
+  <!-- 4. A primeira página do artigo de Turing -->
+  <section class="slide" id="artigo-turing" data-modelo="pagina-de-artigo">
+    <div class="objeto sangra" aria-hidden="true">
+      <div class="cab"><span>VOL. LIX. No. 236.]</span><span>[October, 1950</span></div>
+      <p class="revista">MIND</p>
+      <p class="sub">A QUARTERLY REVIEW OF PSYCHOLOGY AND PHILOSOPHY</p>
+      <p class="titulo-artigo">I.—COMPUTING MACHINERY AND INTELLIGENCE</p>
+      <p class="autor">BY A. M. TURING</p>
+      <p class="secao passo" data-passo="1">1. The Imitation Game.</p>
+      <p class="frase passo" data-passo="2"><span class="cap">I propose</span> to consider the question, ‘Can machines think?’</p>
+    </div>
+    <aside class="notas">Turing, A. M. (1950). Computing Machinery and Intelligence. Mind, 59(236), 433–460.</aside>
+  </section>
+
+  <!-- ENIAC: só a imagem -->
+  <section class="slide sem-numero" id="eniac" data-modelo="foto-inteira">
+    <img class="foto" src="assets/eniac.jpg" alt="ENIAC, com Glen Beck e Betty Snyder, no Ballistic Research Laboratory">
+    <aside class="notas">ENIAC (1945). Foto: U.S. Army, domínio público. Glen Beck e Betty Snyder programando a máquina.</aside>
+  </section>
+
+
+  <!-- Jogo da imitação: um slide, contado em passos (cena montada pelo script do jogo) -->
+  <section class="slide jogo" id="jogo-da-imitacao" data-modelo="jogo-da-imitacao">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">0: o interrogador fica numa sala separada e só se comunica por mensagens escritas.
+      1: ele precisa descobrir quem é o homem e quem é a mulher.
+      2: o homem tenta enganá-lo; a mulher tenta ajudá-lo.
+      3: Turing, "What will happen when a machine takes the part of A in this game?" O jogo continua o mesmo: o interrogador quer saber quem é quem. A questão passa a ser se a máquina consegue enganá-lo com o mesmo êxito que um ser humano.</aside>
+  </section>
+
+  <!-- Corpo do artigo: a máquina-criança (seção 7, Learning Machines) -->
+  <section class="slide sem-numero corpo-artigo compacto" id="corpo-turing-crianca" data-modelo="corpo-de-artigo">
+    <div class="objeto sangra" aria-hidden="true">
+      <p lang="en"><span class="trecho">As I have explained, the problem is mainly one of programming. […] Estimates of the storage capacity of the brain vary from 10<sup>10</sup> to 10<sup>15</sup> binary digits.</span> <span class="desfocado">[…]</span> <span class="trecho">Our problem then is to find out how to programme these machines to play the game. At my present rate of working I produce about a thousand digits of programme a day,</span> <span class="desfocado">so that about sixty workers, working steadily through the fifty years might accomplish the job, if nothing went into the wastepaper basket.</span> <span class="trecho">Some more expeditious method seems desirable.</span></p>
+      <p lang="en"><span class="trecho t1">Instead of trying to produce a programme to simulate the adult mind, why not rather try to produce one which simulates the child’s? If this were then subjected to an appropriate course of education one would obtain the adult brain.</span> <span class="desfocado">Presumably the child brain is something like a notebook as one buys it from the stationer’s. Rather little mechanism, and lots of blank sheets.</span></p>
+      <!-- Marcador invisível: cria o passo 1 deste slide -->
+      <span class="marcadores"><i class="passo" data-passo="1"></i></span>
+    </div>
+    <aside class="notas">Um passo: em vez de programar a mente adulta, simular a de uma criança e educá-la até chegar ao cérebro adulto. Uma primeira versão da ideia de machine learning. Turing (1950), seção 7, "Learning Machines"; os […] marcam trechos omitidos.</aside>
+  </section>
+
+  <!-- Linha do tempo até 1950 -->
+  <section class="slide linha-do-tempo" id="linha-do-tempo-1950" data-modelo="linha-do-tempo" data-ate="1950">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Linha do tempo: entra o marco de 1950.</aside>
+  </section>
+
+  <!-- Dartmouth: a capa da proposta, com "Artificial Intelligence" em destaque -->
+  <section class="slide sem-numero corpo-artigo datilografado" id="capa-dartmouth" data-modelo="capa-de-documento">
+    <div class="objeto sangra" aria-hidden="true">
+      <p class="cabeca"><span class="desfocado-capa">A PROPOSAL FOR THE<br>DARTMOUTH SUMMER RESEARCH PROJECT<br>ON</span> <span class="ia">ARTIFICIAL INTELLIGENCE</span></p>
+      <p class="autores desfocado-capa">J. McCarthy, Dartmouth College<br>M. L. Minsky, Harvard University<br>N. Rochester, I.B.M. Corporation<br>C. E. Shannon, Bell Telephone Laboratories</p>
+      <p class="data desfocado-capa">August 31, 1955</p>
+      <span class="marcadores"><i class="passo" data-passo="1"></i></span>
+    </div>
+    <aside class="notas">McCarthy, Minsky, Rochester e Shannon (1955). A proposta do encontro de Dartmouth cunha o termo "inteligência artificial".</aside>
+  </section>
+
+  <!-- Dartmouth: a ambição, no primeiro parágrafo -->
+  <section class="slide sem-numero corpo-artigo datilografado" id="ambicao-dartmouth" data-modelo="corpo-de-artigo">
+    <div class="objeto sangra" aria-hidden="true">
+      <p lang="en"><span class="desfocado">We propose that</span> <span class="trecho t2">a 2 month, 10 man study of artificial intelligence</span> <span class="desfocado">be carried out during the summer of 1956 at Dartmouth College in Hanover, New Hampshire. The study is to proceed on the basis of the conjecture that</span> <span class="trecho t1">every aspect of learning or any other feature of intelligence can in principle be so precisely described that a machine can be made to simulate it.</span> <span class="desfocado">An attempt will be made to find how to make machines</span> <span class="trecho t1">use language, form abstractions and concepts, solve kinds of problems now reserved for humans, and improve themselves.</span> <span class="desfocado">We think that a significant advance can be made in one or more of these problems if a carefully selected group of scientists work on it together for a summer.</span></p>
+      <span class="marcadores"><i class="passo" data-passo="1"></i><i class="passo" data-passo="2"></i></span>
+    </div>
+    <aside class="notas">Passos: 1 a conjectura (todo aspecto da inteligência pode ser descrito com precisão a ponto de uma máquina simulá-lo) e a lista (linguagem, abstrações, problemas "reservados aos humanos", melhorar a si mesmas), juntas · 2 e tudo isso num estudo de dois meses com dez pessoas. A ambição e o otimismo da época.</aside>
+  </section>
+
+    <!-- Linha do tempo até 1955 -->
+  <section class="slide linha-do-tempo" id="linha-do-tempo-1955" data-modelo="linha-do-tempo" data-ate="1955">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Linha do tempo: entra o marco de 1955.</aside>
+  </section>
+
+  <!-- Rosenblatt: a primeira página do artigo do Perceptron -->
+  <section class="slide sem-numero" id="capa-rosenblatt" data-modelo="capa-de-documento">
+    <div class="objeto sangra" aria-hidden="true">
+      <p class="revista desfocado-capa">Psychological Review<br>Vol. 65, No. 6, 1958</p>
+      <p class="titulo-artigo"><span class="ia">THE PERCEPTRON:</span> <span class="desfocado-capa">A PROBABILISTIC MODEL FOR<br>INFORMATION STORAGE AND ORGANIZATION<br>IN THE BRAIN</span></p>
+      <p class="autor desfocado-capa">F. ROSENBLATT</p>
+      <p class="instituicao desfocado-capa">Cornell Aeronautical Laboratory</p>
+      <div class="colunas resumo-grifos" lang="en">
+        <p><span>If we are eventually to understand the capability of higher organisms for perceptual recognition, generalization, recall, and thinking, we must first have answers to three fundamental questions:</span></p>
+        <p><span class="t1">1. How is information about the physical world sensed, or detected, by the biological system?</span></p>
+        <p><span class="t1">2. In what form is information stored, or remembered?</span></p>
+        <p><span class="t1">3. How does information contained in storage, or in memory, influence recognition and behavior?</span></p>
+        <p><span>The first of these questions is in the province of sensory physiology, and is the only one for which appreciable understanding has been achieved. This article will be concerned primarily with the second and third questions, which are still subject to a vast amount of speculation, and where the few relevant facts currently supplied by neurophysiology have not yet been integrated into an acceptable theory.</span></p>
+        <p><span>With regard to the second question, two alternative positions have been maintained. The first suggests that storage of sensory information is in the form of coded representations or images, with some sort of one-to-one mapping between the sensory stimulus and the stored pattern.</span></p>
+      </div>
+      <span class="marcadores" style="display:none"><i class="passo" data-passo="1"></i></span>
+    </div>
+    <aside class="notas">Um passo: as três perguntas grifadas juntas. 1 como a informação do mundo físico é captada pelo sistema biológico? · 2 de que forma ela é guardada, lembrada? · 3 como o que está guardado influencia o reconhecimento e o comportamento? Rosenblatt diz que só a primeira tem resposta (fisiologia dos sentidos); o artigo trata da segunda e da terceira. Rosenblatt, F. (1958). The Perceptron: A probabilistic model for information storage and organization in the brain. Psychological Review, 65(6), 386–408.</aside>
+  </section>
+
+  <!-- Perceptron: o esquemático, contado em passos -->
+  <section class="slide" id="perceptron" data-modelo="diagrama-em-passos" data-max-palavras="34">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <!-- Passo 0: a Fig. 1 do artigo, grande; do passo 1 em diante, ela encolhe para o topo e o esquema matemático se monta embaixo -->
+    <div class="objeto fig-rosenblatt" aria-hidden="true"><img src="assets/rosenblatt-1958-fig1.png" alt=""></div>
+    <p class="legenda fonte-fig passo" data-passo="0" data-sai="1">Rosenblatt (1958), Fig. 1: <i>Organization of a perceptron</i></p>
+    <svg class="diagrama" viewBox="0 0 1600 900" aria-hidden="true">
+      <defs><marker id="seta-p" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2e2640"/></marker>
+        <marker id="seta-c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#ff4545"/></marker></defs>
+      <g class="passo" data-passo="1"><circle cx="250" cy="390" r="48" fill="#ffffff" stroke="#2e2640" stroke-width="5"/><text x="250" y="402" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="40" fill="#2e2640">x<tspan font-size="28" dy="10">1</tspan></text><circle cx="250" cy="490" r="48" fill="#ffffff" stroke="#2e2640" stroke-width="5"/><text x="250" y="502" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="40" fill="#2e2640">x<tspan font-size="28" dy="10">2</tspan></text><circle cx="250" cy="590" r="48" fill="#ffffff" stroke="#2e2640" stroke-width="5"/><text x="250" y="602" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="40" fill="#2e2640">x<tspan font-size="28" dy="10">3</tspan></text><circle cx="250" cy="690" r="48" fill="#ffffff" stroke="#2e2640" stroke-width="5"/><text x="250" y="702" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="40" fill="#2e2640">x<tspan font-size="28" dy="10">4</tspan></text></g>
+      <g class="passo" data-passo="2"><line x1="298" y1="390" x2="760" y2="540" stroke="#2e2640" stroke-width="5"/><line x1="298" y1="490" x2="760" y2="540" stroke="#2e2640" stroke-width="5"/><line x1="298" y1="590" x2="760" y2="540" stroke="#2e2640" stroke-width="5"/><line x1="298" y1="690" x2="760" y2="540" stroke="#2e2640" stroke-width="5"/><text x="440" y="402" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="38" fill="#d63333">w<tspan font-size="28" dy="10">1</tspan></text><text x="440" y="471" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="38" fill="#d63333">w<tspan font-size="28" dy="10">2</tspan></text><text x="440" y="541" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="38" fill="#d63333">w<tspan font-size="28" dy="10">3</tspan></text><text x="440" y="610" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="38" fill="#d63333">w<tspan font-size="28" dy="10">4</tspan></text></g>
+      <g class="passo" data-passo="3"><circle cx="830" cy="540" r="72" fill="#89cea5"/><text x="830" y="565" text-anchor="middle" font-family="Platypi" font-size="76" fill="#2e2640">Σ</text></g>
+      <g class="passo" data-passo="4"><line x1="902" y1="540" x2="1010" y2="540" stroke="#2e2640" stroke-width="5" marker-end="url(#seta-p)"/>
+        <rect x="1020" y="475" width="150" height="130" rx="14" fill="#ffffff" stroke="#2e2640" stroke-width="5"/>
+        <path d="M1045 575 H1095 V505 H1145" fill="none" stroke="#ff4545" stroke-width="6"/>
+        <line x1="1170" y1="540" x2="1280" y2="540" stroke="#2e2640" stroke-width="5" marker-end="url(#seta-p)"/>
+        <circle cx="1340" cy="540" r="52" fill="#2e2640"/><text x="1340" y="553" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="34" fill="#ffffff">1 | 0</text></g>
+      <g class="passo" data-passo="5"><path d="M1340 597 C1340 800, 660 800, 525 680" fill="none" stroke="#ff4545" stroke-width="5" stroke-dasharray="14 12" marker-end="url(#seta-c)"/></g>
+    </svg>
+    <p class="rotulo passo" data-passo="1" style="left:250px; top:258px">Entradas<small>retina</small></p>
+    <p class="rotulo passo" data-passo="2" style="left:440px; top:258px">Pesos<small>conexões</small></p>
+    <p class="rotulo passo" data-passo="3" style="left:830px; top:382px">Soma<small>associação</small></p>
+    <p class="rotulo passo" data-passo="4" style="left:1095px; top:418px">Limiar</p>
+    <p class="rotulo passo" data-passo="4" style="left:1340px; top:402px">Saída<small>resposta</small></p>
+    <p class="aprende passo" data-passo="5">errou? ajusta os pesos</p>
+    <aside class="notas">0: o perceptron como Rosenblatt o desenhou, inspirado no cérebro: a retina capta o estímulo, conexões levam o sinal a áreas de células de associação, e estas ativam as respostas. A partir daqui, a mesma figura vira matemática; cada rótulo traz embaixo o nome que Rosenblatt usou · 1: a retina vira as entradas (por exemplo, os pixels de uma imagem) · 2: cada conexão vira um peso · 3: a célula de associação soma os sinais ponderados · 4: o limiar decide a saída, 1 ou 0 ("é um triângulo" ou "não é"): a resposta · 5: quando erra, a máquina ajusta os pesos. Ninguém escreve as regras: ela aprende com exemplos. Os pesos são o que hoje chamamos de parâmetros (o GPT-3 tem 175 bilhões).</aside>
+  </section>
+
+  <!-- Recorte do New York Times, 8 de julho de 1958 -->
+  <section class="slide sem-numero" id="jornal-1958" data-modelo="recorte-de-jornal">
+    <div class="objeto sangra" aria-hidden="true">
+      <p class="jornal">THE NEW YORK TIMES, JULY 8, 1958</p>
+      <p class="manchete">NEW NAVY DEVICE LEARNS BY DOING</p>
+      <div class="fio"></div>
+      <p class="sub">Psychologist Shows Embryo of Computer Designed to Read and Grow Wiser</p>
+      <div class="linha"></div>
+      <p class="corpo" lang="en"><span class="local">Washington, July 7 (UPI)</span>—The Navy revealed the embryo of an electronic computer today that it expects will be able to <span class="frase">walk, talk, see, write, reproduce itself and be conscious of its existence.</span></p>
+      <!-- Texto de preenchimento, desfocado: NÃO é o texto do artigo, só dá a aparência de coluna de jornal. -->
+      <p class="corpo preenchimento">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p class="corpo preenchimento">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <span class="marcadores" style="display:none"><i class="passo" data-passo="1"></i></span>
+    </div>
+    <aside class="notas">The New York Times, 8 de julho de 1958 (UPI). A demonstração usou um IBM 704 que, depois de 50 tentativas, aprendeu sozinho a distinguir cartões marcados à esquerda de cartões marcados à direita. Passo 1: a promessa grifada. Expectativa exagerada → frustração → os invernos da IA. Só a manchete, a data e o lide são do artigo; o resto da coluna é preenchimento desfocado.</aside>
+  </section>
+
+
+
+  <!-- Linha do tempo até 1958 -->
+  <section class="slide linha-do-tempo" id="linha-do-tempo-1958" data-modelo="linha-do-tempo" data-ate="1958" data-lacuna>
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Linha do tempo: entra o marco de 1958. Passo 1: flocos de gelo no vazio até 1990, os invernos da IA (o primeiro por volta de 1974–1980, o segundo por volta de 1987–1993). O que aconteceu nesse intervalo?</aside>
+  </section>
+
+
+  <!-- Limitação do Perceptron: a capa do livro de Minsky e Papert (1969); o artigo do backprop (1986) entra por cima -->
+  <section class="slide" id="limitacao-simples" data-modelo="capa-de-livro">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <figure class="objeto livro sangra"><img src="assets/capa-perceptrons-1969.jpg" alt="Capa do livro Perceptrons, de Marvin Minsky e Seymour Papert (MIT Press, 1969)"></figure>
+    <p class="fonte legenda">Minsky &amp; Papert<br><i>Perceptrons</i>, 1969</p>
+    <div class="objeto pagina-sobre passo sangra" data-passo="1" aria-hidden="true">
+      <p class="cab-revista"><span>NATURE VOL. 323 · 9 OCTOBER 1986</span><span>LETTERS TO NATURE</span></p>
+      <h3>Learning representations by back-propagating errors</h3>
+      <p class="autores">David E. Rumelhart, Geoffrey E. Hinton &amp; Ronald J. Williams</p>
+      <p class="resumo" lang="en"><span class="desfocado">We describe a new learning procedure, back-propagation, for networks of neurone-like units. The procedure repeatedly adjusts the weights of the connections in the network so as to minimize a measure of the difference between the actual output vector of the net and the desired output vector. As a result of the weight adjustments,</span> <span class="grifado">internal ‘hidden’ units which are not part of the input or output come to represent important features of the task domain</span><span class="desfocado">, and the regularities in the task are captured by the interactions of these units.</span></p>
+    </div>
+    <aside class="notas">Minsky e Papert (1969) mostraram que um perceptron sozinho não é tão útil: só separa padrões simples (não resolve, por exemplo, o "ou exclusivo"). Para ser útil, seria preciso juntar muitos perceptrons em camadas, mas ninguém sabia treinar uma rede assim, ou seja, ajustar os pesos das camadas do meio. Eles chamaram de "julgamento intuitivo" a ideia de que estender o perceptron seria estéril, e a área desistiu: um dos motivos do vazio na linha do tempo. Passo 1, muitos anos depois: Rumelhart, Hinton e Williams (1986), "Learning representations by back-propagating errors", Nature 323, 533–536. O erro da saída é propagado de volta e ajusta os pesos de todas as camadas. Capa do livro: MIT Press, 1969 (imagem da Wikipedia).</aside>
+  </section>
+
+
+  <!-- Linha do tempo de volta, sem o gelo, antes do Elman (1990) -->
+  <section class="slide linha-do-tempo" id="linha-do-tempo-antes-1990" data-modelo="linha-do-tempo" data-ate="1958">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Linha do tempo de volta, sem o gelo: com o backprop (1986), já dá para treinar redes com várias camadas. O próximo marco é 1990.</aside>
+  </section>
+
+  <!-- Elman (1990): Finding Structure in Time -->
+  <section class="slide sem-numero capa-doc" id="capa-elman" data-modelo="capa-de-documento">
+    <div class="objeto sangra" aria-hidden="true">
+      <p class="revista">COGNITIVE SCIENCE 14, 179–211 (1990)</p>
+      <p class="titulo-artigo">Finding Structure in Time</p>
+      <p class="autor">JEFFREY L. ELMAN</p>
+      <p class="instituicao">University of California, San Diego</p>
+      <p class="resumo resumo-grifos" lang="en"><span class="t1">Time underlies many interesting human behaviors. Thus, the question of how to represent time in connectionist models is very important.</span> <span>One approach is to represent time implicitly by its effects on processing rather than explicitly (as in a spatial representation).</span> <span class="t1">The current report develops a proposal along these lines first described by Jordan (1986) which involves the use of recurrent links in order to provide networks with a dynamic memory.</span> <span>In this approach, hidden unit patterns are fed back to themselves; the internal representations which develop thus reflect task demands in the context of prior internal states. A set of simulations is reported which range from relatively simple problems (temporal version of XOR) to discovering syntactic/semantic features for words. The networks are able to learn interesting internal representations which incorporate task demands with memory demands; indeed, in this approach the notion of memory is inextricably bound up with task processing. These representations reveal a rich structure, which allows them to be highly context-dependent, while also expressing generalizations across classes of items. These representations suggest a method for representing lexical categories and the type/token distinction.</span></p>
+      <span class="marcadores" style="display:none"><i class="passo" data-passo="1"></i></span>
+    </div>
+    <aside class="notas">Elman, J. L. (1990). Finding Structure in Time. Cognitive Science, 14(2), 179–211. Com o backprop (1986) já dá para treinar redes com várias camadas. Mais do que padrões complexos, o que importa aqui é que Elman encontrou um jeito de estruturar o tempo. Um passo, os dois grifos juntos: o problema: o tempo está por trás de muitos comportamentos humanos, então representá-lo nas redes é importante; a solução: conexões recorrentes dão à rede uma memória dinâmica. A rede ganha memória do que veio antes (rede recorrente) e aprende a prever a próxima palavra; treinada só para isso, descobre sozinha categorias como substantivo e verbo.</aside>
+  </section>
+
+  <!-- Prever a próxima palavra (Elman, 1990): as palavras entram uma a uma, o contexto acumula -->
+  <section class="slide" id="proxima-palavra" data-modelo="diagrama-em-passos">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <svg class="setas" viewBox="0 0 1600 900" aria-hidden="true">
+      <defs><marker id="seta-pp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2e2640"/></marker>
+        <marker id="seta-pc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#ff4545"/></marker></defs>
+      <line class="passo" data-passo="1" x1="300" y1="352" x2="300" y2="550" stroke="#2e2640" stroke-width="4" marker-end="url(#seta-pp)"/><line class="passo" data-passo="2" x1="540" y1="352" x2="540" y2="550" stroke="#2e2640" stroke-width="4" marker-end="url(#seta-pp)"/><line class="passo" data-passo="3" x1="780" y1="352" x2="780" y2="550" stroke="#2e2640" stroke-width="4" marker-end="url(#seta-pp)"/><line class="passo" data-passo="4" x1="1020" y1="352" x2="1020" y2="550" stroke="#2e2640" stroke-width="4" marker-end="url(#seta-pp)"/>
+      <path d="M1120 600 C1230 600, 1240 690, 1130 690" fill="none" stroke="#2e2640" stroke-width="5" marker-end="url(#seta-pp)"/>
+      <path class="passo" data-passo="5" d="M1120 580 C1230 560, 1270 450, 1270 356" fill="none" stroke="#ff4545" stroke-width="5" stroke-dasharray="12 10" marker-end="url(#seta-pc)"/>
+    </svg>
+    <p class="palavra vazia passo" data-passo="0" data-sai="1" style="left:300px">·</p><p class="palavra vazia passo" data-passo="0" data-sai="2" style="left:540px">·</p><p class="palavra vazia passo" data-passo="0" data-sai="3" style="left:780px">·</p><p class="palavra vazia passo" data-passo="0" data-sai="4" style="left:1020px">·</p><p class="palavra passo" data-passo="1" style="left:300px">O</p><p class="palavra passo" data-passo="2" style="left:540px">gato</p><p class="palavra passo" data-passo="3" style="left:780px">subiu</p><p class="palavra passo" data-passo="4" style="left:1020px">no</p>
+    <p class="palavra vazia passo" data-passo="0" data-sai="5" style="left:1270px">?</p>
+    <p class="palavra prevista passo" data-passo="5" style="left:1270px">telhado</p>
+    <p class="rotulo-prev passo" data-passo="5">próxima palavra</p>
+    <p class="nome-contexto">Contexto</p><div class="contexto"><p class="lido passo" data-passo="1" data-sai="2">O…</p><p class="lido passo" data-passo="2" data-sai="3">O gato…</p><p class="lido passo" data-passo="3" data-sai="4">O gato subiu…</p><p class="lido passo" data-passo="4">O gato subiu no…</p></div>
+    <aside class="notas">A rede lê uma palavra por vez e guarda uma memória do que já leu: Elman chamou essa memória de "context units". A cada palavra, a tarefa é a mesma: prever a próxima. Treinada só para isso, ela descobre sozinha categorias como substantivo e verbo. É exatamente o objetivo de treino de um modelo de linguagem hoje. (O exemplo em português é ilustrativo; Elman usou frases simples em inglês.)</aside>
+  </section>
+
+
+
+
+
+  <!-- Linha do tempo até 1990 -->
+  <section class="slide linha-do-tempo" id="linha-do-tempo-1990" data-modelo="linha-do-tempo" data-ate="1990">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Linha do tempo: entra o marco de 1990.</aside>
+  </section>
+
+  <!-- Attention Is All You Need (2017): a capa, com o resumo grifado -->
+  <section class="slide sem-numero capa-doc" id="capa-attention" data-modelo="capa-de-documento">
+    <div class="objeto sangra" aria-hidden="true">
+      <p class="carimbo">arXiv:1706.03762 [cs.CL] 12 Jun 2017</p>
+      <p class="titulo-c" style="margin-top:20px">Attention Is All You Need</p>
+      <div class="grade-autores">
+        <p>Ashish Vaswani<small>Google Brain</small></p><p>Noam Shazeer<small>Google Brain</small></p><p>Niki Parmar<small>Google Research</small></p><p>Jakob Uszkoreit<small>Google Research</small></p>
+        <p>Llion Jones<small>Google Research</small></p><p>Aidan N. Gomez<small>University of Toronto</small></p><p>Łukasz Kaiser<small>Google Brain</small></p><p>Illia Polosukhin<small>&nbsp;</small></p>
+      </div>
+      <p class="resumo-t">Abstract</p>
+      <p class="resumo-x resumo-grifos" lang="en"><span class="t1">The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder.</span> <span>The best performing models also connect the encoder and decoder through an attention mechanism.</span> <span class="t1">We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.</span> <span>Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles, by over 2 BLEU.</span></p>
+      <span class="marcadores" style="display:none"><i class="passo" data-passo="1"></i></span>
+    </div>
+    <aside class="notas">Vaswani et al. (2017), "Attention Is All You Need", NeurIPS 2017. Um passo, os três grifos juntos. O ponto de partida: os melhores modelos eram redes recorrentes (como a do Elman), que leem palavra por palavra, com um codificador e um decodificador. A proposta: o Transformer, só com atenção, sem recorrência; testado em tradução, ficou melhor e mais rápido de treinar, porque processa o texto todo em paralelo (a ideia de "sequência entra, sequência sai" é de 2014, Sutskever et al.). É a arquitetura por trás de GPT, Gemini e Claude.</aside>
+  </section>
+
+  <!-- Atenção × recorrência: a mesma frase lida pela rede recorrente (passo 0) e pelo Transformer (passo 1) -->
+  <section class="slide" id="atencao" data-modelo="diagrama-em-passos">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo passo" data-passo="0" data-sai="1" style="left:120px; top:110px">rede recorrente</p>
+    <p class="rotulo-termo passo" data-passo="1" style="left:120px; top:110px">atenção</p>
+    <svg class="diagrama" viewBox="0 0 1600 900" aria-hidden="true"></svg>
+    <aside class="notas">A mesma frase, lida de dois jeitos. 0: a rede recorrente (como a do Elman) lê uma palavra por vez; cada círculo é a memória depois daquela palavra, e ela passa adiante, de um passo para o outro. O que se sabe de "livro" (coral) vai se diluindo a cada passo e chega fraco em "era": é um telefone sem fio. E não dá para acelerar: cada passo espera o anterior · 1: o Transformer: cada palavra olha direto para todas as outras, de uma vez; "era" encontra "livro" sem passar pelo meio, não importa a distância. E como tudo acontece ao mesmo tempo, o treino roda em paralelo em GPUs, com muito mais texto: é o que permite a escala do GPT-3, o próximo marco. Na leitura do prompt (e no treino), a atenção de todos os tokens da janela é calculada de uma vez, em paralelo; na escrita da resposta, o modelo gera um token por vez, e cada token novo olha para todos os anteriores. (Pesos dos arcos ilustrativos.)</aside>
+  </section>
+
+  <!-- Tokens, interativo: clique na frase, digite outra e aperte Enter; depois, a mesma frase em inglês e o strawberry -->
+  <section class="slide tokens" id="token" data-modelo="tokens" data-max-palavras="50">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo" style="left:120px; top:110px">tokens</p>
+    <div class="coluna-tk">
+      <p class="inteira" contenteditable="plaintext-only" spellcheck="false">O gato subiu no telhado</p>
+      <div class="saida-tk passo" data-passo="1">
+        <p class="cortes" data-tk-alvo></p>
+        <div class="rodape-tk">
+          <p class="conta-tk"></p>
+          <div class="modelo-tk"><button data-modelo-tk="gpt3" class="ativo">GPT-3</button><button data-modelo-tk="gpt4o">GPT-4o</button></div>
+        </div>
+      </div>
+      <div class="saida-tk ingles passo" data-passo="2">
+        <p class="cortes" data-tk-texto="The cat climbed onto the roof"></p>
+        <p class="conta-tk" data-tk-conta="The cat climbed onto the roof"></p>
+      </div>
+    </div>
+    <div class="morango passo" data-passo="3">
+      <p class="pergunta-tk">Quantos <b>r</b> tem strawberry?</p>
+      <p class="cortes" data-tk-texto="strawberry"></p>
+    </div>
+    <!-- Passo 4: o slide desfoca e entra, por cima, a página do ViT (imagens também viram tokens) -->
+    <div class="objeto pagina-sobre vit passo sangra" data-passo="4" aria-hidden="true">
+      <p class="carimbo">arXiv:2010.11929v1 [cs.CV] 22 Oct 2020</p>
+      <h3>An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</h3>
+      <p class="autores">Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, Neil Houlsby</p>
+      <p class="resumo-titulo">Google Research, Brain Team</p>
+      <p class="resumo-titulo">Abstract</p>
+      <p class="resumo" lang="en"><span class="desfocado">While the Transformer architecture has become the de-facto standard for natural language processing tasks, its applications to computer vision remain limited. In vision, attention is either applied in conjunction with convolutional networks, or used to replace certain components of convolutional networks while keeping their overall structure in place. We show that this reliance on CNNs is not necessary and</span> <span class="grifado">a pure transformer applied directly to sequences of image patches</span> <span class="desfocado">can perform very well on image classification tasks. When pre-trained on large amounts of data and transferred to multiple mid-sized or small image recognition benchmarks (ImageNet, CIFAR-100, VTAB, etc.), Vision Transformer (ViT) attains excellent results compared to state-of-the-art convolutional networks while requiring substantially fewer computational resources to train.</span></p>
+    </div>
+    <aside class="notas">Cortes reais dos tokenizadores (os vocabulários do GPT-3 e do GPT-4o estão embutidos no slide; funciona offline). 0: a frase do slide do Elman · 1: o modelo não lê palavras, lê tokens: no GPT-3, "gato" vira g + ato, "telhado" vira tel + h + ado; 9 pedaços. Como se divide: o vocabulário de tokens é aprendido do texto de treino; o que aparece muito vira um pedaço só, o que é raro é montado com pedaços frequentes. Interativo: clique na frase, digite outra (o nome de uma disciplina, uma frase de um aluno) e aperte Enter; Esc devolve o teclado à navegação · 2: a mesma frase em inglês: 6 pedaços, cada palavra inteira. O texto do GPT-3 era quase todo em inglês, por isso o português se quebra mais: a mesma frase gasta mais tokens, custa mais e ocupa mais da janela de contexto · 3: o erro mais famoso dos modelos: "quantos r tem strawberry?". O modelo vê st + raw + berry, não as letras, e por isso errava a contagem. O seletor GPT-3 | GPT-4o vale para tudo no slide: no GPT-4o, a frase em português cai para 7 tokens e "gato" vira um pedaço só. Um acento ou emoji cortado no meio dos bytes aparece tracejado, com o número de tokens que ele gasta. · 4: não é só texto: em 2020, o mesmo Transformer passou a ler imagens cortando-as em quadradinhos de 16×16 pixels, cada um tratado como um token (Dosovitskiy et al., "An Image is Worth 16x16 Words", ICLR 2021). Áudio e vídeo seguem a mesma ideia: tudo vira uma sequência de tokens e disputa espaço na janela de contexto.</aside>
+  </section>
+
+
+
+
+
+  <!-- Linha do tempo até 2017 -->
+  <section class="slide linha-do-tempo" id="linha-do-tempo-2017" data-modelo="linha-do-tempo" data-ate="2017">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Linha do tempo: entra o marco de 2017.</aside>
+  </section>
+
+  <!-- Language Models are Few-Shot Learners (2020): a capa, com o resumo grifado -->
+  <section class="slide sem-numero capa-doc" id="capa-gpt3" data-modelo="capa-de-documento">
+    <div class="objeto sangra" aria-hidden="true">
+      <p class="carimbo">arXiv:2005.14165 [cs.CL] 28 May 2020</p>
+      <p class="titulo-c" style="margin-top:10px">Language Models are Few-Shot Learners</p>
+      <div class="grade-autores"><p>Tom B. Brown</p><p>Benjamin Mann</p><p>Nick Ryder</p><p>Melanie Subbiah</p><p>Jared Kaplan</p><p>Prafulla Dhariwal</p><p>Arvind Neelakantan</p><p>Pranav Shyam</p><p>Girish Sastry</p><p>Amanda Askell</p><p>Sandhini Agarwal</p><p>Ariel Herbert-Voss</p><p>Gretchen Krueger</p><p>Tom Henighan</p><p>Rewon Child</p><p>Aditya Ramesh</p><p>Daniel M. Ziegler</p><p>Jeffrey Wu</p><p>Clemens Winter</p><p>Christopher Hesse</p><p>Mark Chen</p><p>Eric Sigler</p><p>Mateusz Litwin</p><p>Scott Gray</p><p>Benjamin Chess</p><p>Jack Clark</p><p>Christopher Berner</p><p>Sam McCandlish</p><p>Alec Radford</p><p>Ilya Sutskever</p><p>Dario Amodei</p></div>
+      <p class="org">OpenAI</p>
+      <p class="resumo-t">Abstract</p>
+      <p class="resumo-x resumo-grifos" lang="en"><span class="t1">Recent work has demonstrated substantial gains on many NLP tasks and benchmarks by pre-training on a large corpus of text followed by fine-tuning on a specific task.</span> <span>While typically task-agnostic in architecture,</span> <span class="t1">this method still requires task-specific fine-tuning datasets of thousands or tens of thousands of examples.</span> <span class="t1">By contrast, humans can generally perform a new language task from only a few examples or from simple instructions</span> <span>– something which current NLP systems still largely struggle to do.</span> <span class="t2">Here we show that scaling up language models greatly improves task-agnostic, few-shot performance, sometimes even reaching competitiveness with prior state-of-the-art fine-tuning approaches. Specifically, we train GPT‑3, an autoregressive language model with 175 billion parameters, 10x more than any previous non-sparse language model,</span> <span>and test its performance in the few-shot setting. For all tasks, GPT-3 is applied without any gradient updates or fine-tuning, with tasks and few-shot demonstrations specified purely via text interaction with the model.</span></p>
+      <span class="marcadores" style="display:none"><i class="passo" data-passo="1"></i><i class="passo" data-passo="2"></i></span>
+    </div>
+    <aside class="notas">Brown et al. (2020), "Language Models are Few-Shot Learners", OpenAI, 31 autores. Passos: 1 como era: pré-treinar num texto enorme e depois ajustar (fine-tuning) para cada tarefa, com milhares de exemplos; em contraste, uma pessoa aprende uma tarefa nova com poucos exemplos ou uma instrução simples · 2 a proposta: escalar o modelo; o GPT-3 tem 175 bilhões de parâmetros (os pesos do Perceptron, que no esquema eram 4), dez vezes mais que qualquer modelo anterior. Antes, cada tarefa pedia um ajuste fino com milhares de exemplos; aqui, basta escrever.</aside>
+  </section>
+
+
+  <!-- Só o prompt: o modelo não sabe o que fazer (Figura 2.1 do artigo do GPT-3) -->
+  <section class="slide prompt-fig" id="prompt-queijo" data-modelo="prompt-em-caixa">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo" style="left:160px; top:110px">prompt</p>
+    <div class="prompt-f">
+      <div class="linhas"><p><span class="num">1</span><span class="txt">queijo =&gt;</span></p></div>
+      <div class="rotulos"><p><span>←</span>prompt</p></div>
+    </div>
+    <p class="balao-c modelo" style="top:320px; width:900px"><small>Modelo</small>Queijo é um alimento feito a partir do leite coalhado. Existem centenas de tipos, como o minas, o parmesão e o gorgonzola.</p>
+    <aside class="notas">No formato da Figura 2.1 do artigo do GPT-3 (lá, de inglês para francês: sea otter =&gt; loutre de mer, peppermint =&gt; menthe poivrée, plush girafe =&gt; girafe peluche, cheese =&gt;). Só o prompt, "queijo =&gt;": o modelo não sabe o que você quer e fala sobre queijo.</aside>
+  </section>
+
+  <!-- Zero-shot: a descrição da tarefa e o prompt -->
+  <section class="slide prompt-fig" id="zero-shot" data-modelo="prompt-em-caixa">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo" style="left:160px; top:110px">zero-shot</p>
+    <div class="prompt-f">
+      <div class="linhas"><p><span class="num">1</span><span class="txt">Traduza do português para o inglês:</span></p><p><span class="num">2</span><span class="txt">queijo =&gt; <i class="vazio"></i></span></p></div>
+      <div class="rotulos"><p><span>←</span>descrição da tarefa</p><p><span>←</span>prompt</p></div>
+    </div>
+    <p class="balao-c modelo" style="top:396px; width:900px"><small>Modelo</small>Queijo, em inglês, é “cheese”.</p>
+    <aside class="notas">Zero-shot: uma descrição da tarefa em linguagem natural, nenhum exemplo. O modelo acerta a tarefa, mas responde do jeito dele, numa frase.</aside>
+  </section>
+
+  <!-- One-shot: a descrição, um exemplo e o prompt -->
+  <section class="slide prompt-fig" id="one-shot" data-modelo="prompt-em-caixa">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo" style="left:160px; top:110px">one-shot</p>
+    <div class="prompt-f">
+      <div class="linhas"><p><span class="num">1</span><span class="txt">Traduza do português para o inglês:</span></p><p><span class="num">2</span><span class="txt">lontra-marinha =&gt; sea otter</span></p><p><span class="num">3</span><span class="txt">queijo =&gt; <i class="vazio"></i></span></p></div>
+      <div class="rotulos"><p><span>←</span>descrição da tarefa</p><p><span>←</span>exemplo</p><p><span>←</span>prompt</p></div>
+    </div>
+    <p class="balao-c modelo curta" style="top:472px"><small>Modelo</small>cheese</p>
+    <aside class="notas">One-shot: a descrição e um exemplo. Com um exemplo, a resposta já vem no formato do exemplo: só a tradução.</aside>
+  </section>
+
+  <!-- Few-shot: a descrição, alguns exemplos e o prompt -->
+  <section class="slide prompt-fig" id="few-shot" data-modelo="prompt-em-caixa">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo" style="left:160px; top:110px">few-shot</p>
+    <div class="prompt-f">
+      <div class="linhas"><p><span class="num">1</span><span class="txt">Traduza do português para o inglês:</span></p><p><span class="num">2</span><span class="txt">lontra-marinha =&gt; sea otter</span></p><p><span class="num">3</span><span class="txt">hortelã-pimenta =&gt; peppermint</span></p><p><span class="num">4</span><span class="txt">girafa de pelúcia =&gt; plush giraffe</span></p><p><span class="num">5</span><span class="txt">queijo =&gt; <i class="vazio"></i></span></p></div>
+      <div class="rotulos"><p><span>←</span>descrição da tarefa</p><p class="r3 chave"><span>←</span>exemplos</p><p><span>←</span>prompt</p></div>
+    </div>
+    <p class="balao-c modelo curta" style="top:624px"><small>Modelo</small>cheese</p>
+    <aside class="notas">Few-shot: a descrição e alguns exemplos (no artigo, em geral algumas dezenas). Em nenhum dos três o modelo é retreinado: tudo acontece dentro do prompt, e é por isso que o artigo chama de aprendizado no contexto. Em tarefas mais difíceis que esta, mais exemplos dão respostas melhores. Ponte para o próximo slide: descrição da tarefa, exemplos e prompt são partes de um bom prompt.</aside>
+  </section>
+
+  <!-- Manchetes: o impacto do GPT-3 e da onda que ele abriu -->
+  <section class="slide sem-numero" id="manchetes" data-modelo="parede-de-recortes">
+    <div class="objeto parede" aria-hidden="true">
+      <div class="recorte jornal guardian" style="left:60px; top:70px; width:560px; transform:rotate(-2deg)">
+        <p class="veiculo">The Guardian</p><p class="data">8 set. 2020</p>
+        <h3>A robot wrote this entire article. Are you scared yet, human?</h3></div>
+      <div class="recorte web reuters" style="left:650px; top:100px; width:440px; transform:rotate(1.5deg)">
+        <p class="veiculo">REUTERS</p><p class="data">1 fev. 2023</p>
+        <h3>ChatGPT sets record for fastest-growing user base</h3></div>
+      <div class="recorte capa-time" style="left:1130px; top:40px; width:410px; height:530px; transform:rotate(2.5deg)">
+        <p class="veiculo">TIME</p><p class="data">27 fev. 2023</p>
+        <h3>The AI Arms Race Is Changing Everything</h3></div>
+      <div class="recorte web cnn" style="left:70px; top:480px; width:560px; transform:rotate(1.5deg)">
+        <p class="veiculo"><b>CNN</b>Brasil</p><p class="data">29 mar. 2023</p>
+        <h3>Inteligência artificial pode afetar 300 milhões de empregos no mundo, diz Goldman Sachs</h3></div>
+      <div class="recorte jornal" style="left:660px; top:440px; width:470px; transform:rotate(-1.5deg)">
+        <p class="veiculo">The New York Times</p><p class="data">21 dez. 2022</p>
+        <h3>A New Chat Bot Is a ‘Code Red’ for Google’s Search Business</h3></div>
+      <div class="recorte web" style="left:1120px; top:610px; width:420px; transform:rotate(-2.5deg)">
+        <p class="veiculo">Forbes</p><p class="data">30 mai. 2023</p>
+        <h3>Nvidia Hits $1 Trillion Market Value</h3></div>
+    </div>
+    <aside class="notas">O artigo do GPT-3 mudou o jogo. Seis manchetes, em ordem de impacto: o susto (The Guardian, 2020: um artigo de opinião escrito pelo próprio GPT-3; humanos escolheram e editaram trechos de oito textos gerados), a adoção (Reuters: o ChatGPT chegou a 100 milhões de usuários em dois meses, o crescimento mais rápido da história; o TikTok levou nove meses), o trabalho (Goldman Sachs: o equivalente a 300 milhões de empregos expostos à automação, com possível alta de 7% no PIB mundial), a economia (NYT: "código vermelho" no Google, cuja busca é a maior parte da receita; Forbes: a Nvidia passa de 1 trilhão de dólares em valor de mercado) e a corrida (capa da TIME). De 2022 em diante, as manchetes são sobre o ChatGPT, da mesma linhagem do GPT-3. Outras confirmadas, fora do slide: Microsoft anuncia investimento multibilionário na OpenAI (CNBC, jan. 2023); "OpenAI's new language generator GPT-3 is shockingly good—and completely mindless" (MIT Technology Review, jul. 2020); "How Do You Know a Human Wrote This?" (NYT, jul. 2020); "How to worry wisely about artificial intelligence" (The Economist, abr. 2023).</aside>
+  </section>
+
+  <!-- Prompt: a anatomia de um bom prompt e os recursos que viram contexto -->
+  <section class="slide" id="prompt" data-modelo="diagrama-em-passos" data-max-palavras="40">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo" style="left:160px; top:120px">prompt</p>
+    <div class="bloco-p passo" data-passo="1" style="top:180px; height:92px"><b>Papel</b><span>quem o modelo deve ser</span></div>
+    <div class="bloco-p passo" data-passo="2" style="top:282px; height:92px"><b>Tarefa</b><span>o que fazer</span></div>
+    <div class="bloco-p desce passo" data-passo="3" style="top:384px; height:92px"><b>Formato</b><span>como entregar</span></div>
+    <div class="bloco-p desce passo" data-passo="4" style="top:486px; height:92px"><b>Exemplos</b><span>como deve ficar</span></div>
+    <div class="bloco-p ctx passo" data-passo="5" style="top:384px; height:150px"><b>Contexto</b><span>o que ele precisa saber</span></div>
+    <svg class="fios passo" data-passo="6" viewBox="0 0 1600 900" aria-hidden="true"><path d="M1020 210 C 930 210, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 292 C 930 292, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 374 C 930 374, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 456 C 930 456, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 538 C 930 538, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 620 C 930 620, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/></svg>
+    <div class="passo" data-passo="6"><p class="recurso" style="top:180px">PDFs e políticas</p><p class="recurso" style="top:262px">planilhas</p><p class="recurso" style="top:344px">e-mails</p><p class="recurso" style="top:426px">transcrições de reunião</p><p class="recurso" style="top:508px">site da empresa</p><p class="recurso" style="top:590px">base de conhecimento</p></div>
+    <aside class="notas">Primeiro, o desenho clássico da engenharia de prompt: 1 papel: quem ele deve ser (um analista, um revisor) · 2 tarefa: o que fazer, com clareza · 3 formato: como entregar (tabela, e-mail, uma linha) · 4 exemplos: como deve ficar, o few-shot dos slides anteriores · 5 abre-se um espaço e entra o contexto: o que ele precisa saber. Com o tempo, o foco foi mudando do jeito de pedir para o que o modelo recebe: o contexto é a parte maior e a que mais muda a qualidade da resposta (hoje se fala em engenharia de contexto). O modelo só sabe o que você dá a ele · 6 de onde vem o contexto: quase tudo o que a instituição já tem pode virar contexto: políticas em PDF, planilhas, e-mails, transcrições de reunião, o site, a base de conhecimento. Escolher o que entra (e o que fica de fora) é o que separa uma resposta genérica de uma útil.</aside>
+  </section>
+
+  <!-- Janela de contexto: o que o modelo enxerga de uma vez -->
+  <section class="slide" id="janela" data-modelo="diagrama-em-passos">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <div class="faixa"><i class="fora"></i><i class="fora"></i><i class="fora"></i><i class="fora"></i><i class="fora"></i><i class="fora"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="fora"></i><i class="fora"></i><i class="fora"></i><i class="fora"></i><i class="fora"></i><i class="fora"></i><i class="fora"></i></div>
+    <div class="moldura-j passo" data-passo="1"></div>
+    <p class="rotulo-j passo" data-passo="1">janela de contexto</p>
+    <div class="numeros passo" data-passo="2">
+      <p><b>2.048</b><span>tokens no GPT-3 (2020)</span></p>
+      <p><b>1 milhão</b><span>de tokens no Opus 5.5</span></p>
+    </div>
+    <aside class="notas">A janela de contexto é tudo o que o modelo enxerga de uma vez: a instrução, os exemplos do few-shot, os documentos, a conversa até aqui. 1: a janela; o que fica de fora não existe para o modelo · 2: o tamanho cresceu muito: 2.048 tokens no GPT-3 (2020); 1 milhão no Opus 5.5. Colocar o documento certo na janela, e deixar de fora o que não ajuda, é boa parte do trabalho.</aside>
+  </section>
+
+  <!-- O que ocupa a janela de contexto, na ordem em que a mensagem é montada para o modelo -->
+  <section class="slide" id="camadas" data-modelo="diagrama-em-passos" data-max-palavras="50">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo" style="left:280px; top:86px">janela de contexto</p>
+    <svg class="setas-c" viewBox="0 0 1600 900" aria-hidden="true"><defs>
+        <marker id="seta-pr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#5d5870"/></marker>
+        </defs>
+      <line class="passo" data-passo="4" x1="256" y1="300" x2="256" y2="168" stroke="#5d5870" stroke-width="4" marker-end="url(#seta-pr)"/>
+    </svg>
+    <p class="lado precedencia passo" data-passo="4">precedência</p>
+    <div class="janela-c">
+      <p class="cam sys passo" data-passo="1">System prompt<small>de quem fez o app</small></p>
+      <p class="cam desc">Descrições das skills<small>uma linha de cada</small></p>
+      <p class="cam ins passo" data-passo="2">Instruções personalizadas<small>escritas uma vez</small></p>
+      <div class="conversa-g passo" data-passo="3"><span class="nome-g">conversa</span><span class="seta-rec passo" data-passo="4"></span><span class="lado rec passo" data-passo="4">mais recente</span>
+      <p class="cam hist"><span class="nome-h">Histórico</span><span class="m voce velha passo" data-passo="3"></span><span class="m modelo velha passo" data-passo="3"></span><span class="m voce velha passo" data-passo="3"><span class="anexo">anexo</span></span><span class="m modelo passo" data-passo="5"></span><span class="m voce passo" data-passo="5"></span><span class="m modelo passo" data-passo="5"></span></p>
+      <div class="recente-g">
+        <p class="cam msg">Mensagem atual<small>“<span class="pedido" contenteditable="plaintext-only" spellcheck="false">faça a ata da reunião</span>”</small></p>
+      <p class="cam turno"><span class="nome-t">Turno do modelo</span><span class="chips"><span class="chip-t sk">skill: ata</span><span class="chip-t">ferramentas</span><span class="chip-t">resposta</span></span></p>
+      </div>
+      </div>
+    </div>
+    <p class="saem passo" data-passo="6" data-sai="7">Janela cheia: as mensagens mais antigas saem primeiro, com o anexo</p>
+    <div class="estante passo" data-passo="7">
+      <p class="rotulo-termo" style="position:static">skills</p>
+      <p class="skill-c" data-curto="relatório">Relatório mensal</p>
+      <p class="skill-c usada" data-curto="ata">Ata de reunião</p>
+      <p class="skill-c" data-curto="proposta">Proposta comercial</p>
+    </div>
+    <span class="marcadores" style="display:none"><i class="passo" data-passo="8"></i></span>
+    <aside class="notas">A janela de contexto na ordem em que a mensagem é montada para o modelo, de cima para baixo. 1: o system prompt, escrito por quem fez o app · 2: as instruções personalizadas, escritas uma vez num projeto ou assistente personalizado; não fazem parte da conversa, valem para todas as conversas daquele contexto · 3: a conversa: o histórico, da mensagem mais antiga para a mais nova; os anexos vão dentro da mensagem em que foram enviados. Depois, a mensagem atual e o turno do modelo: o que ele carrega e produz para responder (skills, resultados de ferramentas como busca ou leitura de arquivos, e a própria resposta) · 4: duas regras diferentes. Entre os níveis, precedência: o system prompt prevalece sobre as instruções personalizadas, que prevalecem sobre a conversa. Dentro da conversa, vale o contrário: o mais recente pesa mais; se você muda de ideia no meio da conversa, o pedido novo costuma ganhar do antigo. A mensagem atual e o turno do modelo são a memória mais fresca · 5: o histórico cresce a cada mensagem e a janela enche · 6: quando enche, o corte é no meio: saem primeiro as mensagens mais antigas (cada app corta ou resume do seu jeito). O topo fica, porque é fixo; a base fica, porque é o agora. Um anexo mandado no começo some junto com a mensagem dele: em conversa longa, vale reenviar o documento ou abrir uma conversa nova · 7: skills: instruções empacotadas para tarefas específicas; na janela fica só uma linha de descrição de cada uma, junto do system prompt · 8: quando o pedido combina com uma skill ("faça a ata da reunião"), o modelo carrega as instruções completas dela no próprio turno, na hora. A skill é um prompt carregado só quando precisa. Interativo: clique na mensagem atual, escreva outro pedido e aperte Enter: se ele combinar com uma skill (relatório, ata, proposta), ela é carregada no turno; se não combinar, nenhuma skill entra.</aside>
+  </section>
+
+
+
+
+
+  <!-- Linha do tempo até 2020 -->
+  <section class="slide linha-do-tempo" id="linha-do-tempo-2020" data-modelo="linha-do-tempo" data-ate="2020">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Linha do tempo: entra o marco de 2020.</aside>
+  </section>
+
+  <!-- ReAct (2022): a capa, com o resumo grifado -->
+  <section class="slide sem-numero capa-doc" id="capa-react" data-modelo="capa-de-documento">
+    <div class="objeto sangra" aria-hidden="true">
+      <p class="carimbo">arXiv:2210.03629 [cs.CL] 6 Oct 2022</p>
+      <p class="conf">Published as a conference paper at ICLR 2023</p>
+      <p class="titulo-c">ReAct: Synergizing Reasoning and Acting in Language Models</p>
+      <p class="autores-l">Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao<br><span class="borrado">Princeton University · Google Research, Brain team</span></p>
+      <p class="resumo-t">ABSTRACT</p>
+      <p class="resumo-x resumo-grifos" lang="en"><span class="t1">While large language models (LLMs) have demonstrated impressive performance across tasks in language understanding and interactive decision making, their abilities for reasoning (e.g. chain-of-thought prompting) and acting (e.g. action plan generation) have primarily been studied as separate topics.</span> <span class="t2">In this paper, we explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner,</span> <span>allowing for greater synergy between the two: reasoning traces help the model induce, track, and update action plans as well as handle exceptions, while actions allow it to interface with and gather additional information from external sources such as knowledge bases or environments. We apply our approach, named ReAct, to a diverse set of language and decision making tasks and demonstrate its effectiveness over state-of-the-art baselines in addition to improved human interpretability and trustworthiness.</span></p>
+      <span class="marcadores" style="display:none"><i class="passo" data-passo="1"></i><i class="passo" data-passo="2"></i></span>
+    </div>
+    <aside class="notas">Yao et al. (2022), "ReAct: Synergizing Reasoning and Acting in Language Models", ICLR 2023. Passos: 1 até ali, raciocinar (pensar passo a passo) e agir (planejar e executar ações) eram estudados separadamente · 2 a proposta: o modelo pensa e age de forma intercalada; as ações buscam informação fora dele (bases de conhecimento, ambientes), o que reduz a alucinação: em vez de inventar, ele consulta. É a base do que hoje chamamos de agente.</aside>
+  </section>
+
+  <!-- O ciclo do ReAct: pensa, age, observa (o nó de cada linha do rastro acende) -->
+  <section class="slide" id="ciclo-react" data-modelo="diagrama-em-passos" data-max-palavras="66">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="pergunta">Quanto custa, em reais, um jantar em Lisboa hoje?</p>
+    <svg class="ciclo" viewBox="0 0 1600 900" aria-hidden="true">
+      <defs><marker id="seta-cy" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2e2640"/></marker></defs>
+      <path d="M425 400 Q 520 470 515 560" fill="none" stroke="#2e2640" stroke-width="5" marker-end="url(#seta-cy)"/>
+      <path d="M476 690 Q 370 735 266 690" fill="none" stroke="#2e2640" stroke-width="5" marker-end="url(#seta-cy)"/>
+      <path d="M225 560 Q 220 470 312 402" fill="none" stroke="#2e2640" stroke-width="5" marker-end="url(#seta-cy)"/>
+      <g class="no-c n-pe"><circle cx="370" cy="330" r="74" fill="#89cea5"/><text x="370" y="341" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="30" fill="#2e2640">pensa</text></g><g class="no-c n-ac"><circle cx="560" cy="640" r="74" fill="#d63333"/><text x="560" y="651" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="30" fill="#ffffff">age</text></g><g class="no-c n-ob"><circle cx="180" cy="640" r="74" fill="#2e2640"/><text x="180" y="651" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="30" fill="#ffffff">observa</text></g>
+      <text class="passo" data-passo="11" x="370" y="555" text-anchor="middle" font-family="Space Mono" font-weight="700" font-size="28" letter-spacing="2" fill="#d63333">AGENTE</text>
+    </svg>
+    <div class="rastro">
+      <b class="pe passo" data-passo="1">pensa</b><span class="passo" data-passo="1">Quanto custa um jantar médio lá?</span>
+      <b class="ac passo" data-passo="2">age</b><span class="passo" data-passo="2"><code>buscar("preço médio jantar Lisboa")</code></span>
+      <b class="ob passo" data-passo="3">observa</b><span class="passo" data-passo="3">cerca de €25 por pessoa</span>
+      <b class="pe passo" data-passo="4">pensa</b><span class="passo" data-passo="4">Agora, a cotação do euro hoje.</span>
+      <b class="ac passo" data-passo="5">age</b><span class="passo" data-passo="5"><code>buscar("cotação euro hoje")</code></span>
+      <b class="ob passo" data-passo="6">observa</b><span class="passo" data-passo="6">€ 1 = R$ 6,10</span>
+      <b class="pe passo" data-passo="7">pensa</b><span class="passo" data-passo="7">Falta converter.</span>
+      <b class="ac passo" data-passo="8">age</b><span class="passo" data-passo="8"><code>calcular(25 × 6,10)</code></span>
+      <b class="ob passo" data-passo="9">observa</b><span class="passo" data-passo="9">152,50</span>
+      <p class="re passo" data-passo="10">Cerca de R$ 150 por pessoa.</p>
+    </div>
+    <aside class="notas">O ciclo de um agente: pensa, age (usa uma ferramenta), observa o resultado e decide o próximo passo, até responder. A cada linha do rastro, o nó correspondente acende. 1 a 3: primeiro ele descobre quanto custa um jantar médio em Lisboa, buscando na web · 4 a 6: depois, a cotação do euro de hoje, que muda todo dia e que ele não tem como saber de memória · 7 a 9: por fim, a conta, na calculadora · 10: a resposta · 11: o nome desse ciclo: agente. O modelo decide sozinho a ordem e quantas voltas dar. Sem o ciclo, ele responderia de memória, com preço e cotação possivelmente velhos ou inventados: é a alucinação que o artigo grifa. Preço e cotação deste slide são ilustrativos.</aside>
+  </section>
+
+
+  <!-- Harness: raio-x de um app de chat (o que você vê, o que está por trás, o modelo) -->
+  <section class="slide" id="harness" data-modelo="diagrama-em-passos" data-max-palavras="58">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="titulo-col" style="left:110px">o que você vê</p>
+    <div class="objeto app" aria-hidden="true">
+      <div class="barra"><span class="ctl">Projeto: Viagem<b class="selo passo" data-passo="1">1</b></span><span class="ctl">memória<b class="selo passo" data-passo="1">2</b></span></div>
+      <p class="voce">Quanto custa um jantar em Lisboa hoje?<b class="selo passo" data-passo="1">3</b></p>
+      <div class="resp"><i style="width:92%"></i><i style="width:100%"></i><i style="width:78%"></i><i style="width:60%"></i></div>
+      <div class="entrada"><p class="ph">Pergunte algo…</p><div class="ctls"><span class="ctl">+ anexar<b class="selo passo" data-passo="1">4</b></span><span class="ctl">pesquisa<b class="selo passo" data-passo="1">5</b></span><span class="ctl">ferramentas<b class="selo passo" data-passo="1">6</b></span></div></div>
+    </div>
+    <p class="titulo-col passo" data-passo="1" style="left:770px">o que está por trás</p>
+    <div class="camada-h passo" data-passo="1"><p class="nome">Harness</p><p class="peca"><b>1</b>instruções do projeto</p><p class="peca"><b>2</b>memória</p><p class="peca"><b>3</b>histórico da conversa</p><p class="peca"><b>4</b>anexos</p><p class="peca"><b>5</b>busca na web</p><p class="peca"><b>6</b>skills e ferramentas</p></div>
+    <svg class="liga passo" data-passo="2" viewBox="0 0 1600 900" aria-hidden="true"><defs><marker id="seta-hx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#2e2640"/></marker></defs>
+      <line x1="1252" y1="460" x2="1318" y2="460" stroke="#2e2640" stroke-width="4" marker-start="url(#seta-hx)" marker-end="url(#seta-hx)"/></svg>
+        <div class="modelo-h passo" data-passo="2"><p class="bola">Modelo</p></div>
+    <aside class="notas">Raio-x de um app de chat qualquer. 0: o que você vê todo dia: um projeto, a memória, a conversa, e os botões de anexar, pesquisar e ferramentas · 1: o que está por trás: cada controle da tela é uma peça do harness, o programa em volta do modelo. 1: as instruções do projeto entram na janela em toda conversa · 2: a memória guarda fatos de uma conversa para outra · 3: o histórico é a conversa até aqui · 4: os anexos entram na mensagem em que foram enviados · 5: a pesquisa é uma ferramenta que o harness executa quando o modelo pede (o ciclo do ReAct) · 6: skills e ferramentas são instruções e ações carregadas só quando o pedido combina · 2: no fundo, o modelo: texto entra, texto sai. É o mesmo motor em produtos muito diferentes · A mensagem do slide, na fala: tudo com que vocês interagem já tem esse conceito embutido. Quem sabe o que cada botão faz por trás escolhe o que colocar na janela, quando ligar a pesquisa, quando abrir um projeto, e tira muito mais do mesmo modelo.</aside>
+  </section>
+
+
+
+
+  <!-- Linha do tempo até 2022 -->
+  <section class="slide linha-do-tempo" id="linha-do-tempo-2022" data-modelo="linha-do-tempo" data-ate="2022">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Linha do tempo: entra o marco de 2022. Versão final: todos os marcos preenchidos.</aside>
+  </section>
+
+  <!-- Agenda: Processos acadêmicos -->
+  <section class="slide agenda curta" id="agenda-processos" data-agora="1">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Agenda: agora, processos acadêmicos.</aside>
+  </section>
+
+  <!-- Processos acadêmicos: seis personas; clicar num nome abre ao lado o cargo, a dor e o que ela já tem -->
+  <section class="slide" id="personas" data-modelo="personas">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo" style="left:120px; top:110px">processos acadêmicos</p>
+    <div class="lista-p"></div>
+    <div class="ficha-p"></div>
+    <aside class="notas">Seis dores reais de processos acadêmicos, para cada grupo escolher uma e atacar no workshop. Clique em cada nome para abrir a ficha ao lado. Germano, professor orientador: corrige projetos complexos que estão num repositório; a IA não leva em conta tudo o que o aluno fez, porque há muitas fontes diferentes, e ele precisa julgar a organização e a contribuição de cada aluno. Prof. Carvalho, professor instrutor: faz questões de prova no modelo ENADE; a IA gera questões com conflitos e erros, fora do modelo, com contexto que não conversa com a pergunta e sem o nível de dificuldade que ele quer, e ele perde o controle. Laís, professora instrutora: quer bons materiais, mas com IA a apresentação sai genérica, com cara de gerada por IA, e atrapalha mais do que ajuda. Enrico, escritório de projetos: capta parceiros para os projetos da graduação e tem o descritivo de cada módulo, mas falta conhecimento específico da área para ligar cada lead ao projeto certo. Elisane, coordenadora do último ano: faz o pareamento dos professores supervisores com os alunos, pelo tema que cada aluno escolhe e pela expertise de cada professor; depois, o mesmo problema na montagem das bancas. Luara, especialista de desenvolvimento e carreira: acompanha muitos alunos. Por mais que tenha ferramentas como dashboards, e as informações estejam disponíveis e organizadas, às vezes não percebe uma situação preocupante antes de ela acontecer: no volume de dados, alguns sinais de alerta ficam perdidos.</aside>
+  </section>
+
+  <!-- Agenda: Desenhando um fluxo (conduzido por outro professor; sem slides neste deck) -->
+  <section class="slide agenda curta" id="agenda-fluxo" data-agora="2">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <aside class="notas">Agenda: agora, desenhando um fluxo. Daqui em diante, a condução passa para o outro professor.</aside>
+  </section>
+
+</main>
+<script>
+/* Linha do tempo: os marcos são definidos UMA vez aqui e montados em todo slide .linha-do-tempo.
+   Cada slide diz até que ano está preenchido com data-ate="AAAA" (vazio = só interrogações).
+   Assim os títulos são sempre os mesmos em todas as versões. */
+const MARCOS = [
+  { ano: 1950, x: 180,  titulo: "Imitation Game" },
+  { ano: 1955, x: 330,  titulo: "Artificial Intelligence", baixo: true },
+  { ano: 1958, x: 480,  titulo: "Perceptron" },
+  { ano: 1990, x: 860,  titulo: "Finding Structure in Time", baixo: true },
+  { ano: 2017, x: 1100, titulo: "Attention Is All You Need" },
+  { ano: 2020, x: 1270, titulo: "Few-Shot Learners", baixo: true },
+  { ano: 2022, x: 1440, titulo: "ReAct" },
+];
+/* A lacuna entre o Perceptron e 1990 (os invernos da IA): flocos de gelo sobre o trilho, no passo 1 da linha do tempo de 1958. */
+const BRACO = '<path d="M0 0 V-40 M0 -26 L-10 -36 M0 -26 L10 -36 M0 -14 L-8 -22 M0 -14 L8 -22"/>';
+const FLOCO = `<svg viewBox="-46 -46 92 92" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">${
+  [0, 60, 120, 180, 240, 300].map((r) => `<g transform="rotate(${r})">${BRACO}</g>`).join("")}</g></svg>`;
+const LACUNA = [630, 700, 770];
+for (const s of document.querySelectorAll(".slide.linha-do-tempo")) {
+  const ate = parseInt(s.dataset.ate || "0", 10);
+  const trilho = document.createElement("div"); trilho.className = "trilho"; s.append(trilho);
+  MARCOS.forEach((m) => {
+    const feito = m.ano <= ate;
+    const d = document.createElement("div");
+    d.className = "marco" + (m.baixo ? " baixo" : "") + (feito ? " preenchido" : "") + (feito && m.largo ? " largo" : "");
+    d.style.left = m.x + "px";
+    d.dataset.ano = m.ano;
+    d.innerHTML = `<p class="o-que">${feito ? m.titulo : "?"}</p><span class="ponto"></span><p class="ano">${m.ano}</p>`;
+    s.append(d);
+  });
+  if (s.dataset.lacuna !== undefined) {
+    LACUNA.forEach((x) => {
+      const q = document.createElement("p");
+      q.className = "lacuna passo"; q.dataset.passo = "1"; q.style.left = x + "px"; q.innerHTML = FLOCO;
+      s.append(q);
+    });
+  }
+}
+/* Clicar num ponto da linha do tempo leva ao slide da linha do tempo de logo antes daquele marco ser revelado
+   (o último slide .linha-do-tempo com data-ate igual ao ano do marco anterior). */
+document.addEventListener("click", (ev) => {
+  const m = ev.target.closest && ev.target.closest(".linha-do-tempo .marco");
+  if (!m) return;
+  const k = MARCOS.findIndex((x) => x.ano === parseInt(m.dataset.ano, 10));
+  const antes = k > 0 ? String(MARCOS[k - 1].ano) : "";
+  let alvo = -1;
+  window.deck.slides.forEach((s, i) => { if (s.classList.contains("linha-do-tempo") && (s.dataset.ate || "") === antes) alvo = i; });
+  if (alvo >= 0) window.deck.ir(alvo);
+});
+/* Jogo da imitação: a cena inteira num slide, contada em passos.
+   0 = a cena · 1 = "Quem é quem?" · 2 = os papéis · 3 = a máquina entra no lugar do homem.
+   A pergunta do interrogador não muda: o jogo continua sendo descobrir quem é quem. */
+const COR = { roxo: "#2e2640", verde: "#89cea5", pele: "#caced6", cinza: "#b2b6bf", coral: "#ff4545", branco: "#ffffff" };
+const corpo = (cor) => `<path d="M28 300 V236 Q28 176 100 176 Q172 176 172 236 V300 Z" fill="${cor}"/>`;
+const FIGURAS = {
+  homem: `<svg viewBox="0 0 200 300">${corpo(COR.roxo)}<circle cx="100" cy="104" r="50" fill="${COR.pele}"/>
+          <path d="M52 98 Q52 50 100 50 Q148 50 148 98 Q138 72 100 70 Q62 72 52 98 Z" fill="${COR.roxo}"/></svg>`,
+  mulher: `<svg viewBox="0 0 200 300">${corpo(COR.roxo)}
+          <path d="M42 112 Q38 46 100 44 Q162 46 158 112 L160 150 Q160 162 148 162 L52 162 Q40 162 40 150 Z" fill="${COR.roxo}"/>
+          <circle cx="100" cy="110" r="44" fill="${COR.pele}"/>
+          <path d="M56 104 Q58 60 104 58 Q146 60 146 100 Q120 92 98 70 Q86 92 56 104 Z" fill="${COR.roxo}"/></svg>`,
+  interrogador: `<svg viewBox="0 0 200 300">${corpo(COR.verde)}<circle cx="100" cy="104" r="50" fill="${COR.pele}"/>
+          <path d="M52 98 Q52 50 100 50 Q148 50 148 98 Q138 72 100 70 Q62 72 52 98 Z" fill="${COR.verde}"/>
+          <rect x="20" y="262" width="160" height="38" rx="6" fill="${COR.cinza}"/></svg>`,
+  maquina: `<svg viewBox="0 0 200 300"><line x1="100" y1="22" x2="100" y2="52" stroke="${COR.roxo}" stroke-width="6"/>
+          <circle cx="100" cy="18" r="10" fill="${COR.coral}"/>
+          <rect x="44" y="52" width="112" height="100" rx="18" fill="${COR.pele}" stroke="${COR.roxo}" stroke-width="6"/>
+          <circle cx="78" cy="96" r="11" fill="${COR.roxo}"/><circle cx="122" cy="96" r="11" fill="${COR.roxo}"/>
+          <rect x="72" y="124" width="56" height="10" rx="5" fill="${COR.roxo}"/>
+          <rect x="30" y="170" width="140" height="130" rx="18" fill="${COR.roxo}"/>
+          <rect x="70" y="200" width="60" height="40" rx="6" fill="${COR.pele}"/></svg>`,
+};
+const carta = (x, y, r) => `<g transform="translate(${x} ${y}) rotate(${r})">
+  <rect x="-62" y="-42" width="124" height="84" rx="6" fill="${COR.branco}" stroke="${COR.cinza}" stroke-width="2"/>
+  <line x1="-40" y1="-16" x2="40" y2="-16" stroke="${COR.cinza}" stroke-width="5" stroke-linecap="round"/>
+  <line x1="-40" y1="2" x2="40" y2="2" stroke="${COR.cinza}" stroke-width="5" stroke-linecap="round"/>
+  <line x1="-40" y1="20" x2="14" y2="20" stroke="${COR.cinza}" stroke-width="5" stroke-linecap="round"/></g>`;
+const CARTAS = (id) => `<svg viewBox="0 0 380 220">
+  <defs><marker id="ponta-${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="${COR.coral}"/></marker></defs>
+  <line x1="10" y1="40" x2="370" y2="40" stroke="${COR.coral}" stroke-width="4" stroke-dasharray="10 10" marker-end="url(#ponta-${id})"/>
+  <line x1="370" y1="190" x2="10" y2="190" stroke="${COR.coral}" stroke-width="4" stroke-dasharray="10 10" marker-end="url(#ponta-${id})"/>
+  ${carta(150, 82, -7)}${carta(232, 146, 6)}</svg>`;
+/* Atributos de passo: entra no passo `entra` e, se houver, sai no passo `sai`. */
+const passo = (entra, sai) => `data-passo="${entra}"` + (sai ? ` data-sai="${sai}"` : "");
+function figura(x, tipo, nome, passos) {
+  return `<div class="figura${passos ? " passo" : ""}" ${passos || ""} style="left:${x}px">${FIGURAS[tipo]}<p class="nome">${nome}</p></div>`;
+}
+for (const s of document.querySelectorAll(".slide.jogo")) {
+  s.insertAdjacentHTML("beforeend", [
+    `<div class="parede"></div>`, `<div class="cartas">${CARTAS(s.id)}</div>`,
+    figura(360, "interrogador", "Interrogador"),
+    figura(1000, "homem", "Homem", passo(0, 3)),
+    figura(1000, "maquina", "Máquina", passo(3)),
+    figura(1320, "mulher", "Mulher"),
+    `<p class="balao passo" ${passo(1)}>Quem é quem?</p>`,
+    `<p class="papel engana passo" ${passo(2)} style="left:1000px">tenta enganar</p>`,
+    `<p class="papel verdade passo" ${passo(2)} style="left:1320px">fala a verdade</p>`,
+  ].join(""));
+}
+/* Agenda do workshop: definida UMA vez aqui. Cada slide .agenda marca o item atual com data-agora (a partir de 0).
+   Clicar num item leva ao slide de agenda daquele item (deck.js). */
+const AGENDA = ["Desmistificando a IA", "Processos acadêmicos", "Desenhando um fluxo"];
+for (const s of document.querySelectorAll(".slide.agenda")) {
+  const agora = parseInt(s.dataset.agora, 10);
+  const lista = AGENDA.map((t, i) =>
+    `<p class="item${i < agora ? " passou" : i === agora ? " agora" : ""}"><span class="marcador">${String(i + 1).padStart(2, "0")}</span>${t}</p>`).join("");
+  s.insertAdjacentHTML("beforeend", `<div class="itens"><p class="rotulo-agenda">Agenda</p>${lista}</div>`);
+}
+</script>
+<script>
+/* Atenção × recorrência: a frase e as posições são calculadas aqui; o slide só tem o <svg>. */
+const FRASE_ATENCAO = ["O", "livro", "que", "o", "professor", "indicou", "na", "aula", "era", "ótimo"];
+const ORIGEM = 1, FOCO = 8;   /* "livro" e "era" */
+for (const svg of document.querySelectorAll("#atencao svg.diagrama")) {
+  const NS = "http://www.w3.org/2000/svg", GAP = 16, Y = 330, H = 76, YC = 560, R = 26;
+  const larg = FRASE_ATENCAO.map((w) => 20 * w.length + 36);
+  const total = larg.reduce((a, b) => a + b, 0) + GAP * (larg.length - 1);
+  let x = (1600 - total) / 2;
+  const cx = larg.map((w) => { const c = x + w / 2; x += w + GAP; return c; });
+  const el = (tag, attrs, pai) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); pai.append(e); return e; };
+  el("defs", {}, svg).innerHTML = '<marker id="seta-at" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2e2640"/></marker>';
+  /* Passo 0: a cadeia da rede recorrente */
+  const cadeia = el("g", { class: "passo", "data-passo": "0", "data-sai": "1" }, svg);
+  FRASE_ATENCAO.forEach((w, i) => {
+    const g = el("g", { class: "seq", style: `--i:${i}` }, cadeia);
+    el("line", { x1: cx[i], y1: Y + H + 8, x2: cx[i], y2: YC - R - 10, stroke: "#2e2640", "stroke-width": 4, "marker-end": "url(#seta-at)" }, g);
+    if (i > 0) el("line", { x1: cx[i - 1] + R + 6, y1: YC, x2: cx[i] - R - 10, y2: YC, stroke: "#2e2640", "stroke-width": 4, "marker-end": "url(#seta-at)" }, g);
+    el("circle", { cx: cx[i], cy: YC, r: R, fill: "#ffffff", stroke: "#2e2640", "stroke-width": 4 }, g);
+    /* o que se sabe de "livro": forte logo depois dele, mais fraco a cada passo */
+    if (i >= ORIGEM) el("circle", { cx: cx[i], cy: YC, r: R - 2, fill: "#ff4545", opacity: Math.pow(0.72, i - ORIGEM).toFixed(2) }, g);
+  });
+  /* Passo 1: os arcos de atenção saindo de "era" */
+  const arcos = el("g", { class: "passo", "data-passo": "1" }, svg);
+  /* os arcos curtos saem por cima das caixas; os longos, por baixo, para equilibrar o slide */
+  FRASE_ATENCAO.forEach((w, i) => {
+    if (i === FOCO) return;
+    const d = Math.abs(cx[FOCO] - cx[i]), longo = Math.abs(FOCO - i) > 3;
+    const y0 = longo ? Y + H + 6 : Y - 6, curva = longo ? y0 + 30 + d * 0.32 : y0 - 30 - d * 0.32;
+    const forte = i === ORIGEM;
+    el("path", { d: `M${cx[FOCO]} ${y0} Q${(cx[FOCO] + cx[i]) / 2} ${curva} ${cx[i]} ${y0}`, fill: "none",
+      stroke: forte ? "#ff4545" : "#b2b6bf", "stroke-width": forte ? 10 : (i === 4 ? 5 : 3), "stroke-linecap": "round" }, arcos);
+  });
+  /* As palavras, por cima de tudo */
+  FRASE_ATENCAO.forEach((w, i) => {
+    const g = el("g", { class: "palavra" + (i === ORIGEM ? " origem" : i === FOCO ? " foco" : "") }, svg);
+    el("rect", { x: cx[i] - larg[i] / 2, y: Y, width: larg[i], height: H, rx: 14 }, g);
+    el("text", { x: cx[i], y: Y + H / 2 + 11, "text-anchor": "middle" }, g).textContent = w;
+  });
+}
+</script>
+<script>
+/* Camadas da janela de contexto, interativo: escrever outro pedido na mensagem atual e apertar Enter
+   carrega no turno do modelo a skill que combina com ele, se houver. */
+for (const s of document.querySelectorAll("#camadas")) {
+  const pedido = s.querySelector(".pedido"), chip = s.querySelector(".chip-t.sk"), skills = Array.from(s.querySelectorAll(".skill-c"));
+  /* palavras-chave de cada skill, na ordem da estante */
+  const CHAVES = [/relat[óo]rio|mensal|indicadores/i, /\bata\b|reuni[ãa]o/i, /proposta|or[çc]amento|comercial/i];
+  pedido.addEventListener("keydown", (ev) => {
+    if (ev.key !== "Enter") return;
+    ev.preventDefault(); pedido.blur();
+    const i = window.deck.slides.indexOf(s);
+    if (parseInt(s.dataset.estado || "0", 10) < window.deck.passos(i)) window.deck.ir(i, true, Infinity);
+    s.classList.add("interagiu");
+    const k = CHAVES.findIndex((re) => re.test(pedido.textContent));
+    skills.forEach((el, j) => el.classList.toggle("ligada", j === k));
+    chip.classList.toggle("ligada", k >= 0);
+    if (k >= 0) chip.textContent = "skill: " + skills[k].dataset.curto;
+  });
+}
+</script>
+<script>
+/* Personas dos processos acadêmicos: fonte única do slide #personas. */
+const PERSONAS = [
+  { nome: "Germano", cargo: "Professor orientador",
+    dor: "Corrigir projetos complexos que vivem num repositório. A IA não considera tudo o que o aluno fez, e ele precisa julgar organização e a contribuição de cada um.",
+    tem: ["repositório", "commits", "documentação", "critérios de avaliação"] },
+  { nome: "Prof. Carvalho", ini: "C", cargo: "Professor instrutor",
+    dor: "Criar questões de prova no modelo ENADE. A IA erra, gera conflitos, foge do modelo e não acerta o nível de dificuldade que ele quer.",
+    tem: ["conteúdo da disciplina", "modelo ENADE", "nível de dificuldade"] },
+  { nome: "Laís", cargo: "Professora instrutora",
+    dor: "Fazer bons materiais de aula. Com IA, a apresentação sai genérica, com cara de gerada por IA, e atrapalha mais do que ajuda.",
+    tem: ["plano de aula", "materiais anteriores", "identidade visual"] },
+  { nome: "Enrico", cargo: "Escritório de projetos",
+    dor: "Ligar cada empresa captada ao projeto certo da graduação. Ele tem o descritivo de cada módulo, mas falta conhecimento específico de cada área.",
+    tem: ["leads de empresas", "descritivos dos módulos"] },
+  { nome: "Elisane", cargo: "Coordenadora do último ano",
+    dor: "Parear alunos e professores supervisores pelo tema de cada aluno e pela expertise de cada professor. Depois, o mesmo problema nas bancas.",
+    tem: ["temas dos alunos", "expertise dos professores", "agenda das bancas"] },
+  { nome: "Luara", cargo: "Especialista de desenvolvimento e carreira",
+    dor: "Acompanhar muitos alunos. Os dados estão organizados em dashboards, mas, no volume, sinais de alerta passam despercebidos até virar problema.",
+    tem: ["dashboards", "notas", "histórico de atendimentos", "onde trabalha"] },
+];
+for (const s of document.querySelectorAll("#personas")) {
+  const lista = s.querySelector(".lista-p"), ficha = s.querySelector(".ficha-p");
+  const abrir = (k) => {
+    lista.querySelectorAll(".item-p").forEach((el, j) => el.classList.toggle("ativo", j === k));
+    const p = PERSONAS[k];
+    ficha.classList.remove("aberta");
+    ficha.innerHTML = '<p class="cargo"></p><p class="nome"></p><p class="rot">a dor</p><p class="dor"></p><p class="rot">o que já existe</p><p class="tem"></p>';
+    ficha.querySelector(".cargo").textContent = p.cargo;
+    ficha.querySelector(".nome").textContent = p.nome;
+    ficha.querySelector(".dor").textContent = p.dor;
+    for (const t of p.tem) { const c = document.createElement("span"); c.textContent = t; ficha.querySelector(".tem").append(c); }
+    void ficha.offsetWidth; ficha.classList.add("aberta");
+  };
+  PERSONAS.forEach((p, k) => {
+    const el = document.createElement("p"); el.className = "item-p";
+    el.innerHTML = '<span class="ini"></span><span class="nm"></span>';
+    el.querySelector(".ini").textContent = p.ini || p.nome[0];
+    el.querySelector(".nm").textContent = p.nome;
+    el.addEventListener("click", (ev) => { ev.stopPropagation(); abrir(k); });
+    lista.append(el);
+  });
+}
+</script>
+<script src="tokens-vocab.js"></script>
+<script src="tokenizador.js"></script>
+<script>
+/* Tokens: monta os pedaços com o tokenizador real. Agrupa os pedaços por palavra (um token que começa com espaço abre
+   uma palavra nova) e junta num pedaço só, tracejado, os tokens que cortam um caractere no meio dos bytes. */
+function montarTokens(alvo, texto, modelo) {
+  const toks = tokenizar(texto, modelo), dec = new TextDecoder("utf-8", { fatal: true });
+  const unidades = [];
+  let buf = [], n = 0;
+  for (const t of toks) {
+    buf.push(...t); n++;
+    let txt; try { txt = dec.decode(Uint8Array.from(buf)); } catch { continue; }
+    unidades.push({ txt, n }); buf = []; n = 0;
+  }
+  alvo.replaceChildren();
+  let pal = null;
+  for (const u of unidades) {
+    const novo = /^\s/.test(u.txt) || !pal;
+    const txt = u.txt.replace(/^ /, "");
+    if (novo) { pal = document.createElement("span"); pal.className = "pal"; alvo.append(pal); }
+    if (!txt.trim()) continue;
+    const i = document.createElement("i");
+    i.textContent = txt;
+    if (u.n > 1) { i.className = "bytes"; const sup = document.createElement("sup"); sup.textContent = u.n; i.append(sup); }
+    pal.append(i);
+  }
+  alvo.classList.toggle("miudo", toks.length > 14);
+  return toks.length;
+}
+const contaTk = (n) => `${n} token${n === 1 ? "" : "s"}`;
+/* Slide interativo: a frase editável e o seletor de tokenizador, que vale para tudo no slide */
+for (const s of document.querySelectorAll("#token")) {
+  const frase = s.querySelector(".inteira"), alvo = s.querySelector("[data-tk-alvo]"), conta = s.querySelector(".saida-tk .conta-tk");
+  let modelo = "gpt3";
+  const atualizar = () => {
+    conta.textContent = contaTk(montarTokens(alvo, frase.textContent.replace(/\s+/g, " ").trim(), modelo));
+    for (const el of s.querySelectorAll("[data-tk-texto]")) montarTokens(el, el.dataset.tkTexto, modelo);
+    for (const el of s.querySelectorAll("[data-tk-conta]")) el.textContent = contaTk(tokenizar(el.dataset.tkConta, modelo).length);
+  };
+  const revelar = () => { const i = window.deck.slides.indexOf(s); if (parseInt(s.dataset.estado || "0", 10) < 1) window.deck.ir(i, true, 1); };
+  frase.addEventListener("keydown", (ev) => {
+    if (ev.key !== "Enter") return;
+    ev.preventDefault(); frase.blur(); atualizar(); revelar();
+  });
+  frase.addEventListener("paste", (ev) => { ev.preventDefault(); document.execCommand("insertText", false, ev.clipboardData.getData("text/plain").replace(/\s+/g, " ")); });
+  for (const b of s.querySelectorAll("[data-modelo-tk]")) b.addEventListener("click", (ev) => {
+    ev.stopPropagation(); modelo = b.dataset.modeloTk;
+    for (const x of s.querySelectorAll("[data-modelo-tk]")) x.classList.toggle("ativo", x === b);
+    atualizar();
+  });
+  atualizar();
+}
+</script>
+<script src="../../design-system/js/deck.js"></script>
+</body>
+</html>
