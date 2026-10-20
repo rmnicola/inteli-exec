@@ -4,7 +4,7 @@
 Saída em _site/: index.html com a lista dos cursos visíveis e, para cada curso
 publicável, <slug>/ com a página do curso, a apresentação (copiada de
 <pasta>/<apresentacao>), os materiais e, se houver <pasta>/preparacao.json,
-a página de preparação. Cada curso tem a própria senha (senha_sha256).
+a página de preparação. Curso com senha_sha256 ganha uma tela de senha.
 Cursos com "oculto": true não aparecem no índice e pedem aos buscadores que
 não os indexem; com "rascunho": true ficam fora do site publicado.
 

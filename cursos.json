@@ -8,7 +8,6 @@
     {
       "slug": "essencial-na-pratica",
       "pasta": "essencial-na-pratica",
-      "senha_sha256": "543dd9998224824d2fcf3e795e35bfa0a8cf3de55a1faaaa98703359451713ea",
       "titulo": "AI for Business: Essencial na Prática",
       "subtitulo": "Um dia de construção e um ciclo de 30 dias",
       "proposito": "Transformar um problema real do seu trabalho em uma solução de IA que funcione, mantendo o julgamento sobre o que a tecnologia deve e não deve decidir.",
@@ -28,15 +27,22 @@
     },
     {
       "slug": "ferramentas-em-acao",
-      "senha_sha256": "5bc35c47b2185197585f45003c02042cc04cb6dd2e7d997179892336df351c73",
       "titulo": "AI for Business: Ferramentas em Ação",
-      "subtitulo": "Em preparação"
+      "subtitulo": "Dois dias de construção e um ciclo de 90 dias",
+      "pasta": "ferramentas-em-acao",
+      "apresentacao": "apresentacao/dist/index.html",
+      "materiais": [
+        {
+          "rotulo": "Learning Log",
+          "tipo": "PDF preenchível",
+          "arquivo": "learning-log/learning-log.pdf"
+        }
+      ]
     },
     {
       "slug": "professores",
       "pasta": "professores",
       "oculto": true,
-      "senha_sha256": "cc33f544484242a684e5d572341258e53c219760ed300b6faff4a81257a364bc",
       "titulo": "Uso de IA nos processos acadêmicos",
       "subtitulo": "Workshop para professores",
       "apresentacao": "apresentacao/dist/index.html"

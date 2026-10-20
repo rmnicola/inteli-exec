@@ -436,5 +436,115 @@
       "slide": 41,
       "tipo": "agenda"
     }
+  ],
+  "ferramentas-em-acao/apresentacao/deck.html": [
+    {
+      "slide": 1,
+      "tipo": "boas-vindas"
+    },
+    {
+      "slide": 2,
+      "tipo": "agenda"
+    },
+    {
+      "slide": 3,
+      "tipo": "sob medida: atividade-com-cronometro"
+    },
+    {
+      "slide": 4,
+      "tipo": "sob medida: manchete"
+    },
+    {
+      "slide": 5,
+      "tipo": "sob medida: manchete-e-conversa"
+    },
+    {
+      "slide": 6,
+      "tipo": "sob medida: feedback-com-vazamento"
+    },
+    {
+      "slide": 7,
+      "tipo": "sob medida: padrao-de-protecao"
+    },
+    {
+      "slide": 8,
+      "tipo": "sob medida: padrao-de-protecao"
+    },
+    {
+      "slide": 9,
+      "tipo": "sob medida: padrao-de-protecao"
+    },
+    {
+      "slide": 10,
+      "tipo": "sob medida: padrao-de-protecao"
+    },
+    {
+      "slide": 11,
+      "tipo": "sob medida: padrao-de-protecao"
+    },
+    {
+      "slide": 12,
+      "tipo": "sob medida: perguntas-da-camada"
+    },
+    {
+      "slide": 13,
+      "tipo": "agenda"
+    },
+    {
+      "slide": 14,
+      "tipo": "sob medida: atividade-com-cronometro"
+    },
+    {
+      "slide": 15,
+      "tipo": "agenda"
+    },
+    {
+      "slide": 16,
+      "tipo": "agenda"
+    },
+    {
+      "slide": 17,
+      "tipo": "ideia"
+    },
+    {
+      "slide": 18,
+      "tipo": "sob medida: cliente-servidor"
+    },
+    {
+      "slide": 19,
+      "tipo": "sob medida: cliente-servidor"
+    },
+    {
+      "slide": 20,
+      "tipo": "sob medida: cliente-servidor"
+    },
+    {
+      "slide": 21,
+      "tipo": "sob medida: arquitetura-mcp"
+    },
+    {
+      "slide": 22,
+      "tipo": "sob medida: terminal"
+    },
+    {
+      "slide": 23,
+      "tipo": "sob medida: issue-e-conversa"
+    },
+    {
+      "slide": 24,
+      "tipo": "agenda"
+    },
+    {
+      "slide": 25,
+      "tipo": "agenda"
+    },
+    {
+      "slide": 26,
+      "tipo": "sob medida: instrucao-de-laboratorio"
+    },
+    {
+      "slide": 27,
+      "tipo": "sob medida: ficha-preenchida"
+    }
   ]
 }

@@ -106,7 +106,8 @@ Veja o slide `#jogo-da-imitacao` no deck do Essencial na Prática.
    - o logo certo para a identidade e para o fundo;
    - se dá para ler em 30 segundos.
 6. **Mostre ao professor e peça aprovação** antes de passar ao próximo slide. Diga em uma linha o que o slide faz, se é ponto de partida ou sob medida, e o que ficou nas notas.
-7. Ao final, rode o comando sem `--slide` para gerar o `dist/index.html` (o que o site publica) e o PDF, e revise todas as imagens de novo. O CI não gera decks: o `dist/index.html` precisa ser commitado atualizado. Para publicar, siga a skill `cursos-site`.
+7. Ao final, rode o comando sem `--slide` para gerar o `dist/index.html` (o que o site publica) e o PDF, e revise todas as imagens de novo. O CI não gera decks: o `dist/index.html` precisa ser commitado atualizado.
+8. **Mostre o deck na prévia do site, nunca pelo `dist/`.** Registre ou atualize o curso em `cursos.json` (`pasta`, `"apresentacao": "apresentacao/dist/index.html"` e, enquanto estiver em andamento, `"rascunho": true`) e suba a prévia em segundo plano, seguindo a skill `cursos-site`: `python3 tools/gerar_site.py --previa` (porta 8000; derrube outra prévia que esteja nela). Indique ao professor o endereço da página do curso, por exemplo `http://localhost:8000/<slug>/`. A prévia gera o site uma vez ao subir: depois de um novo build do deck, reinicie-a. Commit e push publicam: só faça quando o professor pedir.
 
 ## Registro de uso e evolução dos templates
 

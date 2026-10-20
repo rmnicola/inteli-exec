@@ -21,3 +21,7 @@ template/
 
 # Artigos de referência: cópias de terceiros, ficam só locais
 referencias/artigos/*.pdf
+
+# Saídas geradas pelos agentes dos casos
+ferramentas-em-acao/casos/*/agente/saida/*
+!ferramentas-em-acao/casos/*/agente/saida/.gitkeep
