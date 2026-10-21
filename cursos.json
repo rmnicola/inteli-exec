@@ -36,6 +36,31 @@
           "rotulo": "Learning Log",
           "tipo": "PDF preenchível",
           "arquivo": "learning-log/learning-log.pdf"
+        },
+        {
+          "rotulo": "Conectando um servidor MCP",
+          "tipo": "passo a passo",
+          "link": "conectar-mcp/"
+        },
+        {
+          "rotulo": "Criando uma skill",
+          "tipo": "passo a passo",
+          "link": "criar-skill/"
+        },
+        {
+          "rotulo": "Instruções do projeto",
+          "tipo": "passo a passo",
+          "link": "instrucoes-projeto/"
+        },
+        {
+          "rotulo": "Um agente adversário",
+          "tipo": "passo a passo",
+          "link": "agente-adversario/"
+        },
+        {
+          "rotulo": "Agendando uma tarefa",
+          "tipo": "passo a passo",
+          "link": "agendar-tarefa/"
         }
       ]
     },
@@ -43,14 +68,26 @@
       "slug": "professores",
       "pasta": "professores",
       "oculto": true,
+      "instituicao": "Inteli",
       "titulo": "Uso de IA nos processos acadêmicos",
       "subtitulo": "Workshop para professores",
-      "apresentacao": "apresentacao/dist/index.html",
-      "materiais": [
+      "aulas": [
         {
-          "rotulo": "Learning Log",
-          "tipo": "PDF preenchível",
-          "arquivo": "learning-log/learning-log.pdf"
+          "slug": "primeiros-passos",
+          "titulo": "Primeiros passos",
+          "apresentacao": "apresentacao/dist/index.html",
+          "materiais": [
+            {
+              "rotulo": "Learning Log",
+              "tipo": "PDF preenchível",
+              "arquivo": "learning-log/learning-log.pdf"
+            }
+          ]
+        },
+        {
+          "slug": "dominando-as-ferramentas",
+          "titulo": "Dominando as ferramentas",
+          "em_breve": true
         }
       ]
     }

@@ -186,9 +186,19 @@ p { margin: 0.75rem 0 0; }
 .etapa::after { content: ""; position: absolute; left: calc(1.125rem - 1px); top: 2.85rem; bottom: 0.6rem; border-left: 2px solid var(--borda-fraca); }
 .etapa:last-child { padding-bottom: 0; }
 .etapa:last-child::after { display: none; }
-.etapa > h2 { font-size: 1.375rem; line-height: 2.25rem; margin: 0 0 0.5rem; }
-.etapa > * + * { margin-top: 1rem; }
+.etapa > h2, .etapa > .variante > h2 { font-size: 1.375rem; line-height: 2.25rem; margin: 0 0 0.5rem; }
+.etapa > * + *, .etapa > .variante > * + * { margin-top: 1rem; }
 .etapa > .codigo + p, .etapa > .codigo + .codigo { margin-top: 1rem; }
+.etapa > .variante + .variante { margin-top: 0; }
+
+/* Seletor de variante ao lado do título do guia (como as abas do Starlight) */
+.titulo-guia { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; }
+.seletor { display: flex; flex-wrap: wrap; gap: 0 1.25rem; border-bottom: 1px solid var(--borda-fraca); }
+.seletor button { font: inherit; font-size: var(--t-pequeno); padding: 0.25rem 0; margin-bottom: -1px; border: 0; border-bottom: 2px solid transparent;
+  background: none; color: var(--texto); cursor: pointer; }
+.seletor button:hover { color: var(--texto-forte); }
+.seletor button[aria-selected="true"] { color: var(--texto-forte); border-bottom-color: var(--texto-forte); }
+.seletor button:focus-visible { outline: 2px solid var(--texto-forte); outline-offset: 2px; }
 .lista { margin: 0; padding-left: 1.25rem; }
 .lista li { margin: 0.35rem 0; }
 code { font-family: var(--fonte); color: var(--texto-forte); }
@@ -208,7 +218,16 @@ p code, li code { background: var(--fundo-fraco); border: 1px solid var(--borda-
 .terminal .pontos { position: absolute; left: 0.9rem; top: 50%; width: 0.55rem; height: 0.55rem; margin-top: -0.275rem; border-radius: 50%; background: var(--codigo-borda); box-shadow: 0.9rem 0 0 var(--codigo-borda), 1.8rem 0 0 var(--codigo-borda); }
 .codigo pre { margin: 0; padding: 1rem 1.25rem; overflow-x: auto; font: var(--t-pequeno)/1.75 var(--fonte); color: var(--codigo-texto); }
 .codigo code { color: inherit; background: none; border: 0; padding: 0; font: inherit; }
+.codigo pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 .saida { border-style: dashed; }
+/* Tabela de referência: nunca quebra uma linha da tabela em duas; em tela estreita, rola na horizontal */
+.tabela .rolagem { overflow-x: auto; }
+.tabela table { width: 100%; border-collapse: collapse; font-size: var(--t-pequeno); line-height: 1.6; color: var(--codigo-texto); }
+.tabela th, .tabela td { padding: 0.6rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--codigo-borda); }
+.tabela th { font-weight: 500; color: var(--codigo-titulo); white-space: nowrap; }
+.tabela tbody tr:last-child td { border-bottom: 0; }
+.tabela td:not(:last-child) { white-space: nowrap; }
+.tabela td:last-child { min-width: 18rem; }
 .saida .codigo-barra { border-bottom-style: dashed; }
 .sx-cmd { color: var(--sx-cmd); } .sx-kw { color: var(--sx-kw); } .sx-flag { color: var(--sx-flag); }
 .sx-str { color: var(--sx-str); } .sx-var { color: var(--sx-var); } .sx-op { color: var(--sx-op); }

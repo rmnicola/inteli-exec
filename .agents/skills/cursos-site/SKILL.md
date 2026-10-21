@@ -48,9 +48,11 @@ Em `cursos.json`, cada curso tem:
 | `titulo`, `subtitulo` | textos do índice e da página |
 | `proposito`, `objetivos` | frase de propósito e objetivos de aprendizagem (aceitam `código`, **forte**, *ênfase*) |
 | `apresentacao` | arquivo relativo à pasta, normalmente `apresentacao/dist/index.html`; vira `apresentacao.html` |
+| `instituicao` | opcional: troca "Inteli Exec" pelo nome dado (no topo, no rótulo e no rodapé) nas páginas do curso; o de professores usa "Inteli" |
+| `aulas` | em vez de `apresentacao` e `materiais` no curso: lista de aulas, cada uma com `slug`, `titulo`, `subtitulo` (opcional), `apresentacao` e `materiais`, ou com `"em_breve": true`, que só anuncia a aula. A página do curso vira o índice das aulas, como o índice do site, e cada aula publicada ganha a própria página em `/<slug>/<aula>/` (veja o curso `professores`) |
 | `materiais` | lista de `{rotulo, tipo, arquivo}` (arquivo da pasta, baixado) ou `{rotulo, tipo, link}` |
 
-Um `preparacao.json` na pasta do curso vira `/<slug>/preparacao/`, um passo a passo com comandos copiáveis (formato no docstring de `gerar_preparacao` e no projeto `pecege-ons`).
+Um `preparacao.json` na pasta do curso vira `/<slug>/preparacao/`, e cada `<pasta>/guias/<nome>.json` vira `/<slug>/<nome>/`: um passo a passo com comandos, código e prompts copiáveis, no mesmo formato do projeto `pecege-ons`. Cada passo aceita `titulo`, `texto` (lista; dois ou mais itens viram lista), `comandos` (terminal), `codigo` com `arquivo` (o título da barra, como o nome do arquivo ou "Prompt"), `saida` com `saida_titulo`, `tabela` (`titulo`, `cabecalho` e `linhas`: uma tabela HTML que não quebra as colunas, para gabaritos), `depois` e `aviso`; o guia aceita ainda `resumo`, `contexto` e `problemas` (pares sintoma e solução). Os textos aceitam `código`, **forte**, *ênfase* e [link](endereço). Um guia com `variantes` (`[{"id", "rotulo"}]`, por exemplo um aplicativo por variante) ganha um seletor ao lado do título, como as abas do Starlight: cada passo troca o que estiver em `"variantes": {id: {campos}}`, `{app}` em qualquer texto vira o rótulo da variante, e um problema com um terceiro item (o id) só aparece naquela variante. O link `<nome>/?app=<id>` abre já numa variante (veja `ferramentas-em-acao/guias/conectar-mcp.json`). Para o guia aparecer na página do curso, acrescente-o aos `materiais` com `"link": "<nome>/"` e um `tipo` como "passo a passo" ou "roteiro".
 
 O CI não roda o build dos decks (precisa de Chromium): `dist/index.html` precisa estar atualizado e commitado.
 

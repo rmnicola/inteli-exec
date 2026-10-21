@@ -1,0 +1,129 @@
+{
+  "titulo": "Agendando uma tarefa",
+  "variantes": [
+    {
+      "id": "claude-code",
+      "rotulo": "Claude Code"
+    },
+    {
+      "id": "codex",
+      "rotulo": "Codex"
+    },
+    {
+      "id": "antigravity",
+      "rotulo": "Antigravity"
+    }
+  ],
+  "resumo": "Fazer o {app} rodar um prompt sozinho, num horário marcado, sem ninguém pedir: o passo de assistente para agente.",
+  "contexto": "Uma tarefa agendada é um prompt com uma pasta e um horário. A cada execução, o aplicativo abre uma conversa nova, roda o prompt e guarda o resultado para você ler depois. O computador precisa estar ligado e o aplicativo aberto no horário: se não estiverem, a execução não acontece.",
+  "passos": [
+    {
+      "titulo": "Crie uma pasta para o teste",
+      "texto": [
+        "Crie uma pasta vazia chamada `agendada` em **Documentos**. A tarefa de teste vai escrever nela."
+      ]
+    },
+    {
+      "titulo": "Crie a tarefa",
+      "variantes": {
+        "claude-code": {
+          "texto": [
+            "No aplicativo **Claude**, aba **Code**, clique em **Scheduled** na barra lateral e depois em **New task → Set up manually**.",
+            "Em **Name**, escreva `registro de teste`. Nas instruções, cole o prompt abaixo.",
+            "Em **Advanced settings → General**, ligue **Only on this computer** e escolha a pasta `agendada` como **Local folder**.",
+            "Em **Trigger**, escolha **Hourly** para o teste e clique em **Create**."
+          ]
+        },
+        "codex": {
+          "texto": [
+            "No **Codex**, abra a pasta `agendada` como projeto.",
+            "Abra **Scheduled** na barra lateral e crie uma tarefa nova com o prompt abaixo, a cada hora. Se preferir, peça na própria conversa: *agende este prompt para rodar a cada hora nesta pasta*, seguido do prompt."
+          ]
+        },
+        "antigravity": {
+          "texto": [
+            "No **Antigravity**, abra a pasta `agendada`.",
+            "Crie uma tarefa agendada (**Scheduled Tasks**) com o prompt abaixo, o projeto `agendada` e a frequência de uma vez por hora."
+          ],
+          "aviso": "Não conseguimos conferir os menus de agendamento do Antigravity. Se os nomes forem outros, procure por *Scheduled* ou *Schedule*, e avise o professor."
+        }
+      },
+      "arquivo": "Prompt",
+      "codigo": "Acrescente ao arquivo registro.md uma linha com a data e a hora de agora e o número de arquivos desta pasta. Se o arquivo não existir, crie-o."
+    },
+    {
+      "titulo": "Rode uma vez agora",
+      "variantes": {
+        "claude-code": {
+          "texto": [
+            "Abra a tarefa e clique em **Run now**. Quando o aplicativo pedir permissão para escrever o arquivo, escolha **always allow** (permitir sempre): sem isso, as próximas execuções ficam paradas esperando você."
+          ]
+        },
+        "codex": {
+          "texto": [
+            "Rode a tarefa uma vez pelo menu dela, ou espere a primeira hora. Nas execuções agendadas o Codex não para para pedir aprovação: o que ele pode fazer depende do modo da pasta. Para escrever o arquivo, ele precisa poder editar a pasta do projeto."
+          ]
+        },
+        "antigravity": {
+          "texto": [
+            "Rode a tarefa uma vez, se houver a opção, ou espere a primeira hora. Aprove a escrita do arquivo se o Antigravity pedir."
+          ]
+        }
+      },
+      "saida": "2026-10-23 09:00 · 1 arquivo nesta pasta",
+      "saida_titulo": "registro.md, depois da primeira execução",
+      "depois": [
+        "Cada execução acrescenta uma linha. Se o arquivo não aparecer, abra o resultado da execução para ver onde ela parou."
+      ]
+    },
+    {
+      "titulo": "Leia o resultado",
+      "variantes": {
+        "claude-code": {
+          "texto": [
+            "Cada execução vira uma conversa na seção **Scheduled** da barra lateral. Abra a última para ver o que o agente fez e por quê."
+          ]
+        },
+        "codex": {
+          "texto": [
+            "Cada execução aparece na caixa **Scheduled** da barra lateral. Abra a última para ver o que o agente fez e por quê."
+          ]
+        },
+        "antigravity": {
+          "texto": [
+            "Cada execução vira uma conversa na barra lateral. Abra a última para ver o que o agente fez e por quê."
+          ]
+        }
+      }
+    },
+    {
+      "titulo": "Pause ou apague a tarefa",
+      "texto": [
+        "Uma tarefa agendada roda até alguém pará-la. Depois do teste, pause ou apague a tarefa no mesmo lugar onde a criou.",
+        "Para uma tarefa de verdade, troque o prompt e o horário: *toda segunda às 9h, resuma os arquivos novos da pasta `entrada` em `resumo-semanal.md`*, por exemplo. Antes de ligá-la, decida quem lê o resultado e o que faz o agente ser desligado."
+      ]
+    }
+  ],
+  "problemas": [
+    [
+      "A tarefa não rodou no horário.",
+      "O computador estava dormindo ou o aplicativo fechado. Ao reabrir, o Claude roda uma vez a última execução perdida. Em **Settings**, a opção **Keep computer awake** evita que o computador durma com o aplicativo aberto.",
+      "claude-code"
+    ],
+    [
+      "A tarefa não rodou no horário.",
+      "O computador precisa estar ligado e o Codex aberto no horário.",
+      "codex"
+    ],
+    [
+      "A tarefa não rodou no horário.",
+      "O computador precisa estar ligado e o Antigravity aberto no horário.",
+      "antigravity"
+    ],
+    [
+      "A execução ficou parada, esperando.",
+      "Ela pediu uma permissão que ninguém deu. Abra a execução, aprove, e escolha permitir sempre só para a ação de que a tarefa precisa.",
+      "claude-code"
+    ]
+  ]
+}

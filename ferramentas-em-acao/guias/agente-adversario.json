@@ -1,0 +1,105 @@
+{
+  "titulo": "Um agente adversário",
+  "variantes": [
+    {
+      "id": "claude-code",
+      "rotulo": "Claude Code"
+    },
+    {
+      "id": "codex",
+      "rotulo": "Codex"
+    },
+    {
+      "id": "antigravity",
+      "rotulo": "Antigravity"
+    }
+  ],
+  "resumo": "Criar no {app} um segundo agente, o advogado do diabo, cujo único trabalho é derrubar o que recebe: uma proposta, um plano, a saída de outro agente.",
+  "contexto": "Um agente que revisa o próprio trabalho tende a concordar consigo mesmo. Um subagente começa do zero, com outras instruções, e só vê o que você entrega a ele. Aqui ele é adversário de propósito: procura premissas sem prova, números que não fecham e o caso que faz a proposta falhar.",
+  "passos": [
+    {
+      "titulo": "Crie uma pasta para o teste",
+      "texto": [
+        "Crie uma pasta vazia chamada `adversario` em **Documentos** e abra-a no {app}."
+      ]
+    },
+    {
+      "titulo": "Peça ao agente para criar o subagente",
+      "arquivo": "Prompt",
+      "variantes": {
+        "claude-code": {
+          "texto": [
+            "O Claude Code guarda cada subagente num arquivo `.claude/agents/advogado-do-diabo.md` dentro da pasta. Cole o prompt abaixo e aprove a criação do arquivo."
+          ],
+          "codigo": "Crie o arquivo .claude/agents/advogado-do-diabo.md com exatamente este conteúdo, sem mudar nada:\n\n---\nname: advogado-do-diabo\ndescription: Revisor adversário. Use para atacar uma proposta, um plano ou um texto e achar os pontos fracos antes que alguém de fora ache.\ntools: Read\n---\n\nVocê é um revisor adversário. Seu trabalho é derrubar o texto que recebeu, não melhorá-lo nem elogiá-lo.\n\nProcure:\n- as premissas que o texto dá como certas e não comprova;\n- os números que não se sustentam;\n- o que acontece quando algo dá errado, e quem responde por isso;\n- o caso concreto que faria a proposta falhar.\n\nResponda com os cinco pontos mais fracos, do mais grave para o menos grave. Para cada um: o trecho, por que é fraco e a pergunta que o autor precisa responder.\nNão reescreva o texto e não altere arquivos."
+        },
+        "codex": {
+          "texto": [
+            "O Codex guarda cada subagente num arquivo `.codex/agents/advogado-do-diabo.toml` dentro da pasta. Cole o prompt abaixo e aprove a criação do arquivo."
+          ],
+          "codigo": "Crie o arquivo .codex/agents/advogado-do-diabo.toml com exatamente este conteúdo, sem mudar nada:\n\nname = \"advogado-do-diabo\"\ndescription = \"Revisor adversário. Use para atacar uma proposta, um plano ou um texto e achar os pontos fracos antes que alguém de fora ache.\"\ndeveloper_instructions = \"\"\"\nVocê é um revisor adversário. Seu trabalho é derrubar o texto que recebeu, não melhorá-lo nem elogiá-lo.\n\nProcure:\n- as premissas que o texto dá como certas e não comprova;\n- os números que não se sustentam;\n- o que acontece quando algo dá errado, e quem responde por isso;\n- o caso concreto que faria a proposta falhar.\n\nResponda com os cinco pontos mais fracos, do mais grave para o menos grave. Para cada um: o trecho, por que é fraco e a pergunta que o autor precisa responder.\nNão reescreva o texto e não altere arquivos.\n\"\"\""
+        },
+        "antigravity": {
+          "texto": [
+            "O Antigravity guarda cada subagente num arquivo `.agents/agents/advogado-do-diabo.md` dentro da pasta. Cole o prompt abaixo e aprove a criação do arquivo."
+          ],
+          "codigo": "Crie o arquivo .agents/agents/advogado-do-diabo.md com exatamente este conteúdo, sem mudar nada:\n\n---\nname: advogado-do-diabo\ndescription: Revisor adversário. Use para atacar uma proposta, um plano ou um texto e achar os pontos fracos antes que alguém de fora ache.\nsubagent: true\n---\n\nVocê é um revisor adversário. Seu trabalho é derrubar o texto que recebeu, não melhorá-lo nem elogiá-lo.\n\nProcure:\n- as premissas que o texto dá como certas e não comprova;\n- os números que não se sustentam;\n- o que acontece quando algo dá errado, e quem responde por isso;\n- o caso concreto que faria a proposta falhar.\n\nResponda com os cinco pontos mais fracos, do mais grave para o menos grave. Para cada um: o trecho, por que é fraco e a pergunta que o autor precisa responder.\nNão reescreva o texto e não altere arquivos."
+        }
+      },
+      "depois": [
+        "A descrição diz quando chamar o subagente; o resto é o que ele faz. A última linha é a permissão mínima: ele só lê e não muda nada."
+      ]
+    },
+    {
+      "titulo": "Dê a ele uma proposta para atacar",
+      "texto": [
+        "Abra uma conversa nova, para o subagente ser carregado, e cole o prompt abaixo. A proposta tem pontos fracos de propósito."
+      ],
+      "arquivo": "Prompt",
+      "variantes": {
+        "claude-code": {
+          "codigo": "Use o advogado-do-diabo para atacar esta proposta:\n\nA partir de novembro, um agente de IA aprova sozinho os pedidos de reembolso de até R$ 1.000,00. Ele lê o pedido e o comprovante e decide pela política de reembolso. Como 80% dos pedidos ficam abaixo desse valor, a controladoria ganha 30 horas por mês. O agente foi testado com os pedidos de uma semana e acertou todos."
+        },
+        "codex": {
+          "codigo": "Peça ao subagente advogado-do-diabo para atacar esta proposta:\n\nA partir de novembro, um agente de IA aprova sozinho os pedidos de reembolso de até R$ 1.000,00. Ele lê o pedido e o comprovante e decide pela política de reembolso. Como 80% dos pedidos ficam abaixo desse valor, a controladoria ganha 30 horas por mês. O agente foi testado com os pedidos de uma semana e acertou todos."
+        },
+        "antigravity": {
+          "codigo": "Peça ao subagente advogado-do-diabo para atacar esta proposta:\n\nA partir de novembro, um agente de IA aprova sozinho os pedidos de reembolso de até R$ 1.000,00. Ele lê o pedido e o comprovante e decide pela política de reembolso. Como 80% dos pedidos ficam abaixo desse valor, a controladoria ganha 30 horas por mês. O agente foi testado com os pedidos de uma semana e acertou todos."
+        }
+      },
+      "saida": "1. \"Acertou todos em uma semana\": quantos pedidos? Havia recusas na\n   amostra? Quem definiu a resposta certa?\n2. O teto de R$ 1.000,00 convida a fracionar: uma despesa de R$ 2.400,00\n   vira três pedidos de R$ 800,00.\n3. Ler o comprovante não é validá-lo: quem confere se ele é verdadeiro?\n4. Quando o agente errar, quem responde pelo pagamento indevido?\n5. Os 80% e as 30 horas por mês vêm de onde?",
+      "saida_titulo": "Algo como",
+      "depois": [
+        "O texto muda de uma execução para outra. O que conta é que o subagente ataque, e não reescreva a proposta nem a elogie."
+      ]
+    },
+    {
+      "titulo": "Use o adversário no seu trabalho",
+      "texto": [
+        "Agora troque a proposta por um texto seu: o plano de automação do dia 1, a camada de governança do bloco 5, um e-mail importante. Peça ao advogado-do-diabo que o ataque antes de mandar para alguém.",
+        "Para usar o adversário em outra pasta, copie o arquivo do subagente para a mesma posição dentro dela."
+      ]
+    }
+  ],
+  "problemas": [
+    [
+      "O agente responde sozinho, sem chamar o subagente.",
+      "Abra uma conversa nova e chame o subagente pelo nome, como no passo 3. Confira também o caminho do arquivo: `.claude/agents/advogado-do-diabo.md`.",
+      "claude-code"
+    ],
+    [
+      "O agente responde sozinho, sem chamar o subagente.",
+      "Abra uma conversa nova e peça explicitamente ao *subagente* advogado-do-diabo. Confira também o caminho do arquivo: `.codex/agents/advogado-do-diabo.toml`, e reinicie o Codex se o arquivo for novo.",
+      "codex"
+    ],
+    [
+      "O agente responde sozinho, sem chamar o subagente.",
+      "Abra uma conversa nova e peça explicitamente ao *subagente* advogado-do-diabo. Confira também o caminho do arquivo: `.agents/agents/advogado-do-diabo.md`, e a linha `subagent: true` no cabeçalho.",
+      "antigravity"
+    ],
+    [
+      "O subagente reescreve a proposta em vez de atacá-la.",
+      "Reforce a instrução no arquivo dele, por exemplo: *Você nunca propõe uma versão melhor; só aponta o que está errado.*"
+    ]
+  ]
+}
