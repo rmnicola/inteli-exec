@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gera o learning-log.pdf do Ferramentas em Ação: cinco páginas preenchíveis, na identidade Inteli Exec.
+"""Gera o learning-log.pdf do Ferramentas em Ação: seis páginas preenchíveis, na identidade Inteli Exec.
 
 O documento conta a história do agente de cada participante, do dia 1 ao ciclo de 90 dias. Cada parte
 se preenche em 5 a 10 minutos, no momento indicado no selo, e é lida pelos colegas do trio.
@@ -21,7 +21,7 @@ LOGO = RAIZ / "design-system/assets/img/logo-exec-escuro-coral.png"
 FONTES = RAIZ / "essencial-na-pratica/builder-log/fontes"
 SAIDA = AQUI / "learning-log.pdf"
 sys.path.insert(0, str(RAIZ / "tools"))
-from formulario import campo, marca  # noqa: E402  padrão dos campos preenchíveis
+from formulario import caixa, campo, centralizar, marca  # noqa: E402  padrão dos campos preenchíveis
 
 for nome in ["Manrope-Regular", "Manrope-SemiBold", "Manrope-ExtraBold", "Platypi-Medium", "SpaceMono-Regular", "SpaceMono-Bold"]:
     pdfmetrics.registerFont(TTFont(nome, str(FONTES / f"{nome}.ttf")))
@@ -126,10 +126,14 @@ def pergunta(c, y, nome, rotulo, apoio, h):
 def pagina_1(c):
     cabecalho(c, 1)
     y = H - M - 78
+    # o trio: três pares de nome e empresa, um embaixo do outro
     texto(c, M, y, "Nome", "Manrope-SemiBold", 9, TEXTO_SUAVE)
     texto(c, M + 300, y, "Empresa", "Manrope-SemiBold", 9, TEXTO_SUAVE)
-    campo(c, "nome", M, y - 26, 285, 20)
-    campo(c, "empresa", M + 300, y - 26, L - 300, 20)
+    for k in range(1, 4):
+        campo(c, f"nome_{k}", M, y - 26, 285, 20, dica=f"Nome {k}")
+        campo(c, f"empresa_{k}", M + 300, y - 26, L - 300, 20, dica=f"Empresa {k}")
+        y -= 26
+    y += 26
 
     # como usar
     y -= 46
@@ -152,54 +156,97 @@ def pagina_1(c):
     rodape(c, 1)
 
 
+NIVEIS = [("nenhuma", "Nenhuma"), ("com-supervisao", "Com supervisão"), ("completa", "Completa")]
+LINHA_ETAPA = 70  # altura de uma linha da tabela de etapas: cabe o nível de automação empilhado
+
+
+def tabela_etapas(c, y, primeira):
+    """Tabela do plano, no padrão do Learning Log dos professores: etapa, contexto, ferramentas e nível de automação.
+    Preenche o espaço até o rodapé; devolve o número da próxima etapa."""
+    # os três campos de texto com a mesma largura; o nível de automação só com o necessário para "Com supervisão"
+    n_larg, larg_auto, vao, recuo_caixa = 18, 86, 10, 18
+    campo_larg = (L - n_larg - larg_auto - 3 * vao - 2 * recuo_caixa) / 3
+    cols = [("Etapa", "Uma ação pequena e concreta.", campo_larg + vao),
+            ("Contexto", "Marque se precisa e diga qual.", recuo_caixa + campo_larg + vao),
+            ("Ferramentas", "Marque se precisa e diga quais.", recuo_caixa + campo_larg + vao)]
+    xs, x = [], M + n_larg
+    for _, _, larg in cols:
+        xs.append(x)
+        x += larg
+    x_auto = x
+    for (rotulo, apoio, _), x in zip(cols, xs):
+        texto(c, x, y, rotulo, "Manrope-ExtraBold", 9.5, ROXO)
+        texto(c, x, y - 12, apoio, "Manrope-Regular", 8, TEXTO_SUAVE)
+    texto(c, x_auto, y + 11, "Nível de", "Manrope-ExtraBold", 9.5, ROXO)
+    texto(c, x_auto, y, "automação", "Manrope-ExtraBold", 9.5, ROXO)
+    texto(c, x_auto, y - 12, "Marque um.", "Manrope-Regular", 8, TEXTO_SUAVE)
+    y -= 18
+    i = primeira
+    while y - LINHA_ETAPA >= M + 4:
+        y -= LINHA_ETAPA
+        c.setStrokeColor(CINZA_CLARO)
+        c.setLineWidth(0.8)
+        c.line(M, y, M + L, y)
+        h = LINHA_ETAPA - 8
+        base = y + 4
+        texto(c, M, base + h / 2 - 4, str(i), "SpaceMono-Bold", 10, CORAL_TEXTO)
+        campo(c, f"etapa_{i}", xs[0], base, campo_larg, h, multilinha=True, dica=f"Etapa {i}")
+        for x, (chave, rotulo) in zip(xs[1:3], [("contexto", "contexto"), ("ferramenta", "ferramentas")]):
+            caixa(c, f"precisa_{chave}_{i}", x, base + h / 2 - 6, f"Etapa {i}: precisa de {rotulo}")
+            campo(c, f"{chave}_{i}", x + recuo_caixa, base, campo_larg, h, multilinha=True, dica=f"Etapa {i}: {rotulo} necessário(s)")
+        # os três níveis empilhados: a primeira caixa alinhada ao topo dos campos da linha, a última à base
+        passo_v = (h - 12) / 2
+        for k, (v, rotulo) in enumerate(NIVEIS):
+            yk = base + h - 12 - k * passo_v
+            marca(c, f"automacao_{i}", v, x_auto, yk, f"Etapa {i}: automação {rotulo.lower()}")
+            texto(c, x_auto + 17, yk + 3, rotulo, "Manrope-SemiBold", 9, ROXO)
+        i += 1
+    return i
+
+
 def pagina_2(c):
     cabecalho(c, 2)
     y = H - M - 72
     y = secao(c, y, 2, "A abordagem", DIA1, "No fim da manhã do dia 1, depois das cinco abordagens.")
     y = pergunta(c, y, "abordagem", "Que abordagem você escolheu, e por quê?",
                  "Assistente, automação, job, agente ou uma combinação. O que você considerou e deixou de lado?", 96)
-
     y -= 8
     y = secao(c, y, 3, "O plano, etapa por etapa", DIA1, "Na tarde do dia 1, junto com o Blueprint. Uma linha por etapa do processo.")
-    # cabeçalho da tabela
-    col_etapa, col_marca, col_onde = 150, 56, L - 150 - 3 * 56
-    xs = [M + col_etapa + i * col_marca for i in range(3)]
-    texto(c, M, y, "Etapa", "Manrope-ExtraBold", 9, ROXO)
-    for x, (l1, l2) in zip(xs, [("Pessoa", "faz"), ("Agente, com", "aprovação"), ("Agente", "sozinho")]):
-        c.setFont("Manrope-ExtraBold", 8)
-        c.setFillColor(ROXO)
-        c.drawCentredString(x + col_marca / 2, y + 4, l1)
-        c.drawCentredString(x + col_marca / 2, y - 6, l2)
-    texto(c, M + col_etapa + 3 * col_marca + 6, y, "Onde pode dar errado", "Manrope-ExtraBold", 9, ROXO)
-    y -= 16
-    linha_h = 30
-    for i in range(1, int((y - M - 10) / linha_h) + 1):
-        y -= linha_h
-        campo(c, f"etapa_{i}", M, y + 4, col_etapa - 8, linha_h - 8, multilinha=True, dica=f"Etapa {i}")
-        for x, v in zip(xs, ["pessoa", "agente-com-aprovacao", "agente-sozinho"]):
-            marca(c, f"quem_{i}", v, x + col_marca / 2 - 6, y + 9, f"Etapa {i}: {v.replace('-', ' ')}")
-        campo(c, f"onde_{i}", M + col_etapa + 3 * col_marca + 6, y + 4, col_onde - 6, linha_h - 8, multilinha=True, dica=f"Etapa {i}: onde pode dar errado")
+    proxima = tabela_etapas(c, y, 1)
     rodape(c, 2)
+    return proxima
 
 
-def pagina_3(c):
+def pagina_3(c, primeira):
     cabecalho(c, 3)
+    y = secao(c, H - M - 72, 3, "O plano, etapa por etapa", DIA1, "Continuação.")
+    tabela_etapas(c, y, primeira)
+    rodape(c, 3)
+
+
+def pagina_revisao(c, pagina):
+    cabecalho(c, pagina)
     y = H - M - 72
-    y = secao(c, y, 4, "A revisão do plano", DIA2, "No dia 2, depois dos casos de falha. Volte à tabela da parte 3.")
-    texto(c, M, y, "O que mudou no plano", "Manrope-ExtraBold", 10.5, ROXO)
-    y = paragrafo(c, M, y - 14, "Para cada risco que você encontrou: mudou a estratégia, passou a etapa para uma pessoa ou criou uma verificação?", L, tam=9) - 4
-    cols = [("Etapa", 120), ("O risco", 190), ("O que mudou", L - 310)]
+    y = secao(c, y, 4, "A revisão do plano", DIA2, "No dia 2, depois dos casos de falha. Volte às etapas da parte 3.")
+    texto(c, M, y, "O que pode dar errado", "Manrope-ExtraBold", 10.5, ROXO)
+    y = paragrafo(c, M, y - 14, "Uma linha por risco: o número da etapa, o que pode dar errado e a estratégia de mitigação. "
+                  "Mudar a estratégia, passar a etapa para uma pessoa ou criar uma verificação?", L, tam=9) - 4
+    cols = [("Etapa", "nº", 56), ("O que pode dar errado", "", 210), ("Estratégia de mitigação", "", L - 266)]
     x = M
-    for rotulo, larg in cols:
-        texto(c, x, y, rotulo, "Manrope-ExtraBold", 9, ROXO)
+    for rotulo, apoio, larg in cols:
+        texto(c, x, y, rotulo, "Manrope-ExtraBold", 9.5, ROXO)
         x += larg
     y -= 8
-    linha_h = 40
+    linha_h = 46
     for i in range(1, int((y - M - 190) / linha_h) + 1):
         y -= linha_h
         x = M
-        for j, (rotulo, larg) in enumerate(cols):
-            campo(c, f"revisao_{i}_{j}", x, y + 4, larg - 8, linha_h - 8, multilinha=True, dica=f"Linha {i}: {rotulo}")
+        for j, (rotulo, _, larg) in enumerate(cols):
+            if j == 0:
+                campo(c, f"revisao_{i}_etapa", x, y + 4, larg - 10, linha_h - 8, dica=f"Linha {i}: número da etapa", tam=14, centrado=True)
+            else:
+                folga = 10 if j < len(cols) - 1 else 0  # a última coluna vai até a margem, como os campos de baixo
+                campo(c, f"revisao_{i}_{'risco' if j == 1 else 'mitigacao'}", x, y + 4, larg - folga, linha_h - 8, multilinha=True, dica=f"Linha {i}: {rotulo}")
             x += larg
     y -= 24
 
@@ -208,22 +255,22 @@ def pagina_3(c):
     for nome, rotulo in [("antes", "Antes, eu deixaria o agente"), ("agora", "Agora,"), ("porque", "porque")]:
         larg = pdfmetrics.stringWidth(rotulo, "Manrope-SemiBold", 10) + 10
         texto(c, M, y - 12, rotulo, "Manrope-SemiBold", 10, ROXO)
-        campo(c, f"frase_{nome}", M + larg, y - 18, L - larg, 22, multilinha=True, dica=rotulo)
-        y -= 34
-    rodape(c, 3)
+        campo(c, f"frase_{nome}", M + larg, y - 20, L - larg, 26, multilinha=True, dica=rotulo)
+        y -= 36
+    rodape(c, pagina)
 
 
-def pagina_4(c):
-    cabecalho(c, 4)
+def pagina_adiante(c, pagina):
+    cabecalho(c, pagina)
     y = H - M - 72
     y = secao(c, y, 5, "Para levar adiante", DIA2, "No fim do dia 2, junto com o Pacto de Implantação.")
     y = pergunta(c, y, "marco_30", "O que vai estar rodando em 30 dias?", "E como alguém da sua empresa vai perceber que está.", 250)
-    pergunta(c, y, "para_a_turma", "O que da sua solução vale contar para a turma?", "Uma decisão que deu certo ou uma falha que ensinou alguma coisa.", y - M - 26 - 14 - 4)
-    rodape(c, 4)
+    pergunta(c, y, "validacao", "Como você vai validar que a solução funciona?", "O que você vai medir para dizer que deu certo, e como vai conferir que o agente faz o que deveria.", y - M - 26 - 14 - 4)
+    rodape(c, pagina)
 
 
-def pagina_5(c):
-    cabecalho(c, 5)
+def pagina_atualizacoes(c, pagina):
+    cabecalho(c, pagina)
     y = H - M - 72
     y = secao(c, y, 6, "Atualizações", CICLO, "Antes de cada encontro do ciclo. O encontro começa pela leitura destes registros.") - 10
     bloco_h = (y - M - 16) / 3
@@ -237,17 +284,24 @@ def pagina_5(c):
         h = bloco_h - (topo - y) - 14
         campo(c, f"atualizacao_{dias}", M, y - h + 4, L, h, multilinha=True, dica=f"Atualização de {dias} dias")
         y -= h + 14
-    rodape(c, 5)
+    rodape(c, pagina)
 
 
 def main():
     c = canvas.Canvas(str(SAIDA), pagesize=A4)
     c.setTitle("Learning Log · AI for Business: Ferramentas em Ação")
     c.setAuthor("Inteli Exec")
-    for pagina in (pagina_1, pagina_2, pagina_3, pagina_4, pagina_5):
-        pagina(c)
+    pagina_1(c)
+    c.showPage()
+    proxima = pagina_2(c)
+    c.showPage()
+    pagina_3(c, proxima)
+    c.showPage()
+    for n, pagina in enumerate((pagina_revisao, pagina_adiante, pagina_atualizacoes), 4):
+        pagina(c, n)
         c.showPage()
     c.save()
+    centralizar(SAIDA)
     print(SAIDA)
 
 
