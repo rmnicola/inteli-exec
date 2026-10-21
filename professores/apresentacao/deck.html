@@ -507,6 +507,29 @@
 #artigo-turing .secao { font-size: 32px; font-style: italic; margin-top: 46px; }
 #artigo-turing .frase { font-size: 38px; text-align: left; margin-top: 22px; text-indent: 1.5em; }
 #artigo-turing .frase .cap { font-variant: small-caps; letter-spacing: .04em; }
+
+/* ---- Atividade com cronômetro: a seta passa do passo 1 ao 2 antes de trocar de slide; o cronômetro só funciona no HTML ---- */
+.atividade .rotulo-termo { left: 120px; top: 110px; }
+.atividade .etapas { position: absolute; left: 120px; top: 0; bottom: 0; width: 840px; display: flex; flex-direction: column; justify-content: center; gap: 32px; }
+.atividade .etapa { display: flex; gap: 28px; align-items: flex-start; padding: 26px 30px; border-radius: 18px; border: 4px solid transparent; }
+.atividade .etapa.atual { border-color: var(--coral); background: var(--branco); }
+.atividade .etapa > b { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--coral); color: var(--branco); display: grid; place-items: center;
+  font-family: var(--f-destaque); font-size: 32px; }
+.atividade .etapa small { display: block; font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
+.atividade .etapa p { font-weight: 800; font-size: 42px; line-height: 1.2; margin-top: 6px; }
+.atividade .timer { position: absolute; left: 1060px; top: 0; bottom: 0; margin: auto 0; height: 420px; width: 420px; border-radius: 24px; background: var(--roxo);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; }
+.atividade .fase { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--verde); }
+.atividade .mostrador { font-family: var(--f-capitulo); font-size: 112px; line-height: 1; color: var(--branco); font-variant-numeric: tabular-nums; }
+.atividade .timer.fim .mostrador { color: var(--coral); animation: piscar 1s steps(2) infinite; }
+@keyframes piscar { 50% { opacity: .3; } }
+.atividade .ctl { display: flex; gap: 16px; }
+.atividade .ctl button { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; padding: 10px 22px; border-radius: 12px;
+  border: 3px solid var(--branco); background: transparent; color: var(--branco); cursor: pointer; }
+.atividade .ctl button[data-acao="alternar"] { background: var(--coral); border-color: var(--coral); }
+@media print { .atividade .timer { display: none; } .atividade .etapas { width: 1360px; } }
+#desenhar-fluxo[data-estado="0"] .e1, #desenhar-fluxo:not([data-estado]) .e1,
+#desenhar-fluxo[data-estado="1"] .e2 { border-color: var(--coral); background: var(--branco); }
 </style>
 </head>
 <body>
@@ -1057,7 +1080,20 @@
   <!-- Agenda: Desenhando um fluxo (conduzido por outro professor; sem slides neste deck) -->
   <section class="slide agenda curta" id="agenda-fluxo" data-agora="2">
     <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
-    <aside class="notas">Agenda: agora, desenhando um fluxo. Daqui em diante, a condução passa para o outro professor.</aside>
+    <aside class="notas">Agenda: agora, desenhando um fluxo. Antes da atividade, escolher uma das jornadas (por exemplo, a do Germano) e destrinchá-la junto com a turma, no quadro: etapas, contexto e ferramentas de cada etapa.</aside>
+  </section>
+
+  <!-- Desenhando um fluxo: atividade em dois passos (20 + 15 min); a seta passa do passo 1 ao 2; o cronômetro só funciona no HTML -->
+  <section class="slide atividade" id="desenhar-fluxo" data-modelo="atividade-com-cronometro" data-max-palavras="40">
+    <img class="logo" src="../../design-system/assets/img/logo-inteli-escuro-coral.png" alt="inteli">
+    <p class="rotulo-termo">Desenhando um fluxo · Learning Log</p>
+    <div class="etapas">
+      <div class="etapa e1"><b>1</b><div><small>Desenho · 20 min</small><p>Divida uma jornada em etapas.</p></div></div>
+      <div class="etapa e2"><b>2</b><div><small>Pesquisa · 15 min</small><p>Pesquise quais ferramentas resolvem cada etapa.</p></div></div>
+    </div>
+    <i class="passo" data-passo="1"></i>
+    <div class="timer" data-tempos="1200,900" data-fases="Passo 1,Passo 2"><p class="fase">Passo 1</p><p class="mostrador">20:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
+    <aside class="notas">Cada um preenche o Learning Log enquanto trabalha. Passo 1, 20 minutos: escolher uma jornada de trabalho, das seis sugeridas ou uma dor própria, e dividi-la em etapas pequenas. Para cada etapa: precisa de algum contexto específico? Precisa de alguma ferramenta específica? Qual o nível de automação: nenhuma, com supervisão ou completa? Passo 2, 15 minutos: para o fluxo desenhado, pesquisar, pode ser com a própria IA, que ferramentas estão disponíveis para cada etapa: basta um chat, um Gem ou um projeto, ou é preciso um harness com ferramentas? A seta para a direita passa do passo 1 ao 2 antes de trocar de slide, e o cronômetro carrega o tempo do passo (20, 15 minutos), parado. Iniciar, ou a tecla T, começa a contar; zerar volta ao início do passo. O cronômetro não aparece no PDF.</aside>
   </section>
 
 </main>
@@ -1327,6 +1363,36 @@ for (const s of document.querySelectorAll("#token")) {
     atualizar();
   });
   atualizar();
+}
+</script>
+<script>
+/* Cronômetro das atividades: só funciona no HTML (não vai para o PDF). Clique em iniciar ou aperte T no slide.
+   data-tempos lista os segundos de cada etapa; a etapa é o estado do slide (a seta avança a etapa antes de trocar de slide),
+   e cada troca de etapa carrega o tempo dela, parado. */
+for (const t of document.querySelectorAll(".timer[data-tempos]")) {
+  const slide = t.closest(".slide"), tempos = t.dataset.tempos.split(",").map(Number), fases = (t.dataset.fases || "").split(",");
+  const mostrador = t.querySelector(".mostrador"), fase = t.querySelector(".fase"), bt = t.querySelector('[data-acao="alternar"]');
+  let etapa = 0, resta = tempos[0], relogio = null;
+  const total = () => tempos[etapa];
+  const mostrar = () => {
+    mostrador.textContent = `${String(Math.floor(resta / 60)).padStart(2, "0")}:${String(resta % 60).padStart(2, "0")}`;
+    if (fases[etapa]) fase.textContent = fases[etapa];
+    t.classList.toggle("fim", resta === 0);
+  };
+  const parar = () => { clearInterval(relogio); relogio = null; bt.textContent = resta === total() ? "iniciar" : "continuar"; };
+  const carregar = (i) => { clearInterval(relogio); relogio = null; etapa = Math.min(Math.max(i, 0), tempos.length - 1); resta = total(); bt.textContent = "iniciar"; mostrar(); };
+  const alternar = () => {
+    if (relogio) return parar();
+    if (resta === 0) resta = total();
+    relogio = setInterval(() => { resta = Math.max(0, resta - 1); mostrar(); if (resta === 0) parar(); }, 1000);
+    bt.textContent = "pausar"; mostrar();
+  };
+  t.addEventListener("click", (ev) => { const a = ev.target.dataset.acao; if (a === "alternar") alternar(); if (a === "zerar") carregar(etapa); ev.target.blur(); });
+  document.addEventListener("keydown", (ev) => { if ((ev.key === "t" || ev.key === "T") && slide.classList.contains("atual")) alternar(); });
+  if (tempos.length > 1) new MutationObserver(() => {
+    const e = parseInt(slide.dataset.estado || "0", 10);
+    if (Number.isFinite(e) && e !== etapa) carregar(e);
+  }).observe(slide, { attributes: true, attributeFilter: ["data-estado"] });
 }
 </script>
 <script src="../../design-system/js/deck.js"></script>

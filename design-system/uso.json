@@ -435,6 +435,10 @@
     {
       "slide": 41,
       "tipo": "agenda"
+    },
+    {
+      "slide": 42,
+      "tipo": "sob medida: atividade-com-cronometro"
     }
   ],
   "ferramentas-em-acao/apresentacao/deck.html": [

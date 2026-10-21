@@ -45,7 +45,14 @@
       "oculto": true,
       "titulo": "Uso de IA nos processos acadêmicos",
       "subtitulo": "Workshop para professores",
-      "apresentacao": "apresentacao/dist/index.html"
+      "apresentacao": "apresentacao/dist/index.html",
+      "materiais": [
+        {
+          "rotulo": "Learning Log",
+          "tipo": "PDF preenchível",
+          "arquivo": "learning-log/learning-log.pdf"
+        }
+      ]
     }
   ]
 }

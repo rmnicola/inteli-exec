@@ -31,6 +31,7 @@ Um nome que aparece 2 vezes ou mais é **candidato a virar template**. A decisã
 | corpo-de-artigo ⭐ | 6 | essencial-na-pratica/apresentacao/deck.html #9<br>essencial-na-pratica/apresentacao/deck.html #10<br>essencial-na-pratica/apresentacao/deck.html #13<br>essencial-na-pratica/apresentacao/deck.html #14<br>professores/apresentacao/deck.html #7<br>professores/apresentacao/deck.html #10 |
 | padrao-de-protecao ⭐ | 5 | ferramentas-em-acao/apresentacao/deck.html #7<br>ferramentas-em-acao/apresentacao/deck.html #8<br>ferramentas-em-acao/apresentacao/deck.html #9<br>ferramentas-em-acao/apresentacao/deck.html #10<br>ferramentas-em-acao/apresentacao/deck.html #11 |
 | prompt-em-caixa ⭐ | 4 | professores/apresentacao/deck.html #26<br>professores/apresentacao/deck.html #27<br>professores/apresentacao/deck.html #28<br>professores/apresentacao/deck.html #29 |
+| atividade-com-cronometro ⭐ | 3 | professores/apresentacao/deck.html #42<br>ferramentas-em-acao/apresentacao/deck.html #3<br>ferramentas-em-acao/apresentacao/deck.html #14 |
 | cliente-servidor ⭐ | 3 | ferramentas-em-acao/apresentacao/deck.html #18<br>ferramentas-em-acao/apresentacao/deck.html #19<br>ferramentas-em-acao/apresentacao/deck.html #20 |
 | documento-saltando ⭐ | 2 | essencial-na-pratica/apresentacao/deck.html #4<br>essencial-na-pratica/apresentacao/deck.html #54 |
 | pagina-de-artigo ⭐ | 2 | essencial-na-pratica/apresentacao/deck.html #6<br>professores/apresentacao/deck.html #4 |
@@ -40,7 +41,6 @@ Um nome que aparece 2 vezes ou mais é **candidato a virar template**. A decisã
 | parede-de-recortes ⭐ | 2 | essencial-na-pratica/apresentacao/deck.html #34<br>professores/apresentacao/deck.html #30 |
 | mesa-do-caso ⭐ | 2 | essencial-na-pratica/apresentacao/deck.html #46<br>essencial-na-pratica/apresentacao/deck.html #50 |
 | caminho-do-fluxo ⭐ | 2 | essencial-na-pratica/apresentacao/deck.html #51<br>essencial-na-pratica/apresentacao/deck.html #52 |
-| atividade-com-cronometro ⭐ | 2 | ferramentas-em-acao/apresentacao/deck.html #3<br>ferramentas-em-acao/apresentacao/deck.html #14 |
 | quem-conduz | 1 | essencial-na-pratica/apresentacao/deck.html #2 |
 | empresa-do-caso | 1 | essencial-na-pratica/apresentacao/deck.html #44 |
 | persona-do-caso | 1 | essencial-na-pratica/apresentacao/deck.html #45 |
