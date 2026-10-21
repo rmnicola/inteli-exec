@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Gera o builder-log.pdf: uma folha frente e verso, preenchível, na identidade Inteli Exec.
 
-Requer reportlab. As fontes (Manrope, Platypi, Space Mono, OFL) estão em fontes/,
+Requer reportlab e pypdf. Os campos seguem o padrão de tools/formulario.py. As fontes (Manrope, Platypi, Space Mono, OFL) estão em fontes/,
 convertidas dos woff2 do design-system.
 """
+import sys
 from pathlib import Path
 
 from reportlab.lib.colors import HexColor, white
@@ -15,6 +16,8 @@ from reportlab.pdfgen import canvas
 AQUI = Path(__file__).resolve().parent
 LOGO = AQUI.parents[1] / "design-system/assets/img/logo-exec-escuro-coral.png"
 SAIDA = AQUI / "builder-log.pdf"
+sys.path.insert(0, str(AQUI.parents[1] / "tools"))
+from formulario import campo, marca  # noqa: E402  padrão dos campos preenchíveis
 
 for nome in ["Manrope-Regular", "Manrope-SemiBold", "Manrope-ExtraBold", "Platypi-Medium", "SpaceMono-Regular", "SpaceMono-Bold"]:
     pdfmetrics.registerFont(TTFont(nome, str(AQUI / "fontes" / f"{nome}.ttf")))
@@ -24,9 +27,7 @@ CORAL = HexColor("#ff4545")
 CORAL_TEXTO = HexColor("#d63333")
 VERDE = HexColor("#066d73")
 CINZA_CLARO = HexColor("#e6eaeb")
-CINZA_ESCURO = HexColor("#b2b6bf")
 TEXTO_SUAVE = HexColor("#5d5870")
-CAMPO = HexColor("#f6f7f8")
 
 W, H = A4
 M = 42  # margem
@@ -67,23 +68,10 @@ def selo(c, x, y, rotulo, cor):
     return larg
 
 
-def campo(c, nome, x, y, w, h, multilinha=False, dica=""):
-    """Campo de texto preenchível. (x, y) = canto inferior esquerdo."""
-    c.acroForm.textfield(
-        name=nome, tooltip=dica or nome, x=x, y=y, width=w, height=h,
-        borderStyle="solid", borderWidth=0.8, borderColor=CINZA_ESCURO, fillColor=CAMPO, textColor=ROXO,
-        fontName="Helvetica", fontSize=10 if multilinha else 11,
-        fieldFlags="multiline" if multilinha else "", forceBorder=True,
-        maxlen=None,  # o padrão do reportlab é 100 caracteres
-    )
-
-
 def opcoes(c, grupo, x, y, valores):
     """Botões de opção (só um marcado), com o rótulo ao lado."""
     for v in valores:
-        c.acroForm.radio(name=grupo, value=v.lower().replace(" ", "-"), x=x, y=y - 3, size=12,
-                         buttonStyle="check", shape="square", borderColor=ROXO, borderWidth=0.8, fillColor=white,
-                         textColor=ROXO, forceBorder=True, tooltip=v)
+        marca(c, grupo, v.lower().replace(" ", "-"), x, y - 3, v)
         texto(c, x + 17, y, v, "Manrope-SemiBold", 10)
         x += 17 + pdfmetrics.stringWidth(v, "Manrope-SemiBold", 10) + 22
 

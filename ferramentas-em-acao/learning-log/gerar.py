@@ -4,8 +4,9 @@
 O documento conta a história do agente de cada participante, do dia 1 ao ciclo de 90 dias. Cada parte
 se preenche em 5 a 10 minutos, no momento indicado no selo, e é lida pelos colegas do trio.
 
-Requer reportlab. Usa as fontes (Manrope, Platypi, Space Mono, OFL) do builder log do Essencial na Prática.
+Requer reportlab e pypdf. Os campos seguem o padrão de tools/formulario.py. Usa as fontes (Manrope, Platypi, Space Mono, OFL) do builder log do Essencial na Prática.
 """
+import sys
 from pathlib import Path
 
 from reportlab.lib.colors import HexColor, white
@@ -19,6 +20,8 @@ RAIZ = AQUI.parents[1]
 LOGO = RAIZ / "design-system/assets/img/logo-exec-escuro-coral.png"
 FONTES = RAIZ / "essencial-na-pratica/builder-log/fontes"
 SAIDA = AQUI / "learning-log.pdf"
+sys.path.insert(0, str(RAIZ / "tools"))
+from formulario import campo, marca  # noqa: E402  padrão dos campos preenchíveis
 
 for nome in ["Manrope-Regular", "Manrope-SemiBold", "Manrope-ExtraBold", "Platypi-Medium", "SpaceMono-Regular", "SpaceMono-Bold"]:
     pdfmetrics.registerFont(TTFont(nome, str(FONTES / f"{nome}.ttf")))
@@ -28,9 +31,7 @@ CORAL = HexColor("#ff4545")
 CORAL_TEXTO = HexColor("#d63333")
 VERDE = HexColor("#066d73")
 CINZA_CLARO = HexColor("#e6eaeb")
-CINZA_ESCURO = HexColor("#b2b6bf")
 TEXTO_SUAVE = HexColor("#5d5870")
-CAMPO = HexColor("#f6f7f8")
 
 W, H = A4
 M = 42  # margem
@@ -75,23 +76,6 @@ def selo(c, x, y, rotulo, cor):
     c.roundRect(x, y - 3.5, larg, 13, 3, stroke=0, fill=1)
     texto(c, x + 5, y, rotulo, "SpaceMono-Bold", tam, white)
     return larg
-
-
-def campo(c, nome, x, y, w, h, multilinha=False, dica=""):
-    """Campo de texto preenchível. (x, y) = canto inferior esquerdo."""
-    c.acroForm.textfield(
-        name=nome, tooltip=dica or nome, x=x, y=y, width=w, height=h,
-        borderStyle="solid", borderWidth=0.8, borderColor=CINZA_ESCURO, fillColor=CAMPO, textColor=ROXO,
-        fontName="Helvetica", fontSize=9 if multilinha else 10,
-        fieldFlags="multiline" if multilinha else "", forceBorder=True,
-        maxlen=None,  # o padrão do reportlab é 100 caracteres
-    )
-
-
-def marca(c, grupo, valor, x, y, dica):
-    """Um botão de opção (só um marcado por grupo). (x, y) = canto inferior esquerdo."""
-    c.acroForm.radio(name=grupo, value=valor, x=x, y=y, size=12, buttonStyle="check", shape="square",
-                     borderColor=ROXO, borderWidth=0.8, fillColor=white, textColor=ROXO, forceBorder=True, tooltip=dica)
 
 
 def opcoes(c, grupo, x, y, valores):
