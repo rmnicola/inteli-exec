@@ -22,19 +22,19 @@
       "variantes": {
         "claude-code": {
           "texto": [
-            "No Explorador de Arquivos, crie uma pasta vazia chamada `horizonte` dentro de **Documentos**. O agente vai trabalhar nela.",
+            "No Explorador de Arquivos (no Mac, no Finder), crie uma pasta vazia chamada `horizonte` dentro de **Documentos**. O agente vai trabalhar nela.",
             "Abra o aplicativo **Claude** e entre na aba **Code**. Escolha a pasta `horizonte` como pasta do projeto."
           ]
         },
         "codex": {
           "texto": [
-            "No Explorador de Arquivos, crie uma pasta vazia chamada `horizonte` dentro de **Documentos**. O agente vai trabalhar nela.",
+            "No Explorador de Arquivos (no Mac, no Finder), crie uma pasta vazia chamada `horizonte` dentro de **Documentos**. O agente vai trabalhar nela.",
             "Abra o aplicativo **Codex** e abra a pasta `horizonte` como projeto."
           ]
         },
         "antigravity": {
           "texto": [
-            "No Explorador de Arquivos, crie uma pasta vazia chamada `horizonte` dentro de **Documentos**. O agente vai trabalhar nela.",
+            "No Explorador de Arquivos (no Mac, no Finder), crie uma pasta vazia chamada `horizonte` dentro de **Documentos**. O agente vai trabalhar nela.",
             "Abra o **Antigravity** e use **File → Open Folder** para abrir a pasta `horizonte`."
           ]
         }
@@ -46,7 +46,7 @@
         "claude-code": {
           "texto": [
             "O servidor entra como um conector personalizado da sua conta Claude:",
-            "Abra **Settings → Connectors** e clique em **Add custom connector**.",
+            "Abra as configurações com `Ctrl` + `,` no Windows ou `⌘` + `,` no Mac. Selecione **Connectors** e clique em **Add custom connector**.",
             "Em **Name**, escreva `horizonte`. Em **URL**, cole o endereço abaixo.",
             "Se o aplicativo perguntar como entrar, escolha a opção sem login (**No sign in**) e clique em **Add**.",
             "Volte à aba **Code** e abra uma conversa nova na pasta `horizonte`."
@@ -57,9 +57,9 @@
         },
         "codex": {
           "texto": [
-            "Abra **Settings → MCP servers** e clique em **Add server**.",
+            "Abra as configurações com `Ctrl` + `,` no Windows ou `⌘` + `,` no Mac. Selecione **MCP servers** e clique em **Add server**.",
             "Em nome, escreva `horizonte`. Escolha o tipo **Streamable HTTP** e cole o endereço abaixo.",
-            "Clique em **Save** e reinicie o Codex quando ele pedir."
+            "Clique em **Save** e depois em **Restart** para reiniciar o Codex."
           ],
           "arquivo": "Endereço do servidor",
           "codigo": "https://horizonte-reembolsos.rmnicola.workers.dev/mcp"
@@ -73,7 +73,7 @@
           ],
           "arquivo": "mcp_config.json",
           "codigo": "{\n  \"mcpServers\": {\n    \"horizonte\": {\n      \"serverUrl\": \"https://horizonte-reembolsos.rmnicola.workers.dev/mcp\"\n    }\n  }\n}",
-          "aviso": "No Antigravity, a chave do endereço é `serverUrl`. Com `url`, o servidor não liga."
+          "aviso": "No Antigravity, use a chave `serverUrl` para o endereço, como no bloco acima."
         }
       }
     },
@@ -89,7 +89,7 @@
       "variantes": {
         "claude-code": {
           "texto": [
-            "Peça ao agente a lista de ferramentas do servidor. Antes de mandar, deixe o modo de permissão, embaixo da caixa de mensagem, no que pede aprovação antes de agir."
+            "Peça ao agente a lista de ferramentas do servidor. Antes de mandar, deixe o modo de permissão, embaixo da caixa de mensagem, em **Manual** (pede aprovação antes de agir)."
           ]
         },
         "codex": {
@@ -99,7 +99,7 @@
         },
         "antigravity": {
           "texto": [
-            "Peça ao agente a lista de ferramentas do servidor. As ferramentas de MCP pedem a sua aprovação antes de cada uso."
+            "Peça ao agente a lista de ferramentas do servidor. Por padrão, as ferramentas de MCP pedem a sua aprovação antes de cada uso."
           ]
         }
       }
@@ -195,14 +195,14 @@
       "variantes": {
         "claude-code": {
           "texto": [
-            "Agora peça uma decisão. `registrar_decisao` é a única ferramenta que altera dados, e o aplicativo deve parar e pedir a sua aprovação antes de chamá-la.",
+            "Agora peça uma decisão. `registrar_decisao` é a única ferramenta que altera dados. Com o modo de permissão em **Manual**, o aplicativo deve parar e pedir a sua aprovação antes de chamá-la.",
             "Quando aparecer o pedido de permissão para `registrar_decisao`, leia o que o agente vai enviar e aprove."
           ]
         },
         "codex": {
           "texto": [
-            "Agora peça uma decisão. `registrar_decisao` é a única ferramenta que altera dados, e o aplicativo deve parar e pedir a sua aprovação antes de chamá-la.",
-            "Quando o Codex pedir aprovação para chamar `registrar_decisao`, leia o que ele vai enviar e aprove."
+            "Agora peça uma decisão. `registrar_decisao` é a única ferramenta que altera dados, e o servidor a declara assim. Com a aprovação em **Ask for approval**, o Codex deve parar e pedir a sua aprovação antes de chamá-la.",
+            "Quando o Codex pedir aprovação para chamar `registrar_decisao`, leia o que ele vai enviar e aprove. Se ele chamar a ferramenta sem perguntar, veja *Se algo der errado*."
           ]
         },
         "antigravity": {
@@ -221,14 +221,19 @@
       "claude-code"
     ],
     [
-      "Quero conferir se o servidor está ligado.",
-      "Digite `/mcp` na caixa de mensagem: o servidor `horizonte` deve aparecer como conectado.",
-      "claude-code"
+      "O agente diz que não tem as ferramentas do servidor horizonte.",
+      "Ligue o servidor pelo arquivo de configuração. Abra o arquivo `config.toml` da pasta `.codex`, na sua pasta de usuário: `%USERPROFILE%\\.codex\\config.toml` no Windows ou `~/.codex/config.toml` no Mac. Acrescente as linhas `[mcp_servers.horizonte]` e `url = \"https://horizonte-reembolsos.rmnicola.workers.dev/mcp\"` (iguais nos dois sistemas), salve e reinicie o Codex.",
+      "codex"
     ],
     [
-      "O servidor não aparece.",
-      "Digite `/mcp` na caixa de mensagem para ver os servidores ligados. Se `horizonte` não estiver lá, acrescente ao arquivo `config.toml` da pasta `.codex`, na sua pasta de usuário (`C:\\Users\\<você>\\.codex\\config.toml`), as linhas `[mcp_servers.horizonte]` e `url = \"https://horizonte-reembolsos.rmnicola.workers.dev/mcp\"`, e reinicie o Codex.",
+      "O Codex chamou `registrar_decisao` sem pedir aprovação.",
+      "A pausa depende da política de aprovação das ferramentas MCP. No mesmo `config.toml`, logo abaixo da linha `url` do servidor `horizonte`, acrescente `default_tools_approval_mode = \"writes\"` (pede aprovação para tudo que não for só leitura) e, para garantir, o bloco `[mcp_servers.horizonte.tools.registrar_decisao]` com a linha `approval_mode = \"prompt\"`. Salve, reinicie o Codex e repita o passo 5. Como a decisão é simulada, nada foi gravado.",
       "codex"
+    ],
+    [
+      "Não acho o menu **Manage MCP Servers**.",
+      "Edite o arquivo direto: `%USERPROFILE%\\.gemini\\config\\mcp_config.json` no Windows ou `~/.gemini/config/mcp_config.json` no Mac. O conteúdo é o mesmo bloco do passo 2 nos dois sistemas. Salve e reinicie o Antigravity.",
+      "antigravity"
     ],
     [
       "O servidor aparece com erro ou sem ferramentas.",
