@@ -25,6 +25,12 @@
 #professor .bio .link svg { width: 48px; height: 48px; flex: none; }
 #professor .qr-linkedin { position: absolute; right: 64px; bottom: 80px; width: 150px; height: 150px; image-rendering: pixelated; }
 
+/* ---- Site do curso: só o QR code e o endereço embaixo ---- */
+#site-curso .centro { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+#site-curso .qr { width: 600px; height: 600px; padding: 32px; border-radius: 24px; background: var(--branco); }
+#site-curso .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+#site-curso .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 40px; color: var(--roxo); }
+
 /* ---- Pergunta do bloco: a frase grande com o rótulo do bloco acima ---- */
 .slide.ideia .rotulo-termo { position: static; }
 
@@ -206,6 +212,16 @@
     </div>
     <p class="rodape">Wifi<br>Inteli - Visitantes</p>
     <aside class="notas">Abertura do dia 2 do Ferramentas em Ação. Conferir com a coordenação se a tela de boas-vindas do dia 2 fica com este deck.</aside>
+  </section>
+
+  <!-- Site do curso: QR code e link -->
+  <section class="slide" id="site-curso" data-modelo="qr-do-site">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="centro">
+      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/ferramentas-em-acao/"></div>
+      <p class="link-site">rmnicola.github.io/inteli-exec/ferramentas-em-acao</p>
+    </div>
+    <aside class="notas">O site do curso tem os guias passo a passo do laboratório (conectar o MCP, criar a skill e os demais), os casos e esta apresentação. A página pede a senha do curso.</aside>
   </section>
 
   <!-- Quem conduz: o professor -->
