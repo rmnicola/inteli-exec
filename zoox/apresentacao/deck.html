@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monte o seu assistente · Zoox Data Revolution 2026</title>
+<link rel="stylesheet" href="../../design-system/css/inteli-exec.css">
+<link rel="stylesheet" href="../../design-system/assets/fonts/objetos/objetos.css">
+<style>
+/* Estilos sob medida deste deck. Cada slide sob medida é estilizado só pelo seu id. */
+
+/* ---- Capas de documento (base compartilhada): página branca, cabeçalho nítido, corpo desfocado ---- */
+.capa-doc { --fundo: var(--cinza-medio); }
+.capa-doc .objeto { left: 200px; right: 200px; top: 56px; height: 1000px; padding: 56px 100px 0; font-family: "EB Garamond", Georgia, serif; color: #1a1a1a; }
+.capa-doc .borrado { filter: blur(3px); color: #4a4a4a; }
+.capa-doc .colunas { columns: 2; column-gap: 56px; font-size: 24px; line-height: 1.45; text-align: justify; }
+.capa-doc .colunas p { text-indent: 1.4em; }
+
+/* Cognitive Science, 1990: título centralizado, resumo e introdução */
+#capa-elman .revista { font-size: 22px; letter-spacing: .12em; }
+#capa-elman .titulo-artigo { text-align: center; font-size: 54px; margin-top: 26px; }
+#capa-elman .objeto { top: -30px; padding-top: 80px; }
+#capa-elman .autor { text-align: center; font-size: 26px; letter-spacing: .16em; margin-top: 20px; }
+#capa-elman .instituicao { text-align: center; font-size: 26px; font-style: italic; margin-top: 4px; }
+#capa-elman .resumo { font-size: 28px; line-height: 1.42; text-align: left; margin: 26px 10px 0; }
+
+/* ---- Resumo com grifos em passos (base): tudo desfocado; .t1, .t2... acendem no seu passo e continuam acesos ---- */
+.resumo-grifos span { filter: blur(3.5px); color: #4a4a4a; padding: 0 .05em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  transition: filter .45s ease, color .45s ease, background-color .45s ease; }
+:is([data-estado="1"], [data-estado="2"], [data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"]) .resumo-grifos .t1,
+:is([data-estado="2"], [data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"]) .resumo-grifos .t2,
+:is([data-estado="3"], [data-estado="4"], [data-estado="5"], [data-estado="6"]) .resumo-grifos .t3,
+:is([data-estado="4"], [data-estado="5"], [data-estado="6"]) .resumo-grifos .t4 {
+  filter: none; color: #1a1a1a;
+  background: linear-gradient(transparent 14%, rgba(255, 69, 69, .30) 14%, rgba(255, 69, 69, .30) 90%, transparent 90%);
+}
+
+.capa-doc .carimbo { position: absolute; left: 26px; top: 60px; transform-origin: left top; transform: rotate(90deg) translateY(-100%);
+  font-family: "Courier Prime", monospace; font-size: 22px; color: #8a8a8a; white-space: nowrap; }
+.capa-doc .titulo-c { text-align: center; font-size: 58px; font-weight: 600; line-height: 1.15; }
+.capa-doc .resumo-t { text-align: center; font-weight: 600; font-size: 25px; margin-top: 22px; letter-spacing: .04em; }
+.capa-doc .resumo-x { font-size: 30px; line-height: 1.4; margin-top: 8px; }
+.capa-doc .grade-autores { display: grid; gap: 12px 24px; text-align: center; margin-top: 30px; font-size: 26px; line-height: 1.25; }
+.capa-doc .grade-autores small { display: block; font-size: 20px; color: #555; }
+#capa-attention .grade-autores { grid-template-columns: repeat(4, 1fr); }
+#capa-gpt3 .grade-autores { grid-template-columns: repeat(6, 1fr); font-size: 19px; gap: 4px 12px; }
+#capa-gpt3 .resumo-x { font-size: 28px; }
+#capa-gpt3 .objeto { top: 0; }
+#capa-gpt3 .org { text-align: center; font-size: 26px; margin-top: 12px; }
+#capa-react .conf { font-size: 22px; }
+#capa-react .titulo-c { font-variant: small-caps; letter-spacing: .04em; margin-top: 30px; }
+#capa-react .autores-l { text-align: center; font-size: 26px; margin-top: 20px; line-height: 1.35; }
+#capa-react .resumo-x { font-size: 28px; }
+
+/* Prompt, zero-shot, one-shot e few-shot no formato da Figura 2.1: o prompt numa caixa com as linhas numeradas,
+   à direita o papel de cada linha, embaixo a resposta do modelo */
+.prompt-fig .prompt-f { position: absolute; left: 160px; top: 200px; display: flex; gap: 40px; }
+.prompt-fig .linhas { width: 900px; background: var(--branco); border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(46, 38, 64, .10); }
+.prompt-fig .linhas p { display: flex; height: 76px; align-items: center; font-family: var(--f-destaque); font-size: 32px; color: var(--roxo); }
+.prompt-fig .linhas .num { flex: none; width: 64px; height: 100%; display: grid; place-items: center; background: var(--cinza-medio); color: var(--texto-suave); font-size: 28px; }
+.prompt-fig .linhas .txt { padding-left: 28px; white-space: nowrap; }
+.prompt-fig .linhas .vazio { display: inline-block; width: 240px; margin-left: 20px; border-bottom: 3px dotted var(--cinza-escuro); vertical-align: middle; }
+.prompt-fig .rotulos { display: flex; flex-direction: column; }
+.prompt-fig .rotulos p { height: 76px; display: flex; align-items: center; gap: 14px; font-style: italic; font-size: 28px; color: var(--texto-suave); white-space: nowrap; }
+.prompt-fig .rotulos p span { font-style: normal; color: var(--texto-suave); }
+.prompt-fig .rotulos .r3 { height: 228px; }
+.prompt-fig .rotulos .chave { position: relative; }
+.prompt-fig .rotulos .chave::before { content: ""; position: absolute; left: -16px; top: 26px; bottom: 26px; width: 10px;
+  border: 3px solid var(--cinza-escuro); border-left: 0; border-radius: 0 6px 6px 0; }
+.prompt-fig .balao-c { position: absolute; border-radius: 22px; padding: 22px 30px; font-family: var(--f-texto); font-size: 32px; line-height: 1.35; }
+.prompt-fig .balao-c small { display: block; font-family: var(--f-destaque); font-size: 28px; text-transform: uppercase; margin-bottom: 6px; }
+.prompt-fig .modelo { left: 160px; background: var(--roxo); color: var(--branco); }
+.prompt-fig .modelo small { color: var(--lilas); }
+.prompt-fig .modelo.curta { font-size: 44px; font-weight: 800; }
+
+/* ---- Atividade com cronômetro: a seta passa do passo 1 ao 2 antes de trocar de slide; o cronômetro só funciona no HTML ---- */
+.atividade .rotulo-termo { left: 120px; top: 110px; }
+/* O rótulo fica no alto do slide: as etapas começam abaixo dele, nunca coladas */
+.atividade .etapas { position: absolute; left: 120px; top: 168px; bottom: 20px; width: 840px; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+.atividade .etapa { display: flex; gap: 28px; align-items: flex-start; padding: 26px 30px; border-radius: 18px; border: 4px solid transparent; }
+.atividade .etapa.atual { border-color: var(--coral); background: var(--branco); }
+.atividade .etapa > b { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--coral); color: var(--branco); display: grid; place-items: center;
+  font-family: var(--f-destaque); font-size: 32px; }
+.atividade .etapa small { display: block; font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
+.atividade .etapa p { font-weight: 800; font-size: 42px; line-height: 1.2; margin-top: 6px; }
+.atividade .timer { position: absolute; left: 1060px; top: 0; bottom: 0; margin: auto 0; height: 420px; width: 420px; border-radius: 24px; background: var(--roxo);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; }
+.atividade .fase { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--verde); }
+.atividade .mostrador { font-family: var(--f-capitulo); font-size: 112px; line-height: 1; color: var(--branco); font-variant-numeric: tabular-nums;
+  outline: none; cursor: text; border-bottom: 4px dashed transparent; transition: border-color .2s; }
+.atividade .mostrador:hover, .atividade .mostrador:focus { border-bottom-color: var(--cinza-escuro); }
+.atividade .timer.fim .mostrador { color: var(--coral); animation: piscar 1s steps(2) infinite; }
+@keyframes piscar { 50% { opacity: .3; } }
+.atividade .ctl { display: flex; gap: 16px; }
+.atividade .ctl button { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; padding: 10px 22px; border-radius: 12px;
+  border: 3px solid var(--branco); background: transparent; color: var(--branco); cursor: pointer; }
+.atividade .ctl button[data-acao="alternar"] { background: var(--coral); border-color: var(--coral); }
+@media print { .atividade .timer { display: none; } .atividade .etapas { width: 1360px; } }
+
+/* ---- Site do curso: só o QR code e o endereço embaixo ---- */
+#site-curso .centro { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+#site-curso .qr { width: 600px; height: 600px; padding: 32px; border-radius: 24px; background: var(--branco); }
+#site-curso .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+#site-curso .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 40px; color: var(--roxo); }
+
+/* ---- Quem conduz ---- */
+#professor .foto-p { position: absolute; left: 200px; top: 260px; width: 380px; height: 380px; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 16px 40px rgba(46, 38, 64, .18); }
+#professor .bio { position: absolute; left: 650px; top: 0; bottom: 0; width: 880px; display: flex; flex-direction: column; justify-content: center; }
+#professor .bio .nome { font-family: var(--f-capitulo); font-size: 84px; line-height: 1.05; }
+#professor .bio .cargo { font-size: 34px; color: var(--texto-suave); margin-top: 8px; }
+#professor .bio ul { list-style: none; margin-top: 36px; display: flex; flex-direction: column; gap: 14px; }
+#professor .bio li { font-size: 32px; line-height: 1.3; padding-left: 30px; position: relative; }
+#professor .bio li::before { content: ""; position: absolute; left: 0; top: .55em; width: 12px; height: 12px; border-radius: 50%; background: var(--coral); }
+#professor .bio .link { display: flex; align-items: center; gap: 18px; font-size: 32px; font-weight: 700; margin-top: 34px; white-space: nowrap; }
+#professor .bio .link svg { width: 48px; height: 48px; flex: none; }
+#professor .qr-linkedin { position: absolute; right: 64px; bottom: 80px; width: 150px; height: 150px; image-rendering: pixelated; }
+
+/* Atividade com um passo só: a instrução grande e, embaixo, o QR do passo a passo de cada ferramenta */
+.atividade.com-qr .etapas { top: 200px; bottom: 300px; }
+.atividade.com-qr .etapa > div > p { font-size: 46px; }
+.atividade .qr-guia { position: absolute; left: 120px; bottom: 90px; width: 840px; display: flex; align-items: center; gap: 30px; }
+.atividade .qr-guia img { flex: none; width: 180px; height: 180px; padding: 12px; border-radius: 14px; background: var(--branco); image-rendering: pixelated; }
+.atividade .qr-guia .rot-qr { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
+.atividade .qr-guia .txt-qr { font-size: 30px; line-height: 1.25; margin-top: 6px; }
+
+/* A etapa do passo atual fica destacada (a seta avança a etapa antes de trocar de slide) */
+.atividade:not([data-estado]) .e1, .atividade[data-estado="0"] .e1,
+.atividade[data-estado="1"] .e2, .atividade[data-estado="2"] .e3 { border-color: var(--coral); background: var(--branco); }
+
+/* Agenda curta de três momentos: o QR do site fica no canto, para quem chegou atrasado */
+.slide.agenda .qr-canto { position: absolute; right: 90px; bottom: 90px; width: 220px; text-align: center; }
+.slide.agenda .qr-canto img { display: block; width: 180px; height: 180px; margin: 0 auto 8px; image-rendering: pixelated; }
+.slide.agenda .qr-canto span { font-size: 28px; color: var(--texto-suave); }
+
+/* O fecho: o QR grande e o que levar para casa */
+#leve-o-seu .centro { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 36px; }
+#leve-o-seu .qr { width: 460px; height: 460px; padding: 28px; border-radius: 24px; background: var(--branco); }
+#leve-o-seu .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+#leve-o-seu .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 36px; color: var(--roxo); }
+#leve-o-seu .frase-fim { font-weight: 800; font-size: 44px; text-align: center; max-width: 1100px; line-height: 1.2; }
+</style>
+</head>
+<body>
+<main class="deck">
+
+  
+  <!-- 1. Boas-vindas (tela oficial) -->
+  <section class="slide boas-vindas sem-numero">
+    <div class="bloco-cinza"></div>
+    <div class="conteudo">
+      <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+      <h1 class="capitulo">Bem-vindos!<br>Monte o seu<br><b class="moldura">assistente</b></h1>
+    </div>
+    <p class="rodape">Inteli Room<br>Zoox Data Revolution 2026</p>
+  </section>
+
+  <!-- Site do curso: QR code e link -->
+  <section class="slide" id="site-curso" data-modelo="qr-do-site">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="centro">
+      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/"></div>
+      <p class="link-site">rmnicola.github.io/inteli-exec/zoox</p>
+    </div>
+    <aside class="notas">Primeira coisa: abram este endereço no celular ou no notebook. Tudo o que a gente vai fazer nos próximos 40 minutos está aí — o passo a passo para o aplicativo de cada um e a programação do evento em PDF. A página fica no ar depois de hoje. Espere todo mundo abrir antes de seguir.</aside>
+  </section>
+
+  <!-- Quem conduz: o professor -->
+  <section class="slide" id="professor" data-modelo="quem-conduz">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <img class="foto-p" src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola">
+    <div class="bio">
+      <p class="rotulo-termo" style="position:static; margin-bottom:14px">Quem conduz</p>
+      <p class="nome">Rodrigo Nicola</p>
+      <p class="cargo">Professor · Inteli</p>
+      <ul>
+        <li>Engenheiro mecatrônico (Mauá), mestre pelo ITA</li>
+        <li>Veículos autônomos e aprendizado de máquina</li>
+        <li>No Inteli desde 2022</li>
+      </ul>
+      <p class="link"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="9" fill="#2e2640"/><rect x="10" y="19" width="6" height="19" fill="#ffffff"/><circle cx="13" cy="12" r="3.6" fill="#ffffff"/><path d="M21 19h6v3c1.2-2 3.4-3.5 6.4-3.5 4.6 0 6.6 3 6.6 8V38h-6V27.6c0-2.6-.9-4.2-3.2-4.2-2.5 0-3.8 1.8-3.8 4.4V38h-6z" fill="#ffffff"/></svg>Rodrigo Mangoni Nicola</p>
+    </div>
+    <img class="qr-linkedin" src="assets/qr-linkedin.png" alt="QR code para o LinkedIn de Rodrigo Mangoni Nicola">
+    <aside class="notas">Vinte segundos, só para situar quem está falando. Engenheiro mecatrônico pelo Instituto Mauá de Tecnologia e mestre em engenharia mecatrônica pelo ITA. No mestrado, projetou o controle de um simulador de voo montado sobre um braço robótico KUKA, otimizado por algoritmos genéticos. No Mauá, foi pesquisador em veículos autônomos e responsável pelas disciplinas de aprendizado de máquina e de projetos de ciência de dados. No Inteli desde 2022.</aside>
+  </section>
+
+  <!-- Agenda: a estrutura de um prompt -->
+  <section class="slide agenda curta" id="agenda-estrutura" data-modelo="agenda" data-agora="0" data-max-palavras="40">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>o passo a passo</span></div>
+    <aside class="notas">Agora: a estrutura de um prompt.</aside>
+  </section>
+
+    <!-- Language Models are Few-Shot Learners (2020): a capa, com o resumo grifado -->
+  <section class="slide sem-numero capa-doc" id="capa-gpt3" data-modelo="capa-de-documento">
+    <div class="objeto sangra" aria-hidden="true">
+      <p class="carimbo">arXiv:2005.14165 [cs.CL] 28 May 2020</p>
+      <p class="titulo-c" style="margin-top:10px">Language Models are Few-Shot Learners</p>
+      <div class="grade-autores"><p>Tom B. Brown</p><p>Benjamin Mann</p><p>Nick Ryder</p><p>Melanie Subbiah</p><p>Jared Kaplan</p><p>Prafulla Dhariwal</p><p>Arvind Neelakantan</p><p>Pranav Shyam</p><p>Girish Sastry</p><p>Amanda Askell</p><p>Sandhini Agarwal</p><p>Ariel Herbert-Voss</p><p>Gretchen Krueger</p><p>Tom Henighan</p><p>Rewon Child</p><p>Aditya Ramesh</p><p>Daniel M. Ziegler</p><p>Jeffrey Wu</p><p>Clemens Winter</p><p>Christopher Hesse</p><p>Mark Chen</p><p>Eric Sigler</p><p>Mateusz Litwin</p><p>Scott Gray</p><p>Benjamin Chess</p><p>Jack Clark</p><p>Christopher Berner</p><p>Sam McCandlish</p><p>Alec Radford</p><p>Ilya Sutskever</p><p>Dario Amodei</p></div>
+      <p class="org">OpenAI</p>
+      <p class="resumo-t">Abstract</p>
+      <p class="resumo-x resumo-grifos" lang="en"><span class="t1">Recent work has demonstrated substantial gains on many NLP tasks and benchmarks by pre-training on a large corpus of text followed by fine-tuning on a specific task.</span> <span>While typically task-agnostic in architecture,</span> <span class="t1">this method still requires task-specific fine-tuning datasets of thousands or tens of thousands of examples.</span> <span class="t1">By contrast, humans can generally perform a new language task from only a few examples or from simple instructions</span> <span>– something which current NLP systems still largely struggle to do.</span> <span class="t2">Here we show that scaling up language models greatly improves task-agnostic, few-shot performance, sometimes even reaching competitiveness with prior state-of-the-art fine-tuning approaches. Specifically, we train GPT‑3, an autoregressive language model with 175 billion parameters, 10x more than any previous non-sparse language model,</span> <span>and test its performance in the few-shot setting. For all tasks, GPT-3 is applied without any gradient updates or fine-tuning, with tasks and few-shot demonstrations specified purely via text interaction with the model.</span></p>
+      <span class="marcadores" style="display:none"><i class="passo" data-passo="1"></i><i class="passo" data-passo="2"></i></span>
+    </div>
+    <aside class="notas">Brown et al. (2020), "Language Models are Few-Shot Learners", OpenAI, 31 autores. Passos: 1 como era: pré-treinar num texto enorme e depois ajustar (fine-tuning) para cada tarefa, com milhares de exemplos; em contraste, uma pessoa aprende uma tarefa nova com poucos exemplos ou uma instrução simples · 2 a proposta: escalar o modelo; o GPT-3 tem 175 bilhões de parâmetros (os pesos do Perceptron, que no esquema eram 4), dez vezes mais que qualquer modelo anterior. Antes, cada tarefa pedia um ajuste fino com milhares de exemplos; aqui, basta escrever.</aside>
+  </section>
+
+  <!-- Só o prompt: o modelo não sabe o que fazer (Figura 2.1 do artigo do GPT-3) -->
+  <section class="slide prompt-fig" id="prompt-queijo" data-modelo="prompt-em-caixa">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:160px; top:110px">prompt</p>
+    <div class="prompt-f">
+      <div class="linhas"><p><span class="num">1</span><span class="txt">queijo =&gt;</span></p></div>
+      <div class="rotulos"><p><span>←</span>prompt</p></div>
+    </div>
+    <p class="balao-c modelo" style="top:320px; width:900px"><small>Modelo</small>Queijo é um alimento feito a partir do leite coalhado. Existem centenas de tipos, como o minas, o parmesão e o gorgonzola.</p>
+    <aside class="notas">No formato da Figura 2.1 do artigo do GPT-3 (lá, de inglês para francês: sea otter =&gt; loutre de mer, peppermint =&gt; menthe poivrée, plush girafe =&gt; girafe peluche, cheese =&gt;). Só o prompt, "queijo =&gt;": o modelo não sabe o que você quer e fala sobre queijo.</aside>
+  </section>
+
+  <!-- Zero-shot: a descrição da tarefa e o prompt -->
+  <section class="slide prompt-fig" id="zero-shot" data-modelo="prompt-em-caixa">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:160px; top:110px">zero-shot</p>
+    <div class="prompt-f">
+      <div class="linhas"><p><span class="num">1</span><span class="txt">Traduza do português para o inglês:</span></p><p><span class="num">2</span><span class="txt">queijo =&gt; <i class="vazio"></i></span></p></div>
+      <div class="rotulos"><p><span>←</span>descrição da tarefa</p><p><span>←</span>prompt</p></div>
+    </div>
+    <p class="balao-c modelo" style="top:396px; width:900px"><small>Modelo</small>Queijo, em inglês, é “cheese”.</p>
+    <aside class="notas">Zero-shot: uma descrição da tarefa em linguagem natural, nenhum exemplo. O modelo acerta a tarefa, mas responde do jeito dele, numa frase.</aside>
+  </section>
+
+  <!-- One-shot: a descrição, um exemplo e o prompt -->
+  <section class="slide prompt-fig" id="one-shot" data-modelo="prompt-em-caixa">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:160px; top:110px">one-shot</p>
+    <div class="prompt-f">
+      <div class="linhas"><p><span class="num">1</span><span class="txt">Traduza do português para o inglês:</span></p><p><span class="num">2</span><span class="txt">lontra-marinha =&gt; sea otter</span></p><p><span class="num">3</span><span class="txt">queijo =&gt; <i class="vazio"></i></span></p></div>
+      <div class="rotulos"><p><span>←</span>descrição da tarefa</p><p><span>←</span>exemplo</p><p><span>←</span>prompt</p></div>
+    </div>
+    <p class="balao-c modelo curta" style="top:472px"><small>Modelo</small>cheese</p>
+    <aside class="notas">One-shot: a descrição e um exemplo. Com um exemplo, a resposta já vem no formato do exemplo: só a tradução.</aside>
+  </section>
+
+  <!-- Few-shot: a descrição, alguns exemplos e o prompt -->
+  <section class="slide prompt-fig" id="few-shot" data-modelo="prompt-em-caixa">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:160px; top:110px">few-shot</p>
+    <div class="prompt-f">
+      <div class="linhas"><p><span class="num">1</span><span class="txt">Traduza do português para o inglês:</span></p><p><span class="num">2</span><span class="txt">lontra-marinha =&gt; sea otter</span></p><p><span class="num">3</span><span class="txt">hortelã-pimenta =&gt; peppermint</span></p><p><span class="num">4</span><span class="txt">girafa de pelúcia =&gt; plush giraffe</span></p><p><span class="num">5</span><span class="txt">queijo =&gt; <i class="vazio"></i></span></p></div>
+      <div class="rotulos"><p><span>←</span>descrição da tarefa</p><p class="r3 chave"><span>←</span>exemplos</p><p><span>←</span>prompt</p></div>
+    </div>
+    <p class="balao-c modelo curta" style="top:624px"><small>Modelo</small>cheese</p>
+    <aside class="notas">Few-shot: a descrição e alguns exemplos (no artigo, em geral algumas dezenas). Em nenhum dos três o modelo é retreinado: tudo acontece dentro do prompt, e é por isso que o artigo chama de aprendizado no contexto. Em tarefas mais difíceis que esta, mais exemplos dão respostas melhores. Ponte para o próximo slide: descrição da tarefa, exemplos e prompt são partes de um bom prompt.</aside>
+  </section>
+
+  <!-- Agenda: criando um agente -->
+  <section class="slide agenda curta" id="agenda-agente" data-modelo="agenda" data-agora="1" data-max-palavras="40">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>o passo a passo</span></div>
+    <aside class="notas">Agora: criando um agente.</aside>
+  </section>
+
+  <!-- Criando um agente · 18 min -->
+  <section class="slide atividade com-qr" id="montar" data-modelo="atividade-com-cronometro" data-max-palavras="50">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo">Criando um agente · 18 min</p>
+    <div class="etapas"><div class="etapa e1"><div><p>Crie o assistente, cole as instruções e anexe a programação do evento.</p></div></div></div>
+    <div class="qr-guia"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Gemini, ChatGPT, Claude ou Copilot</p></div></div>
+    <div class="timer" data-tempos="1080" data-fases="Montando"><p class="fase">Montando</p><p class="mostrador">18:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
+    <aside class="notas">Faça junto com eles, na tela, pelo aplicativo mais comum na sala — pergunte na hora quem usa o quê. Quem usa outro acompanha pelo passo a passo do QR, que tem a mesma sequência para Gemini, ChatGPT, Claude e Copilot. O passo que trava é sempre o primeiro, achar onde se cria o assistente. No Copilot em conta pessoal não dá para anexar arquivo no agente: essas pessoas colam as instruções e anexam o PDF na própria conversa, e o resultado é o mesmo. Dá para digitar outro tempo no mostrador se a sala estiver mais lenta.</aside>
+  </section>
+
+  <!-- Agenda: testes e validação -->
+  <section class="slide agenda curta" id="agenda-testar" data-modelo="agenda" data-agora="2" data-max-palavras="40">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>o passo a passo</span></div>
+    <aside class="notas">Agora: testes e validação.</aside>
+  </section>
+
+  <!-- Testes e validação · 13 min -->
+  <section class="slide atividade com-qr" id="testar" data-modelo="atividade-com-cronometro" data-max-palavras="50">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo">Testes e validação · 13 min</p>
+    <div class="etapas"><div class="etapa e1"><div><p>Faça as perguntas do passo a passo e confira cada resposta no PDF.</p></div></div></div>
+    <div class="qr-guia"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Gemini, ChatGPT, Claude ou Copilot</p></div></div>
+    <div class="timer" data-tempos="780" data-fases="Testando"><p class="fase">Testando</p><p class="mostrador">13:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
+    <aside class="notas">As perguntas estão no passo a passo, inclusive a última: “em que sala fala o David Feffer?”. A programação não diz a sala de nenhuma atividade — ela cita os nomes dos espaços, mas não liga nenhum a um horário. Quem recebeu um nome de sala tem um assistente que inventa; quem recebeu “não sei” foi porque escreveu a última parte da instrução. Quando a sala chegar nessa pergunta, pare tudo e peça para compararem em voz alta: é o momento do workshop. A regra é conferir no documento, não na memória.</aside>
+  </section>
+
+    <!-- Fecho: o QR fica na tela enquanto o professor provoca -->
+  <section class="slide" id="leve-o-seu" data-modelo="qr-do-site" data-max-palavras="30">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="centro">
+      <p class="frase-fim">Troque a programação por um documento do seu trabalho.</p>
+      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"></div>
+      <p class="link-site">rmnicola.github.io/inteli-exec/zoox</p>
+    </div>
+    <aside class="notas">Dois minutos, sem pressa, enquanto o QR fica na tela. O que eles sabem fazer agora: montar um assistente com instruções e um documento, e desconfiar dele na hora certa. O que falta: usar as ferramentas de verdade — fazer o assistente pesquisar, calcular, ler a planilha — e conectá-lo aos sistemas onde o dado da empresa realmente mora. É esse o salto do assistente para o agente, e é o que a gente faz nos cursos do Inteli Exec. Convide para conversar no happy hour e para levar um caso real.</aside>
+  </section>
+
+</main>
+<script>
+/* Agenda do workshop: definida UMA vez aqui. Cada slide .agenda marca o item atual com data-agora (a partir de 0). */
+const AGENDA = ["A estrutura de um prompt", "Criando um agente", "Testes e validação"];
+for (const s of document.querySelectorAll(".slide.agenda")) {
+  const agora = parseInt(s.dataset.agora, 10);
+  const lista = AGENDA.map((t, i) =>
+    `<p class="item${i < agora ? " passou" : i === agora ? " agora" : ""}"><span class="marcador">${String(i + 1).padStart(2, "0")}</span>${t}</p>`).join("");
+  s.insertAdjacentHTML("beforeend", `<div class="itens"><p class="rotulo-agenda">45 minutos</p>${lista}</div>`);
+}
+</script>
+<script>
+/* Cronômetro das atividades: só funciona no HTML (não vai para o PDF). Clique em iniciar ou aperte T no slide.
+   data-tempos lista os segundos de cada etapa; a etapa é o estado do slide (a seta avança a etapa antes de trocar de slide),
+   e cada troca de etapa carrega o tempo dela, parado.
+   O mostrador é editável: clique nele, digite o tempo (12, 12:30 ou 90s) e aperte Enter. Vale para a etapa atual. */
+for (const t of document.querySelectorAll(".timer[data-tempos]")) {
+  const slide = t.closest(".slide"), tempos = t.dataset.tempos.split(",").map(Number), fases = (t.dataset.fases || "").split(",");
+  const mostrador = t.querySelector(".mostrador"), fase = t.querySelector(".fase"), bt = t.querySelector('[data-acao="alternar"]');
+  let etapa = 0, resta = tempos[0], relogio = null;
+  const total = () => tempos[etapa];
+  const mostrar = () => {
+    mostrador.textContent = `${String(Math.floor(resta / 60)).padStart(2, "0")}:${String(resta % 60).padStart(2, "0")}`;
+    if (fases[etapa]) fase.textContent = fases[etapa];
+    t.classList.toggle("fim", resta === 0);
+  };
+  const parar = () => { clearInterval(relogio); relogio = null; bt.textContent = resta === total() ? "iniciar" : "continuar"; };
+  const carregar = (i) => { clearInterval(relogio); relogio = null; etapa = Math.min(Math.max(i, 0), tempos.length - 1); resta = total(); bt.textContent = "iniciar"; mostrar(); };
+  const alternar = () => {
+    if (relogio) return parar();
+    if (resta === 0) resta = total();
+    relogio = setInterval(() => { resta = Math.max(0, resta - 1); mostrar(); if (resta === 0) parar(); }, 1000);
+    bt.textContent = "pausar"; mostrar();
+  };
+  t.addEventListener("click", (ev) => {
+    if (ev.target === mostrador) return;   /* clicar no mostrador é para editá-lo */
+    const a = ev.target.dataset.acao; if (a === "alternar") alternar(); if (a === "zerar") carregar(etapa); ev.target.blur();
+  });
+  document.addEventListener("keydown", (ev) => {
+    if ((ev.key === "t" || ev.key === "T") && slide.classList.contains("atual") && !document.activeElement.isContentEditable) alternar();
+  });
+  /* Mostrador editável: "12" vira 12 minutos, "12:30" vira 12 min 30 s e "90s" vira 90 segundos. */
+  const ler = (texto) => {
+    const s = texto.trim().replace(",", ":");
+    let m = s.match(/^(\d{1,3}):([0-5]?\d)$/);
+    if (m) return +m[1] * 60 + +m[2];
+    m = s.match(/^(\d{1,4})\s*s$/i);
+    if (m) return +m[1];
+    m = s.match(/^(\d{1,3})(\s*min)?$/i);
+    return m ? +m[1] * 60 : null;
+  };
+  mostrador.setAttribute("contenteditable", "plaintext-only");
+  mostrador.setAttribute("spellcheck", "false");
+  mostrador.title = "Clique e digite outro tempo (12, 12:30 ou 90s)";
+  mostrador.addEventListener("pointerdown", (ev) => { ev.stopPropagation(); mostrador.focus(); });
+  mostrador.addEventListener("click", (ev) => ev.stopPropagation());   /* não avança o passo do slide */
+  mostrador.addEventListener("focus", () => { if (relogio) parar(); });
+  mostrador.addEventListener("keydown", (ev) => {
+    /* o Enter confirma o tempo; sem stopPropagation ele avançaria o slide */
+    if (ev.key === "Enter") { ev.preventDefault(); ev.stopPropagation(); setTimeout(() => mostrador.blur()); }
+    if (ev.key === "Escape") { ev.stopPropagation(); mostrar(); setTimeout(() => mostrador.blur()); }
+  });
+  mostrador.addEventListener("blur", () => {
+    const segundos = ler(mostrador.textContent);
+    if (segundos === null || segundos < 1) return mostrar();
+    tempos[etapa] = segundos;
+    resta = segundos;
+    bt.textContent = "iniciar";
+    mostrar();
+  });
+  if (tempos.length > 1) new MutationObserver(() => {
+    const e = parseInt(slide.dataset.estado || "0", 10);
+    if (Number.isFinite(e) && e !== etapa) carregar(e);
+  }).observe(slide, { attributes: true, attributeFilter: ["data-estado"] });
+}
+</script>
+<script src="../../design-system/js/deck.js"></script>
+</body>
+</html>

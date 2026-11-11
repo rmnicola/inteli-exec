@@ -1,0 +1,272 @@
+{
+  "titulo": "Montando um assistente em 20 minutos",
+  "eixos": [
+    {
+      "chave": "app",
+      "rotulo": "Aplicativo",
+      "opcoes": [
+        {
+          "id": "gemini",
+          "rotulo": "Gemini"
+        },
+        {
+          "id": "chatgpt",
+          "rotulo": "ChatGPT"
+        },
+        {
+          "id": "claude",
+          "rotulo": "Claude"
+        },
+        {
+          "id": "copilot",
+          "rotulo": "Copilot"
+        }
+      ]
+    },
+    {
+      "chave": "caminho",
+      "rotulo": "Onde rodar",
+      "opcoes": [
+        {
+          "id": "chat",
+          "rotulo": "No chat"
+        },
+        {
+          "id": "pasta",
+          "rotulo": "Na pasta (agente)"
+        }
+      ]
+    }
+  ],
+  "resumo": "Transformar o {app} num assistente que responde sobre a programação deste evento — com instruções escritas uma vez e um documento anexado — e que diz “não sei” quando a resposta não está lá.",
+  "contexto": "Escolha o seu aplicativo no seletor acima. O caminho **No chat** funciona em conta gratuita e é o da sala; o caminho **Na pasta** é para quem já tem um aplicativo de desktop instalado. Você vai precisar de uma coisa só: o PDF da [programação do evento](../programacao.pdf).",
+  "passos": [
+    {
+      "titulo": "Baixe a programação",
+      "texto": [
+        "Baixe o PDF da [programação do Zoox Data Revolution 2026](../programacao.pdf). É o único arquivo que você precisa.",
+        "Dá para abrir e ler agora: são duas páginas. Isso importa, porque daqui a pouco você vai conferir as respostas do assistente contra ele."
+      ]
+    },
+    {
+      "titulo": "Crie o assistente",
+      "variantes": {
+        "gemini": {
+          "texto": [
+            "Em [gemini.google.com](https://gemini.google.com), abra **Gems** na barra da esquerda e clique em **Novo Gem**. Dê um nome: *Programação ZDR*."
+          ],
+          "aviso": "A janela de prévia **não salva sozinha**. Clique em **Salvar** no fim."
+        },
+        "chatgpt": {
+          "texto": [
+            "Em [chatgpt.com](https://chatgpt.com), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Programação ZDR*.",
+            "Criar um GPT personalizado não existe mais em conta pessoal — o Projeto é o equivalente: tem instruções fixas e arquivos."
+          ]
+        },
+        "claude": {
+          "texto": [
+            "Em [claude.ai](https://claude.ai), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Programação ZDR*."
+          ],
+          "aviso": "O plano gratuito permite até cinco projetos."
+        },
+        "copilot": {
+          "texto": [
+            "No Microsoft 365 Copilot, abra **Agentes** e clique em **Novo agente**. Dê um nome: *Programação ZDR*."
+          ],
+          "aviso": "O criador de agentes pede **conta de trabalho ou escolar com licença do Microsoft 365 Copilot**. Em conta pessoal gratuita ele não deixa anexar arquivos. Sem a licença, pule para o passo 5: você cola as instruções e anexa o PDF direto na conversa do Copilot. Funciona igual — só não fica salvo para a próxima vez."
+        },
+        "pasta": {
+          "texto": [
+            "Este passo é só do caminho **No chat**. Na pasta, o lugar das instruções é outro: siga para o próximo."
+          ],
+          "aviso": ""
+        }
+      }
+    },
+    {
+      "titulo": "Instale o aplicativo de desktop",
+      "variantes": {
+        "chat": {
+          "texto": [
+            "Este passo é só do caminho **Na pasta**. No chat, siga para o próximo."
+          ],
+          "aviso": ""
+        },
+        "gemini": {
+          "texto": [
+            "Da casa do Gemini, o aplicativo que trabalha em pastas é o **Antigravity**: baixe em [antigravity.google/download](https://antigravity.google/download) e entre com a sua conta Google."
+          ],
+          "aviso": "O Antigravity funciona em **conta gratuita**, com uma cota diária de pedidos que é pequena e já foi reduzida mais de uma vez. Se a cota acabar no meio do workshop, volte ao caminho do chat."
+        },
+        "chatgpt": {
+          "texto": [
+            "Da casa do ChatGPT, o aplicativo que trabalha em pastas é o **Codex**. Instale pelo site do Codex e entre com a sua conta."
+          ],
+          "aviso": "O Codex **exige plano pago do ChatGPT**. Em conta gratuita ele não abre: use o caminho do chat."
+        },
+        "claude": {
+          "texto": [
+            "Da casa do Claude, o aplicativo que trabalha em pastas é o **Claude Desktop**, no modo **Cowork**. Baixe em [claude.ai/download](https://claude.ai/download)."
+          ],
+          "aviso": "O Cowork **depende do plano da sua conta** — ele saiu como prévia para o plano Max. Se não aparecer no aplicativo, use o caminho do chat."
+        },
+        "copilot": {
+          "texto": [
+            "Da casa do Copilot, o que trabalha em pastas é o **GitHub Copilot no VS Code**, em *agent mode*: instale o [VS Code](https://code.visualstudio.com), entre com a conta do GitHub e troque o modo do chat para **Agent**."
+          ],
+          "aviso": "O agent mode funciona em **conta gratuita do GitHub**, com uso limitado de chat e de agente por mês. É o caminho com mais instalação: se você nunca abriu o VS Code, faça o do chat primeiro."
+        }
+      }
+    },
+    {
+      "titulo": "Prepare a pasta",
+      "variantes": {
+        "chat": {
+          "texto": [
+            "Também é só do caminho **Na pasta**. Siga para o próximo."
+          ]
+        },
+        "pasta": {
+          "texto": [
+            "Crie uma pasta no computador, por exemplo `zdr`, e ponha o PDF da programação dentro dela.",
+            "Abra **a pasta** no aplicativo — não o arquivo solto — e autorize o acesso quando ele pedir."
+          ],
+          "aviso": "Dê acesso só a essa pasta. O agente pode criar, editar e apagar arquivos no que você liberar."
+        }
+      }
+    },
+    {
+      "titulo": "Escreva as instruções",
+      "texto": [
+        "São quatro partes: **papel**, **tarefa**, **formato** e **o que fazer quando não souber**. Copie e cole."
+      ],
+      "arquivo": "Instruções",
+      "codigo": "# PAPEL\nVocê é o assistente de programação do Zoox Data Revolution 2026. Quem pergunta está no evento, com pressa, olhando o celular.\n\n# TAREFA\nResponder dúvidas sobre a programação usando SOMENTE o documento anexado.\n\n# FORMATO\n- Comece pela resposta direta, em uma ou duas frases.\n- Sempre que a resposta envolver horário, repita o horário.\n- Depois, diga de onde tirou (o bloco da programação e a linha).\n- Nada de introdução (\"ótima pergunta\"), nada de emoji.\n\n# SE NÃO SOUBER\nSe a resposta não estiver na programação anexada, responda exatamente:\n\"Isso não está na programação que eu tenho. Pergunte na recepção do evento.\"\nNunca invente horário, nome, cargo ou sala.",
+      "variantes": {
+        "chat": {
+          "depois": [
+            "Cole no campo de **instruções** do assistente que você acabou de criar e salve."
+          ]
+        },
+        "pasta": {
+          "depois": [
+            "Mande isso ao agente como primeira mensagem, pedindo que ele guarde as regras num arquivo da pasta e as siga daqui em diante."
+          ]
+        }
+      }
+    },
+    {
+      "titulo": "Anexe a programação",
+      "variantes": {
+        "pasta": {
+          "texto": [
+            "O PDF já está na pasta: o agente lê de lá. Peça que ele abra o arquivo antes de responder qualquer coisa."
+          ]
+        },
+        "gemini": {
+          "texto": [
+            "Na seção **Conhecimento** do Gem, clique em **Adicionar arquivos** e envie o PDF. Depois clique em **Salvar**.",
+            "Ele fica guardado ali e vale em toda conversa: você não anexa de novo a cada pergunta."
+          ]
+        },
+        "chatgpt": {
+          "texto": [
+            "Nos **arquivos do projeto**, envie o PDF da programação.",
+            "Ele fica guardado ali e vale em toda conversa do projeto: você não anexa de novo a cada pergunta."
+          ]
+        },
+        "claude": {
+          "texto": [
+            "No **conhecimento do projeto**, envie o PDF da programação.",
+            "Ele fica guardado ali e vale em toda conversa do projeto: você não anexa de novo a cada pergunta."
+          ]
+        },
+        "copilot": {
+          "texto": [
+            "Na base de conhecimento do agente, envie o PDF da programação.",
+            "Sem a licença do Microsoft 365 Copilot, anexe o PDF direto na conversa e cole as instruções antes da primeira pergunta: funciona igual, só não fica salvo."
+          ]
+        }
+      }
+    },
+    {
+      "titulo": "Faça as perguntas de teste",
+      "texto": [
+        "Abra uma conversa no assistente e mande as perguntas abaixo, **uma de cada vez**. Confira cada resposta olhando o PDF — é para isso que ele tem só duas páginas."
+      ],
+      "arquivo": "Perguntas",
+      "codigo": "A que horas é o almoço?\n\nQuem fala sobre formação de líderes, e quando?\n\nQuem media o painel das big techs?\n\nDá para ver o Bernardinho e o painel de cases?\n\nQuais atividades têm alguém da Zoox falando?",
+      "depois": [
+        "As duas primeiras saem de uma linha só. A terceira e a quinta obrigam o assistente a ler o documento inteiro: repare se ele acerta quem **media** o painel, e não só quem fala nele."
+      ]
+    },
+    {
+      "titulo": "Agora a pergunta que não tem resposta",
+      "texto": [
+        "Mande esta:"
+      ],
+      "arquivo": "Prompt",
+      "codigo": "Em que sala é a conversa do David Feffer?",
+      "depois": [
+        "A programação **não diz a sala de nenhuma atividade** — ela cita nomes de espaços (Plenária Imersiva, Zoox Sessions, Inteli Room, Exposition Room), mas não liga nenhum deles a um horário.",
+        "Se o seu assistente respondeu “Plenária Imersiva”, ele inventou: pegou um nome que estava no documento e colou numa pergunta que o documento não responde.",
+        "Se ele respondeu que não sabe, foi **a sua instrução** que fez isso — a última parte, a do “se não souber”. É a parte que quase todo mundo esquece de escrever, e é a que separa um assistente que você pode usar de um que você precisa conferir."
+      ]
+    },
+    {
+      "titulo": "Conserte a instrução, não a resposta",
+      "texto": [
+        "Inventou? Volte ao campo de instruções e reforce a última parte: escreva a frase exata que ele deve responder, entre aspas, e acrescente o que ele não pode inventar.",
+        "Abra uma conversa **nova** e pergunte de novo. Em alguns aplicativos a instrução alterada só vale a partir da próxima conversa.",
+        "Mude **uma coisa por vez**. Trocando três linhas de uma vez, você não sabe qual delas resolveu."
+      ],
+      "aviso": "Este é o ciclo inteiro: perguntar, conferir contra o documento, ajustar a instrução, perguntar de novo. Serve para qualquer assistente que você montar depois deste."
+    },
+    {
+      "titulo": "Troque o documento pelo seu",
+      "texto": [
+        "O assistente que você montou não tem nada de específico sobre eventos: ele tem um papel, um formato e um documento.",
+        "Troque o PDF da programação por um documento do seu trabalho — um contrato, uma política, um manual, a ata de uma reunião — ajuste o papel na primeira linha das instruções e teste com as perguntas que **você** recebe toda semana.",
+        "Leve o seu caso para a conversa: é isso que a gente faz no curso completo."
+      ]
+    }
+  ],
+  "problemas": [
+    [
+      "Ele responde coisas que não estão na programação.",
+      "A parte do “se não souber” está fraca ou não existe. Escreva a frase exata que ele deve responder, entre aspas, dentro da instrução."
+    ],
+    [
+      "Ele cita um horário errado.",
+      "Peça que a resposta traga **o trecho copiado** da programação junto do horário. Fica mais fácil conferir, e ele erra menos."
+    ],
+    [
+      "As respostas ficaram longas demais.",
+      "Acrescente um limite explícito: *“Responda em no máximo três frases.”* Limite em número funciona melhor que “seja breve”."
+    ],
+    [
+      "Mudei a instrução e nada mudou.",
+      "Abra uma conversa nova dentro do assistente: a que já estava aberta pode seguir com a instrução antiga."
+    ],
+    [
+      "O PDF não subiu.",
+      "Tente de novo com a rede do evento instável; se insistir em falhar, copie o texto da programação e cole dentro das próprias instruções."
+    ],
+    [
+      "O Gem não guardou o arquivo.",
+      "A janela de prévia não salva. Volte ao Gem e clique em **Salvar**.",
+      "gemini"
+    ],
+    [
+      "Não acho a opção de criar um agente.",
+      "Em conta pessoal gratuita ela não aparece. Cole as instruções e anexe o PDF direto na conversa: funciona igual, só não fica salvo.",
+      "copilot"
+    ],
+    [
+      "O agente não enxerga o arquivo.",
+      "Confira que você abriu a **pasta**, e não o PDF solto, e que autorizou o acesso quando ele pediu.",
+      "pasta"
+    ]
+  ],
+  "fechamento": "Este guia fica no ar depois do evento: rmnicola.github.io/inteli-exec/zoox"
+}

@@ -120,6 +120,32 @@
           "em_breve": true
         }
       ]
+    },
+    {
+      "slug": "zoox",
+      "pasta": "zoox",
+      "oculto": true,
+      "titulo": "Monte o seu assistente",
+      "subtitulo": "Workshop de 45 minutos · Zoox Data Revolution 2026",
+      "proposito": "Sair daqui com um assistente de IA funcionando — montado por você, com as suas instruções e o seu documento — e com o critério para saber quando confiar nele.",
+      "objetivos": [
+        "**Montar:** criar um assistente com instruções escritas uma vez e um documento anexado, no aplicativo que você já usa.",
+        "**Testar:** conferir cada resposta contra o documento, inclusive a pergunta que o documento não responde.",
+        "**Ajustar:** corrigir a instrução, e não a resposta, quando o assistente erra."
+      ],
+      "apresentacao": "apresentacao/dist/index.html",
+      "materiais": [
+        {
+          "rotulo": "Montando um assistente em 20 minutos",
+          "tipo": "passo a passo",
+          "link": "montar-assistente/"
+        },
+        {
+          "rotulo": "Programação do evento",
+          "tipo": "PDF",
+          "arquivo": "programacao/programacao.pdf"
+        }
+      ]
     }
   ]
 }
