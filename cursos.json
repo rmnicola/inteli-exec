@@ -125,25 +125,63 @@
       "slug": "zoox",
       "pasta": "zoox",
       "oculto": true,
-      "titulo": "Monte o seu assistente",
-      "subtitulo": "Workshop de 45 minutos · Zoox Data Revolution 2026",
-      "proposito": "Sair daqui com um assistente de IA funcionando — montado por você, com as suas instruções e o seu documento — e com o critério para saber quando confiar nele.",
+      "titulo": "Inteli Exec no Zoox Data Revolution 2026",
+      "subtitulo": "Três sessões de 45 minutos na Inteli Room · 17 de novembro",
+      "proposito": "Mostrar, em três sessões curtas, o arco inteiro: montar um assistente, dar ferramentas a ele e decidir o que escalar e o que não.",
       "objetivos": [
-        "**Montar:** criar um assistente com instruções escritas uma vez e um documento anexado, no aplicativo que você já usa.",
-        "**Testar:** conferir cada resposta contra o documento, inclusive a pergunta que o documento não responde.",
-        "**Ajustar:** corrigir a instrução, e não a resposta, quando o assistente erra."
+        "**Montar:** sair da sessão com um assistente funcionando, feito por você.",
+        "**Conectar:** ver o que muda quando a IA ganha acesso aos seus dados e ação sobre eles.",
+        "**Decidir:** levar uma lista curta do que decidir, do que proibir e do que medir."
       ],
-      "apresentacao": "apresentacao/dist/index.html",
-      "materiais": [
+      "aulas": [
         {
-          "rotulo": "Montando um assistente em 20 minutos",
-          "tipo": "passo a passo",
-          "link": "montar-assistente/"
+          "slug": "assistente",
+          "titulo": "Essencial na prática",
+          "subtitulo": "Monte o seu assistente: instruções, documentos e o risco acontecendo ao vivo",
+          "apresentacao": "assistente/apresentacao/dist/index.html",
+          "materiais": [
+            {
+              "rotulo": "Montando um assistente em 20 minutos",
+              "tipo": "passo a passo",
+              "link": "../montar-assistente/"
+            },
+            {
+              "rotulo": "Programação do evento",
+              "tipo": "PDF",
+              "arquivo": "programacao/programacao.pdf"
+            }
+          ]
         },
         {
-          "rotulo": "Programação do evento",
-          "tipo": "PDF",
-          "arquivo": "programacao/programacao.pdf"
+          "slug": "ferramentas",
+          "titulo": "Ferramentas em ação",
+          "subtitulo": "Conecte o assistente à sua agenda e ao seu e-mail, e veja o que muda",
+          "apresentacao": "ferramentas/apresentacao/dist/index.html",
+          "materiais": [
+            {
+              "rotulo": "Conecte o seu assistente",
+              "tipo": "passo a passo",
+              "link": "../conectar-e-perguntar/"
+            },
+            {
+              "rotulo": "Programação do evento",
+              "tipo": "PDF",
+              "arquivo": "programacao/programacao.pdf"
+            }
+          ]
+        },
+        {
+          "slug": "estrategia",
+          "titulo": "Estratégia e governança",
+          "subtitulo": "O mapa da transformação: riscos, oportunidades e o que decidir antes de escalar",
+          "apresentacao": "estrategia/apresentacao/dist/index.html",
+          "materiais": [
+            {
+              "rotulo": "Programação do evento",
+              "tipo": "PDF",
+              "arquivo": "programacao/programacao.pdf"
+            }
+          ]
         }
       ]
     }

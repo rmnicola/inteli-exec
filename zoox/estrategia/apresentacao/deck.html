@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estratégia e governança · Zoox Data Revolution 2026</title>
+<link rel="stylesheet" href="../../../design-system/css/inteli-exec.css">
+<style>
+
+/* Estilos sob medida deste deck. Cada slide sob medida é estilizado só pelo seu id. */
+
+/* ---- Atividade com cronômetro: a seta passa do passo 1 ao 2 antes de trocar de slide; o cronômetro só funciona no HTML ---- */
+.atividade .rotulo-termo { left: 120px; top: 110px; }
+/* O rótulo fica no alto do slide: as etapas começam abaixo dele, nunca coladas */
+.atividade .etapas { position: absolute; left: 120px; top: 168px; bottom: 20px; width: 840px; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+.atividade .etapa { display: flex; gap: 28px; align-items: flex-start; padding: 26px 30px; border-radius: 18px; border: 4px solid transparent; }
+.atividade .etapa.atual { border-color: var(--coral); background: var(--branco); }
+.atividade .etapa > b { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--coral); color: var(--branco); display: grid; place-items: center;
+  font-family: var(--f-destaque); font-size: 32px; }
+.atividade .etapa small { display: block; font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
+.atividade .etapa p { font-weight: 800; font-size: 42px; line-height: 1.2; margin-top: 6px; }
+.atividade .timer { position: absolute; left: 1060px; top: 0; bottom: 0; margin: auto 0; height: 420px; width: 420px; border-radius: 24px; background: var(--roxo);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; }
+.atividade .fase { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--verde); }
+.atividade .mostrador { font-family: var(--f-capitulo); font-size: 112px; line-height: 1; color: var(--branco); font-variant-numeric: tabular-nums;
+  outline: none; cursor: text; border-bottom: 4px dashed transparent; transition: border-color .2s; }
+.atividade .mostrador:hover, .atividade .mostrador:focus { border-bottom-color: var(--cinza-escuro); }
+.atividade .timer.fim .mostrador { color: var(--coral); animation: piscar 1s steps(2) infinite; }
+@keyframes piscar { 50% { opacity: .3; } }
+.atividade .ctl { display: flex; gap: 16px; }
+.atividade .ctl button { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; padding: 10px 22px; border-radius: 12px;
+  border: 3px solid var(--branco); background: transparent; color: var(--branco); cursor: pointer; }
+.atividade .ctl button[data-acao="alternar"] { background: var(--coral); border-color: var(--coral); }
+@media print { .atividade .timer { display: none; } .atividade .etapas { width: 1360px; } }
+
+/* ---- Site do curso: só o QR code e o endereço embaixo ---- */
+#site-curso .centro { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+#site-curso .qr { width: 600px; height: 600px; padding: 32px; border-radius: 24px; background: var(--branco); }
+#site-curso .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+#site-curso .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 40px; color: var(--roxo); }
+
+/* ---- Quem conduz: os três condutores num slide só ---- */
+#professor .trio { position: absolute; left: 130px; right: 130px; top: 200px; display: flex; gap: 40px; }
+#professor .pessoa { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+#professor .pessoa img { width: 280px; height: 280px; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 16px 40px rgba(46, 38, 64, .18); }
+#professor .nome-p { font-weight: 800; font-size: 40px; line-height: 1.1; margin-top: 26px; }
+#professor .cargo-p { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; color: var(--coral-texto); margin-top: 8px; }
+#professor .linha-p { font-size: 28px; line-height: 1.3; color: var(--texto-suave); margin-top: 10px; }
+
+/* Atividade com um passo só: a instrução grande e, embaixo, o QR do passo a passo de cada ferramenta */
+.atividade.com-qr .etapas { top: 200px; bottom: 300px; }
+.atividade.com-qr .etapa > div > p { font-size: 46px; }
+.atividade .qr-guia { position: absolute; left: 120px; bottom: 90px; width: 840px; display: flex; align-items: center; gap: 30px; }
+.atividade .qr-guia img { flex: none; width: 180px; height: 180px; padding: 12px; border-radius: 14px; background: var(--branco); image-rendering: pixelated; }
+.atividade .qr-guia .rot-qr { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
+.atividade .qr-guia .txt-qr { font-size: 30px; line-height: 1.25; margin-top: 6px; }
+
+/* A etapa do passo atual fica destacada (a seta avança a etapa antes de trocar de slide) */
+.atividade:not([data-estado]) .e1, .atividade[data-estado="0"] .e1,
+.atividade[data-estado="1"] .e2, .atividade[data-estado="2"] .e3 { border-color: var(--coral); background: var(--branco); }
+
+/* Agenda curta de três momentos: o QR do site fica no canto, para quem chegou atrasado */
+.slide.agenda .qr-canto { position: absolute; right: 90px; bottom: 90px; width: 220px; text-align: center; }
+.slide.agenda .qr-canto img { display: block; width: 180px; height: 180px; margin: 0 auto 8px; image-rendering: pixelated; }
+.slide.agenda .qr-canto span { font-size: 28px; color: var(--texto-suave); }
+
+/* O fecho: o QR grande e o que levar para casa */
+#leve-o-seu .centro { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 36px; }
+#leve-o-seu .qr { width: 460px; height: 460px; padding: 28px; border-radius: 24px; background: var(--branco); }
+#leve-o-seu .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+#leve-o-seu .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 36px; color: var(--roxo); }
+#leve-o-seu .frase-fim { font-weight: 800; font-size: 44px; text-align: center; max-width: 1100px; line-height: 1.2; }
+
+/* ---- O arco: uma coluna por produto, e a linha do risco atravessando as três ---- */
+#arco .rotulo-termo { left: 120px; top: 110px; }
+#arco .colunas { position: absolute; left: 120px; right: 120px; top: 210px; display: flex; gap: 28px; }
+#arco .col { flex: 1; display: flex; flex-direction: column; border-radius: 20px; overflow: hidden; background: var(--branco); }
+#arco .col.agora { outline: 5px solid var(--coral); }
+#arco .cab { padding: 24px 28px 20px; background: var(--roxo); color: var(--branco); }
+#arco .col.agora .cab { background: var(--verde-escuro); }
+#arco .nome { font-weight: 800; font-size: 34px; line-height: 1.1; }
+#arco .foco { font-size: 28px; line-height: 1.2; margin-top: 8px; color: var(--cinza-medio); }
+#arco .faixa { padding: 22px 28px; border-top: 3px solid var(--cinza-claro); }
+#arco .rot { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
+#arco .txt { font-size: 30px; line-height: 1.25; margin-top: 6px; }
+#arco .faixa.pratica .txt { color: var(--texto-suave); }
+#arco .legenda-arco { position: absolute; left: 120px; bottom: 54px; font-size: 28px; color: var(--texto-suave); }
+
+
+/* ---- O mapa: duas colunas, valor e exposição ---- */
+#mapa .rotulo-termo { left: 120px; top: 110px; }
+#mapa .lados { position: absolute; left: 120px; right: 120px; top: 210px; bottom: 90px; display: flex; gap: 36px; }
+#mapa .lado { flex: 1; display: flex; flex-direction: column; border-radius: 20px; background: var(--branco); overflow: hidden; }
+#mapa .cab-l { padding: 22px 30px; font-weight: 800; font-size: 34px; background: var(--verde-escuro); color: var(--branco); }
+#mapa .lado.risco .cab-l { background: var(--coral); color: var(--branco); }
+#mapa ul { list-style: none; margin: 0; padding: 20px 30px; display: flex; flex-direction: column; justify-content: space-around; flex: 1; }
+#mapa li { font-size: 32px; line-height: 1.2; padding: 10px 0 10px 34px; position: relative; }
+#mapa li::before { content: ''; position: absolute; left: 0; top: 20px; width: 16px; height: 16px; border-radius: 50%; background: var(--verde-escuro); }
+#mapa .lado.risco li::before { background: var(--coral); }
+
+/* ---- A lista que o C-level leva: decidir, proibir, medir ---- */
+#listas .colunas-l { position: absolute; left: 120px; right: 120px; top: 210px; bottom: 90px; display: flex; gap: 28px; }
+#listas .col-l { flex: 1; display: flex; flex-direction: column; border-radius: 20px; background: var(--branco); overflow: hidden; }
+#listas .cab-l { padding: 20px 28px; font-family: var(--f-destaque); font-weight: 700; font-size: 32px; text-transform: uppercase;
+  background: var(--roxo); color: var(--branco); }
+#listas ul { list-style: none; margin: 0; padding: 18px 28px; display: flex; flex-direction: column; justify-content: space-around; flex: 1; }
+#listas li { font-size: 30px; line-height: 1.2; padding: 10px 0; border-top: 2px solid var(--cinza-claro); }
+#listas li:first-child { border-top: 0; }
+
+/* ---- O que ainda não decidimos: um bloco tracejado, honesto ---- */
+.a-definir .quadro-d { position: absolute; left: 120px; right: 120px; top: 230px; bottom: 150px; border: 5px dashed var(--coral);
+  border-radius: 24px; display: flex; flex-direction: column; justify-content: center; gap: 26px; padding: 40px 60px; }
+.a-definir .pergunta-d { font-weight: 800; font-size: 42px; line-height: 1.2; }
+.a-definir .opcoes-d { font-size: 32px; line-height: 1.35; color: var(--texto-suave); }
+.a-definir .selo-d { position: absolute; left: 120px; bottom: 70px; font-family: var(--f-destaque); font-weight: 700; font-size: 28px;
+  text-transform: uppercase; color: var(--coral-texto); }
+</style>
+</head>
+<body>
+<main class="deck">
+
+  <!-- 1. Boas-vindas (tela oficial) -->
+  <section class="slide boas-vindas sem-numero">
+    <div class="bloco-cinza"></div>
+    <div class="conteudo">
+      <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+      <h1 class="capitulo">Bem-vindos!<br>O mapa da<br><b class="moldura">transformação</b></h1>
+    </div>
+    <p class="rodape">Inteli Room<br>Zoox Data Revolution 2026</p>
+  </section>
+
+  <!-- Site do curso: QR code e link -->
+  <section class="slide" id="site-curso" data-modelo="qr-do-site">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="centro">
+      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/"></div>
+      <p class="link-site">rmnicola.github.io/inteli-exec/zoox</p>
+    </div>
+    <aside class="notas">Aqui ficam as três sessões de hoje, com os passos a passo das duas primeiras. Esta é a terceira: a que tem menos mão na massa e mais decisão.</aside>
+  </section>
+
+  <!-- Quem conduz: os três, num slide só -->
+  <section class="slide" id="professor" data-modelo="quem-conduz-trio" data-max-palavras="60">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">quem conduz · inteli</p>
+    <div class="trio"><div class="pessoa"><img src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola"><p class="nome-p">Rodrigo Nicola</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro mecatrônico, mestre pelo ITA</p><p class="linha-p">Veículos autônomos e aprendizado de máquina</p></div><div class="pessoa"><img src="assets/afonso-brandao.jpg" alt="Foto de Afonso Brandão"><p class="nome-p">Afonso Brandão</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro de produção e civil, mestre em materiais</p><p class="linha-p">Doutorando em engenharia da computação</p></div><div class="pessoa"><img src="assets/egon-daxbacher.jpg" alt="Foto de Egon Daxbacher"><p class="nome-p">Egon Daxbacher</p><p class="cargo-p">Coordenador do Adm Tech</p><p class="linha-p">Inovação e transformação digital</p><p class="linha-p">Passou por FCA, Petrobras e EY</p></div></div>
+    <aside class="notas">Trinta segundos no total, dez para cada um. Não leia os tópicos: diga só o que liga cada pessoa ao que a sala vai fazer hoje.</aside>
+  </section>
+
+  <!-- Agenda: o mapa -->
+  <section class="slide agenda curta" id="agenda-mapa" data-modelo="agenda" data-agora="0" data-max-palavras="40">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>as três sessões</span></div>
+    <aside class="notas">Agora: o mapa.</aside>
+  </section>
+
+  <!-- O mapa: dois lados, valor e exposição -->
+  <section class="slide" id="mapa" data-modelo="duas-listas" data-max-palavras="90">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo">o mapa</p>
+    <div class="lados">
+      <div class="lado"><p class="cab-l">Onde a IA cria valor</p><ul>
+        <li>O que se repete toda semana: ler, resumir, redigir</li>
+        <li>O que trava esperando alguém ler</li>
+        <li>O que cinco pessoas fazem de cinco jeitos</li>
+        <li>O que ninguém faz hoje porque não dá tempo</li>
+      </ul></div>
+      <div class="lado risco"><p class="cab-l">Onde ela cria exposição</p><ul>
+        <li>O que decide sobre pessoas: crédito, contratação, preço</li>
+        <li>O que sai para fora sem alguém ler</li>
+        <li>O que depende de dado que não pode sair daqui</li>
+        <li>O que ninguém sabe conferir depois</li>
+      </ul></div>
+    </div>
+    <aside class="notas">O mapa é a única moldura da sessão, e ela é simples de propósito: todo caso de uso cai de um lado, do outro, ou dos dois. O que dá dinheiro e o que dá dor de cabeça costumam ser o mesmo processo visto de ângulos diferentes — por isso as duas colunas não são opostas. Peça que pensem num processo da empresa deles enquanto você lê: na prática daqui a pouco eles vão colocá-lo no mapa.</aside>
+  </section>
+
+  <!-- Agenda: o que já deu errado -->
+  <section class="slide agenda curta" id="agenda-errado" data-modelo="agenda" data-agora="1" data-max-palavras="40">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>as três sessões</span></div>
+    <aside class="notas">Agora: o que já deu errado.</aside>
+  </section>
+
+  <!-- A definir: o que já deu errado -->
+  <section class="slide a-definir" id="casos" data-modelo="bloco-a-definir" data-max-palavras="80">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">o que já deu errado</p>
+    <div class="quadro-d"><p class="pergunta-d">Que casos a gente conta aqui?</p><p class='opcoes-d'><b>A.</b> casos públicos de IA que deu errado, com nome e data</p><p class='opcoes-d'><b>B.</b> o caso fictício da Horizonte, que já existe no Ferramentas em Ação</p><p class='opcoes-d'><b>C.</b> o que acabou de acontecer na sessão anterior: metade da sala bloqueada pelo TI</p></div>
+    <p class="selo-d">ainda não decidimos</p>
+    <aside class="notas">Bloco a combinar com o Afonso. A opção C é a mais barata e a mais forte: o bloqueio acontece de verdade na sessão 2, na frente deles, e já levanta a pergunta certa — quem decidiu isso, e quando? A opção A dá peso, mas exige curadoria e envelhece rápido. A B reaproveita material pronto, mas é ficção, e numa plateia C-level ficção vale menos que o que eles acabaram de viver. Minha sugestão: C como espinha, com um ou dois casos de A para dar escala.</aside>
+  </section>
+
+  <!-- Agenda: a prática -->
+  <section class="slide agenda curta" id="agenda-pratica" data-modelo="agenda" data-agora="2" data-max-palavras="40">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>as três sessões</span></div>
+    <aside class="notas">Agora: a prática.</aside>
+  </section>
+
+  <!-- A definir: a prática, reduzida -->
+  <section class="slide a-definir" id="pratica" data-modelo="bloco-a-definir" data-max-palavras="80">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">a prática, reduzida</p>
+    <div class="quadro-d"><p class="pergunta-d">O que a plateia faz com as mãos, em 12 minutos?</p><p class='opcoes-d'><b>A.</b> põe um processo da própria empresa no mapa das duas colunas, no papel</p><p class='opcoes-d'><b>B.</b> escolhe uma das nove linhas da lista e escreve quem decide e até quando</p><p class='opcoes-d'><b>C.</b> as duas, seis minutos cada</p></div>
+    <p class="selo-d">ainda não decidimos</p>
+    <aside class="notas">Bloco a combinar. A opção A conecta com o slide do mapa e é fácil de fazer em papel; a B produz um compromisso com nome e data, que é o que sobra depois do evento. A C é a que eu faria: o mapa dá o diagnóstico, a lista dá a ação, e as duas juntas cabem em doze minutos se cada uma tiver uma folha só.</aside>
+  </section>
+
+  <!-- A lista que o C-level leva embora -->
+  <section class="slide" id="listas" data-modelo="tres-listas" data-max-palavras="90">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">o que você leva</p>
+    <div class="colunas-l">
+      <div class="col-l"><p class="cab-l">Decidir</p><ul>
+        <li>Quem pode conectar o quê</li>
+        <li>Que dado pode sair da empresa</li>
+        <li>Quem aprova uma exceção</li>
+      </ul></div>
+      <div class="col-l"><p class="cab-l">Proibir</p><ul>
+        <li>O que nunca roda sem uma pessoa no meio</li>
+        <li>Que dado nunca entra num prompt</li>
+        <li>Que decisão a IA não toma</li>
+      </ul></div>
+      <div class="col-l"><p class="cab-l">Medir</p><ul>
+        <li>Quanto se usa, e onde</li>
+        <li>Quantas vezes alguém precisou corrigir</li>
+        <li>O que piorou desde que ligamos</li>
+      </ul></div>
+    </div>
+    <aside class="notas">O entregável da sessão. Nove linhas, e nenhuma delas pede um comitê: cada uma pede uma pessoa com nome e uma data. Se der tempo, peça que escolham UMA das nove para resolver até o fim do mês — é a única coisa que sobrevive ao evento. A coluna de medir é a que todo mundo esquece, e é a que mostra se a governança está funcionando ou só escrita.</aside>
+  </section>
+
+  <!-- O arco dos três produtos: o que cada um faz com o risco -->
+  <section class="slide" id="arco" data-modelo="arco-dos-produtos" data-max-palavras="130">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo">o risco, três vezes</p>
+    <div class="colunas">
+      <div class="col">
+        <div class="cab"><p class="nome">Essencial na Prática</p><p class="foco">fundamento · ferramentas simples</p></div>
+        <div class="faixa"><p class="rot">o risco acontece</p><p class="txt">Uma pergunta que vai dar errado na dinâmica, consertada junto com a turma.</p></div>
+        <div class="faixa pratica"><p class="rot">prática</p><p class="txt">o dia inteiro</p></div>
+      </div>
+      <div class="col">
+        <div class="cab"><p class="nome">Ferramentas em Ação</p><p class="foco">ferramentas · conectividade</p></div>
+        <div class="faixa"><p class="rot">o risco ganha um momento</p><p class="txt">O que muda quando a IA tem acesso e ação — e como mitigar.</p></div>
+        <div class="faixa pratica"><p class="rot">prática</p><p class="txt">dois dias</p></div>
+      </div>
+      <div class="col agora">
+        <div class="cab"><p class="nome">Estratégia e Governança</p><p class="foco">riscos · oportunidades</p></div>
+        <div class="faixa"><p class="rot">o risco é o assunto</p><p class="txt">O que decidir, o que proibir e o que medir antes de escalar.</p></div>
+        <div class="faixa pratica"><p class="rot">prática</p><p class="txt">bem reduzida</p></div>
+      </div>
+    </div>
+    <p class="legenda-arco">O mapa da transformação para o C-Level</p>
+    <aside class="notas">O eixo que saiu da conversa com o Afonso: o risco não é um módulo de um curso só, é um fio que atravessa os três produtos, com profundidade crescente. No Essencial ele é experiência (acontece com você e a gente conserta). No Ferramentas é prática de mitigação (ganha um momento próprio, depois de a IA ter acesso e ação). No Estratégia é decisão (é o assunto, e a prática encolhe). Isso também responde "por que fazer os três": cada um resolve o risco numa camada que o anterior não alcança.</aside>
+  </section>
+
+  <!-- Fecho: o QR fica na tela enquanto o professor provoca -->
+  <section class="slide" id="leve-o-seu" data-modelo="qr-do-site" data-max-palavras="30">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="centro">
+      <p class="frase-fim">Comece pela lista, não pela ferramenta.</p>
+      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"></div>
+      <p class="link-site">rmnicola.github.io/inteli-exec/zoox</p>
+    </div>
+    <aside class="notas">Dois minutos, com o QR na tela. O que eles levam: as três listas. O que vale dizer: nenhuma dessas decisões precisa de um comitê de seis meses — precisa de uma pessoa com nome, uma data e um número. Convide para conversar no happy hour e para os cursos.</aside>
+  </section>
+
+</main>
+<script>
+/* Agenda do workshop: definida UMA vez aqui. Cada slide .agenda marca o item atual com data-agora (a partir de 0). */
+const AGENDA = ["O mapa", "O que já deu errado", "O que você decide"];
+for (const s of document.querySelectorAll(".slide.agenda")) {
+  const agora = parseInt(s.dataset.agora, 10);
+  const lista = AGENDA.map((t, i) =>
+    `<p class="item${i < agora ? " passou" : i === agora ? " agora" : ""}"><span class="marcador">${String(i + 1).padStart(2, "0")}</span>${t}</p>`).join("");
+  s.insertAdjacentHTML("beforeend", `<div class="itens"><p class="rotulo-agenda">45 minutos</p>${lista}</div>`);
+}
+</script>
+<script src="../../../design-system/js/deck.js"></script>
+</body>
+</html>

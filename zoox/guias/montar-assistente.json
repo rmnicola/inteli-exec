@@ -39,12 +39,12 @@
     }
   ],
   "resumo": "Transformar o {app} num assistente que responde sobre a programação deste evento — com instruções escritas uma vez e um documento anexado — e que diz “não sei” quando a resposta não está lá.",
-  "contexto": "Escolha o seu aplicativo no seletor acima. O caminho **No chat** funciona em conta gratuita e é o da sala; o caminho **Na pasta** é para quem já tem um aplicativo de desktop instalado. Você vai precisar de uma coisa só: o PDF da [programação do evento](../programacao.pdf).",
+  "contexto": "Escolha o seu aplicativo no seletor acima. O caminho **No chat** funciona em conta gratuita e é o da sala; o caminho **Na pasta** é para quem já tem um aplicativo de desktop instalado. Você vai precisar de uma coisa só: o PDF da [programação do evento](../assistente/programacao.pdf).",
   "passos": [
     {
       "titulo": "Baixe a programação",
       "texto": [
-        "Baixe o PDF da [programação do Zoox Data Revolution 2026](../programacao.pdf). É o único arquivo que você precisa.",
+        "Baixe o PDF da [programação do Zoox Data Revolution 2026](../assistente/programacao.pdf). É o único arquivo que você precisa.",
         "Dá para abrir e ler agora: são duas páginas. Isso importa, porque daqui a pouco você vai conferir as respostas do assistente contra ele."
       ]
     },

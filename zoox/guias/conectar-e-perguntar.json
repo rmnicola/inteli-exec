@@ -1,0 +1,157 @@
+{
+  "titulo": "Conecte o seu assistente",
+  "eixos": [
+    {
+      "chave": "app",
+      "rotulo": "Aplicativo",
+      "opcoes": [
+        {
+          "id": "claude",
+          "rotulo": "Claude"
+        },
+        {
+          "id": "gemini",
+          "rotulo": "Gemini"
+        },
+        {
+          "id": "chatgpt",
+          "rotulo": "ChatGPT"
+        },
+        {
+          "id": "copilot",
+          "rotulo": "Copilot"
+        }
+      ]
+    }
+  ],
+  "resumo": "Dar ao assistente que você montou acesso à sua agenda e aos seus e-mails, e pedir que ele cruze isso com a programação do evento para dizer o que você não pode perder hoje.",
+  "contexto": "Este é o passo a passo da segunda sessão. Ele continua de onde a primeira parou: o assistente que já tem a programação anexada agora ganha **acesso** ao que é seu. Se você não fez a primeira sessão, comece por [Montando um assistente em 20 minutos](../montar-assistente/) — leva uns minutos.",
+  "passos": [
+    {
+      "titulo": "Abra o assistente que você montou",
+      "texto": [
+        "É o mesmo da sessão anterior, com as instruções e a programação do evento já dentro dele.",
+        "Se você não tem um, siga o [passo a passo da sessão 1](../montar-assistente/): são três campos e um PDF."
+      ],
+      "depois": [
+        "Acrescente uma linha nas instruções dele: *“Quando eu pedir, use também a minha agenda e os meus e-mails.”*"
+      ]
+    },
+    {
+      "titulo": "Ligue o conector",
+      "variantes": {
+        "claude": {
+          "texto": [
+            "Em **Configurações → Conectores**, procure **Google Agenda** e **Gmail** (os oficiais, marcados como do Google) e clique em conectar.",
+            "Escolha a conta e aprove. Dentro da conversa, o botão **+ → Conectores** liga e desliga cada um."
+          ],
+          "aviso": "Comece pela **Agenda**: ela é só leitura. O Gmail hoje também consegue enviar e responder, e pede aprovação a cada mensagem — mas é um acesso bem maior."
+        },
+        "gemini": {
+          "texto": [
+            "O Gemini já enxerga o Gmail e a Agenda da **conta Google pessoal** em que você está logado, sem instalar nada.",
+            "Confira em **Configurações → Apps** que Gmail e Agenda estão ligados."
+          ],
+          "aviso": "Numa conta do Google Workspace da empresa, o acesso depende do que o administrador liberou. Se não aparecer, vá para o plano B do passo 4."
+        },
+        "chatgpt": {
+          "texto": [
+            "Em **Configurações → Aplicativos e conectores**, procure **Gmail** ou **Outlook** e clique em conectar. Faça login e aprove as permissões.",
+            "Confirme que aparece como conectado antes da primeira pergunta."
+          ],
+          "aviso": "Os conectores de e-mail do ChatGPT costumam exigir **plano pago (Plus ou superior)**. Em conta gratuita, vá direto para o plano B do passo 4."
+        },
+        "copilot": {
+          "texto": [
+            "O Copilot já enxerga o seu Outlook e o seu calendário: não há conector para ligar.",
+            "Confirme que você está no Copilot da conta da empresa, e não na conta pessoal."
+          ],
+          "aviso": "Isso vale com **licença do Microsoft 365 Copilot**. Sem ela, vá para o plano B do passo 4."
+        }
+      }
+    },
+    {
+      "titulo": "Antes de clicar em “permitir”, leia a tela",
+      "texto": [
+        "A tela de consentimento diz exatamente **o que você está entregando**: ler os seus e-mails, ler a sua agenda, às vezes enviar em seu nome.",
+        "Repare em três coisas: **quem** está pedindo (o aplicativo certo, não um parecido), **o que** ele vai poder fazer (ler? escrever? enviar?) e **por quanto tempo**.",
+        "Tudo isso se revoga depois, na conta do Google ou da Microsoft — mas só se você souber que está lá."
+      ],
+      "aviso": "Esta é a tela que quase ninguém lê, e é a única que importa. Numa conta corporativa, pode ser que ela nem apareça: o acesso vem bloqueado pelo administrador. Isso **não é um erro** — é a sua empresa decidindo por você. Guarde essa frase para a terceira sessão."
+    },
+    {
+      "titulo": "Deu “acesso bloqueado”? Plano B",
+      "texto": [
+        "Se a conexão foi barrada pelo TI — e numa sala como esta ela vai ser barrada para várias pessoas —, você faz o mesmo exercício sem conectar nada.",
+        "Abra o seu e-mail, copie **só os assuntos** dos últimos dez, e cole na conversa:"
+      ],
+      "arquivo": "Plano B",
+      "codigo": "Estes são os assuntos dos meus últimos e-mails:\n\n[cole aqui 10 assuntos, sem o conteúdo]\n\nE este é o meu cargo: [seu cargo, na sua empresa].\n\nA partir disso, descubra os três temas que mais importam para mim agora e siga com o pedido abaixo.",
+      "depois": [
+        "Dez assuntos e um cargo dizem muito sobre o que importa para você. O resultado fica quase tão bom, e você não entregou acesso nenhum."
+      ]
+    },
+    {
+      "titulo": "Faça o pedido",
+      "texto": [
+        "Agora o pedido que usa as duas fontes: o que é seu e a programação do evento."
+      ],
+      "arquivo": "Prompt",
+      "codigo": "Olhe a minha agenda de hoje e os meus e-mails recentes e descubra, a partir deles, os três temas que mais importam para mim agora.\n\nDepois, usando a programação do evento que está nos seus arquivos, me diga:\n\n1. as três sessões que eu não posso perder, uma linha cada, com o horário e o porquê ligado a um dos meus temas;\n2. o que eu vou ter que perder por conflito com a minha agenda;\n3. duas pessoas da programação com quem valeria conversar no happy hour, e sobre o quê.\n\nSe alguma coisa não estiver na programação, diga que não está. Não invente horário nem sala.",
+      "depois": [
+        "Repare no que ele faz antes de responder: ele **vai buscar**. É isso que muda quando o assistente tem acesso — ele deixa de só escrever e passa a ir atrás."
+      ]
+    },
+    {
+      "titulo": "Confira, como na sessão passada",
+      "texto": [
+        "Os horários batem com a programação? Ele citou alguma **sala**? (Não deveria: a programação não traz sala nenhuma.)",
+        "O conflito de agenda que ele apontou existe mesmo?",
+        "As pessoas que ele sugeriu estão na programação, ou ele trouxe alguém de fora?"
+      ],
+      "depois": [
+        "O acesso aumenta o alcance do assistente e **não** aumenta a confiança que ele merece. A conferência continua sendo sua."
+      ]
+    },
+    {
+      "titulo": "O que mais ele consegue fazer agora",
+      "texto": [
+        "Peça: *“escreva, sem enviar, um e-mail para o meu time com as três sessões e por que cada uma importa para a gente.”*",
+        "Repare que ele **pode enviar** — e que, se você não disser “sem enviar”, alguns aplicativos vão pedir sua aprovação e outros não.",
+        "É aqui que a conversa deixa de ser sobre a ferramenta e passa a ser sobre regra: quem pode conectar o quê, com que escopo, e o que nunca sai sem uma pessoa no meio."
+      ],
+      "aviso": "Quando terminar o evento, vale revogar o acesso: na Conta Google, em *Segurança → Apps de terceiros*; na Microsoft, em *Minhas aplicações*."
+    },
+    {
+      "titulo": "Avançado: o mesmo por baixo, num harness",
+      "texto": [
+        "O que você acabou de ligar em dois cliques é, por baixo, um servidor que expõe o seu e-mail como **ferramenta**. Num harness de desktop — Claude Desktop, Codex, Antigravity, Copilot no VS Code — isso se configura à mão, por MCP, e aí você escolhe exatamente quais ferramentas o agente enxerga.",
+        "Não dá para fazer isso em quinze minutos numa sala, e é por isso que aqui a gente foi pelo conector. Mas é esse o caminho quando o assistente precisa alcançar os sistemas da empresa, e não só a sua caixa de entrada."
+      ],
+      "aviso": "Os harnesses de desktop quase todos pedem conta paga — Codex e Cowork pedem plano, o Antigravity tem camada gratuita com cota pequena. É assunto do curso Ferramentas em Ação."
+    }
+  ],
+  "problemas": [
+    [
+      "Aparece “acesso bloqueado” ou “o administrador precisa aprovar”.",
+      "É a política da sua empresa, não um defeito. Use o plano B do passo 4 — e anote: essa decisão é exatamente o assunto da terceira sessão."
+    ],
+    [
+      "Ele respondeu sem olhar a agenda nem os e-mails.",
+      "Diga explicitamente de onde tirar: *“use o conector da agenda e o do e-mail antes de responder”*. Em alguns aplicativos o conector precisa ser ligado dentro da própria conversa."
+    ],
+    [
+      "Ele inventou uma sala ou um horário.",
+      "A programação não tem salas. Reforce na instrução: *“não invente horário nem sala; se não estiver na programação, diga que não está.”*"
+    ],
+    [
+      "Ele leu e-mails demais e a resposta ficou genérica.",
+      "Limite: *“olhe só os últimos 15 e-mails e os compromissos de hoje”*."
+    ],
+    [
+      "Não quero dar acesso ao meu e-mail.",
+      "Não dê. O plano B do passo 4 chega quase no mesmo resultado, e a decisão de não conectar é uma resposta legítima — é metade do assunto desta sessão."
+    ]
+  ],
+  "fechamento": "Na terceira sessão, a pergunta vira outra: quem na sua empresa autoriza isso, com que escopo, e o que você mede para saber se está dando certo."
+}

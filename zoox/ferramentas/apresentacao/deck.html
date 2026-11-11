@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conecte o seu assistente · Zoox Data Revolution 2026</title>
+<link rel="stylesheet" href="../../../design-system/css/inteli-exec.css">
+<style>
+
+/* Estilos sob medida deste deck. Cada slide sob medida é estilizado só pelo seu id. */
+
+/* Harness: o modelo no meio, o harness em volta dele e o que fica de fora.
+   Composição do diagrama de Jediah Katz (AI Engineer NYC 2026), redesenhada na paleta Inteli. */
+#harness .caixa { position: absolute; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; }
+#harness .externo { width: 320px; height: 112px; border: 3px solid var(--roxo); background: var(--branco);
+  align-items: center; text-align: center; padding: 0 14px; }
+#harness .externo b { font-weight: 800; font-size: 32px; }
+#harness .externo small { font-size: 28px; color: var(--texto-suave); margin-top: 2px; }
+#harness .app { left: 56px; top: 426px; }
+#harness .arq { left: 1224px; top: 426px; }
+#harness .moldura-h { left: 420px; top: 234px; width: 760px; height: 496px; border: 3px solid var(--roxo); background: var(--branco);
+  justify-content: flex-start; padding: 16px 30px; }
+#harness .moldura-h .nome { font-size: 30px; font-weight: 800; }
+#harness .recebe { left: 450px; top: 292px; width: 700px; height: 254px; background: var(--roxo); color: var(--branco);
+  padding: 0 32px; border: 3px dashed var(--lilas); justify-content: flex-start; padding-top: 24px; }
+#harness .usa { left: 450px; top: 562px; width: 700px; height: 148px; background: var(--cinza-claro); color: var(--texto-suave); padding: 0 32px; }
+#harness :is(.recebe, .usa) .nome { font-size: 30px; font-weight: 800; }
+#harness :is(.recebe, .usa) .itens { font-size: 28px; line-height: 1.25; margin-top: 4px; }
+#harness .recebe .itens { color: var(--cinza-medio); }
+/* o modelo fica por cima da faixa do contexto: é ela que o alimenta */
+#harness .modelo { left: 650px; top: 442px; width: 300px; height: 86px; background: var(--lilas); color: var(--roxo);
+  align-items: center; font-weight: 800; font-size: 34px; z-index: 2; }
+#harness svg.setas { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; pointer-events: none; }
+#harness svg.setas path { stroke: #2e2640; stroke-width: 4; fill: none; }
+#harness .credito { position: absolute; left: 120px; bottom: 44px; font-size: 28px; color: var(--texto-suave); }
+
+
+/* ---- Atividade com cronômetro: a seta passa do passo 1 ao 2 antes de trocar de slide; o cronômetro só funciona no HTML ---- */
+.atividade .rotulo-termo { left: 120px; top: 110px; }
+/* O rótulo fica no alto do slide: as etapas começam abaixo dele, nunca coladas */
+.atividade .etapas { position: absolute; left: 120px; top: 168px; bottom: 20px; width: 840px; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+.atividade .etapa { display: flex; gap: 28px; align-items: flex-start; padding: 26px 30px; border-radius: 18px; border: 4px solid transparent; }
+.atividade .etapa.atual { border-color: var(--coral); background: var(--branco); }
+.atividade .etapa > b { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--coral); color: var(--branco); display: grid; place-items: center;
+  font-family: var(--f-destaque); font-size: 32px; }
+.atividade .etapa small { display: block; font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
+.atividade .etapa p { font-weight: 800; font-size: 42px; line-height: 1.2; margin-top: 6px; }
+.atividade .timer { position: absolute; left: 1060px; top: 0; bottom: 0; margin: auto 0; height: 420px; width: 420px; border-radius: 24px; background: var(--roxo);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; }
+.atividade .fase { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--verde); }
+.atividade .mostrador { font-family: var(--f-capitulo); font-size: 112px; line-height: 1; color: var(--branco); font-variant-numeric: tabular-nums;
+  outline: none; cursor: text; border-bottom: 4px dashed transparent; transition: border-color .2s; }
+.atividade .mostrador:hover, .atividade .mostrador:focus { border-bottom-color: var(--cinza-escuro); }
+.atividade .timer.fim .mostrador { color: var(--coral); animation: piscar 1s steps(2) infinite; }
+@keyframes piscar { 50% { opacity: .3; } }
+.atividade .ctl { display: flex; gap: 16px; }
+.atividade .ctl button { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; padding: 10px 22px; border-radius: 12px;
+  border: 3px solid var(--branco); background: transparent; color: var(--branco); cursor: pointer; }
+.atividade .ctl button[data-acao="alternar"] { background: var(--coral); border-color: var(--coral); }
+@media print { .atividade .timer { display: none; } .atividade .etapas { width: 1360px; } }
+
+/* ---- Site do curso: só o QR code e o endereço embaixo ---- */
+#site-curso .centro { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+#site-curso .qr { width: 600px; height: 600px; padding: 32px; border-radius: 24px; background: var(--branco); }
+#site-curso .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+#site-curso .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 40px; color: var(--roxo); }
+
+/* ---- Quem conduz: os três condutores num slide só ---- */
+#professor .trio { position: absolute; left: 130px; right: 130px; top: 200px; display: flex; gap: 40px; }
+#professor .pessoa { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+#professor .pessoa img { width: 280px; height: 280px; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 16px 40px rgba(46, 38, 64, .18); }
+#professor .nome-p { font-weight: 800; font-size: 40px; line-height: 1.1; margin-top: 26px; }
+#professor .cargo-p { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; color: var(--coral-texto); margin-top: 8px; }
+#professor .linha-p { font-size: 28px; line-height: 1.3; color: var(--texto-suave); margin-top: 10px; }
+
+/* Atividade com um passo só: a instrução grande e, embaixo, o QR do passo a passo de cada ferramenta */
+.atividade.com-qr .etapas { top: 200px; bottom: 300px; }
+.atividade.com-qr .etapa > div > p { font-size: 46px; }
+.atividade .qr-guia { position: absolute; left: 120px; bottom: 90px; width: 840px; display: flex; align-items: center; gap: 30px; }
+.atividade .qr-guia img { flex: none; width: 180px; height: 180px; padding: 12px; border-radius: 14px; background: var(--branco); image-rendering: pixelated; }
+.atividade .qr-guia .rot-qr { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
+.atividade .qr-guia .txt-qr { font-size: 30px; line-height: 1.25; margin-top: 6px; }
+
+/* A etapa do passo atual fica destacada (a seta avança a etapa antes de trocar de slide) */
+.atividade:not([data-estado]) .e1, .atividade[data-estado="0"] .e1,
+.atividade[data-estado="1"] .e2, .atividade[data-estado="2"] .e3 { border-color: var(--coral); background: var(--branco); }
+
+/* Agenda curta de três momentos: o QR do site fica no canto, para quem chegou atrasado */
+.slide.agenda .qr-canto { position: absolute; right: 90px; bottom: 90px; width: 220px; text-align: center; }
+.slide.agenda .qr-canto img { display: block; width: 180px; height: 180px; margin: 0 auto 8px; image-rendering: pixelated; }
+.slide.agenda .qr-canto span { font-size: 28px; color: var(--texto-suave); }
+
+/* O fecho: o QR grande e o que levar para casa */
+#leve-o-seu .centro { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 36px; }
+#leve-o-seu .qr { width: 460px; height: 460px; padding: 28px; border-radius: 24px; background: var(--branco); }
+#leve-o-seu .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+#leve-o-seu .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 36px; color: var(--roxo); }
+#leve-o-seu .frase-fim { font-weight: 800; font-size: 44px; text-align: center; max-width: 1100px; line-height: 1.2; }
+
+/* ---- Qual você usa: as quatro ferramentas, para contar as mãos ---- */
+#qual-ferramenta .pergunta-f { position: absolute; left: 120px; right: 120px; top: 230px;
+  font-weight: 800; font-size: 72px; line-height: 1.1; }
+#qual-ferramenta .chips { position: absolute; left: 120px; right: 120px; top: 400px; display: flex; flex-wrap: wrap; gap: 24px; }
+#qual-ferramenta .chip { padding: 22px 42px; border-radius: 18px; background: var(--branco); border: 4px solid var(--roxo);
+  font-weight: 800; font-size: 44px; }
+#qual-ferramenta .chip.nenhuma { border-style: dashed; border-color: var(--cinza-escuro); color: var(--texto-suave); font-weight: 700; }
+#qual-ferramenta .legenda-f { position: absolute; left: 120px; bottom: 90px; font-size: 32px; color: var(--texto-suave); }
+</style>
+</head>
+<body>
+<main class="deck">
+
+  <!-- 1. Boas-vindas (tela oficial) -->
+  <section class="slide boas-vindas sem-numero">
+    <div class="bloco-cinza"></div>
+    <div class="conteudo">
+      <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+      <h1 class="capitulo">Bem-vindos!<br>Conecte o seu<br><b class="moldura">assistente</b></h1>
+    </div>
+    <p class="rodape">Inteli Room<br>Zoox Data Revolution 2026</p>
+  </section>
+
+  <!-- Site do curso: QR code e link -->
+  <section class="slide" id="site-curso" data-modelo="qr-do-site">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="centro">
+      <div class="qr"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar/"></div>
+      <p class="link-site">rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar</p>
+    </div>
+    <aside class="notas">Primeira coisa: abram este endereço. É o passo a passo de hoje, com um seletor para Claude, Gemini, ChatGPT e Copilot. Quem não fez a sessão anterior encontra ali o atalho para montar o assistente em poucos minutos. Espere todo mundo abrir.</aside>
+  </section>
+
+  <!-- Quem conduz: os três, num slide só -->
+  <section class="slide" id="professor" data-modelo="quem-conduz-trio" data-max-palavras="60">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">quem conduz · inteli</p>
+    <div class="trio"><div class="pessoa"><img src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola"><p class="nome-p">Rodrigo Nicola</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro mecatrônico, mestre pelo ITA</p><p class="linha-p">Veículos autônomos e aprendizado de máquina</p></div><div class="pessoa"><img src="assets/afonso-brandao.jpg" alt="Foto de Afonso Brandão"><p class="nome-p">Afonso Brandão</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro de produção e civil, mestre em materiais</p><p class="linha-p">Doutorando em engenharia da computação</p></div><div class="pessoa"><img src="assets/egon-daxbacher.jpg" alt="Foto de Egon Daxbacher"><p class="nome-p">Egon Daxbacher</p><p class="cargo-p">Coordenador do Adm Tech</p><p class="linha-p">Inovação e transformação digital</p><p class="linha-p">Passou por FCA, Petrobras e EY</p></div></div>
+    <aside class="notas">Trinta segundos no total, dez para cada um. Não leia os tópicos: diga só o que liga cada pessoa ao que a sala vai fazer hoje.</aside>
+  </section>
+
+  <!-- Agenda: o que é um harness -->
+  <section class="slide agenda curta" id="agenda-harness" data-modelo="agenda" data-agora="0" data-max-palavras="40">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar"><span>o passo a passo</span></div>
+    <aside class="notas">Agora: o que é um harness.</aside>
+  </section>
+
+  <!-- Harness: o modelo no meio e tudo o que vem junto com ele.
+     Composição do diagrama de Jediah Katz (AI Engineer NYC 2026), com os nomes do dia de hoje. -->
+  <section class="slide" id="harness" data-modelo="diagrama-com-rotulos" data-max-palavras="60">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">harness</p>
+    <div class="caixa moldura-h passo" data-passo="1"><p class="nome">Harness</p></div>
+    <div class="caixa recebe passo" data-passo="1"><p class="nome">O que o modelo recebe</p><p class="itens">instruções · documentos · memória<br>histórico da conversa · o seu pedido</p></div>
+    <div class="caixa modelo passo" data-passo="0">Modelo</div>
+    <div class="caixa usa passo" data-passo="2"><p class="nome">O que ele pode usar</p><p class="itens">ferramentas · <b style="color:var(--coral-texto)">conectores</b> · permissões<br>o ciclo que repete até terminar</p></div>
+    <svg class="setas passo" data-passo="3" viewBox="0 0 1600 900" aria-hidden="true">
+      <defs><marker id="ponta-h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="3.5" markerHeight="3.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2e2640"/></marker></defs>
+      <path d="M380,482 L416,482" marker-start="url(#ponta-h)" marker-end="url(#ponta-h)"/>
+      <path d="M1184,482 L1220,482" marker-start="url(#ponta-h)" marker-end="url(#ponta-h)"/>
+    </svg>
+    <div class="caixa externo app passo" data-passo="3"><b>O aplicativo</b><small>onde você digita</small></div>
+    <div class="caixa externo arq passo" data-passo="3"><b>Os seus dados</b><small>agenda · e-mail · sistemas</small></div>
+    <p class="credito">Composição do diagrama de Jediah Katz · AI Engineer NYC 2026</p>
+    <aside class="notas">Um slide só de teoria, e é este. Passo 0: sozinho, o modelo só gera texto — não lê arquivo, não lembra de nada, não faz nada no mundo. Passo 1: o harness é tudo o que vem junto. A faixa de cima é o que vocês montaram na sessão passada: instruções e documentos. Passo 2: a faixa de baixo é o assunto de hoje — as ferramentas que ele pode chamar e as permissões que você deu. Passo 3: e o que fica de fora deixa de ser só "os seus arquivos": passa a ser a sua agenda, a sua caixa de entrada, os sistemas da empresa. É só isso de teoria; o resto da sessão é mão na massa.</aside>
+  </section>
+
+  <!-- Agenda: conectar -->
+  <section class="slide agenda curta" id="agenda-conectar" data-modelo="agenda" data-agora="1" data-max-palavras="40">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar"><span>o passo a passo</span></div>
+    <aside class="notas">Agora: conectar.</aside>
+  </section>
+
+  <!-- Qual ferramenta cada um usa: define o que vai na tela -->
+  <section class="slide" id="qual-ferramenta" data-modelo="contagem-de-maos" data-max-palavras="30">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">mão levantada</p>
+    <p class="pergunta-f">Qual você usa no trabalho?</p>
+    <div class="chips"><span class="chip">Claude</span><span class="chip">Gemini</span><span class="chip">ChatGPT</span><span class="chip">Copilot</span><span class="chip nenhuma">outra, ou nenhuma</span></div>
+    <p class="legenda-f">Uma de cada vez. O passo a passo tem as quatro.</p>
+    <aside class="notas">Mesma pergunta da sessão anterior, porque a sala pode ser outra — e aqui ela decide mais: é o conector dessa ferramenta que você vai ligar na tela. Se a maioria for Copilot, já avise que o acesso ao Outlook é nativo e que o problema vai ser outro: a licença e a liberação do TI.</aside>
+  </section>
+
+  <!-- Conectar · 15 min -->
+  <section class="slide atividade com-qr" id="conectar" data-modelo="atividade-com-cronometro" data-max-palavras="50">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo">Conectar · 15 min</p>
+    <div class="etapas"><div class="etapa e1"><div><p>Ligue a agenda e o e-mail no seu assistente — ou, se o TI bloquear, use o plano B do passo 4.</p></div></div></div>
+    <div class="qr-guia"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Claude, Gemini, ChatGPT ou Copilot</p></div></div>
+    <div class="timer" data-tempos="900" data-fases="Conectando"><p class="fase">Conectando</p><p class="mostrador">15:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
+    <aside class="notas">Faça junto na tela, pela ferramenta mais comum da sala. Avise antes que numa sala assim a conexão vai ser bloqueada para várias pessoas, e que isso faz parte: quem for bloqueado vai para o plano B, que é colar dez assuntos de e-mail e o cargo. Peça que todos parem na tela de consentimento e leiam o que estão autorizando antes de clicar — é o momento de risco desta sessão, e ele acontece de graça. Dá para digitar outro tempo no mostrador.</aside>
+  </section>
+
+  <!-- Agenda: perguntar e conferir -->
+  <section class="slide agenda curta" id="agenda-perguntar" data-modelo="agenda" data-agora="2" data-max-palavras="40">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar"><span>o passo a passo</span></div>
+    <aside class="notas">Agora: perguntar e conferir.</aside>
+  </section>
+
+  <!-- Perguntar e conferir · 15 min -->
+  <section class="slide atividade com-qr" id="perguntar" data-modelo="atividade-com-cronometro" data-max-palavras="50">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo">Perguntar e conferir · 15 min</p>
+    <div class="etapas"><div class="etapa e1"><div><p>Peça as três sessões que você não pode perder hoje — e confira cada horário na programação.</p></div></div></div>
+    <div class="qr-guia"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Claude, Gemini, ChatGPT ou Copilot</p></div></div>
+    <div class="timer" data-tempos="900" data-fases="Perguntando"><p class="fase">Perguntando</p><p class="mostrador">15:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
+    <aside class="notas">O pedido está no passo a passo: ele cruza a agenda e os e-mails da pessoa com a programação do evento. Repare em voz alta no que o assistente faz antes de responder: ele vai buscar. Na conferência, a pergunta de sempre: ele citou alguma sala? Não deveria. Quem terminar antes, mande pedir o e-mail para o time — sem enviar — e reparar que ele poderia enviar.</aside>
+  </section>
+
+  <!-- Fecho: o QR fica na tela enquanto o professor provoca -->
+  <section class="slide" id="leve-o-seu" data-modelo="qr-do-site" data-max-palavras="30">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="centro">
+      <p class="frase-fim">Quem, na sua empresa, autoriza esse acesso?</p>
+      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"></div>
+      <p class="link-site">rmnicola.github.io/inteli-exec/zoox</p>
+    </div>
+    <aside class="notas">Dois minutos, com o QR na tela. O que eles viram: o assistente deixou de só escrever e passou a ir buscar. O que vale dizer em voz alta: metade da sala não conseguiu conectar, e isso não foi um defeito — foi a empresa decidindo por eles, sem que ninguém tivesse combinado a regra. Quem decide o que pode ser conectado? Com que escopo? E como se sabe depois quem acessou o quê? É exatamente a terceira sessão. Convide para ela e para o happy hour.</aside>
+  </section>
+
+</main>
+<script>
+/* Agenda do workshop: definida UMA vez aqui. Cada slide .agenda marca o item atual com data-agora (a partir de 0). */
+const AGENDA = ["O que é um harness", "Conectar", "Perguntar e conferir"];
+for (const s of document.querySelectorAll(".slide.agenda")) {
+  const agora = parseInt(s.dataset.agora, 10);
+  const lista = AGENDA.map((t, i) =>
+    `<p class="item${i < agora ? " passou" : i === agora ? " agora" : ""}"><span class="marcador">${String(i + 1).padStart(2, "0")}</span>${t}</p>`).join("");
+  s.insertAdjacentHTML("beforeend", `<div class="itens"><p class="rotulo-agenda">45 minutos</p>${lista}</div>`);
+}
+</script>
+<script>
+/* Cronômetro das atividades: só funciona no HTML (não vai para o PDF). Clique em iniciar ou aperte T no slide.
+   data-tempos lista os segundos de cada etapa; a etapa é o estado do slide (a seta avança a etapa antes de trocar de slide),
+   e cada troca de etapa carrega o tempo dela, parado.
+   O mostrador é editável: clique nele, digite o tempo (12, 12:30 ou 90s) e aperte Enter. Vale para a etapa atual. */
+for (const t of document.querySelectorAll(".timer[data-tempos]")) {
+  const slide = t.closest(".slide"), tempos = t.dataset.tempos.split(",").map(Number), fases = (t.dataset.fases || "").split(",");
+  const mostrador = t.querySelector(".mostrador"), fase = t.querySelector(".fase"), bt = t.querySelector('[data-acao="alternar"]');
+  let etapa = 0, resta = tempos[0], relogio = null;
+  const total = () => tempos[etapa];
+  const mostrar = () => {
+    mostrador.textContent = `${String(Math.floor(resta / 60)).padStart(2, "0")}:${String(resta % 60).padStart(2, "0")}`;
+    if (fases[etapa]) fase.textContent = fases[etapa];
+    t.classList.toggle("fim", resta === 0);
+  };
+  const parar = () => { clearInterval(relogio); relogio = null; bt.textContent = resta === total() ? "iniciar" : "continuar"; };
+  const carregar = (i) => { clearInterval(relogio); relogio = null; etapa = Math.min(Math.max(i, 0), tempos.length - 1); resta = total(); bt.textContent = "iniciar"; mostrar(); };
+  const alternar = () => {
+    if (relogio) return parar();
+    if (resta === 0) resta = total();
+    relogio = setInterval(() => { resta = Math.max(0, resta - 1); mostrar(); if (resta === 0) parar(); }, 1000);
+    bt.textContent = "pausar"; mostrar();
+  };
+  t.addEventListener("click", (ev) => {
+    if (ev.target === mostrador) return;   /* clicar no mostrador é para editá-lo */
+    const a = ev.target.dataset.acao; if (a === "alternar") alternar(); if (a === "zerar") carregar(etapa); ev.target.blur();
+  });
+  document.addEventListener("keydown", (ev) => {
+    if ((ev.key === "t" || ev.key === "T") && slide.classList.contains("atual") && !document.activeElement.isContentEditable) alternar();
+  });
+  /* Mostrador editável: "12" vira 12 minutos, "12:30" vira 12 min 30 s e "90s" vira 90 segundos. */
+  const ler = (texto) => {
+    const s = texto.trim().replace(",", ":");
+    let m = s.match(/^(\d{1,3}):([0-5]?\d)$/);
+    if (m) return +m[1] * 60 + +m[2];
+    m = s.match(/^(\d{1,4})\s*s$/i);
+    if (m) return +m[1];
+    m = s.match(/^(\d{1,3})(\s*min)?$/i);
+    return m ? +m[1] * 60 : null;
+  };
+  mostrador.setAttribute("contenteditable", "plaintext-only");
+  mostrador.setAttribute("spellcheck", "false");
+  mostrador.title = "Clique e digite outro tempo (12, 12:30 ou 90s)";
+  mostrador.addEventListener("pointerdown", (ev) => { ev.stopPropagation(); mostrador.focus(); });
+  mostrador.addEventListener("click", (ev) => ev.stopPropagation());   /* não avança o passo do slide */
+  mostrador.addEventListener("focus", () => { if (relogio) parar(); });
+  mostrador.addEventListener("keydown", (ev) => {
+    /* o Enter confirma o tempo; sem stopPropagation ele avançaria o slide */
+    if (ev.key === "Enter") { ev.preventDefault(); ev.stopPropagation(); setTimeout(() => mostrador.blur()); }
+    if (ev.key === "Escape") { ev.stopPropagation(); mostrar(); setTimeout(() => mostrador.blur()); }
+  });
+  mostrador.addEventListener("blur", () => {
+    const segundos = ler(mostrador.textContent);
+    if (segundos === null || segundos < 1) return mostrar();
+    tempos[etapa] = segundos;
+    resta = segundos;
+    bt.textContent = "iniciar";
+    mostrar();
+  });
+  if (tempos.length > 1) new MutationObserver(() => {
+    const e = parseInt(slide.dataset.estado || "0", 10);
+    if (Number.isFinite(e) && e !== etapa) carregar(e);
+  }).observe(slide, { attributes: true, attributeFilter: ["data-estado"] });
+}
+</script>
+<script src="../../../design-system/js/deck.js"></script>
+</body>
+</html>

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Monte o seu assistente · Zoox Data Revolution 2026</title>
-<link rel="stylesheet" href="../../design-system/css/inteli-exec.css">
-<link rel="stylesheet" href="../../design-system/assets/fonts/objetos/objetos.css">
+<link rel="stylesheet" href="../../../design-system/css/inteli-exec.css">
+<link rel="stylesheet" href="../../../design-system/assets/fonts/objetos/objetos.css">
 <style>
 /* Estilos sob medida deste deck. Cada slide sob medida é estilizado só pelo seu id. */
 
@@ -104,18 +104,14 @@
 #site-curso .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
 #site-curso .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 40px; color: var(--roxo); }
 
-/* ---- Quem conduz ---- */
-#professor .foto-p { position: absolute; left: 200px; top: 260px; width: 380px; height: 380px; border-radius: 50%; object-fit: cover;
+/* ---- Quem conduz: os três condutores num slide só ---- */
+#professor .trio { position: absolute; left: 130px; right: 130px; top: 200px; display: flex; gap: 40px; }
+#professor .pessoa { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+#professor .pessoa img { width: 280px; height: 280px; border-radius: 50%; object-fit: cover;
   box-shadow: 0 16px 40px rgba(46, 38, 64, .18); }
-#professor .bio { position: absolute; left: 650px; top: 0; bottom: 0; width: 880px; display: flex; flex-direction: column; justify-content: center; }
-#professor .bio .nome { font-family: var(--f-capitulo); font-size: 84px; line-height: 1.05; }
-#professor .bio .cargo { font-size: 34px; color: var(--texto-suave); margin-top: 8px; }
-#professor .bio ul { list-style: none; margin-top: 36px; display: flex; flex-direction: column; gap: 14px; }
-#professor .bio li { font-size: 32px; line-height: 1.3; padding-left: 30px; position: relative; }
-#professor .bio li::before { content: ""; position: absolute; left: 0; top: .55em; width: 12px; height: 12px; border-radius: 50%; background: var(--coral); }
-#professor .bio .link { display: flex; align-items: center; gap: 18px; font-size: 32px; font-weight: 700; margin-top: 34px; white-space: nowrap; }
-#professor .bio .link svg { width: 48px; height: 48px; flex: none; }
-#professor .qr-linkedin { position: absolute; right: 64px; bottom: 80px; width: 150px; height: 150px; image-rendering: pixelated; }
+#professor .nome-p { font-weight: 800; font-size: 40px; line-height: 1.1; margin-top: 26px; }
+#professor .cargo-p { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; color: var(--coral-texto); margin-top: 8px; }
+#professor .linha-p { font-size: 28px; line-height: 1.3; color: var(--texto-suave); margin-top: 10px; }
 
 /* Atividade com um passo só: a instrução grande e, embaixo, o QR do passo a passo de cada ferramenta */
 .atividade.com-qr .etapas { top: 200px; bottom: 300px; }
@@ -141,6 +137,15 @@
 #leve-o-seu .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
 #leve-o-seu .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 36px; color: var(--roxo); }
 #leve-o-seu .frase-fim { font-weight: 800; font-size: 44px; text-align: center; max-width: 1100px; line-height: 1.2; }
+
+/* ---- Qual você usa: as quatro ferramentas, para contar as mãos ---- */
+#qual-ferramenta .pergunta-f { position: absolute; left: 120px; right: 120px; top: 230px;
+  font-weight: 800; font-size: 72px; line-height: 1.1; }
+#qual-ferramenta .chips { position: absolute; left: 120px; right: 120px; top: 400px; display: flex; flex-wrap: wrap; gap: 24px; }
+#qual-ferramenta .chip { padding: 22px 42px; border-radius: 18px; background: var(--branco); border: 4px solid var(--roxo);
+  font-weight: 800; font-size: 44px; }
+#qual-ferramenta .chip.nenhuma { border-style: dashed; border-color: var(--cinza-escuro); color: var(--texto-suave); font-weight: 700; }
+#qual-ferramenta .legenda-f { position: absolute; left: 120px; bottom: 90px; font-size: 32px; color: var(--texto-suave); }
 </style>
 </head>
 <body>
@@ -151,7 +156,7 @@
   <section class="slide boas-vindas sem-numero">
     <div class="bloco-cinza"></div>
     <div class="conteudo">
-      <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+      <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
       <h1 class="capitulo">Bem-vindos!<br>Monte o seu<br><b class="moldura">assistente</b></h1>
     </div>
     <p class="rodape">Inteli Room<br>Zoox Data Revolution 2026</p>
@@ -159,37 +164,26 @@
 
   <!-- Site do curso: QR code e link -->
   <section class="slide" id="site-curso" data-modelo="qr-do-site">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <div class="centro">
-      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/"></div>
-      <p class="link-site">rmnicola.github.io/inteli-exec/zoox</p>
+      <div class="qr"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/montar-assistente/"></div>
+      <p class="link-site">rmnicola.github.io/inteli-exec/zoox/montar-assistente</p>
     </div>
     <aside class="notas">Primeira coisa: abram este endereço no celular ou no notebook. Tudo o que a gente vai fazer nos próximos 40 minutos está aí — o passo a passo para o aplicativo de cada um e a programação do evento em PDF. A página fica no ar depois de hoje. Espere todo mundo abrir antes de seguir.</aside>
   </section>
 
-  <!-- Quem conduz: o professor -->
-  <section class="slide" id="professor" data-modelo="quem-conduz">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <img class="foto-p" src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola">
-    <div class="bio">
-      <p class="rotulo-termo" style="position:static; margin-bottom:14px">Quem conduz</p>
-      <p class="nome">Rodrigo Nicola</p>
-      <p class="cargo">Professor · Inteli</p>
-      <ul>
-        <li>Engenheiro mecatrônico (Mauá), mestre pelo ITA</li>
-        <li>Veículos autônomos e aprendizado de máquina</li>
-        <li>No Inteli desde 2022</li>
-      </ul>
-      <p class="link"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="9" fill="#2e2640"/><rect x="10" y="19" width="6" height="19" fill="#ffffff"/><circle cx="13" cy="12" r="3.6" fill="#ffffff"/><path d="M21 19h6v3c1.2-2 3.4-3.5 6.4-3.5 4.6 0 6.6 3 6.6 8V38h-6V27.6c0-2.6-.9-4.2-3.2-4.2-2.5 0-3.8 1.8-3.8 4.4V38h-6z" fill="#ffffff"/></svg>Rodrigo Mangoni Nicola</p>
-    </div>
-    <img class="qr-linkedin" src="assets/qr-linkedin.png" alt="QR code para o LinkedIn de Rodrigo Mangoni Nicola">
-    <aside class="notas">Vinte segundos, só para situar quem está falando. Engenheiro mecatrônico pelo Instituto Mauá de Tecnologia e mestre em engenharia mecatrônica pelo ITA. No mestrado, projetou o controle de um simulador de voo montado sobre um braço robótico KUKA, otimizado por algoritmos genéticos. No Mauá, foi pesquisador em veículos autônomos e responsável pelas disciplinas de aprendizado de máquina e de projetos de ciência de dados. No Inteli desde 2022.</aside>
+  <!-- Quem conduz: os três, num slide só -->
+  <section class="slide" id="professor" data-modelo="quem-conduz-trio" data-max-palavras="60">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">quem conduz · inteli</p>
+    <div class="trio"><div class="pessoa"><img src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola"><p class="nome-p">Rodrigo Nicola</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro mecatrônico, mestre pelo ITA</p><p class="linha-p">Veículos autônomos e aprendizado de máquina</p></div><div class="pessoa"><img src="assets/afonso-brandao.jpg" alt="Foto de Afonso Brandão"><p class="nome-p">Afonso Brandão</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro de produção e civil, mestre em materiais</p><p class="linha-p">Doutorando em engenharia da computação</p></div><div class="pessoa"><img src="assets/egon-daxbacher.jpg" alt="Foto de Egon Daxbacher"><p class="nome-p">Egon Daxbacher</p><p class="cargo-p">Coordenador do Adm Tech</p><p class="linha-p">Inovação e transformação digital</p><p class="linha-p">Passou por FCA, Petrobras e EY</p></div></div>
+    <aside class="notas">Trinta segundos no total, dez para cada um. Não leia os tópicos: diga só o que liga cada pessoa ao que a sala vai fazer hoje.</aside>
   </section>
 
   <!-- Agenda: a estrutura de um prompt -->
   <section class="slide agenda curta" id="agenda-estrutura" data-modelo="agenda" data-agora="0" data-max-palavras="40">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>o passo a passo</span></div>
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/montar-assistente/"><span>o passo a passo</span></div>
     <aside class="notas">Agora: a estrutura de um prompt.</aside>
   </section>
 
@@ -209,7 +203,7 @@
 
   <!-- Só o prompt: o modelo não sabe o que fazer (Figura 2.1 do artigo do GPT-3) -->
   <section class="slide prompt-fig" id="prompt-queijo" data-modelo="prompt-em-caixa">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo" style="left:160px; top:110px">prompt</p>
     <div class="prompt-f">
       <div class="linhas"><p><span class="num">1</span><span class="txt">queijo =&gt;</span></p></div>
@@ -221,7 +215,7 @@
 
   <!-- Zero-shot: a descrição da tarefa e o prompt -->
   <section class="slide prompt-fig" id="zero-shot" data-modelo="prompt-em-caixa">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo" style="left:160px; top:110px">zero-shot</p>
     <div class="prompt-f">
       <div class="linhas"><p><span class="num">1</span><span class="txt">Traduza do português para o inglês:</span></p><p><span class="num">2</span><span class="txt">queijo =&gt; <i class="vazio"></i></span></p></div>
@@ -233,7 +227,7 @@
 
   <!-- One-shot: a descrição, um exemplo e o prompt -->
   <section class="slide prompt-fig" id="one-shot" data-modelo="prompt-em-caixa">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo" style="left:160px; top:110px">one-shot</p>
     <div class="prompt-f">
       <div class="linhas"><p><span class="num">1</span><span class="txt">Traduza do português para o inglês:</span></p><p><span class="num">2</span><span class="txt">lontra-marinha =&gt; sea otter</span></p><p><span class="num">3</span><span class="txt">queijo =&gt; <i class="vazio"></i></span></p></div>
@@ -245,7 +239,7 @@
 
   <!-- Few-shot: a descrição, alguns exemplos e o prompt -->
   <section class="slide prompt-fig" id="few-shot" data-modelo="prompt-em-caixa">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo" style="left:160px; top:110px">few-shot</p>
     <div class="prompt-f">
       <div class="linhas"><p><span class="num">1</span><span class="txt">Traduza do português para o inglês:</span></p><p><span class="num">2</span><span class="txt">lontra-marinha =&gt; sea otter</span></p><p><span class="num">3</span><span class="txt">hortelã-pimenta =&gt; peppermint</span></p><p><span class="num">4</span><span class="txt">girafa de pelúcia =&gt; plush giraffe</span></p><p><span class="num">5</span><span class="txt">queijo =&gt; <i class="vazio"></i></span></p></div>
@@ -257,41 +251,51 @@
 
   <!-- Agenda: criando um agente -->
   <section class="slide agenda curta" id="agenda-agente" data-modelo="agenda" data-agora="1" data-max-palavras="40">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>o passo a passo</span></div>
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/montar-assistente/"><span>o passo a passo</span></div>
     <aside class="notas">Agora: criando um agente.</aside>
+  </section>
+
+  <!-- Qual ferramenta cada um usa: define o que vai na tela -->
+  <section class="slide" id="qual-ferramenta" data-modelo="contagem-de-maos" data-max-palavras="30">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">mão levantada</p>
+    <p class="pergunta-f">Qual você usa no trabalho?</p>
+    <div class="chips"><span class="chip">Gemini</span><span class="chip">ChatGPT</span><span class="chip">Claude</span><span class="chip">Copilot</span><span class="chip nenhuma">outra, ou nenhuma</span></div>
+    <p class="legenda-f">Uma de cada vez. O passo a passo tem as quatro.</p>
+    <aside class="notas">Um minuto, e é o minuto que decide o resto da sessão: a ferramenta com mais mãos é a que você abre na tela para montar junto. Conte em voz alta, uma de cada vez — vale também para a sala se ver. Quem levantou a mão em outra coisa, ou em nenhuma, segue pelo passo a passo, que tem as quatro, e você passa nesses primeiro quando for circular.</aside>
   </section>
 
   <!-- Criando um agente · 18 min -->
   <section class="slide atividade com-qr" id="montar" data-modelo="atividade-com-cronometro" data-max-palavras="50">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo">Criando um agente · 18 min</p>
     <div class="etapas"><div class="etapa e1"><div><p>Crie o assistente, cole as instruções e anexe a programação do evento.</p></div></div></div>
-    <div class="qr-guia"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Gemini, ChatGPT, Claude ou Copilot</p></div></div>
+    <div class="qr-guia"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/montar-assistente/"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Gemini, ChatGPT, Claude ou Copilot</p></div></div>
     <div class="timer" data-tempos="1080" data-fases="Montando"><p class="fase">Montando</p><p class="mostrador">18:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
     <aside class="notas">Faça junto com eles, na tela, pelo aplicativo mais comum na sala — pergunte na hora quem usa o quê. Quem usa outro acompanha pelo passo a passo do QR, que tem a mesma sequência para Gemini, ChatGPT, Claude e Copilot. O passo que trava é sempre o primeiro, achar onde se cria o assistente. No Copilot em conta pessoal não dá para anexar arquivo no agente: essas pessoas colam as instruções e anexam o PDF na própria conversa, e o resultado é o mesmo. Dá para digitar outro tempo no mostrador se a sala estiver mais lenta.</aside>
   </section>
 
   <!-- Agenda: testes e validação -->
   <section class="slide agenda curta" id="agenda-testar" data-modelo="agenda" data-agora="2" data-max-palavras="40">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>o passo a passo</span></div>
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="qr-canto"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/montar-assistente/"><span>o passo a passo</span></div>
     <aside class="notas">Agora: testes e validação.</aside>
   </section>
 
-  <!-- Testes e validação · 13 min -->
+  <!-- Testes e validação · 12 min -->
   <section class="slide atividade com-qr" id="testar" data-modelo="atividade-com-cronometro" data-max-palavras="50">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo">Testes e validação · 13 min</p>
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo">Testes e validação · 12 min</p>
     <div class="etapas"><div class="etapa e1"><div><p>Faça as perguntas do passo a passo e confira cada resposta no PDF.</p></div></div></div>
-    <div class="qr-guia"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Gemini, ChatGPT, Claude ou Copilot</p></div></div>
-    <div class="timer" data-tempos="780" data-fases="Testando"><p class="fase">Testando</p><p class="mostrador">13:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
+    <div class="qr-guia"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/montar-assistente/"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Gemini, ChatGPT, Claude ou Copilot</p></div></div>
+    <div class="timer" data-tempos="720" data-fases="Testando"><p class="fase">Testando</p><p class="mostrador">12:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
     <aside class="notas">As perguntas estão no passo a passo, inclusive a última: “em que sala fala o David Feffer?”. A programação não diz a sala de nenhuma atividade — ela cita os nomes dos espaços, mas não liga nenhum a um horário. Quem recebeu um nome de sala tem um assistente que inventa; quem recebeu “não sei” foi porque escreveu a última parte da instrução. Quando a sala chegar nessa pergunta, pare tudo e peça para compararem em voz alta: é o momento do workshop. A regra é conferir no documento, não na memória.</aside>
   </section>
 
     <!-- Fecho: o QR fica na tela enquanto o professor provoca -->
   <section class="slide" id="leve-o-seu" data-modelo="qr-do-site" data-max-palavras="30">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <div class="centro">
       <p class="frase-fim">Troque a programação por um documento do seu trabalho.</p>
       <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"></div>
@@ -376,6 +380,6 @@ for (const t of document.querySelectorAll(".timer[data-tempos]")) {
   }).observe(slide, { attributes: true, attributeFilter: ["data-estado"] });
 }
 </script>
-<script src="../../design-system/js/deck.js"></script>
+<script src="../../../design-system/js/deck.js"></script>
 </body>
 </html>
