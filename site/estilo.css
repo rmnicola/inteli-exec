@@ -191,8 +191,9 @@ p { margin: 0.75rem 0 0; }
 .etapa > .codigo + p, .etapa > .codigo + .codigo { margin-top: 1rem; }
 .etapa > .variante + .variante { margin-top: 0; }
 
-/* Seletor de variante ao lado do título do guia (como as abas do Starlight) */
+/* Seletores de variante ao lado do título do guia (como as abas do Starlight); um por eixo */
 .titulo-guia { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; }
+.seletores { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 .seletor { display: flex; flex-wrap: wrap; gap: 0 1.25rem; border-bottom: 1px solid var(--borda-fraca); }
 .seletor button { font: inherit; font-size: var(--t-pequeno); padding: 0.25rem 0; margin-bottom: -1px; border: 0; border-bottom: 2px solid transparent;
   background: none; color: var(--texto); cursor: pointer; }

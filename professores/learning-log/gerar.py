@@ -22,7 +22,7 @@ from reportlab.pdfgen import canvas
 AQUI = Path(__file__).resolve().parent
 RAIZ = AQUI.parents[1]
 LOGO = RAIZ / "design-system/assets/img/logo-inteli-escuro-coral.png"
-FONTES = RAIZ / "essencial-na-pratica/builder-log/fontes"
+FONTES = RAIZ / "design-system/assets/fonts/ttf"
 SAIDA = AQUI / "learning-log.pdf"
 sys.path.insert(0, str(RAIZ / "tools"))
 from formulario import campo, caixa, marca, centralizar  # noqa: E402  padrão dos campos preenchíveis

@@ -1,0 +1,216 @@
+{
+  "titulo": "Criando o seu primeiro assistente",
+  "eixos": [
+    {
+      "chave": "persona",
+      "rotulo": "Persona",
+      "opcoes": [
+        {
+          "id": "helena",
+          "rotulo": "Helena (lojas)"
+        },
+        {
+          "id": "diego",
+          "rotulo": "Diego (financeiro)"
+        },
+        {
+          "id": "beatriz",
+          "rotulo": "Beatriz (arquitetura)"
+        }
+      ]
+    },
+    {
+      "chave": "app",
+      "rotulo": "Aplicativo",
+      "opcoes": [
+        {
+          "id": "gemini",
+          "rotulo": "Gemini"
+        },
+        {
+          "id": "chatgpt",
+          "rotulo": "ChatGPT"
+        },
+        {
+          "id": "claude",
+          "rotulo": "Claude"
+        }
+      ]
+    }
+  ],
+  "resumo": "Fazer o mesmo pedido de dois jeitos — sem exemplo e com três exemplos — e salvar a versão que funcionou como um assistente no {app}, que você reusa sem reescrever o prompt.",
+  "contexto": "Este é o guia da **prática 1**. Escolha a persona que a turma votou e o aplicativo que você vai usar nos dois seletores acima. A tarefa é a mesma nas três personas: transformar anotações soltas numa mensagem pronta. Se você preferir, troque as anotações pelas suas — o exercício funciona igual.",
+  "passos": [
+    {
+      "titulo": "Abra uma conversa nova",
+      "variantes": {
+        "gemini": {
+          "texto": [
+            "Entre em [gemini.google.com](https://gemini.google.com) com a sua conta Google e comece uma conversa nova."
+          ]
+        },
+        "chatgpt": {
+          "texto": [
+            "Entre em [chatgpt.com](https://chatgpt.com) e comece uma conversa nova."
+          ]
+        },
+        "claude": {
+          "texto": [
+            "Entre em [claude.ai](https://claude.ai) e comece uma conversa nova."
+          ]
+        }
+      },
+      "depois": [
+        "Conversa nova importa: o que já foi dito antes continua valendo dentro da mesma conversa e atrapalha a comparação."
+      ]
+    },
+    {
+      "titulo": "Peça sem dar exemplo",
+      "texto": [
+        "Cole o pedido abaixo e guarde a resposta. É a sua linha de base."
+      ],
+      "arquivo": "Prompt",
+      "variantes": {
+        "helena": {
+          "codigo": "Transforme estas anotações da minha reunião num aviso para o grupo das três lojas.\n\nterça - reunião rápida com as 3 lojas\ncaixa 2 do portão deu quebra de novo, 5 vezes em outubro\ntati manda relatório quarta\ntreino de trocas com a ju, sexta\nnatal chegou e ninguém conferiu a nota, ~80 mil\nescala de dezembro tem que sair dia 25"
+        },
+        "diego": {
+          "codigo": "Transforme estas anotações num e-mail curto para a diretoria.\n\nreunião com a diretoria sobre as cadeiras\n3 orçamentos, só 1 tá completo\nmobicorp 38.400 com frete e montagem, 36 meses de garantia\nergoline 35.700 mas frete \"a combinar\"\ncadeiras e cia venceu em outubro\npolítica pede 3 cotações válidas, temos 1\npreciso de ok pra pedir orçamento novo"
+        },
+        "beatriz": {
+          "codigo": "Transforme estas anotações numa mensagem de WhatsApp para a cliente.\n\nresposta pro cliente do apê 72m2\nprojeto de interiores, 230 por m2, dá 16.560\nprazo 8 semanas\npagamento 30/40/30, parcela em até 4x\nagenda abre em dezembro\nvisita técnica 450, abate se fechar em 30 dias"
+        }
+      },
+      "depois": [
+        "Repare no que veio: provavelmente longo, com títulos, talvez com emoji, num tom que não é o seu."
+      ]
+    },
+    {
+      "titulo": "Peça de novo, agora com três exemplos",
+      "texto": [
+        "Numa conversa nova, cole o prompt abaixo. Ele tem a mesma tarefa e as mesmas anotações, com três exemplos de como a mensagem deve sair."
+      ],
+      "arquivo": "Prompt",
+      "variantes": {
+        "helena": {
+          "codigo": "Você escreve os avisos que eu mando no grupo das minhas três lojas. Transforme as anotações em um aviso no mesmo formato dos exemplos.\n\nEXEMPLO 1\nAnotações: conferir validade dos produtos de limpeza / vitrine nova chega quinta / folga do marcos no sábado\nAviso:\nPessoal, três coisas da semana:\n1. Conferir a validade dos produtos de limpeza até quarta.\n2. A vitrine nova chega quinta — deixem o espaço livre.\n3. Marcos de folga no sábado; Rafael cobre o caixa.\nQualquer dúvida me chamem.\n\nEXEMPLO 2\nAnotações: sistema cai sexta de manhã pra atualizar / usar bloco de venda manual / tatiane manda o modelo\nAviso:\nPessoal, aviso rápido:\n1. O sistema fica fora do ar sexta de manhã, para atualização.\n2. Nesse período, usem o bloco de venda manual.\n3. A Tatiane manda o modelo do bloco hoje no grupo.\nQualquer dúvida me chamem.\n\nEXEMPLO 3\nAnotações: estoque de natal chega semana que vem / cada loja separa espaço / fotos do recebimento no grupo\nAviso:\nPessoal, sobre o Natal:\n1. O estoque chega na semana que vem.\n2. Cada loja separa espaço no depósito até sexta.\n3. Mandem foto do recebimento aqui no grupo.\nQualquer dúvida me chamem.\n\nAGORA FAÇA O MESMO COM ESTAS ANOTAÇÕES:\nterça - reunião rápida com as 3 lojas\ncaixa 2 do portão deu quebra de novo, 5 vezes em outubro\ntati manda relatório quarta\ntreino de trocas com a ju, sexta\nnatal chegou e ninguém conferiu a nota, ~80 mil\nescala de dezembro tem que sair dia 25"
+        },
+        "diego": {
+          "codigo": "Você escreve os e-mails que eu mando para a diretoria. Transforme as anotações em um e-mail no mesmo formato dos exemplos.\n\nEXEMPLO 1\nAnotações: renovação do seguro predial / 2 propostas / a mais barata não cobre vidros / preciso de decisão até dia 20\nE-mail:\nAssunto: Renovação do seguro predial — decisão até 20/11\nPrezados,\nRecebemos duas propostas para a renovação do seguro predial. A mais barata não cobre vidros, o que nos deixa expostos no térreo.\nPrecisamos de uma decisão até 20/11 para não ficar sem cobertura.\nFico à disposição.\nDiego\n\nEXEMPLO 2\nAnotações: contrato de limpeza vence 31/01 / aviso de não renovação é 60 dias antes / se passar renova sozinho\nE-mail:\nAssunto: Contrato de limpeza — prazo de aviso vence em 02/12\nPrezados,\nO contrato de limpeza vence em 31/01 e renova automaticamente. Se quisermos não renovar, o aviso precisa sair até 02/12, por escrito.\nPrecisamos decidir antes dessa data.\nFico à disposição.\nDiego\n\nEXEMPLO 3\nAnotações: 3 notas sem aprovação no sistema / somam 42 mil / fornecedor cobrando / falta o aceite da obra\nE-mail:\nAssunto: Três notas pendentes de aceite — R$ 42 mil\nPrezados,\nTrês notas, que somam R$ 42 mil, estão paradas por falta do aceite da obra. O fornecedor já cobrou duas vezes.\nPreciso do aceite para liberar o pagamento nesta semana.\nFico à disposição.\nDiego\n\nAGORA FAÇA O MESMO COM ESTAS ANOTAÇÕES:\nreunião com a diretoria sobre as cadeiras\n3 orçamentos, só 1 tá completo\nmobicorp 38.400 com frete e montagem, 36 meses de garantia\nergoline 35.700 mas frete \"a combinar\"\ncadeiras e cia venceu em outubro\npolítica pede 3 cotações válidas, temos 1\npreciso de ok pra pedir orçamento novo"
+        },
+        "beatriz": {
+          "codigo": "Você escreve as mensagens que eu mando para clientes por WhatsApp. Transforme as anotações em uma mensagem no mesmo formato dos exemplos.\n\nEXEMPLO 1\nAnotações: cliente quer saber se a obra entra no projeto / não entra / acompanhamento é à parte, 1900 por visita\nMensagem:\nOi, Camila. Boa pergunta, e é bom deixar claro desde o começo.\nO meu trabalho é o projeto. A execução fica com a construtora que você contratar.\nPosso acompanhar a obra com visitas quinzenais, a R$ 1.900 cada, orçadas à parte.\nQuer que eu te mande os dois valores juntos?\n\nEXEMPLO 2\nAnotações: terceira rodada de ajuste / contrato prevê duas / extra custa 900 / devolvo em 5 dias\nMensagem:\nOi, Fernando. Já fizemos as duas rodadas de ajuste que estão no contrato.\nDá para fazer essa terceira, sem problema. Ela entra como rodada extra, de R$ 900, e eu te devolvo em até 5 dias.\nPosso seguir assim?\n\nEXEMPLO 3\nAnotações: cliente sumiu 2 meses / projeto voltou pra fila / retomo dia 24 / falta escolher o piso\nMensagem:\nOi, Aline! Que bom te ver por aqui de novo.\nComo o projeto ficou mais de 30 dias parado esperando a escolha do piso, ele voltou para a fila da agenda. Consigo retomar na semana do dia 24.\nSe você fechar o piso até sexta, eu já deixo tudo encaminhado.\nFecha assim?\n\nAGORA FAÇA O MESMO COM ESTAS ANOTAÇÕES:\nresposta pro cliente do apê 72m2\nprojeto de interiores, 230 por m2, dá 16.560\nprazo 8 semanas\npagamento 30/40/30, parcela em até 4x\nagenda abre em dezembro\nvisita técnica 450, abate se fechar em 30 dias"
+        }
+      },
+      "aviso": "O modelo não foi retreinado entre um pedido e outro. A única coisa que mudou foi **o que você deu a ele**."
+    },
+    {
+      "titulo": "Compare as duas respostas",
+      "texto": [
+        "Ponha as duas lado a lado e responda: qual delas você mandaria sem editar?",
+        "Olhe três coisas: o **tamanho**, o **formato** (numerado? com assunto? com despedida?) e o **tom**.",
+        "Se a segunda ainda não ficou boa, acrescente um quarto exemplo em vez de explicar o que você quer. Exemplo costuma funcionar melhor que instrução."
+      ]
+    },
+    {
+      "titulo": "Crie o assistente",
+      "variantes": {
+        "gemini": {
+          "texto": [
+            "No Gemini, um assistente salvo se chama **Gem**.",
+            "No menu da esquerda, abra **Gems** e clique em **Novo Gem**.",
+            "Dê um nome (por exemplo, *Avisos do grupo*) e deixe a janela aberta: o conteúdo vem no próximo passo."
+          ],
+          "aviso": "A janela de prévia **não salva sozinha**. Clique em **Salvar** no fim."
+        },
+        "chatgpt": {
+          "texto": [
+            "No ChatGPT, use um **Projeto**. (Criar um GPT personalizado não está mais disponível em contas pessoais.)",
+            "No menu da esquerda, clique em **Projetos** e depois em **Novo projeto**.",
+            "Dê um nome e abra as **instruções** do projeto: o conteúdo vem no próximo passo."
+          ]
+        },
+        "claude": {
+          "texto": [
+            "No Claude, um assistente salvo é um **Projeto**.",
+            "No menu da esquerda, clique em **Projetos** e depois em **Novo projeto**.",
+            "Dê um nome e abra o campo de **instruções** do projeto: o conteúdo vem no próximo passo."
+          ],
+          "aviso": "O plano gratuito permite **até cinco projetos**. Se chegar ao limite, apague um antigo."
+        }
+      }
+    },
+    {
+      "titulo": "Cole o prompt que funcionou",
+      "variantes": {
+        "gemini": {
+          "texto": [
+            "Cole, no campo **Instruções** do Gem, tudo o que você mandou no passo 3 — **menos** as anotações do fim."
+          ]
+        },
+        "chatgpt": {
+          "texto": [
+            "Cole, nas **instruções do projeto**, tudo o que você mandou no passo 3 — **menos** as anotações do fim."
+          ]
+        },
+        "claude": {
+          "texto": [
+            "Cole, nas **instruções do projeto**, tudo o que você mandou no passo 3 — **menos** as anotações do fim."
+          ]
+        }
+      },
+      "depois": [
+        "Troque a última linha por uma frase de espera, do tipo: *\"Quando eu mandar anotações, responda só com a mensagem pronta, no formato dos exemplos.\"*",
+        "Salve."
+      ],
+      "aviso": "As anotações mudam a cada uso: elas são a **conversa**, não a instrução. O que fica salvo é o papel, o formato e os exemplos."
+    },
+    {
+      "titulo": "Teste com um pedido novo",
+      "texto": [
+        "Abra uma conversa dentro do assistente que você acabou de criar e mande **só** as anotações abaixo, sem repetir nada do prompt."
+      ],
+      "arquivo": "Prompt",
+      "variantes": {
+        "helena": {
+          "codigo": "fornecedor de cestos mandou 60 de 120\nliguei, dizem que o resto sai essa semana\nmesma coisa aconteceu em agosto\nse repetir em dezembro a gente troca de fornecedor"
+        },
+        "diego": {
+          "codigo": "ergoline respondeu o frete: 940 reais\ntotal fica 36.640, abaixo da mobicorp\nprazo 20 dias corridos\ncadeiras e cia ainda não reemitiu"
+        },
+        "beatriz": {
+          "codigo": "cliente perguntou se faço projeto de loja\n280 por m2, mínimo 22 mil\nprazo 10 semanas\nagenda só abre em janeiro"
+        }
+      },
+      "depois": [
+        "Se a resposta saiu no formato dos exemplos sem você pedir, o assistente está pronto. Esse é o ponto da prática: **o prompt virou uma ferramenta**."
+      ]
+    }
+  ],
+  "problemas": [
+    [
+      "A resposta continua longa e com títulos, mesmo com os exemplos.",
+      "Os exemplos provavelmente são longos demais ou variados demais. Deixe os três bem parecidos entre si e do tamanho exato que você quer."
+    ],
+    [
+      "O assistente responde explicando o que vai fazer, em vez de já mandar a mensagem.",
+      "Acrescente, no fim das instruções: *\"Responda só com a mensagem final. Não explique, não comente, não pergunte antes.\"*"
+    ],
+    [
+      "Não encontro onde criar o Gem.",
+      "O menu **Gems** fica na barra da esquerda, no computador. No celular a criação pode não aparecer: use o navegador.",
+      "gemini"
+    ],
+    [
+      "Não acho a opção de criar um GPT.",
+      "Ela não existe mais em contas pessoais. Use **Projetos**, que é o equivalente: tem instruções fixas e arquivos.",
+      "chatgpt"
+    ],
+    [
+      "Chegou no limite de projetos.",
+      "O plano gratuito permite cinco. Apague um projeto antigo ou reaproveite um que você não usa.",
+      "claude"
+    ]
+  ],
+  "fechamento": "Na prática 2 este assistente ganha **documentos**: ele deixa de responder só pelo exemplo e passa a responder pelo que está escrito nos arquivos."
+}

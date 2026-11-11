@@ -1,0 +1,28 @@
+#aba: Horas
+Data;Etapa;Atividade;Horas
+03/11/2026;Projeto executivo - marcenaria;Detalhamento dos armarios do quarto do casal;6,0
+04/11/2026;Projeto executivo - marcenaria;Detalhamento da cozinha;5,5
+05/11/2026;Lista de acabamentos;Pesquisa de revestimento para os banheiros;3,0
+06/11/2026;Reuniao com o cliente;Reuniao online de alinhamento;1,5
+09/11/2026;Projeto executivo - marcenaria;Ajustes do painel da sala;4,0
+10/11/2026;Lista de acabamentos;Cotacao com fornecedores;3,5
+11/11/2026;Projeto executivo - marcenaria;Detalhamento do home office;5,0
+12/11/2026;Projeto executivo - eletrica;Compatibilizacao da eletrica com a marcenaria;4,5
+13/11/2026;Lista de acabamentos;Montagem da lista;3,0
+17/11/2026;Projeto executivo - marcenaria;Revisao geral dos desenhos;4,5
+18/11/2026;Visita a obra;Visita de conferencia de medidas no apartamento;3,0
+19/11/2026;Lista de acabamentos;Fechamento da lista de acabamentos;4,0
+#aba: Etapas
+Etapa;Situacao;Previsao de entrega;Entregue em;Horas ate 31/10
+Levantamento e medicao;Concluida;12/09/2026;12/09/2026;12,0
+Estudo preliminar;Concluida;06/10/2026;06/10/2026;31,5
+Projeto executivo - layout e eletrica;Concluida;30/10/2026;30/10/2026;24,0
+Projeto executivo - marcenaria;Em andamento;31/10/2026;;11,0
+Lista de acabamentos;Em andamento;20/11/2026;;0,0
+Entrega final e apresentacao;Nao iniciada;30/11/2026;;0,0
+#aba: Pendencias do cliente
+Pendencia;Pedida em;Respondida em;Situacao;Impacto
+Escolha do porcelanato da sala e do corredor;16/10/2026;;Em aberto;Trava o detalhamento do painel e do rodape da sala
+Aprovacao do orcamento da bancada de quartzo;03/11/2026;;Em aberto;Trava o fechamento da lista de acabamentos
+Confirmacao da medida da geladeira nova;05/11/2026;07/11/2026;Respondida;
+Definicao da cor da marcenaria do home office;10/11/2026;;Em aberto;Detalhamento segue com a cor provisoria

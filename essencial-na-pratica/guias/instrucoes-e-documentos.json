@@ -1,0 +1,221 @@
+{
+  "titulo": "Instruções e documentos",
+  "eixos": [
+    {
+      "chave": "persona",
+      "rotulo": "Persona",
+      "opcoes": [
+        {
+          "id": "helena",
+          "rotulo": "Helena (lojas)"
+        },
+        {
+          "id": "diego",
+          "rotulo": "Diego (financeiro)"
+        },
+        {
+          "id": "beatriz",
+          "rotulo": "Beatriz (arquitetura)"
+        }
+      ]
+    },
+    {
+      "chave": "app",
+      "rotulo": "Aplicativo",
+      "opcoes": [
+        {
+          "id": "gemini",
+          "rotulo": "Gemini"
+        },
+        {
+          "id": "chatgpt",
+          "rotulo": "ChatGPT"
+        },
+        {
+          "id": "claude",
+          "rotulo": "Claude"
+        }
+      ]
+    }
+  ],
+  "resumo": "Dar ao assistente do {app} duas camadas novas: as **instruções**, escritas uma vez, e os **documentos**, que ele passa a consultar para responder.",
+  "contexto": "Este é o guia da **prática 2**. Escolha a persona que a turma votou e o seu aplicativo nos seletores acima. Os arquivos de cada persona estão na página do curso, num .zip por persona. Baixe e descompacte antes de começar.",
+  "passos": [
+    {
+      "titulo": "Baixe os arquivos da persona",
+      "texto": [
+        "Na página do curso, baixe o .zip da persona e descompacte. Os arquivos da prática 2 são:"
+      ],
+      "variantes": {
+        "helena": {
+          "texto": [
+            "Na página do curso, baixe `helena-prado.zip` e descompacte. Os arquivos da prática 2 são os três procedimentos da Casa Aurora: `escala-e-troca-de-turno.pdf`, `trocas-e-devolucoes.pdf`, `abertura-e-fechamento-de-caixa.pdf`."
+          ]
+        },
+        "diego": {
+          "texto": [
+            "Na página do curso, baixe `diego-farias.zip` e descompacte. O arquivo da prática 2 é `contrato-limpeza-asseio-total.pdf`, de sete páginas."
+          ]
+        },
+        "beatriz": {
+          "texto": [
+            "Na página do curso, baixe `beatriz-lemos.zip` e descompacte. Os arquivos da prática 2 são `tabela-de-servicos-e-precos.pdf` e `respostas-anteriores.pdf`."
+          ]
+        }
+      }
+    },
+    {
+      "titulo": "Crie o assistente",
+      "variantes": {
+        "gemini": {
+          "texto": [
+            "Em [gemini.google.com](https://gemini.google.com), abra **Gems** na barra da esquerda e clique em **Novo Gem**. Dê um nome e deixe aberto."
+          ]
+        },
+        "chatgpt": {
+          "texto": [
+            "Em [chatgpt.com](https://chatgpt.com), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome e abra as instruções."
+          ]
+        },
+        "claude": {
+          "texto": [
+            "Em [claude.ai](https://claude.ai), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome e abra o campo de instruções."
+          ]
+        }
+      },
+      "depois": [
+        "Se você já fez a prática 1, pode criar um assistente novo em vez de mexer naquele: assim dá para comparar os dois depois."
+      ]
+    },
+    {
+      "titulo": "Escreva as instruções",
+      "texto": [
+        "Cole o texto abaixo no campo de instruções. Ele tem quatro partes: **papel**, **tarefa**, **formato** e **o que fazer quando não souber**."
+      ],
+      "arquivo": "Instruções",
+      "variantes": {
+        "helena": {
+          "codigo": "# PAPEL\nVocê é o tira-dúvidas de procedimentos da Casa Aurora, rede de três lojas em Curitiba. Quem pergunta é o time das lojas.\n\n# TAREFA\nResponder dúvidas sobre escala e troca de turno, trocas e devoluções, e abertura e fechamento de caixa, usando SOMENTE os documentos anexados.\n\n# FORMATO\n- Comece pela resposta direta, em uma ou duas frases.\n- Depois, cite o documento e a seção de onde ela saiu (por exemplo: PRO-LOJ-002, seção 2).\n- Se a resposta depender de duas regras, diga as duas.\n- Nada de introdução (\"ótima pergunta\"), nada de emoji.\n\n# SE NÃO SOUBER\nSe a resposta não estiver nos documentos anexados, responda exatamente:\n\"Isso não está nos procedimentos que eu tenho. Pergunte para a Helena.\"\nNunca invente valor, prazo ou percentual."
+        },
+        "diego": {
+          "codigo": "# PAPEL\nVocê é o tira-dúvidas do contrato de limpeza da Núcleo Engenharia. Quem pergunta são colegas de outras áreas, que não leram o contrato.\n\n# TAREFA\nResponder dúvidas sobre o contrato de prestação de serviço anexado, usando SOMENTE ele.\n\n# FORMATO\n- Comece pela resposta direta, em uma ou duas frases.\n- Depois, cite a cláusula e o item (por exemplo: cláusula 11.2).\n- Quando houver conta a fazer, mostre a conta.\n- Nada de introdução, nada de emoji, nada de conselho jurídico.\n\n# SE NÃO SOUBER\nSe a resposta não estiver no contrato, responda exatamente:\n\"Isso não está no contrato que eu tenho.\"\nSe a informação estiver num anexo que não foi enviado, diga qual anexo falta.\nNunca estime valor, prazo ou percentual que não esteja escrito."
+        },
+        "beatriz": {
+          "codigo": "# PAPEL\nVocê redige as respostas que a Beatriz Lemos, arquiteta, manda para clientes. Você escreve COMO ELA, na primeira pessoa.\n\n# TAREFA\nTransformar a mensagem do cliente numa resposta pronta para enviar, usando SOMENTE a tabela de serviços e preços anexada.\n\n# FORMATO\n- Comece com \"Oi, <nome>\".\n- Parágrafos curtos, uma ideia em cada.\n- Diga preço e prazo sem rodeio, inclusive quando a resposta é \"não\".\n- Termine com uma pergunta ou um próximo passo claro.\n- Nunca use \"prezado\", \"venho por meio desta\" nem emoji.\n- Siga o tom das respostas anteriores anexadas.\n\n# O QUE VOCÊ NUNCA FAZ\n- Nunca prometa desconto, prazo menor ou condição fora da tabela. Registre o pedido e diga que a Beatriz responde.\n- Se o serviço não estiver na tabela, diga que vai confirmar com ela.\nNunca invente preço nem prazo."
+        }
+      },
+      "depois": [
+        "A última parte é a mais importante e a mais esquecida. Sem ela, o assistente inventa em vez de dizer que não sabe."
+      ]
+    },
+    {
+      "titulo": "Anexe os documentos",
+      "variantes": {
+        "gemini": {
+          "texto": [
+            "Na seção **Conhecimento** do Gem, clique em **Adicionar arquivos** e envie os arquivos da persona. Depois clique em **Salvar** — a janela de prévia não salva sozinha."
+          ]
+        },
+        "chatgpt": {
+          "texto": [
+            "Nos **arquivos do projeto**, envie os arquivos da persona. Eles ficam disponíveis em toda conversa dentro do projeto."
+          ]
+        },
+        "claude": {
+          "texto": [
+            "No **conhecimento do projeto**, envie os arquivos da persona. Eles ficam disponíveis em toda conversa dentro do projeto."
+          ]
+        }
+      },
+      "aviso": "Os documentos ficam no assistente, não na conversa. Você envia uma vez e usa sempre."
+    },
+    {
+      "titulo": "Faça as perguntas de teste",
+      "texto": [
+        "Abra uma conversa dentro do assistente e mande as perguntas abaixo, **uma de cada vez**. Anote qual resposta não convenceu."
+      ],
+      "arquivo": "Perguntas de teste",
+      "variantes": {
+        "helena": {
+          "codigo": "Quero trocar meu sábado com o Rafael. Com quanta antecedência eu peço?\n\nCliente quer trocar uma panela comprada há 45 dias, sem uso, com nota. Dá?\n\nO caixa fechou com R$ 12 a menos. O que eu faço?\n\nProduto com etiqueta amarela e defeito de fábrica: troca?\n\nTrabalhei no domingo do Batel e passei das 20 horas de banco. Como fica?\n\nO cliente comprou no Portão e quer trocar no Cabral. Pode? Como registro?\n\nQual é o desconto que eu posso dar para fechar uma venda grande?"
+        },
+        "diego": {
+          "codigo": "Se a gente quiser cancelar agora, quanto custa?\n\nQuando e como o valor é reajustado?\n\nAté quando eu preciso avisar se não quiser renovar?\n\nEles faltaram três vezes no mesmo trimestre com a mesma falha. O que o contrato prevê?\n\nPagamos com 12 dias de atraso. Quanto entra de encargo?\n\nEles descumpriram e não corrigiram depois da notificação. Pagamos multa para sair?\n\nQuanto custa uma limpeza de vidro da fachada no quarto andar?"
+        },
+        "beatriz": {
+          "codigo": "Oi! Quanto fica o projeto de interiores de um apartamento de 72 m²?\n\nPreciso do projeto pronto em 4 semanas, dá?\n\nJá mudei duas vezes a bancada. Quero mexer mais uma vez.\n\nO orçamento ficou acima do que eu esperava. Consegue fazer por R$ 12.000?\n\nVocês fazem projeto de paisagismo da área externa? Quanto fica?"
+        }
+      },
+      "depois": [
+        "Confira cada resposta **contra o documento**, não contra a sua memória. É por isso que os documentos são curtos.",
+        "A última pergunta é a prova real:"
+      ]
+    },
+    {
+      "titulo": "A pergunta que não tem resposta",
+      "variantes": {
+        "helena": {
+          "texto": [
+            "**\"Qual é o desconto que eu posso dar?\"** — a resposta não está em nenhum dos três documentos."
+          ]
+        },
+        "diego": {
+          "texto": [
+            "**\"Quanto custa a limpeza de vidro no quarto andar?\"** — está no Anexo II, que o contrato cita mas **não foi enviado**."
+          ]
+        },
+        "beatriz": {
+          "texto": [
+            "**\"Vocês fazem paisagismo?\"** — o serviço não está na tabela. E o pedido de desconto não pode virar promessa."
+          ]
+        }
+      },
+      "depois": [
+        "Se o assistente **inventou**, o problema não é o modelo: é a instrução. Volte ao campo de instruções e reforce a parte do \"se não souber\".",
+        "Teste de novo, na mesma conversa. Se continuar inventando, abra uma conversa nova: instrução alterada só vale a partir da próxima conversa em alguns aplicativos."
+      ]
+    },
+    {
+      "titulo": "Ajuste a instrução e teste de novo",
+      "texto": [
+        "Escolha a resposta que menos te convenceu e mude **uma linha** da instrução para corrigi-la.",
+        "Teste a mesma pergunta outra vez. Se melhorou, você acabou de fazer o ciclo que vai usar o resto do dia: **testar, ajustar a instrução, testar de novo.**",
+        "Mude uma coisa por vez. Trocando três linhas de uma vez, você não sabe qual delas resolveu."
+      ]
+    }
+  ],
+  "problemas": [
+    [
+      "O assistente responde com coisas que não estão nos documentos.",
+      "A instrução não tem a parte do \"se não souber\", ou ela está fraca. Escreva a frase exata que ele deve responder, entre aspas, dentro da instrução."
+    ],
+    [
+      "Ele cita o documento errado.",
+      "Peça que a citação venha **junto da frase copiada do documento**. Fica mais fácil conferir e ele erra menos."
+    ],
+    [
+      "As respostas ficaram longas demais.",
+      "Acrescente um limite explícito: *\"Responda em no máximo três frases.\"* Limite em número funciona melhor que \"seja breve\"."
+    ],
+    [
+      "Mudei a instrução e nada mudou.",
+      "Abra uma conversa nova dentro do assistente. A conversa que já estava aberta pode continuar com a instrução antiga."
+    ],
+    [
+      "O Gem não guardou os arquivos.",
+      "A janela de prévia não salva. Volte ao Gem e clique em **Salvar**.",
+      "gemini"
+    ],
+    [
+      "O PDF não subiu.",
+      "Confira o tamanho e tente um arquivo por vez. Se o arquivo for uma foto de documento, o reconhecimento pode falhar: use o PDF.",
+      "chatgpt"
+    ],
+    [
+      "O projeto diz que o conhecimento está cheio.",
+      "No plano gratuito, os arquivos precisam caber na janela de contexto. Suba menos arquivos, ou só o que a pergunta precisa.",
+      "claude"
+    ]
+  ],
+  "fechamento": "Na prática 3 o assistente deixa de responder perguntas e passa a **executar um trabalho de várias etapas**, com os arquivos numa pasta."
+}

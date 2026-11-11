@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import http.server
+import itertools
 import json
 import re
 import shutil
@@ -315,20 +316,27 @@ def gerar_aula(site: dict, curso: dict, n: int, aula: dict) -> str:
 
 
 SELETOR = """<script>
-/* Seletor de variante (como as abas do Starlight): mostra só os trechos da variante escolhida.
-   A escolha vem de ?app=, senão da última escolha neste navegador, senão da primeira variante. */
+/* Seletores de variante (como as abas do Starlight): um seletor por eixo (aplicativo, persona...).
+   A escolha de cada eixo vem de ?<eixo>=, senão da última escolha neste navegador, senão da primeira opção. */
 (() => {
-  const raiz = document.documentElement, botoes = [...document.querySelectorAll(".seletor button")];
-  const ids = botoes.map(b => b.dataset.v), CHAVE = "variante-guia";
-  const ler = () => { try { return localStorage.getItem(CHAVE); } catch (e) { return null; } };
-  const escolher = (v, guardar) => {
-    raiz.dataset.app = v;
-    botoes.forEach(b => b.setAttribute("aria-selected", b.dataset.v === v ? "true" : "false"));
-    if (guardar) { try { localStorage.setItem(CHAVE, v); } catch (e) {} history.replaceState(null, "", "?app=" + v + location.hash); }
+  const raiz = document.documentElement, pedido = new URLSearchParams(location.search);
+  const guardar = () => {
+    const q = new URLSearchParams();
+    document.querySelectorAll(".seletor").forEach(s => q.set(s.dataset.eixo, raiz.dataset[s.dataset.eixo]));
+    history.replaceState(null, "", "?" + q + location.hash);
   };
-  const pedida = new URLSearchParams(location.search).get("app");
-  escolher([pedida, ler()].find(v => ids.includes(v)) || ids[0], false);
-  botoes.forEach(b => b.addEventListener("click", () => escolher(b.dataset.v, true)));
+  document.querySelectorAll(".seletor").forEach(seletor => {
+    const eixo = seletor.dataset.eixo, CHAVE = "variante-guia-" + eixo;
+    const botoes = [...seletor.querySelectorAll("button")], ids = botoes.map(b => b.dataset.v);
+    const ler = () => { try { return localStorage.getItem(CHAVE); } catch (e) { return null; } };
+    const escolher = (v, grava) => {
+      raiz.dataset[eixo] = v;
+      botoes.forEach(b => b.setAttribute("aria-selected", b.dataset.v === v ? "true" : "false"));
+      if (grava) { try { localStorage.setItem(CHAVE, v); } catch (e) {} guardar(); }
+    };
+    escolher([pedido.get(eixo), ler()].find(v => ids.includes(v)) || ids[0], false);
+    botoes.forEach(b => b.addEventListener("click", () => escolher(b.dataset.v, true)));
+  });
 })();
 </script>"""
 
@@ -336,22 +344,51 @@ SELETOR = """<script>
 def gerar_preparacao(site: dict, curso: dict, prep: dict) -> str:
     """Passo a passo no padrão Steps do Starlight: círculos numerados ligados por uma linha.
 
-    Com "variantes" ([{"id", "rotulo"}], por exemplo um aplicativo por variante), a página ganha um seletor ao lado
-    do título. Um passo com "variantes": {id: {campos}} troca esses campos conforme a variante; "{app}" em qualquer
-    texto vira o rótulo da variante; um problema com um terceiro item (o id) só aparece naquela variante."""
-    variantes = prep.get("variantes", [])
+    O guia pode ter um ou mais **eixos** de variante, cada um com o próprio seletor ao lado do título:
+
+        "eixos": [{"chave": "persona", "rotulo": "Persona", "opcoes": [{"id", "rotulo"}, ...]}, ...]
+
+    A forma antiga, `"variantes": [{"id", "rotulo"}]`, continua valendo e equivale a um eixo só, de chave `app`.
+    Num passo, `"variantes": {id: {campos}}` troca esses campos conforme a opção escolhida, de qualquer eixo;
+    `{chave}` em qualquer texto (por exemplo `{app}` ou `{persona}`) vira o rótulo da opção escolhida naquele eixo.
+    Um problema com um terceiro item (o id de uma opção) só aparece quando ela está escolhida.
+    O link `<nome>/?app=<id>&persona=<id>` abre o guia já numa combinação."""
+    eixos = prep.get("eixos") or ([{"chave": "app", "rotulo": "Aplicativo", "opcoes": prep["variantes"]}]
+                                  if prep.get("variantes") else [])
+    de_id = {o["id"]: (e, o) for e in eixos for o in e["opcoes"]}
+
+    def relevantes(dados: dict) -> list:
+        """Os eixos de que este trecho depende: pelo marcador {chave} ou por uma opção citada em "variantes"."""
+        texto = json.dumps(dados, ensure_ascii=False)
+        citados = set(dados.get("variantes", {}))
+        return [e for e in eixos
+                if "{%s}" % e["chave"] in texto or citados & {o["id"] for o in e["opcoes"]}]
 
     def por_variante(gerar, dados: dict) -> str:
-        """Gera o trecho uma vez, ou uma vez por variante quando ele muda com a variante."""
-        muda = variantes and ("variantes" in dados or "{app}" in json.dumps(dados, ensure_ascii=False))
-        if not muda:
+        """Gera o trecho uma vez, ou uma vez por combinação dos eixos de que ele depende."""
+        usados = relevantes(dados)
+        if not usados:
             return gerar(dados)
         partes = []
-        for v in variantes:
-            d = {**dados, **dados.get("variantes", {}).get(v["id"], {})}
-            d = json.loads(json.dumps(d, ensure_ascii=False).replace("{app}", v["rotulo"]))
-            partes.append(f'<div class="variante" data-variante="{escape(v["id"])}">{gerar(d)}</div>')
+        for combo in itertools.product(*[e["opcoes"] for e in usados]):
+            d = dict(dados)
+            for eixo, opcao in zip(usados, combo):
+                d = {**d, **dados.get("variantes", {}).get(opcao["id"], {})}
+                d = json.loads(json.dumps(d, ensure_ascii=False).replace("{%s}" % eixo["chave"], opcao["rotulo"]))
+            attrs = "".join(f' data-v-{e["chave"]}="{escape(o["id"])}"' for e, o in zip(usados, combo))
+            partes.append(f'<div class="variante"{attrs}>{gerar(d)}</div>')
         return "".join(partes)
+
+    def regra_css(combo) -> str:
+        """Mostra o trecho quando todo eixo bate com a escolha; sem escolha ainda, vale a primeira opção."""
+        html, trecho = "html", ".variante"
+        for eixo, opcao in combo:
+            primeira = opcao is eixo["opcoes"][0]
+            alvo = f'[data-{eixo["chave"]}="{escape(opcao["id"])}"]'
+            html += f':is({alvo}, :not([data-{eixo["chave"]}]))' if primeira else alvo
+            trecho += f'[data-v-{eixo["chave"]}="{escape(opcao["id"])}"]'
+        sobra = "".join(f':not([data-v-{e["chave"]}])' for e in eixos if e not in [c[0] for c in combo])
+        return f"{html} {trecho}{sobra} {{ display: block; }}"
 
     def gerar_passo(passo: dict) -> str:
         miolo = [f'<h2>{escape(passo["titulo"])}</h2>']
@@ -373,19 +410,23 @@ def gerar_preparacao(site: dict, curso: dict, prep: dict) -> str:
             miolo.append(f'<p class="aviso"><strong>Atenção</strong> {inline(passo["aviso"])}</p>')
         return "".join(miolo)
 
-    seletor, estilo = "", ""
-    if variantes:
-        botoes = "".join(f'<button type="button" role="tab" data-v="{escape(v["id"])}" aria-selected="{"true" if k == 0 else "false"}">'
-                         f'{escape(v["rotulo"])}</button>' for k, v in enumerate(variantes))
-        seletor = f'<div class="seletor" role="tablist" aria-label="Aplicativo">{botoes}</div>'
-        primeira = escape(variantes[0]["id"])
-        regras = "".join(f'html[data-app="{escape(v["id"])}"] .variante[data-variante="{escape(v["id"])}"] {{ display: block; }}' for v in variantes)
-        estilo = (f'<style>.variante {{ display: none; }} html:not([data-app]) .variante[data-variante="{primeira}"] {{ display: block; }}'
-                  f'{regras}</style>')
+    seletores, estilo = "", ""
+    if eixos:
+        for eixo in eixos:
+            botoes = "".join(f'<button type="button" role="tab" data-v="{escape(o["id"])}" aria-selected="{"true" if k == 0 else "false"}">'
+                             f'{escape(o["rotulo"])}</button>' for k, o in enumerate(eixo["opcoes"]))
+            seletores += (f'<div class="seletor" role="tablist" data-eixo="{escape(eixo["chave"])}"'
+                          f' aria-label="{escape(eixo["rotulo"])}">{botoes}</div>')
+        regras = []
+        for n in range(1, len(eixos) + 1):
+            for subconjunto in itertools.combinations(eixos, n):
+                for combo in itertools.product(*[e["opcoes"] for e in subconjunto]):
+                    regras.append(regra_css(list(zip(subconjunto, combo))))
+        estilo = "<style>.variante { display: none; }" + "".join(regras) + "</style>"
     topo = f"""<section class="secao">
 <p class="rotulo"><a href="../">{escape(curso['titulo'])}</a></p>
-<div class="titulo-guia"><h1>{escape(prep['titulo'])}</h1>{seletor}</div>
-{por_variante(lambda d: f"<p>{inline(d['resumo'])}</p>", {"resumo": prep["resumo"]})}
+<div class="titulo-guia"><h1>{escape(prep['titulo'])}</h1>{f'<div class="seletores">{seletores}</div>' if seletores else ''}</div>
+{por_variante(lambda d: f"<p>{inline(d['resumo'])}</p>", {"resumo": prep["resumo"], "variantes": prep.get("variantes_resumo", {})})}
 {f"<p>{inline(prep['contexto'])}</p>" if prep.get('contexto') else ''}
 </section>"""
     etapas = [f'<li class="etapa" id="passo-{n}">{por_variante(gerar_passo, passo)}</li>' for n, passo in enumerate(prep["passos"], 1)]
@@ -395,12 +436,15 @@ def gerar_preparacao(site: dict, curso: dict, prep: dict) -> str:
         for problema in prep["problemas"]:
             sintoma, solucao, *so = problema
             item = f'<li><p class="sintoma">{inline(sintoma)}</p><p>{inline(solucao)}</p></li>'
-            itens.append(item.replace("<li>", f'<li class="variante" data-variante="{escape(so[0])}">', 1) if so else item)
+            if so:
+                eixo = de_id[so[0]][0]
+                item = item.replace("<li>", f'<li class="variante" data-v-{eixo["chave"]}="{escape(so[0])}">', 1)
+            itens.append(item)
         fecho = f'<p class="rotulo">{inline(prep["fechamento"])}</p>' if prep.get("fechamento") else ""
         partes.append(f'<section class="secao"><h2>Se algo der errado</h2><ul class="problemas">{"".join(itens)}</ul>{fecho}</section>')
     if prep.get("dia_da_aula"):
         partes.append(f'<section class="secao"><h2>No dia da aula</h2>{comando(prep["dia_da_aula"])}</section>')
-    if variantes:
+    if eixos:
         partes.append(SELETOR)
     return pagina(site, f"{prep['titulo']} · {curso['titulo']}", "\n".join(partes), "../../", curso.get("oculto", False))
 

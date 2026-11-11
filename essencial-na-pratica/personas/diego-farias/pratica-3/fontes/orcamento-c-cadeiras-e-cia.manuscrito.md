@@ -1,0 +1,33 @@
+## Cadeiras & Cia — Orçamento
+
+Cliente: Núcleo Engenharia
+
+A/C: Sr. Diego
+
+Data: 26/09/2026
+
+30 cadeiras giratórias mod. Executiva Tela
+
+Valor unitário ....... R$ 1.090,00
+
+Total .................... R$ 32.700,00
+
+Frete (BH) .......... R$ 780,00
+
+**Total geral R$ 33.480,00**
+
+Prazo: umas 3 semanas depois do pedido
+
+Garantia 1 ano de fábrica
+
+Pagamento: 50% na entrada e 50% na entrega
+
+Montagem por nossa conta
+
+Validade deste orçamento: 15 dias
+
+Obrigado pela preferência!
+
+Jorge — Cadeiras & Cia
+
+(31) 9xxxx-2207

@@ -1,0 +1,305 @@
+{
+  "titulo": "Do fluxo à skill",
+  "eixos": [
+    {
+      "chave": "persona",
+      "rotulo": "Persona",
+      "opcoes": [
+        {
+          "id": "helena",
+          "rotulo": "Helena (lojas)"
+        },
+        {
+          "id": "diego",
+          "rotulo": "Diego (financeiro)"
+        },
+        {
+          "id": "beatriz",
+          "rotulo": "Beatriz (arquitetura)"
+        }
+      ]
+    },
+    {
+      "chave": "app",
+      "rotulo": "Aplicativo",
+      "opcoes": [
+        {
+          "id": "gemini",
+          "rotulo": "Gemini"
+        },
+        {
+          "id": "chatgpt",
+          "rotulo": "ChatGPT"
+        },
+        {
+          "id": "claude",
+          "rotulo": "Claude"
+        }
+      ]
+    },
+    {
+      "chave": "caminho",
+      "rotulo": "Onde rodar",
+      "opcoes": [
+        {
+          "id": "chat",
+          "rotulo": "No chat"
+        },
+        {
+          "id": "pasta",
+          "rotulo": "Na pasta (agente)"
+        }
+      ]
+    }
+  ],
+  "resumo": "Escrever um trabalho de várias etapas num texto só — o fluxo — e deixar a máquina executá-lo, acompanhando o que ela lê, o que faz e onde para.",
+  "contexto": "Este é o guia da **prática 3**. O que importa aqui é o **fluxo**, não o aplicativo: o mesmo texto roda no chat que você já usou de manhã ou num agente que trabalha numa pasta do seu computador. Use o seletor **Onde rodar** para escolher o caminho. Comece pelo **chat** — ele funciona em conta gratuita e é o caminho de todo mundo.",
+  "passos": [
+    {
+      "titulo": "Escolha onde rodar",
+      "texto": [
+        "**No chat** — o caminho de todo mundo. Você cola o fluxo nas instruções do assistente que criou na prática 2 e anexa os documentos na conversa. Funciona em conta gratuita, nos três aplicativos.",
+        "**Na pasta (agente)** — o caminho avançado. Um aplicativo de desktop abre uma pasta do seu computador, lê os arquivos, grava o resultado e você acompanha cada passo. Quase sempre pede plano pago.",
+        "A diferença **não é a qualidade do fluxo**: é onde ele roda e quanto você enxerga da execução. Faça o do chat primeiro. Se der tempo e a sua conta permitir, repita na pasta e compare."
+      ],
+      "aviso": "Se a sua conta não libera nenhum aplicativo de desktop, você não perde nada da prática: o caminho do chat é o mesmo exercício."
+    },
+    {
+      "titulo": "Abra onde o fluxo vai rodar",
+      "variantes": {
+        "chat": {
+          "texto": [
+            "Abra o assistente que você criou na prática 2 — o mesmo Gem ou projeto, com as instruções e os documentos da persona.",
+            "Se você não fez a prática 2, crie um assistente novo agora: é só um nome e um campo de instruções vazio."
+          ]
+        },
+        "pasta": {
+          "texto": [
+            "Instale o aplicativo de desktop da casa do seu aplicativo de chat e entre com a sua conta."
+          ]
+        }
+      }
+    },
+    {
+      "titulo": "Instale o aplicativo de desktop",
+      "variantes": {
+        "chat": {
+          "texto": [
+            "Este passo é só do caminho **Na pasta**. No chat, siga para o próximo."
+          ],
+          "aviso": ""
+        },
+        "gemini": {
+          "texto": [
+            "Da casa do Gemini, o aplicativo que trabalha em pastas é o **Antigravity**: baixe em [antigravity.google/download](https://antigravity.google/download) (Windows, macOS ou Linux) e entre com a sua conta Google.",
+            "Há também o **Gemini Spark**, o modo agêntico do app de desktop do Gemini, mais parecido com um chat — mas ele hoje só trabalha com pastas no **macOS** e exige plano Google AI Pro."
+          ],
+          "aviso": "A camada gratuita do Antigravity tem cota diária de pedidos, e ela já foi reduzida mais de uma vez. Se a cota acabar, volte ao caminho do chat."
+        },
+        "chatgpt": {
+          "texto": [
+            "Da casa do ChatGPT, o aplicativo que trabalha em pastas é o **Codex**. Instale pelo site do Codex e entre com a sua conta."
+          ],
+          "aviso": "O Codex pede plano pago do ChatGPT. Em conta gratuita, volte ao caminho do chat."
+        },
+        "claude": {
+          "texto": [
+            "Da casa do Claude, o aplicativo que trabalha em pastas é o **Claude Desktop**, no modo **Cowork**. Baixe em [claude.ai/download](https://claude.ai/download) e entre com a sua conta."
+          ],
+          "aviso": "O Cowork depende do plano da conta. Se ele não aparecer, volte ao caminho do chat."
+        }
+      }
+    },
+    {
+      "titulo": "Pegue os arquivos da persona",
+      "variantes": {
+        "helena": {
+          "texto": [
+            "Baixe `helena-prado.zip` e descompacte. Para esta prática você precisa de um arquivo só: `pratica-3-pasta-de-trabalho/entrada/reuniao-semanal-2026-11-09.txt`."
+          ]
+        },
+        "diego": {
+          "texto": [
+            "Baixe `diego-farias.zip` e descompacte. Para esta prática você precisa de quatro arquivos de `pratica-3-pasta-de-trabalho/`: os três orçamentos em `entrada/` (um PDF, um texto e uma **foto**) e os critérios de compra em `base/`."
+          ]
+        },
+        "beatriz": {
+          "texto": [
+            "Baixe `beatriz-lemos.zip` e descompacte. Para esta prática você precisa de dois arquivos de `pratica-3-pasta-de-trabalho/`: a planilha `entrada/horas-novembro-2026.xlsx` e o relatório `base/relatorio-outubro-2026.pdf`."
+          ]
+        },
+        "chat": {
+          "depois": [
+            "Deixe os arquivos à mão: eles vão ser anexados na conversa."
+          ]
+        },
+        "pasta": {
+          "depois": [
+            "Abra a pasta `pratica-3-pasta-de-trabalho` inteira no aplicativo e **autorize o acesso** quando ele pedir. Dentro dela há `entrada/` (o que o agente processa), `base/` (o que ele consulta) e `saida/` (onde ele grava).",
+            "Dê acesso só a essa pasta: o agente pode criar, editar e apagar arquivos no que você liberar."
+          ]
+        }
+      }
+    },
+    {
+      "titulo": "Escreva o fluxo",
+      "texto": [
+        "O fluxo tem sempre cinco campos: **nome, quando usar, etapas, formato da saída e o que nunca fazer sozinho**. É o mesmo texto nos dois caminhos."
+      ],
+      "arquivo": "O fluxo",
+      "variantes": {
+        "helena": {
+          "codigo": "Nome: acompanhamento-da-reuniao\nQuando usar: quando houver um arquivo de transcrição de reunião em entrada/.\n\nEtapas:\n1. Ler a transcrição inteira antes de escrever qualquer coisa, anotando o horário de cada trecho.\n2. Separar fatos de opiniões. É fato: número relatado, decisão com acordo, acontecimento descrito. É opinião: impressão, explicação sem dado, previsão. Frase dita com voz de fato mas sem número na reunião é opinião, e vai numa lista à parte com o motivo.\n3. Listar as pendências com o que é, quem ficou responsável e até quando. Sem responsável na reunião, escrever SEM RESPONSÁVEL. Sem prazo, escrever SEM PRAZO. Se o mesmo prazo aparecer de duas formas, registrar as duas e marcar PRAZO AMBÍGUO. Converter \"quinta\", \"fim da semana\" e afins para a data real e mostrar a conta.\n4. Destacar numa seção própria tudo o que está SEM RESPONSÁVEL ou com PRAZO AMBÍGUO.\n5. Redigir o e-mail de acompanhamento para quem participou.\n6. Gravar em saida/acompanhamento-<data>.md e dizer na conversa o que ficou sem dono.\n\nFormato da saída: um arquivo com Fatos (tabela fato | horário), Opiniões (frase | quem disse | por que não é fato), Pendências (pendência | quem | até quando | horário), Precisa de decisão da Helena, e E-mail de acompanhamento com assunto e até 200 palavras.\n\nO que nunca fazer sozinho: nunca inventar responsável ou prazo; nunca escolher entre dois prazos ambíguos; nunca transformar opinião em fato; nunca enviar o e-mail."
+        },
+        "diego": {
+          "codigo": "Nome: comparar-orcamentos\nQuando usar: quando houver dois ou mais orçamentos em entrada/, em qualquer formato.\n\nEtapas:\n1. Ler cada orçamento inteiro, inclusive a foto do manuscrito, extraindo fornecedor, data de emissão, validade, preço unitário, quantidade, frete, montagem, prazo de entrega, garantia e pagamento. Campo que não estiver no documento é NÃO INFORMADO.\n2. Colocar tudo na mesma tabela. Converter os prazos para dias corridos mostrando a conversão. Prazo vago fica como PRAZO VAGO com o texto original. Calcular o custo total posto na empresa mostrando a conta; sem frete informado, o total é INCOMPARÁVEL.\n3. Conferir cada orçamento contra base/criterios-de-compra.pdf, usando a data de hoje para a validade e mostrando a conta. Classificar em VÁLIDA, INCOMPLETA ou VENCIDA.\n4. Listar o que falta perguntar a cada fornecedor, em frases prontas para copiar.\n5. Recomendar, com justificativa curta, dizendo em que condição a recomendação muda. Se houver menos cotações válidas do que a política exige, dizer isso antes da recomendação.\n6. Gravar em saida/comparacao-cadeiras.md e resumir em três linhas o que precisa de ação humana.\n\nFormato da saída: Tabela comparativa, Conferência dos critérios, O que falta perguntar, Recomendação e Alerta de política.\n\nO que nunca fazer sozinho: nunca estimar um preço que não está no documento, nem usar a média de um intervalo; nunca comparar preços com e sem frete na mesma coluna; nunca tratar proposta vencida como válida; nunca contatar fornecedor nem fechar a compra."
+        },
+        "beatriz": {
+          "codigo": "Nome: relatorio-de-andamento\nQuando usar: no fim do mês, quando houver uma planilha de horas em entrada/ e o relatório do mês anterior em base/.\n\nEtapas:\n1. Ler as três abas da planilha (Horas, Etapas, Pendências do cliente) e o relatório anterior, que é o modelo de formato.\n2. Somar as horas linha a linha, sem estimar: total do mês, total por etapa e acumulado (acumulado anterior + total do mês). Mostrar a conta do acumulado.\n3. Calcular o andamento pelas etapas e o que mudou desde o relatório anterior.\n4. Marcar como ATRASADA toda etapa com previsão vencida e sem data de entrega, e procurar a causa nas pendências do cliente, dizendo qual é e há quantos dias está em aberto.\n5. Listar as pendências do cliente em aberto, com a data do pedido e o que cada uma trava.\n6. Redigir o relatório com os mesmos títulos do mês anterior.\n7. Listar, fora do relatório, o que a Beatriz precisa conferir antes de enviar.\n8. Gravar em saida/relatorio-novembro-2026.md.\n\nFormato da saída: o mesmo do relatório do mês anterior, seção por seção, e depois dele uma seção \"Antes de enviar — conferir\".\n\nO que nunca fazer sozinho: nunca estimar horas; nunca inventar número financeiro (o que faltar vai como \"a atualizar\"); nunca escrever em tom de cobrança ao cliente; nunca enviar o relatório."
+        },
+        "chat": {
+          "depois": [
+            "**Cole esse texto no campo de instruções do assistente** e salve. Onde o fluxo fala em `entrada/`, `base/` e `saida/`, entenda: o que você anexa na conversa, o que já está no assistente e a resposta que ele devolve.",
+            "Acrescente no fim: *\"Faça uma etapa por vez e diga qual está fazendo.\"*"
+          ]
+        },
+        "pasta": {
+          "depois": [
+            "**Mande esse texto ao agente** precedido da linha: *\"Crie uma skill nesta pasta com o conteúdo abaixo, no formato de skill que este aplicativo usa. Não execute nada ainda: só crie o arquivo.\"*",
+            "Abra o arquivo que ele criou e leia. É um texto comum, que você pode editar à mão — não há mágica nele."
+          ]
+        }
+      }
+    },
+    {
+      "titulo": "Peça o trabalho",
+      "arquivo": "Prompt",
+      "variantes": {
+        "chat": {
+          "texto": [
+            "Anexe os arquivos na conversa e mande:"
+          ]
+        },
+        "pasta": {
+          "texto": [
+            "Numa mensagem nova:"
+          ]
+        },
+        "helena": {
+          "codigo": "Siga o fluxo com a transcrição anexada. A reunião foi em 09/11/2026."
+        },
+        "diego": {
+          "codigo": "Siga o fluxo com os três orçamentos anexados e os critérios de compra. Hoje é 14/11/2026."
+        },
+        "beatriz": {
+          "codigo": "Siga o fluxo com a planilha anexada e o relatório do mês anterior, que é o modelo. Hoje é 30/11/2026."
+        }
+      },
+      "depois": [
+        "A partir daqui, **não ajude**. A ideia é ver o fluxo rodar como está escrito, com os erros que tiver."
+      ]
+    },
+    {
+      "titulo": "Acompanhe o que acontece",
+      "variantes": {
+        "chat": {
+          "texto": [
+            "Olhe a sequência, não só o resultado: ele **anunciou cada etapa**? Parou onde o fluxo mandava parar? Usou as palavras exatas (SEM RESPONSÁVEL, NÃO INFORMADO) quando faltou dado?",
+            "Se ele pulou direto para a resposta final, o problema está nas etapas: numere-as e peça de novo."
+          ]
+        },
+        "pasta": {
+          "texto": [
+            "Olhe a sequência: **que arquivo ele abriu**, **o que fez com ele** e **onde parou para perguntar**.",
+            "É o ciclo ReAct acontecendo na sua frente: ele pensa, usa uma ferramenta, olha o que voltou e decide o passo seguinte.",
+            "Se pedir autorização para gravar na pasta, autorize. Se pedir algo fora dela, não autorize."
+          ]
+        }
+      }
+    },
+    {
+      "titulo": "Confira o resultado contra os documentos",
+      "variantes": {
+        "helena": {
+          "texto": [
+            "Confira três coisas:",
+            "A conferência do estoque de Natal apareceu como **SEM RESPONSÁVEL**, ou o agente deu um dono a ela?",
+            "A frase do Marcos sobre vender mais no sábado ficou em **fatos** ou em **opiniões**?",
+            "O prazo da escala de dezembro apareceu como **ambíguo** (\"fim da semana\" e \"quinta\"), ou o agente escolheu um dos dois?"
+          ]
+        },
+        "diego": {
+          "texto": [
+            "Confira três coisas:",
+            "O frete da Ergoline virou número, ou ficou como **NÃO INFORMADO** e o total como incomparável?",
+            "A proposta da Cadeiras & Cia aparece como **vencida**, com a conta da validade à vista?",
+            "Os prazos foram convertidos para a **mesma unidade** antes de comparar?"
+          ]
+        },
+        "beatriz": {
+          "texto": [
+            "Confira três coisas:",
+            "O total do mês é **47,5 horas** e o acumulado **126,0**? Veio de soma ou de estimativa?",
+            "A marcenaria aparece como **atrasada**, com a previsão de 31/10 à vista?",
+            "O relatório liga o atraso à **pendência do porcelanato**, ou só diz \"em andamento\"?"
+          ]
+        }
+      },
+      "depois": [
+        "Errou alguma? **Não corrija o resultado: corrija o fluxo.** Edite o texto do fluxo e peça de novo.",
+        "É essa a pergunta que fica da prática: *o que eu mudaria no fluxo?* O que se avalia aqui é o fluxo, não o aplicativo."
+      ]
+    },
+    {
+      "titulo": "Se der tempo: rode o mesmo fluxo no outro caminho",
+      "variantes": {
+        "chat": {
+          "texto": [
+            "Se a sua conta libera um aplicativo de desktop, troque o seletor **Onde rodar** para *Na pasta* e repita com o mesmo texto de fluxo.",
+            "O que muda: o agente abre os arquivos sozinho, grava o resultado num arquivo e mostra cada passo. O fluxo é o mesmo."
+          ]
+        },
+        "pasta": {
+          "texto": [
+            "Troque o seletor **Onde rodar** para *No chat* e cole o mesmo fluxo nas instruções do assistente da prática 2.",
+            "Compare: o resultado costuma ser parecido. O que o agente dá a mais é ler e gravar arquivos sozinho — e deixar cada passo à vista."
+          ]
+        }
+      }
+    }
+  ],
+  "problemas": [
+    [
+      "Ele fez tudo de uma vez, sem seguir as etapas.",
+      "Numere as etapas e acrescente: *\"Faça uma etapa por vez e diga qual está fazendo.\"*"
+    ],
+    [
+      "Ele inventou um número que não está nos documentos.",
+      "É o que a parte \"o que nunca fazer sozinho\" existe para evitar. Reforce-a com a palavra exata que ele deve escrever (NÃO INFORMADO, SEM RESPONSÁVEL) e rode de novo."
+    ],
+    [
+      "Ele não leu a foto do orçamento manuscrito.",
+      "Peça explicitamente: *\"Leia também a imagem.\"* Se ainda assim não ler, transcreva o que estiver legível e diga o que não deu para ler."
+    ],
+    [
+      "A planilha não subiu, ou ele leu só a primeira aba.",
+      "Diga quantas abas existem e os nomes delas no pedido. Se não subir, salve como CSV e anexe."
+    ],
+    [
+      "O assistente respondeu com o fluxo, em vez de executá-lo.",
+      "O fluxo foi para a conversa, não para as instruções. Cole-o no campo de instruções do assistente e abra uma conversa nova.",
+      "chat"
+    ],
+    [
+      "O agente não enxerga os arquivos.",
+      "Confira que você abriu a **pasta**, e não um arquivo solto, e que autorizou o acesso quando ele pediu.",
+      "pasta"
+    ],
+    [
+      "A cota diária acabou.",
+      "Volte ao caminho do chat: o exercício é o mesmo.",
+      "pasta"
+    ]
+  ],
+  "fechamento": "À tarde vocês fazem o mesmo caminho com uma tarefa do próprio trabalho: desenhar o fluxo, escrevê-lo, rodar e conferir."
+}
