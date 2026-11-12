@@ -407,7 +407,7 @@ def gerar_preparacao(site: dict, curso: dict, prep: dict) -> str:
             miolo.append(tabela(passo["tabela"]))
         miolo += [f"<p>{inline(t)}</p>" for t in passo.get("depois", [])]
         if passo.get("aviso"):
-            miolo.append(f'<p class="aviso"><strong>Atenção</strong> {inline(passo["aviso"])}</p>')
+            miolo.append(f'<p class="aviso"><strong class="rotulo-aviso">Atenção</strong> {inline(passo["aviso"])}</p>')
         return "".join(miolo)
 
     seletores, estilo = "", ""
