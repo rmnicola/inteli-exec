@@ -3,6 +3,8 @@ _site/
 __pycache__/
 **/qa/
 **/dist/*.pdf
+# exceção: o PDF da apresentação do Essencial é material de acessibilidade (ampliável)
+!essencial-na-pratica/apresentacao/dist/apresentacao.pdf
 design-system/exemplos/dist/
 
 # Dados de turma: nunca publicar

@@ -24,6 +24,11 @@
           "arquivo": "learning-log/learning-log.pdf"
         },
         {
+          "rotulo": "Apresentação em PDF (para ampliar na sua tela)",
+          "tipo": "PDF",
+          "arquivo": "apresentacao/dist/apresentacao.pdf"
+        },
+        {
           "rotulo": "Criando o seu primeiro assistente",
           "tipo": "passo a passo",
           "link": "primeiro-assistente/"
@@ -52,6 +57,11 @@
           "rotulo": "Arquivos da Beatriz (arquitetura)",
           "tipo": "zip",
           "arquivo": "personas/zips/beatriz-lemos.zip"
+        },
+        {
+          "rotulo": "Orçamento manuscrito do Diego — transcrição em texto",
+          "tipo": "texto",
+          "arquivo": "personas/diego-farias/pratica-3/orcamento-c-transcricao.txt"
         }
       ]
     },

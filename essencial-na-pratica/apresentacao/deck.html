@@ -337,7 +337,8 @@
 .prompt-anatomia .bloco-p.ctx { background: var(--verde); color: var(--roxo); }
 /* Formato e Exemplos entram logo abaixo da Tarefa; no passo 5 descem e abrem o espaço onde entra o Contexto */
 .prompt-anatomia .bloco-p { transition: opacity .4s ease, visibility .4s, transform .6s ease; }
-.prompt-anatomia:is([data-estado="5"], [data-estado="6"]) .bloco-p.desce { transform: translateY(160px); }
+#prompt-sem-contexto:is([data-estado="5"], [data-estado="6"]) .bloco-p.desce,
+#prompt:is([data-estado="1"], [data-estado="2"]) .bloco-p.desce { transform: translateY(160px); }
 #prompt svg.fios { position: absolute; inset: 0; width: 1600px; height: 900px; }
 .prompt-anatomia .recurso { position: absolute; left: 1020px; width: 440px; padding: 12px 22px; border-radius: 12px; background: var(--branco);
   border: 3px solid var(--verde); font-weight: 700; font-size: 30px; color: var(--roxo); }
@@ -519,7 +520,8 @@
 .atividade .etapa p { font-weight: 800; font-size: 42px; line-height: 1.2; margin-top: 6px; }
 .atividade .timer { position: absolute; left: 1060px; top: 0; bottom: 0; margin: auto 0; height: 420px; width: 420px; border-radius: 24px; background: var(--roxo);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; }
-.atividade .fase { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--verde); }
+/* o rótulo da fase vale para os dois cronômetros: o das atividades e o das apresentações */
+.atividade .fase, #apresentacoes .fase { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--verde); }
 .atividade .mostrador { font-family: var(--f-capitulo); font-size: 112px; line-height: 1; color: var(--branco); font-variant-numeric: tabular-nums;
   outline: none; cursor: text; border-bottom: 4px dashed transparent; transition: border-color .2s; }
 .atividade .mostrador:hover, .atividade .mostrador:focus { border-bottom-color: var(--cinza-escuro); }
@@ -656,23 +658,16 @@
 .caminho:not([data-fluxo="diego"]) [data-pf="diego"],
 .caminho:not([data-fluxo="beatriz"]) [data-pf="beatriz"] { opacity: 0 !important; visibility: hidden !important; }
 
-/* ---- Do fluxo ao arquivo: o quadro, o arquivo de texto e os dois lugares em que ele roda ---- */
-#do-fluxo-ao-arquivo .quadro-fluxo { position: absolute; left: 110px; top: 168px; width: 470px; padding: 24px 30px; border-radius: 18px;
-  background: var(--branco); box-shadow: 0 14px 40px rgba(46, 38, 64, .12); }
-#do-fluxo-ao-arquivo .rot-q { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
-#do-fluxo-ao-arquivo .quadro-fluxo ol { margin: 14px 0 0; padding-left: 34px; font-weight: 700; font-size: 28px; line-height: 1.4; }
-#do-fluxo-ao-arquivo .seta-fa { position: absolute; left: 598px; top: 400px; width: 100px; height: 50px; }
-#do-fluxo-ao-arquivo .arq-fluxo { left: 700px; top: 150px; width: 790px; height: 620px; padding: 0; overflow: hidden;
+/* ---- Do fluxo ao arquivo: as etapas do quadro, a seta e o arquivo, centralizados ---- */
+#do-fluxo-ao-arquivo .quadro-fluxo { position: absolute; left: 110px; top: 0; bottom: 0; height: fit-content; margin: auto 0;
+  width: 470px; padding: 30px 36px; border-radius: 18px; background: var(--branco); box-shadow: 0 14px 40px rgba(46, 38, 64, .12); }
+#do-fluxo-ao-arquivo .quadro-fluxo ol { margin: 0; padding-left: 34px; font-weight: 700; font-size: 30px; line-height: 1.5; }
+#do-fluxo-ao-arquivo .seta-fa { position: absolute; left: 598px; top: 0; bottom: 0; margin: auto 0; width: 100px; height: 50px; }
+#do-fluxo-ao-arquivo .arq-fluxo { left: 700px; top: 0; bottom: 0; height: fit-content; margin: auto 0; width: 790px; padding: 0; overflow: hidden;
   background: #ffffff; border: 3px solid var(--cinza-escuro); border-radius: 14px; }
 #do-fluxo-ao-arquivo .nome-arq { font-family: "Courier Prime", monospace; font-size: 24px; padding: 10px 20px;
   background: var(--cinza-claro); border-bottom: 3px solid var(--cinza-escuro); color: #1a1a1a; }
 #do-fluxo-ao-arquivo .arq-fluxo pre { margin: 0; padding: 16px 24px; font-family: "Courier Prime", monospace; font-size: 21px; line-height: 1.32; color: #1a1a1a; }
-#do-fluxo-ao-arquivo .saidas-fa { position: absolute; left: 110px; top: 486px; width: 470px; display: flex; flex-direction: column; gap: 18px; }
-#do-fluxo-ao-arquivo .saida-fa { padding: 16px 24px; border-radius: 14px; border: 3px solid var(--coral); background: var(--branco); }
-#do-fluxo-ao-arquivo .rot-s { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--coral-texto); }
-#do-fluxo-ao-arquivo .saida-fa p + p { font-size: 28px; line-height: 1.25; margin-top: 4px; }
-#apresentacoes .fase { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--verde); }
-#apresentacoes .timer { gap: 24px; height: 420px; }
 
 /* A construção da tarde tem quatro etapas: elas precisam de mais aperto que as de três */
 #construcao .etapas { gap: 12px; }
@@ -684,11 +679,6 @@
 .atividade[data-estado="1"] .e2, .atividade[data-estado="2"] .e3,
 .atividade[data-estado="3"] .e4 { border-color: var(--coral); background: var(--branco); }
 
-/* O QR da pesquisa do dia ainda não veio da coordenação: o lugar dele fica marcado, sem código errado */
-.pesquisa .qr-pendente { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; height: 100%; text-align: center; font-weight: 800; font-size: 32px; color: var(--coral-texto);
-  border: 5px dashed var(--coral); border-radius: 16px; }
-.pesquisa .qr-pendente small { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; color: var(--texto-suave); }
 </style>
 </head>
 <body>
@@ -986,6 +976,16 @@
     <aside class="notas">O desenho clássico da engenharia de prompt, antes da prática 1. Depois da prática, o mesmo slide volta e abre espaço para o contexto: 1 papel: quem ele deve ser (um analista, um revisor) · 2 tarefa: o que fazer, com clareza · 3 formato: como entregar (tabela, e-mail, uma linha) · 4 exemplos: como deve ficar, o few-shot dos slides anteriores </aside>
   </section>
 
+  <!-- Quem vamos ajudar? -->
+  <section class="slide personas" id="personas-1" data-modelo="personas" data-personas="1" data-max-palavras="90">
+    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">Quem vamos ajudar?</p>
+    <i class="passo" data-passo="1"></i><i class="passo" data-passo="2"></i>
+    <div class="lista-p"></div>
+    <div class="ficha-p"></div>
+    <aside class="notas">Três pessoas de áreas diferentes. Clique em cada nome para abrir a ficha; a seta também passa de uma para a outra. A turma vota uma agora, e é ela que acompanha o dia inteiro: é dela o assistente da prática 1, são dela os documentos da prática 2 e é dela o fluxo da prática 3. Todas as três estão no site, então quem quiser seguir outra pode — e no guia é só trocar no seletor de persona.</aside>
+  </section>
+
   <!-- Guia 1 do site: rmnicola -->
   <section class="slide atividade" id="pratica-1" data-modelo="atividade-com-cronometro" data-max-palavras="46">
     <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
@@ -1006,14 +1006,14 @@
   <section class="slide prompt-anatomia" id="prompt" data-modelo="diagrama-em-passos" data-max-palavras="40">
     <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo" style="left:160px; top:120px">prompt</p>
-    <div class="bloco-p passo" data-passo="1" style="top:180px; height:92px"><b>Papel</b><span>quem o modelo deve ser</span></div>
-    <div class="bloco-p passo" data-passo="2" style="top:282px; height:92px"><b>Tarefa</b><span>o que fazer</span></div>
-    <div class="bloco-p desce passo" data-passo="3" style="top:384px; height:92px"><b>Formato</b><span>como entregar</span></div>
-    <div class="bloco-p desce passo" data-passo="4" style="top:486px; height:92px"><b>Exemplos</b><span>como deve ficar</span></div>
-    <div class="bloco-p ctx passo" data-passo="5" style="top:384px; height:150px"><b>Contexto</b><span>o que ele precisa saber</span></div>
-    <svg class="fios passo" data-passo="6" viewBox="0 0 1600 900" aria-hidden="true"><path d="M1020 210 C 930 210, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 292 C 930 292, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 374 C 930 374, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 456 C 930 456, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 538 C 930 538, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 620 C 930 620, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/></svg>
-    <div class="passo" data-passo="6"><p class="recurso" style="top:180px">PDFs e políticas</p><p class="recurso" style="top:262px">planilhas</p><p class="recurso" style="top:344px">e-mails</p><p class="recurso" style="top:426px">transcrições de reunião</p><p class="recurso" style="top:508px">site da empresa</p><p class="recurso" style="top:590px">base de conhecimento</p></div>
-    <aside class="notas">Primeiro, o desenho clássico da engenharia de prompt: 1 papel: quem ele deve ser (um analista, um revisor) · 2 tarefa: o que fazer, com clareza · 3 formato: como entregar (tabela, e-mail, uma linha) · 4 exemplos: como deve ficar, o few-shot dos slides anteriores · 5 abre-se um espaço e entra o contexto: o que ele precisa saber. Com o tempo, o foco foi mudando do jeito de pedir para o que o modelo recebe: o contexto é a parte maior e a que mais muda a qualidade da resposta (hoje se fala em engenharia de contexto). O modelo só sabe o que você dá a ele · 6 de onde vem o contexto: quase tudo o que a instituição já tem pode virar contexto: políticas em PDF, planilhas, e-mails, transcrições de reunião, o site, a base de conhecimento. Escolher o que entra (e o que fica de fora) é o que separa uma resposta genérica de uma útil.</aside>
+    <div class="bloco-p passo" data-passo="0" style="top:180px; height:92px"><b>Papel</b><span>quem o modelo deve ser</span></div>
+    <div class="bloco-p passo" data-passo="0" style="top:282px; height:92px"><b>Tarefa</b><span>o que fazer</span></div>
+    <div class="bloco-p desce passo" data-passo="0" style="top:384px; height:92px"><b>Formato</b><span>como entregar</span></div>
+    <div class="bloco-p desce passo" data-passo="0" style="top:486px; height:92px"><b>Exemplos</b><span>como deve ficar</span></div>
+    <div class="bloco-p ctx passo" data-passo="1" style="top:384px; height:150px"><b>Contexto</b><span>o que ele precisa saber</span></div>
+    <svg class="fios passo" data-passo="2" viewBox="0 0 1600 900" aria-hidden="true"><path d="M1020 210 C 930 210, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 292 C 930 292, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 374 C 930 374, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 456 C 930 456, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 538 C 930 538, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/><path d="M1020 620 C 930 620, 880 459, 806 459" fill="none" stroke="#2e2640" stroke-width="3"/></svg>
+    <div class="passo" data-passo="2"><p class="recurso" style="top:180px">PDFs e políticas</p><p class="recurso" style="top:262px">planilhas</p><p class="recurso" style="top:344px">e-mails</p><p class="recurso" style="top:426px">transcrições de reunião</p><p class="recurso" style="top:508px">site da empresa</p><p class="recurso" style="top:590px">base de conhecimento</p></div>
+    <aside class="notas">O mesmo desenho de antes da prática, agora inteiro desde o começo: papel, tarefa, formato e exemplos já estão na tela, porque a turma acabou de usar os quatro. 1: abre-se um espaço e entra o contexto — o que ele precisa saber. Com o tempo, o foco foi mudando do jeito de pedir para o que o modelo recebe: o contexto é a parte maior e a que mais muda a qualidade da resposta. O modelo só sabe o que você dá a ele · 2: de onde vem o contexto: quase tudo o que a empresa já tem pode virar contexto — políticas em PDF, planilhas, e-mails, transcrições de reunião, o site, a base de conhecimento. Escolher o que entra, e o que fica de fora, é o que separa uma resposta genérica de uma útil.</aside>
   </section>
 
   <!-- Janela de contexto: o que o modelo enxerga de uma vez -->
@@ -1062,23 +1062,15 @@
     <aside class="notas">A janela de contexto na ordem em que a mensagem é montada para o modelo, de cima para baixo. 1: o system prompt, escrito por quem fez o app · 2: as instruções personalizadas, escritas uma vez num projeto ou assistente personalizado; não fazem parte da conversa, valem para todas as conversas daquele contexto · 3: a conversa: o histórico, da mensagem mais antiga para a mais nova; os anexos vão dentro da mensagem em que foram enviados. Depois, a mensagem atual e o turno do modelo: o que ele carrega e produz para responder (skills, resultados de ferramentas como busca ou leitura de arquivos, e a própria resposta) · 4: duas regras diferentes. Entre os níveis, precedência: o system prompt prevalece sobre as instruções personalizadas, que prevalecem sobre a conversa. Dentro da conversa, vale o contrário: o mais recente pesa mais; se você muda de ideia no meio da conversa, o pedido novo costuma ganhar do antigo. A mensagem atual e o turno do modelo são a memória mais fresca · 5: o histórico cresce a cada mensagem e a janela enche · 6: quando enche, o corte é no meio: saem primeiro as mensagens mais antigas (cada app corta ou resume do seu jeito). O topo fica, porque é fixo; a base fica, porque é o agora. Um anexo mandado no começo some junto com a mensagem dele: em conversa longa, vale reenviar o documento ou abrir uma conversa nova · 7: skills: instruções empacotadas para tarefas específicas; na janela fica só uma linha de descrição de cada uma, junto do system prompt · 8: quando o pedido combina com uma skill ("faça a ata da reunião"), o modelo carrega as instruções completas dela no próprio turno, na hora. A skill é um prompt carregado só quando precisa. Interativo: clique na mensagem atual, escreva outro pedido e aperte Enter: se ele combinar com uma skill (relatório, ata, proposta), ela é carregada no turno; se não combinar, nenhuma skill entra.</aside>
   </section>
 
-  <!-- Quem vamos ajudar? -->
-  <section class="slide personas" id="personas-1" data-modelo="personas" data-personas="1" data-max-palavras="90">
-    <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo" style="left:120px; top:110px">Quem vamos ajudar?</p>
-    <i class="passo" data-passo="1"></i><i class="passo" data-passo="2"></i>
-    <div class="lista-p"></div>
-    <div class="ficha-p"></div>
-    <aside class="notas">Três pessoas de áreas diferentes, com a mesma dor: responder sempre as mesmas perguntas. Clique em cada nome para abrir a ficha. A turma vota uma, e é a dela que você constrói ao vivo. Todas as três estão no site, então quem quiser seguir outra pode.</aside>
-  </section>
+  
 
   <!-- Guia 2 do site -->
   <section class="slide atividade" id="pratica-2" data-modelo="atividade-com-cronometro" data-max-palavras="52">
     <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo">Prática 2 · instruções e documentos</p>
-    <div class="etapas"><div class="etapa e1"><b>1</b><div><small>Instruções · 10 min</small><p>Papel, tarefa, formato e o que fazer quando não souber.</p></div></div><div class="etapa e2"><b>2</b><div><small>Documentos · 10 min</small><p>Anexe os arquivos e faça as perguntas de teste.</p></div></div><div class="etapa e3"><b>3</b><div><small>Ajuste · 10 min</small><p>Resposta errada? Mude a instrução e teste de novo.</p></div></div></div>
-    <i class="passo" data-passo="1"></i><i class="passo" data-passo="2"></i>
-    <div class="timer" data-tempos="600,600,600" data-fases="Passo 1,Passo 2,Passo 3"><p class="fase">Passo 1</p><p class="mostrador">10:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
+    <div class="etapas"><div class="etapa e1"><b>1</b><div><small>Instruções · 10 min</small><p>Papel, tarefa, formato e o que fazer quando não souber.</p></div></div><div class="etapa e2"><b>2</b><div><small>Documentos e ajuste · 20 min</small><p>Anexe os arquivos, faça as perguntas de teste e, se a resposta sair errada, mude a instrução.</p></div></div></div>
+    <i class="passo" data-passo="1"></i>
+    <div class="timer" data-tempos="600,1200" data-fases="Passo 1,Passo 2"><p class="fase">Passo 1</p><p class="mostrador">10:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
     <aside class="notas">Guia 2 do site. No passo 1 o professor constrói junto, na tela, o assistente da persona votada; os alunos acompanham fazendo. Cada persona tem uma pergunta cuja resposta não está nos documentos: o assistente bom diz que não sabe. É o que fecha a prática.</aside>
   </section>
 
@@ -1190,11 +1182,11 @@
     <aside class="notas">Preencha no quadro, com a turma, antes de revelar. Comece pelas cinco etapas; depois, etapa por etapa, as três perguntas. Os botões no alto trocam o fluxo da persona votada. O que a turma precisa levar: o fluxo é isto — cinco linhas e três perguntas. Repare que quase nenhuma etapa precisa de ferramenta: o que faz o trabalho é a ordem e o contexto.</aside>
   </section>
 
-  <!-- Do fluxo ao arquivo: o mesmo fluxo no quadro, num arquivo de texto e rodando -->
-  <section class="slide" id="do-fluxo-ao-arquivo" data-modelo="diagrama-em-passos" data-max-palavras="90">
+  <!-- Do fluxo ao arquivo: as etapas do quadro viram um texto que a máquina segue -->
+  <section class="slide" id="do-fluxo-ao-arquivo" data-modelo="diagrama-em-passos" data-max-palavras="60">
     <img class="logo" src="../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo" style="left:120px; top:110px">skill</p>
-    <div class="quadro-fluxo passo" data-passo="0"><p class="rot-q">o fluxo do quadro</p><ol><li>Receber a transcrição</li><li>Separar fatos de opiniões</li><li>Listar pendências</li><li>Marcar o que não tem dono</li><li>Redigir o e-mail</li></ol></div>
+    <div class="quadro-fluxo passo" data-passo="0"><ol><li>Receber a transcrição</li><li>Separar fatos de opiniões</li><li>Listar pendências</li><li>Marcar o que não tem dono</li><li>Redigir o e-mail</li></ol></div>
     <svg class="seta-fa passo" data-passo="1" viewBox="0 0 120 60" aria-hidden="true"><path d="M4 30 H104" stroke="#ff4545" stroke-width="6"/><path d="M92 14 L112 30 L92 46 Z" fill="#ff4545"/></svg>
     <div class="objeto arq-fluxo passo" data-passo="1"><p class="nome-arq">fluxo.md</p><pre>nome: acompanhamento-da-reuniao
 
@@ -1214,11 +1206,7 @@ o que nunca fazer sozinho:
   - inventar responsável ou prazo
   - escolher entre dois prazos ambíguos
   - enviar o e-mail</pre></div>
-    <div class="saidas-fa passo" data-passo="2">
-      <div class="saida-fa"><p class="rot-s">no chat</p><p>Cole nas instruções do assistente e anexe os documentos.</p></div>
-      <div class="saida-fa"><p class="rot-s">na pasta</p><p>O agente lê os arquivos, faz, confere e grava o resultado.</p></div>
-    </div>
-    <aside class="notas">O mesmo fluxo em três formas. 0: o que acabamos de desenhar no quadro. 1: escrito num arquivo de texto, com cinco campos — nome, quando usar, etapas, formato da saída e o que nunca fazer sozinho. É só texto: dá para editar à mão. 2: e aí ele roda em dois lugares, com o mesmo texto — colado nas instruções do assistente do navegador, que é o caminho de todo mundo, ou numa pasta do computador, com um agente que lê e grava arquivos. A skill é um procedimento escrito uma vez; o agente segue quando o pedido aparece.</aside>
+    <aside class="notas">0: as cinco etapas que acabamos de desenhar no quadro. 1: as mesmas cinco, escritas num arquivo de texto, com os cinco campos — nome, quando usar, etapas, formato da saída e o que nunca fazer sozinho. É só texto: dá para abrir, ler e editar à mão, não há mágica nenhuma ali. A skill é um procedimento escrito uma vez; a máquina segue quando o pedido aparece. Na prática 3 vocês vão escrever um desses — no chat, colado nas instruções, ou numa pasta, com um agente.</aside>
   </section>
 
   <!-- Guia 3 do site, com um seletor novo: onde rodar -->
@@ -1304,7 +1292,7 @@ o que nunca fazer sozinho:
   <section class="slide pesquisa sem-numero">
     <p class="dia">#Dia 14/11</p>
     <div class="conteudo">
-      <div class="qr"><p class="qr-pendente">QR da pesquisa de 14/11<br><small>pedir à coordenação</small></p></div>
+      <div class="qr"><img src="assets/qr-pesquisa-2026-11-14.png" alt="QR code da pesquisa de avaliação do encontro de 14/11"></div>
       <div class="chamada">
         <h2 class="capitulo">Responda nossa<br>pesquisa</h2>
         <p class="instrucao"><span class="seta">⟶</span><span>Leia o QR Code ao lado e<br>nos dê a sua opinião.</span></p>
