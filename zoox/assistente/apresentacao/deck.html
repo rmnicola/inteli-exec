@@ -131,12 +131,6 @@
 .slide.agenda .qr-canto span { font-size: 28px; color: var(--texto-suave); }
 
 /* O fecho: o QR grande e o que levar para casa */
-#leve-o-seu .centro { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 36px; }
-#leve-o-seu .qr { width: 460px; height: 460px; padding: 28px; border-radius: 24px; background: var(--branco); }
-#leve-o-seu .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
-#leve-o-seu .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 36px; color: var(--roxo); }
-#leve-o-seu .frase-fim { font-weight: 800; font-size: 44px; text-align: center; max-width: 1100px; line-height: 1.2; }
 
 /* ---- Qual você usa: as quatro ferramentas, para contar as mãos ---- */
 #qual-ferramenta .pergunta-f { position: absolute; left: 120px; right: 120px; top: 230px;
@@ -146,6 +140,67 @@
   font-weight: 800; font-size: 44px; }
 #qual-ferramenta .chip.nenhuma { border-style: dashed; border-color: var(--cinza-escuro); color: var(--texto-suave); font-weight: 700; }
 #qual-ferramenta .legenda-f { position: absolute; left: 120px; bottom: 90px; font-size: 32px; color: var(--texto-suave); }
+/* ---- Sorteio: o prompt e a resposta à esquerda, as probabilidades da próxima palavra à direita ---- */
+#sorteio .linhas { width: 640px; }
+#sorteio .modelo { width: 640px; min-height: 190px; }
+#sorteio .cursor { color: var(--coral); animation: piscar 1s steps(2) infinite; }
+#sorteio .frase b { color: var(--verde); font-weight: 800; }
+#sorteio .painel-p { position: absolute; left: 880px; right: 120px; top: 200px; }
+#sorteio .tit-p { font-family: var(--f-destaque); font-weight: 700; font-size: 28px; text-transform: uppercase; color: var(--texto-suave); margin-bottom: 18px; }
+#sorteio .barra { display: grid; grid-template-columns: 210px 1fr 96px; align-items: center; gap: 16px; height: 66px; }
+#sorteio .barra .pal { font-family: var(--f-destaque); font-size: 30px; color: var(--roxo); white-space: nowrap; overflow: hidden; }
+#sorteio .barra .trilho { height: 30px; border-radius: 8px; background: var(--cinza-medio); overflow: hidden; }
+#sorteio .barra .cheio { display: block; height: 100%; width: 0; background: var(--lilas); border-radius: 8px; transition: width .5s ease; }
+#sorteio .barra .pct { font-family: var(--f-destaque); font-size: 28px; color: var(--texto-suave); text-align: right; font-variant-numeric: tabular-nums; }
+#sorteio .barra.escolhida .cheio { background: var(--coral); }
+#sorteio .barra.escolhida .pal, #sorteio .barra.escolhida .pct { color: var(--coral-texto); font-weight: 700; }
+#sorteio .acoes { display: flex; align-items: center; gap: 14px; margin-top: 26px; }
+#sorteio .acoes button { width: 64px; height: 64px; border-radius: 14px; border: 3px solid var(--roxo); background: var(--branco); color: var(--roxo);
+  font-size: 28px; cursor: pointer; display: grid; place-items: center; }
+#sorteio .acoes button[data-s="uma"] { background: var(--roxo); color: var(--branco); }
+#sorteio .acoes button:disabled { opacity: .35; cursor: default; }
+#sorteio .msg-p { font-size: 28px; color: var(--texto-suave); margin-left: 10px; }
+@media print { #sorteio .acoes button, #sorteio .cursor { display: none; } }
+
+/* ---- CREATE: a palavra no centro; no passo 1 as letras descem para uma coluna e cada passo completa uma linha ---- */
+#create .l { position: absolute; left: calc(440px + var(--i) * 120px); top: 340px; font-family: var(--f-destaque); font-weight: 700;
+  font-size: 200px; line-height: 1; color: var(--coral-texto); transition: left .7s ease, top .7s ease, font-size .7s ease; }
+#create[data-estado]:not([data-estado="0"]) .l { left: 160px; top: calc(196px + var(--i) * 104px); font-size: 56px; }
+#create .resto { position: absolute; left: 194px; top: calc(196px + var(--i) * 104px); font-family: var(--f-destaque); font-weight: 700;
+  font-size: 56px; line-height: 1; color: var(--roxo); white-space: nowrap; }
+#create .ex { position: absolute; left: 700px; right: 110px; top: calc(196px + var(--i) * 104px); height: 56px; display: flex; align-items: center;
+  gap: 18px; font-size: 32px; line-height: 1.2; }
+#create .ex b { flex: none; color: var(--texto-suave); font-weight: 400; font-size: 40px; }
+
+/* ---- O caso: a chamada à esquerda, a primeira página do contrato à direita ---- */
+#caso .texto-caso { position: absolute; left: 120px; width: 700px; top: 160px; bottom: 60px; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
+#caso .chamada-caso { font-weight: 800; font-size: 64px; line-height: 1.1; }
+#caso .sub-caso { font-size: 36px; line-height: 1.3; color: var(--texto-suave); }
+#caso .folha { left: 900px; width: 560px; top: 150px; height: 860px; padding: 40px 44px; background: #fff; transform: rotate(2deg);
+  box-shadow: 0 18px 50px rgba(46, 38, 64, .18); font-family: "Alegreya Sans", sans-serif; color: #1c1d21; }
+#caso .folha .tb { display: flex; justify-content: space-between; font-size: 18px; padding-bottom: 8px; border-bottom: 2px solid #3d5a40; color: #7a3b3b; }
+#caso .folha .tb b { color: #3d5a40; letter-spacing: .14em; }
+#caso .folha .tit { font-weight: 700; font-size: 26px; text-align: center; margin: 22px 0 16px; line-height: 1.2; }
+#caso .folha .li { font-size: 18px; margin: 6px 0; }
+#caso .folha .cl { font-size: 18px; font-weight: 700; color: #3d5a40; text-transform: uppercase; margin: 18px 0 6px; }
+#caso .folha i { display: block; height: 12px; margin: 10px 0; background: #e3e5ea; border-radius: 3px; }
+#caso .folha i.c { width: 62%; }
+
+/* ---- Placeholders dos slides do Egon ---- */
+.slide[data-modelo="placeholder-egon"] .centro-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+  border: 4px dashed var(--cinza-escuro); margin: 200px 120px 120px; border-radius: 24px; }
+.slide[data-modelo="placeholder-egon"] .tit-ph { font-family: var(--f-capitulo); font-size: 88px; }
+.slide[data-modelo="placeholder-egon"] .sub-ph { font-size: 36px; color: var(--texto-suave); }
+
+  /* Slides institucionais: a imagem oficial ocupa o slide inteiro */
+  #inst-quem-somos .inst, #inst-unidades .inst, #inst-parceiros .inst { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* ---- Obrigado: três QR codes, um para cada porta de entrada da educação continuada do Inteli ---- */
+#obrigado .tit-ob { position: absolute; left: 120px; top: 96px; font-family: var(--f-capitulo); font-size: 104px; line-height: 1; }
+#obrigado .sub-ob { position: absolute; left: 124px; top: 228px; font-size: 34px; color: var(--texto-suave); }
+#obrigado .qrs { position: absolute; left: 120px; right: 120px; top: 320px; display: flex; gap: 50px; }
+#obrigado .qr-c { flex: 1; height: 500px; border-radius: 24px; background: var(--branco); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+#obrigado .qr-c img { width: 300px; height: 300px; image-rendering: pixelated; margin-bottom: 18px; }
+#obrigado .qr-c b { font-size: 36px; font-weight: 800; }
 </style>
 </head>
 <body>
@@ -162,6 +217,22 @@
     <p class="rodape">Inteli Room<br>Zoox Data Revolution 2026</p>
   </section>
 
+  <!-- Institucional Inteli Exec (slides oficiais, enviados pela Aline em 16/11) -->
+  <section class="slide sem-numero" id="inst-quem-somos" data-modelo="slide-institucional">
+    <img class="inst" src="assets/institucional-quem-somos.jpg" alt="Quem somos: Inteli, organização sem fins lucrativos que forma os futuros líderes de tecnologia">
+    <aside class="notas">Slide institucional do Inteli Exec. Fala institucional (não é do professor).</aside>
+  </section>
+
+  <section class="slide sem-numero" id="inst-unidades" data-modelo="slide-institucional">
+    <img class="inst" src="assets/institucional-unidades.jpg" alt="Unidades de negócio do Inteli: Graduação, Educação Continuada e Pesquisa Aplicada e de Fronteira">
+    <aside class="notas">Slide institucional do Inteli Exec: as unidades de negócio.</aside>
+  </section>
+
+  <section class="slide sem-numero" id="inst-parceiros" data-modelo="slide-institucional">
+    <img class="inst" src="assets/institucional-parceiros.jpg" alt="Parceiros do Inteli Exec e depoimentos de alunos; mais de 4.000 gestores e executivos capacitados">
+    <aside class="notas">Slide institucional do Inteli Exec: empresas parceiras e depoimentos.</aside>
+  </section>
+
   <!-- Site do curso: QR code e link -->
   <section class="slide" id="site-curso" data-modelo="qr-do-site">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
@@ -169,14 +240,14 @@
       <div class="qr"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/montar-assistente/"></div>
       <p class="link-site">rmnicola.github.io/inteli-exec/zoox/montar-assistente</p>
     </div>
-    <aside class="notas">Primeira coisa: abram este endereço no celular ou no notebook. Tudo o que a gente vai fazer nos próximos 40 minutos está aí — o passo a passo para o aplicativo de cada um e a programação do evento em PDF. A página fica no ar depois de hoje. Espere todo mundo abrir antes de seguir.</aside>
+    <aside class="notas">Primeira coisa: abram este endereço no celular ou no notebook. Tudo o que a gente vai fazer nos próximos 40 minutos está aí — o passo a passo para o aplicativo de cada um e o contrato do caso em PDF. A página fica no ar depois de hoje. Espere todo mundo abrir antes de seguir.</aside>
   </section>
 
   <!-- Quem conduz: os três, num slide só -->
   <section class="slide" id="professor" data-modelo="quem-conduz-trio" data-max-palavras="60">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo" style="left:120px; top:110px">quem conduz · inteli</p>
-    <div class="trio"><div class="pessoa"><img src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola"><p class="nome-p">Rodrigo Nicola</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro mecatrônico, mestre pelo ITA</p><p class="linha-p">Veículos autônomos e aprendizado de máquina</p></div><div class="pessoa"><img src="assets/afonso-brandao.jpg" alt="Foto de Afonso Brandão"><p class="nome-p">Afonso Brandão</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro de produção e civil, mestre em materiais</p><p class="linha-p">Doutorando em engenharia da computação</p></div><div class="pessoa"><img src="assets/egon-daxbacher.jpg" alt="Foto de Egon Daxbacher"><p class="nome-p">Egon Daxbacher</p><p class="cargo-p">Coordenador do Adm Tech</p><p class="linha-p">Inovação e transformação digital</p><p class="linha-p">Passou por FCA, Petrobras e EY</p></div></div>
+    <div class="trio"><div class="pessoa"><img src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola"><p class="nome-p">Rodrigo Nicola</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro mecatrônico, mestre pelo ITA</p><p class="linha-p">Veículos autônomos e aprendizado de máquina</p></div><div class="pessoa"><img src="assets/afonso-brandao.jpg" alt="Foto de Afonso Brandão"><p class="nome-p">Afonso Brandão</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro de produção e civil, mestre em materiais</p><p class="linha-p">Doutorando em engenharia da computação</p></div><div class="pessoa"><img src="assets/egon-daxbacher.jpg" alt="Foto de Egon Daxbacher"><p class="nome-p">Egon Daxbacher</p><p class="cargo-p">Coordenador de Adm Tech</p><p class="linha-p">Graduado e mestre em Administração pela PUC-Rio</p><p class="linha-p">Doutor em Ciência da Computação</p></div></div>
     <aside class="notas">Trinta segundos no total, dez para cada um. Não leia os tópicos: diga só o que liga cada pessoa ao que a sala vai fazer hoje.</aside>
   </section>
 
@@ -211,6 +282,27 @@
     </div>
     <p class="balao-c modelo" style="top:320px; width:900px"><small>Modelo</small>Queijo é um alimento feito a partir do leite coalhado. Existem centenas de tipos, como o minas, o parmesão e o gorgonzola.</p>
     <aside class="notas">No formato da Figura 2.1 do artigo do GPT-3 (lá, de inglês para francês: sea otter =&gt; loutre de mer, peppermint =&gt; menthe poivrée, plush girafe =&gt; girafe peluche, cheese =&gt;). Só o prompt, "queijo =&gt;": o modelo não sabe o que você quer e fala sobre queijo.</aside>
+  </section>
+
+  <!-- A resposta é sorteada palavra a palavra (simplificado do slide de token do Afonso) -->
+  <section class="slide prompt-fig" id="sorteio" data-modelo="sorteio-de-palavras" data-max-palavras="40">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:160px; top:110px">probabilidade</p>
+    <div class="prompt-f">
+      <div class="linhas"><p><span class="num">1</span><span class="txt">queijo =&gt;</span></p></div>
+    </div>
+    <p class="balao-c modelo" style="top:320px"><small>Modelo</small><span class="frase"></span><span class="cursor">▍</span></p>
+    <div class="painel-p">
+      <p class="tit-p">próxima palavra</p>
+      <div class="barras"></div>
+      <div class="acoes">
+        <button type="button" data-s="uma" title="Sortear a próxima palavra">▶</button>
+        <button type="button" data-s="frase" title="Sortear a frase inteira">⏭</button>
+        <button type="button" data-s="zerar" title="Recomeçar">↺</button>
+        <p class="msg-p"></p>
+      </div>
+    </div>
+    <aside class="notas">O mesmo "queijo =&gt;" do slide anterior. O modelo não escolhe a resposta inteira: a cada passo ele calcula a probabilidade de cada palavra seguinte (na verdade, de cada token, pedaços de palavra) e sorteia uma. A palavra sorteada entra no texto e o ciclo recomeça. A seta para a direita (ou ▶) sorteia uma palavra por vez; com a frase fechada, a próxima seta passa de slide. Faça uma vez, aperte ↺ e faça de novo: a mesma pergunta dá outra resposta. Pergunte à sala: se a resposta é sorteada, como faço para ela sair do jeito que eu quero? Os próximos três slides respondem: dando contexto, a probabilidade se concentra. Valores ilustrativos.</aside>
   </section>
 
   <!-- Zero-shot: a descrição da tarefa e o prompt -->
@@ -249,6 +341,20 @@
     <aside class="notas">Few-shot: a descrição e alguns exemplos (no artigo, em geral algumas dezenas). Em nenhum dos três o modelo é retreinado: tudo acontece dentro do prompt, e é por isso que o artigo chama de aprendizado no contexto. Em tarefas mais difíceis que esta, mais exemplos dão respostas melhores. Ponte para o próximo slide: descrição da tarefa, exemplos e prompt são partes de um bom prompt.</aside>
   </section>
 
+  <!-- CREATE (Dave Birss): a palavra no centro; cada passo completa uma letra e mostra um exemplo do caso -->
+  <section class="slide" id="create" data-modelo="acronimo-em-passos" data-max-palavras="70">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:160px; top:110px">um checklist de prompt · Dave Birss</p>
+    <span class="l" style="--i:0">C</span><span class="l" style="--i:1">R</span><span class="l" style="--i:2">E</span><span class="l" style="--i:3">A</span><span class="l" style="--i:4">T</span><span class="l" style="--i:5">E</span>
+    <span class="resto passo" data-passo="1" style="--i:0">haracter</span><p class="ex passo" data-passo="1" style="--i:0"><b>→</b>Você é analista de contratos da diretoria.</p>
+    <span class="resto passo" data-passo="2" style="--i:1">equest</span><p class="ex passo" data-passo="2" style="--i:1"><b>→</b>Avalie o contrato antes da assinatura.</p>
+    <span class="resto passo" data-passo="3" style="--i:2">xamples</span><p class="ex passo" data-passo="3" style="--i:2"><b>→</b>“Cl. 8: subcontrata sem avisar” =&gt; risco médio.</p>
+    <span class="resto passo" data-passo="4" style="--i:3">djustments</span><p class="ex passo" data-passo="4" style="--i:3"><b>→</b>Use só o contrato e cite a cláusula.</p>
+    <span class="resto passo" data-passo="5" style="--i:4">ype of output</span><p class="ex passo" data-passo="5" style="--i:4"><b>→</b>Tabela: cláusula, risco, o que negociar.</p>
+    <span class="resto passo" data-passo="6" style="--i:5">xtras</span><p class="ex passo" data-passo="6" style="--i:5"><b>→</b>Se não estiver no contrato, diga que não está.</p>
+    <aside class="notas">CREATE, de Dave Birss: um checklist das seis partes que um bom prompt costuma ter. Abre com a palavra; cada seta completa uma letra, com um exemplo do caso que vamos montar. 1 Character, o papel que o modelo assume · 2 Request, a tarefa, com um verbo claro · 3 Examples, o few-shot que acabamos de ver: o exemplo mostra o padrão melhor que a descrição · 4 Adjustments, regras e limites: que fonte usar, o que não fazer · 5 Type of output, o formato da resposta · 6 Extras, o que mais: aqui, o que fazer quando a resposta não está no documento. Cada parte concentra a probabilidade, como no slide do sorteio. Ponte: as instruções que vocês vão colar seguem exatamente essas seis partes.</aside>
+  </section>
+
   <!-- Agenda: criando um agente -->
   <section class="slide agenda curta" id="agenda-agente" data-modelo="agenda" data-agora="1" data-max-palavras="40">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
@@ -266,13 +372,33 @@
     <aside class="notas">Um minuto, e é o minuto que decide o resto da sessão: a ferramenta com mais mãos é a que você abre na tela para montar junto. Conte em voz alta, uma de cada vez — vale também para a sala se ver. Quem levantou a mão em outra coisa, ou em nenhuma, segue pelo passo a passo, que tem as quatro, e você passa nesses primeiro quando for circular.</aside>
   </section>
 
-  <!-- Criando um agente · 18 min -->
+  <!-- O caso: quem a sala é e o que tem nas mãos (Ipê Roxo e Kodama são fictícias) -->
+  <section class="slide" id="caso" data-modelo="caso-com-documento" data-max-palavras="40">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">o caso · fictício</p>
+    <div class="texto-caso">
+      <p class="chamada-caso">A Kodama mandou o contrato. A assinatura é sexta.</p>
+      <p class="sub-caso">Você está na diretoria da Ipê Roxo e precisa saber o que está assinando.</p>
+    </div>
+    <div class="objeto sangra folha" aria-hidden="true">
+      <p class="tb"><b>▲ KODAMA</b><span>MINUTA · Ref. 2026/118</span></p>
+      <p class="tit">Contrato de Prestação de Serviços de Transformação Digital</p>
+      <p class="li">CONTRATANTE: Ipê Roxo Distribuição de Alimentos S.A.</p>
+      <p class="li">CONTRATADA: Kodama Transformação Digital Ltda.</p>
+      <p class="cl">Cláusula 3 · Preço e pagamento</p>
+      <p class="li">3.1. ... pagará R$ 4.800.000,00 ...</p>
+      <i></i><i></i><i class="c"></i><p class="cl">Cláusula 14 · Rescisão</p><i></i><i></i><i class="c"></i><i></i><i class="c"></i>
+    </div>
+    <aside class="notas">O caso da atividade, inventado para hoje: a Ipê Roxo é uma distribuidora de alimentos; a Kodama, uma consultoria de tecnologia que mandou a minuta de um contrato de transformação digital — ERP em nuvem, aplicativo de vendas e um painel com IA — por R$ 4,8 milhões. Vocês estão na diretoria da Ipê Roxo. O contrato tem duas páginas e dezessete cláusulas, e não foi escrito a favor de vocês. O assistente que vamos montar é o analista que lê o contrato com vocês. Está no passo a passo, junto com as instruções.</aside>
+  </section>
+
+  <!-- Criando um agente (cronômetro começa em 10 min; o professor ajusta na hora) -->
   <section class="slide atividade com-qr" id="montar" data-modelo="atividade-com-cronometro" data-max-palavras="50">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo">Criando um agente · 18 min</p>
-    <div class="etapas"><div class="etapa e1"><div><p>Crie o assistente, cole as instruções e anexe a programação do evento.</p></div></div></div>
+    <p class="rotulo-termo">Criando um agente</p>
+    <div class="etapas"><div class="etapa e1"><div><p>Crie o assistente, cole as instruções e anexe o contrato.</p></div></div></div>
     <div class="qr-guia"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/montar-assistente/"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Gemini, ChatGPT, Claude ou Copilot</p></div></div>
-    <div class="timer" data-tempos="1080" data-fases="Montando"><p class="fase">Montando</p><p class="mostrador">18:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
+    <div class="timer" data-tempos="600" data-fases="Montando"><p class="fase">Montando</p><p class="mostrador">10:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
     <aside class="notas">Faça junto com eles, na tela, pelo aplicativo mais comum na sala — pergunte na hora quem usa o quê. Quem usa outro acompanha pelo passo a passo do QR, que tem a mesma sequência para Gemini, ChatGPT, Claude e Copilot. O passo que trava é sempre o primeiro, achar onde se cria o assistente. No Copilot em conta pessoal não dá para anexar arquivo no agente: essas pessoas colam as instruções e anexam o PDF na própria conversa, e o resultado é o mesmo. Dá para digitar outro tempo no mostrador se a sala estiver mais lenta.</aside>
   </section>
 
@@ -283,31 +409,63 @@
     <aside class="notas">Agora: testes e validação.</aside>
   </section>
 
-  <!-- Testes e validação · 12 min -->
+  <!-- Testes e validação (cronômetro começa em 10 min; o professor ajusta na hora) -->
   <section class="slide atividade com-qr" id="testar" data-modelo="atividade-com-cronometro" data-max-palavras="50">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo">Testes e validação · 12 min</p>
+    <p class="rotulo-termo">Testes e validação</p>
     <div class="etapas"><div class="etapa e1"><div><p>Faça as perguntas do passo a passo e confira cada resposta no PDF.</p></div></div></div>
     <div class="qr-guia"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/montar-assistente/"><div><p class="rot-qr">o passo a passo</p><p class="txt-qr">escolha ali a sua ferramenta: Gemini, ChatGPT, Claude ou Copilot</p></div></div>
-    <div class="timer" data-tempos="720" data-fases="Testando"><p class="fase">Testando</p><p class="mostrador">12:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
-    <aside class="notas">As perguntas estão no passo a passo, inclusive a última: “em que sala fala o David Feffer?”. A programação não diz a sala de nenhuma atividade — ela cita os nomes dos espaços, mas não liga nenhum a um horário. Quem recebeu um nome de sala tem um assistente que inventa; quem recebeu “não sei” foi porque escreveu a última parte da instrução. Quando a sala chegar nessa pergunta, pare tudo e peça para compararem em voz alta: é o momento do workshop. A regra é conferir no documento, não na memória.</aside>
+    <div class="timer" data-tempos="600" data-fases="Testando"><p class="fase">Testando</p><p class="mostrador">10:00</p><div class="ctl"><button type="button" data-acao="alternar">iniciar</button><button type="button" data-acao="zerar">zerar</button></div></div>
+    <aside class="notas">As perguntas estão no passo a passo. A primeira já pega metade da sala: o assistente para nos R$ 4,8 milhões e esquece a licença de R$ 38 mil por mês da Cláusula 3.2. A virada é “qual é a multa se a Kodama atrasar a entrega?”: o contrato não prevê multa nenhuma para a Kodama, e o assistente apressado responde “2% mais juros de 1% ao mês”, copiando a Cláusula 5, que é a multa da Ipê Roxo por atrasar pagamento. Quem recebeu “o contrato não trata disso” foi porque escreveu os extras. Pare tudo e peça para compararem em voz alta. Feche com “posso assinar?”: o assistente bom devolve a decisão. É a ponte para o Egon. Gabarito completo em zoox/caso-contrato/perguntas-e-respostas.md.</aside>
   </section>
 
-    <!-- Fecho: o QR fica na tela enquanto o professor provoca -->
-  <section class="slide" id="leve-o-seu" data-modelo="qr-do-site" data-max-palavras="30">
+  <!-- Agenda: humano no circuito (Egon) -->
+  <section class="slide agenda curta" id="agenda-risco" data-modelo="agenda" data-agora="3" data-max-palavras="40">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="centro">
-      <p class="frase-fim">Troque a programação por um documento do seu trabalho.</p>
-      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"></div>
-      <p class="link-site">rmnicola.github.io/inteli-exec/zoox</p>
+    <aside class="notas">Agora: o Egon conduz a conversa de risco.</aside>
+  </section>
+
+  <!-- PLACEHOLDER: slide do Egon a receber (Human in the loop) -->
+  <section class="slide" id="egon-in-the-loop" data-modelo="placeholder-egon">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">egon · slide a receber</p>
+    <div class="centro-ph"><p class="tit-ph">Human in the loop</p><p class="sub-ph">a pessoa aprova cada decisão</p></div>
+    <aside class="notas">Placeholder: o Egon vai mandar este slide. Conversa de risco a partir do “posso assinar?” da atividade.</aside>
+  </section>
+
+  <!-- PLACEHOLDER: slide do Egon a receber (Human out of the loop) -->
+  <section class="slide" id="egon-out-of-the-loop" data-modelo="placeholder-egon">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">egon · slide a receber</p>
+    <div class="centro-ph"><p class="tit-ph">Human out of the loop</p><p class="sub-ph">a máquina decide sozinha</p></div>
+    <aside class="notas">Placeholder: o Egon vai mandar este slide. Conversa de risco a partir do “posso assinar?” da atividade.</aside>
+  </section>
+
+  <!-- PLACEHOLDER: slide do Egon a receber (Human on the loop) -->
+  <section class="slide" id="egon-on-the-loop" data-modelo="placeholder-egon">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="rotulo-termo" style="left:120px; top:110px">egon · slide a receber</p>
+    <div class="centro-ph"><p class="tit-ph">Human on the loop</p><p class="sub-ph">a pessoa supervisiona e pode intervir</p></div>
+    <aside class="notas">Placeholder: o Egon vai mandar este slide. Conversa de risco a partir do “posso assinar?” da atividade.</aside>
+  </section>
+
+  <!-- Obrigado: fecho, com três QR codes da educação continuada do Inteli -->
+  <section class="slide sem-numero" id="obrigado" data-modelo="obrigado-com-qrs" data-max-palavras="30">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="tit-ob">Obrigado!</p>
+    <p class="sub-ob">Para continuar com o Inteli:</p>
+    <div class="qrs">
+      <div class="qr-c"><img src="assets/qr-ai-for-business.png" alt="QR code para www.inteli.edu.br/ai-for-business"><b>AI for Business</b></div>
+      <div class="qr-c"><img src="assets/qr-mba.png" alt="QR code para www.inteli.edu.br/mba-ia-e-dados-para-negocios"><b>MBA em IA e Dados</b></div>
+      <div class="qr-c"><img src="assets/qr-empresas.png" alt="QR code para www.inteli.edu.br/solucoes-para-sua-empresa"><b>Programas sob medida</b></div>
     </div>
-    <aside class="notas">Dois minutos, sem pressa, enquanto o QR fica na tela. O que eles sabem fazer agora: montar um assistente com instruções e um documento, e desconfiar dele na hora certa. O que falta: usar as ferramentas de verdade — fazer o assistente pesquisar, calcular, ler a planilha — e conectá-lo aos sistemas onde o dado da empresa realmente mora. É esse o salto do assistente para o agente, e é o que a gente faz nos cursos do Inteli Exec. Convide para conversar no happy hour e para levar um caso real.</aside>
+    <aside class="notas">Obrigado. Três portas para continuar: o AI for Business, com as três formações para executivos (Essencial na Prática, Ferramentas em Ação, Estratégia e Governança); o MBA em IA e Dados para Negócios, com início em fevereiro de 2027; e os programas sob medida para empresas. Convide para o happy hour e para levar um caso real para a conversa.</aside>
   </section>
 
 </main>
 <script>
 /* Agenda do workshop: definida UMA vez aqui. Cada slide .agenda marca o item atual com data-agora (a partir de 0). */
-const AGENDA = ["A estrutura de um prompt", "Criando um agente", "Testes e validação"];
+const AGENDA = ["A estrutura de um prompt", "Criando um agente", "Testes e validação", "Humano no circuito"];
 for (const s of document.querySelectorAll(".slide.agenda")) {
   const agora = parseInt(s.dataset.agora, 10);
   const lista = AGENDA.map((t, i) =>
@@ -379,6 +537,98 @@ for (const t of document.querySelectorAll(".timer[data-tempos]")) {
     if (Number.isFinite(e) && e !== etapa) carregar(e);
   }).observe(slide, { attributes: true, attributeFilter: ["data-estado"] });
 }
+</script>
+<script>
+/* Sorteio da próxima palavra: a cada passo, as cinco palavras mais prováveis e uma sorteada pelo peso.
+   Árvore ilustrativa: [palavra, probabilidade, continuação]; continuação null fecha a frase. */
+(() => {
+  const s = document.getElementById("sorteio");
+  if (!s) return;
+  const PONTO = [[".", .90, null], ["!", .06, null], ["…", .04, null]];
+  const DE_LEITE = [["de", .88, [["leite", .95, PONTO], ["cabra", .05, PONTO]]], ["com", .12, [["leite", .90, PONTO], ["sal", .10, PONTO]]]];
+  const DO_LEITE = [["do", .92, [["leite", .96, PONTO], ["soro", .04, PONTO]]], ["de", .08, [["leite", .90, PONTO], ["vaca", .10, PONTO]]]];
+  const ARVORE = [
+    ["Queijo", .41, [
+      ["é", .72, [
+        ["um", .64, [["alimento", .62, [["feito", .71, DE_LEITE], ["derivado", .29, DO_LEITE]]], ["derivado", .38, DO_LEITE]]],
+        ["feito", .26, DE_LEITE],
+        ["bom", .10, PONTO]]],
+      ["de", .16, [["minas", .55, PONTO], ["cabra", .27, PONTO], ["coalho", .18, PONTO]]],
+      ["vem", .12, [["do", .90, [["leite", .93, PONTO], ["latim", .07, PONTO]]], ["da", .10, [["vaca", .80, PONTO], ["Suíça", .20, PONTO]]]]]]],
+    ["cheese", .19, PONTO],
+    ["goiabada", .16, [["(Romeu", .60, [["e", .97, [["Julieta)", .98, null], ["Julieta", .02, PONTO]]]]], [".", .40, null]]],
+    ["leite", .13, [[",", .58, [["coalho", .60, [["e", .90, [["sal", .80, PONTO], ["tempo", .20, PONTO]]]]], ["fermento", .40, PONTO]]], [".", .42, null]]],
+    ["minas", .11, [[",", .62, [["prato", .50, [["e", .90, [["parmesão", .70, PONTO], ["coalho", .30, PONTO]]]]], ["parmesão", .50, PONTO]]], [".", .38, null]]],
+  ];
+  const fraseEl = s.querySelector(".frase"), barrasEl = s.querySelector(".barras"), msg = s.querySelector(".msg-p");
+  const bts = s.querySelectorAll("[data-s]");
+  let opcoes = ARVORE, ocupado = false, versao = 0;
+  const espera = (ms) => new Promise((r) => setTimeout(r, ms));
+  const pct = (p) => `${Math.round(p * 100)}%`.padStart(4, " ");
+  const travar = () => bts.forEach((b) => { b.disabled = b.dataset.s !== "zerar" && (ocupado || !opcoes); });
+
+  function desenhar(lista, animar = true) {
+    barrasEl.innerHTML = "";
+    for (let i = 0; i < 5; i++) {
+      const [pal, p] = lista && lista[i] ? lista[i] : ["", 0];
+      const b = document.createElement("div");
+      b.className = "barra";
+      b.innerHTML = '<span class="pal"></span><span class="trilho"><span class="cheio"></span></span><span class="pct"></span>';
+      b.querySelector(".pal").textContent = pal;
+      b.querySelector(".pct").textContent = pal ? pct(p) : "";
+      b.dataset.p = p;
+      if (!animar) { const c = b.querySelector(".cheio"); c.style.transition = "none"; c.style.width = `${p * 100}%`; }
+      barrasEl.appendChild(b);
+    }
+    if (!animar) return;
+    void barrasEl.offsetWidth;   /* força o layout com largura 0, para a barra crescer animada */
+    [...barrasEl.children].forEach((b) => { b.querySelector(".cheio").style.width = `${b.dataset.p * 100}%`; });
+  }
+
+  function zerar() {
+    versao++; ocupado = false; opcoes = ARVORE;
+    fraseEl.textContent = ""; msg.textContent = "";
+    desenhar(opcoes, false); travar();
+  }
+
+  async function uma() {
+    if (ocupado || !opcoes) return;
+    const v = versao; ocupado = true; travar();
+    let r = Math.random() * opcoes.reduce((a, o) => a + o[1], 0), i = 0;
+    while (i < opcoes.length - 1 && (r -= opcoes[i][1]) > 0) i++;
+    const [pal, p, prox] = opcoes[i];
+    barrasEl.children[i].classList.add("escolhida");
+    msg.textContent = `sorteada com ${Math.round(p * 100)}%`;
+    await espera(700); if (v !== versao) return;
+    const junto = /^[.,!…]/.test(pal) || fraseEl.textContent === "";
+    fraseEl.querySelectorAll("b").forEach((b) => b.replaceWith(b.textContent));
+    if (!junto) fraseEl.append(" ");
+    const novo = document.createElement("b"); novo.textContent = pal; fraseEl.append(novo);
+    opcoes = prox;
+    await espera(300); if (v !== versao) return;
+    if (opcoes) desenhar(opcoes); else msg.textContent = "fim · ↺ para sortear de novo";
+    ocupado = false; travar();
+  }
+
+  async function frase() {
+    while (opcoes) { const v = versao; await uma(); if (v !== versao) return; await espera(400); }
+  }
+
+  /* A seta (e o passador) sorteia a próxima palavra até o fim da frase; só depois troca de slide.
+     Escuta na fase de captura, antes da navegação do deck.js. */
+  document.addEventListener("keydown", (ev) => {
+    if (!s.classList.contains("atual") || !opcoes) return;
+    if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    if (!["ArrowRight", "PageDown", " ", "Enter", "l", "L"].includes(ev.key)) return;
+    ev.preventDefault(); ev.stopImmediatePropagation();
+    if (ev.target.closest && ev.target.closest("button")) ev.target.blur();
+    uma();
+  }, true);
+  s.querySelector('[data-s="uma"]').addEventListener("click", uma);
+  s.querySelector('[data-s="frase"]').addEventListener("click", frase);
+  s.querySelector('[data-s="zerar"]').addEventListener("click", zerar);
+  zerar();
+})();
 </script>
 <script src="../../../design-system/js/deck.js"></script>
 </body>

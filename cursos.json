@@ -156,27 +156,32 @@
               "link": "../montar-assistente/"
             },
             {
-              "rotulo": "Programação do evento",
+              "rotulo": "Contrato da Kodama (caso fictício)",
               "tipo": "PDF",
-              "arquivo": "programacao/programacao.pdf"
+              "arquivo": "caso-contrato/contrato-ipe-roxo-kodama.pdf"
             }
           ]
         },
         {
           "slug": "ferramentas",
           "titulo": "Ferramentas em ação",
-          "subtitulo": "Conecte o assistente à sua agenda e ao seu e-mail, e veja o que muda",
+          "subtitulo": "Um assistente ligado à sua agenda: o seu dia, a sua semana e o espaço que falta",
           "apresentacao": "ferramentas/apresentacao/dist/index.html",
           "materiais": [
             {
-              "rotulo": "Conecte o seu assistente",
+              "rotulo": "Um assistente para a sua agenda",
               "tipo": "passo a passo",
               "link": "../conectar-e-perguntar/"
             },
             {
-              "rotulo": "Programação do evento",
+              "rotulo": "Agenda de exemplo (Helena Prado, Ipê Roxo)",
               "tipo": "PDF",
-              "arquivo": "programacao/programacao.pdf"
+              "arquivo": "agenda-exemplo/agenda-ipe-roxo.pdf"
+            },
+            {
+              "rotulo": "Agenda de exemplo para importar numa agenda nova",
+              "tipo": "ICS",
+              "arquivo": "agenda-exemplo/agenda-ipe-roxo.ics"
             }
           ]
         },
@@ -185,13 +190,7 @@
           "titulo": "Estratégia e governança",
           "subtitulo": "O mapa da transformação: riscos, oportunidades e o que decidir antes de escalar",
           "apresentacao": "estrategia/apresentacao/dist/index.html",
-          "materiais": [
-            {
-              "rotulo": "Programação do evento",
-              "tipo": "PDF",
-              "arquivo": "programacao/programacao.pdf"
-            }
-          ]
+          "materiais": []
         }
       ]
     }

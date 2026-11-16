@@ -38,14 +38,14 @@
       ]
     }
   ],
-  "resumo": "Transformar o {app} num assistente que responde sobre a programação deste evento — com instruções escritas uma vez e um documento anexado — e que diz “não sei” quando a resposta não está lá.",
-  "contexto": "Escolha o seu aplicativo no seletor acima. O caminho **No chat** funciona em conta gratuita e é o da sala; o caminho **Na pasta** é para quem já tem um aplicativo de desktop instalado. Você vai precisar de uma coisa só: o PDF da [programação do evento](../assistente/programacao.pdf).",
+  "resumo": "Transformar o {app} num assistente que analisa um contrato antes da assinatura — com instruções escritas uma vez, no formato CREATE, e o contrato anexado — e que diz “o contrato não trata disso” quando a resposta não está lá.",
+  "contexto": "**O caso (fictício):** você está na diretoria da **Ipê Roxo**, uma distribuidora de alimentos. A **Kodama** mandou a minuta de um contrato de transformação digital de R$ 4,8 milhões, e a assinatura é na sexta. Antes, você precisa saber o que está assinando.\n\nEscolha o seu aplicativo no seletor acima. O caminho **No chat** funciona em conta gratuita e é o da sala; o caminho **Na pasta** é para quem já tem um aplicativo de desktop instalado. Você vai precisar de uma coisa só: o PDF do [contrato](../assistente/contrato-ipe-roxo-kodama.pdf).",
   "passos": [
     {
-      "titulo": "Baixe a programação",
+      "titulo": "Baixe o contrato",
       "texto": [
-        "Baixe o PDF da [programação do Zoox Data Revolution 2026](../assistente/programacao.pdf). É o único arquivo que você precisa.",
-        "Dá para abrir e ler agora: são duas páginas. Isso importa, porque daqui a pouco você vai conferir as respostas do assistente contra ele."
+        "Baixe o PDF do [contrato da Kodama](../assistente/contrato-ipe-roxo-kodama.pdf). É o único arquivo que você precisa.",
+        "Dá para ler agora: são duas páginas e dezessete cláusulas. Isso importa, porque daqui a pouco você vai conferir as respostas do assistente contra ele."
       ]
     },
     {
@@ -53,25 +53,25 @@
       "variantes": {
         "gemini": {
           "texto": [
-            "Em [gemini.google.com](https://gemini.google.com), abra **Gems** na barra da esquerda e clique em **Novo Gem**. Dê um nome: *Programação ZDR*."
+            "Em [gemini.google.com](https://gemini.google.com), abra **Gems** na barra da esquerda e clique em **Novo Gem**. Dê um nome: *Contrato Kodama*."
           ],
           "aviso": "A janela de prévia **não salva sozinha**. Clique em **Salvar** no fim."
         },
         "chatgpt": {
           "texto": [
-            "Em [chatgpt.com](https://chatgpt.com), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Programação ZDR*.",
+            "Em [chatgpt.com](https://chatgpt.com), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Contrato Kodama*.",
             "Criar um GPT personalizado não existe mais em conta pessoal — o Projeto é o equivalente: tem instruções fixas e arquivos."
           ]
         },
         "claude": {
           "texto": [
-            "Em [claude.ai](https://claude.ai), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Programação ZDR*."
+            "Em [claude.ai](https://claude.ai), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Contrato Kodama*."
           ],
           "aviso": "O plano gratuito permite até cinco projetos."
         },
         "copilot": {
           "texto": [
-            "No Microsoft 365 Copilot, abra **Agentes** e clique em **Novo agente**. Dê um nome: *Programação ZDR*."
+            "No Microsoft 365 Copilot, abra **Agentes** e clique em **Novo agente**. Dê um nome: *Contrato Kodama*."
           ],
           "aviso": "O criador de agentes pede **conta de trabalho ou escolar com licença do Microsoft 365 Copilot**. Em conta pessoal gratuita ele não deixa anexar arquivos. Sem a licença, pule para o passo 5: você cola as instruções e anexa o PDF direto na conversa do Copilot. Funciona igual — só não fica salvo para a próxima vez."
         },
@@ -128,7 +128,7 @@
         },
         "pasta": {
           "texto": [
-            "Crie uma pasta no computador, por exemplo `zdr`, e ponha o PDF da programação dentro dela.",
+            "Crie uma pasta no computador, por exemplo `contrato`, e ponha o PDF do contrato dentro dela.",
             "Abra **a pasta** no aplicativo — não o arquivo solto — e autorize o acesso quando ele pedir."
           ],
           "aviso": "Dê acesso só a essa pasta. O agente pode criar, editar e apagar arquivos no que você liberar."
@@ -138,10 +138,10 @@
     {
       "titulo": "Escreva as instruções",
       "texto": [
-        "São quatro partes: **papel**, **tarefa**, **formato** e **o que fazer quando não souber**. Copie e cole."
+        "São as seis partes do **CREATE**: *character* (papel), *request* (tarefa), *examples* (exemplos), *adjustments* (regras), *type of output* (formato) e *extras*. Copie e cole."
       ],
       "arquivo": "Instruções",
-      "codigo": "# PAPEL\nVocê é o assistente de programação do Zoox Data Revolution 2026. Quem pergunta está no evento, com pressa, olhando o celular.\n\n# TAREFA\nResponder dúvidas sobre a programação usando SOMENTE o documento anexado.\n\n# FORMATO\n- Comece pela resposta direta, em uma ou duas frases.\n- Sempre que a resposta envolver horário, repita o horário.\n- Depois, diga de onde tirou (o bloco da programação e a linha).\n- Nada de introdução (\"ótima pergunta\"), nada de emoji.\n\n# SE NÃO SOUBER\nSe a resposta não estiver na programação anexada, responda exatamente:\n\"Isso não está na programação que eu tenho. Pergunte na recepção do evento.\"\nNunca invente horário, nome, cargo ou sala.",
+      "codigo": "# CHARACTER (papel)\nVocê é analista de contratos da diretoria da Ipê Roxo Distribuição de Alimentos. Quem pergunta é um executivo da Ipê Roxo que precisa decidir se assina este contrato. Você está do lado da Ipê Roxo.\n\n# REQUEST (tarefa)\nAvaliar o contrato anexado antes da assinatura: responder às perguntas sobre ele e apontar o que é arriscado para a Ipê Roxo.\n\n# EXAMPLES (exemplos)\nPergunta: \"A Kodama pode passar o serviço para outra empresa?\"\nResposta: \"Pode. Ela subcontrata parte dos serviços sem aviso prévio (Cláusula 8.1). Risco: médio. Negociar: aviso prévio e aprovação da Ipê Roxo.\"\n\n# ADJUSTMENTS (regras)\n- Use SOMENTE o contrato anexado. Não complete lacunas com o que costuma haver em contratos.\n- Cite sempre o número da cláusula.\n- Nada de introdução (\"ótima pergunta\"), nada de emoji.\n\n# TYPE OF OUTPUT (formato)\n- Comece pela resposta direta, em até duas frases, com a cláusula.\n- Quando pedirem uma lista de riscos, responda numa tabela: cláusula | o que diz | risco (alto, médio, baixo) | o que negociar.\n\n# EXTRAS\n- Se a resposta não estiver no contrato, responda exatamente: \"O contrato não trata disso.\" e diga, em uma frase, por que isso importa para a Ipê Roxo.\n- Você não decide se a Ipê Roxo assina. Se perguntarem, liste os pontos em aberto e diga que a decisão é do executivo, com o jurídico.",
       "variantes": {
         "chat": {
           "depois": [
@@ -156,7 +156,7 @@
       }
     },
     {
-      "titulo": "Anexe a programação",
+      "titulo": "Anexe o contrato",
       "variantes": {
         "pasta": {
           "texto": [
@@ -171,19 +171,19 @@
         },
         "chatgpt": {
           "texto": [
-            "Nos **arquivos do projeto**, envie o PDF da programação.",
+            "Nos **arquivos do projeto**, envie o PDF do contrato.",
             "Ele fica guardado ali e vale em toda conversa do projeto: você não anexa de novo a cada pergunta."
           ]
         },
         "claude": {
           "texto": [
-            "No **conhecimento do projeto**, envie o PDF da programação.",
+            "No **conhecimento do projeto**, envie o PDF do contrato.",
             "Ele fica guardado ali e vale em toda conversa do projeto: você não anexa de novo a cada pergunta."
           ]
         },
         "copilot": {
           "texto": [
-            "Na base de conhecimento do agente, envie o PDF da programação.",
+            "Na base de conhecimento do agente, envie o PDF do contrato.",
             "Sem a licença do Microsoft 365 Copilot, anexe o PDF direto na conversa e cole as instruções antes da primeira pergunta: funciona igual, só não fica salvo."
           ]
         }
@@ -192,12 +192,13 @@
     {
       "titulo": "Faça as perguntas de teste",
       "texto": [
-        "Abra uma conversa no assistente e mande as perguntas abaixo, **uma de cada vez**. Confira cada resposta olhando o PDF — é para isso que ele tem só duas páginas."
+        "Abra uma conversa no assistente e mande as perguntas abaixo, **uma de cada vez**. Confira cada resposta olhando o PDF: a cláusula citada diz mesmo aquilo?"
       ],
       "arquivo": "Perguntas",
-      "codigo": "A que horas é o almoço?\n\nQuem fala sobre formação de líderes, e quando?\n\nQuem media o painel das big techs?\n\nDá para ver o Bernardinho e o painel de cases?\n\nQuais atividades têm alguém da Zoox falando?",
+      "codigo": "Quanto a Ipê Roxo vai pagar no total?\n\nEm quanto tempo fica pronto?\n\nSe quisermos sair do contrato no meio, quanto custa?\n\nO que acontece com os nossos dados?\n\nListe os pontos que mais favorecem a Kodama.",
       "depois": [
-        "As duas primeiras saem de uma linha só. A terceira e a quinta obrigam o assistente a ler o documento inteiro: repare se ele acerta quem **media** o painel, e não só quem fala nele."
+        "Repare na primeira: os R$ 4,8 milhões estão na Cláusula 3.1, mas a 3.2 cobra a licença **à parte**, todo mês. O assistente parou no 4,8?",
+        "A última obriga o assistente a ler o contrato inteiro. Peça a tabela e confira duas ou três cláusulas no PDF."
       ]
     },
     {
@@ -206,17 +207,18 @@
         "Mande esta:"
       ],
       "arquivo": "Prompt",
-      "codigo": "Em que sala é a conversa do David Feffer?",
+      "codigo": "Qual é a multa se a Kodama atrasar a entrega?",
       "depois": [
-        "A programação **não diz a sala de nenhuma atividade** — ela cita nomes de espaços (Plenária Imersiva, Zoox Sessions, Inteli Room, Exposition Room), mas não liga nenhum deles a um horário.",
-        "Se o seu assistente respondeu “Plenária Imersiva”, ele inventou: pegou um nome que estava no documento e colou numa pergunta que o documento não responde.",
-        "Se ele respondeu que não sabe, foi **a sua instrução** que fez isso — a última parte, a do “se não souber”. É a parte que quase todo mundo esquece de escrever, e é a que separa um assistente que você pode usar de um que você precisa conferir."
+        "O contrato **não prevê multa nenhuma para atraso da Kodama** — e ainda diz que os prazos são estimados (Cláusula 2.2).",
+        "Se o seu assistente respondeu “2% mais juros de 1% ao mês”, ele inventou: copiou a Cláusula 5, que é a multa **da Ipê Roxo** por atrasar pagamento. As palavras certas, na cláusula errada.",
+        "Se ele respondeu “o contrato não trata disso”, foi **a sua instrução** que fez isso — a parte dos *extras*. É a parte que quase todo mundo esquece de escrever, e é a que separa um assistente que você pode usar de um que você precisa conferir.",
+        "Agora mande a última: **“Posso assinar?”** Um bom assistente não decide por você: lista o que está em aberto e devolve a decisão. Quem assina é você."
       ]
     },
     {
       "titulo": "Conserte a instrução, não a resposta",
       "texto": [
-        "Inventou? Volte ao campo de instruções e reforce a última parte: escreva a frase exata que ele deve responder, entre aspas, e acrescente o que ele não pode inventar.",
+        "Inventou? Volte ao campo de instruções e reforce os *extras*: escreva a frase exata que ele deve responder, entre aspas, e acrescente o que ele não pode inventar.",
         "Abra uma conversa **nova** e pergunte de novo. Em alguns aplicativos a instrução alterada só vale a partir da próxima conversa.",
         "Mude **uma coisa por vez**. Trocando três linhas de uma vez, você não sabe qual delas resolveu."
       ],
@@ -225,20 +227,20 @@
     {
       "titulo": "Troque o documento pelo seu",
       "texto": [
-        "O assistente que você montou não tem nada de específico sobre eventos: ele tem um papel, um formato e um documento.",
-        "Troque o PDF da programação por um documento do seu trabalho — um contrato, uma política, um manual, a ata de uma reunião — ajuste o papel na primeira linha das instruções e teste com as perguntas que **você** recebe toda semana.",
+        "O assistente que você montou não tem nada de específico sobre a Kodama: ele tem um papel, uma tarefa, um exemplo, regras, um formato e um documento.",
+        "Troque o contrato por um documento do seu trabalho — um contrato de verdade, uma política, um manual, a ata de uma reunião — ajuste o papel e o exemplo nas instruções e teste com as perguntas que **você** recebe toda semana.",
         "Leve o seu caso para a conversa: é isso que a gente faz no curso completo."
       ]
     }
   ],
   "problemas": [
     [
-      "Ele responde coisas que não estão na programação.",
-      "A parte do “se não souber” está fraca ou não existe. Escreva a frase exata que ele deve responder, entre aspas, dentro da instrução."
+      "Ele responde coisas que não estão no contrato.",
+      "A parte dos *extras* está fraca ou não existe. Escreva a frase exata que ele deve responder, entre aspas, dentro da instrução."
     ],
     [
-      "Ele cita um horário errado.",
-      "Peça que a resposta traga **o trecho copiado** da programação junto do horário. Fica mais fácil conferir, e ele erra menos."
+      "Ele cita a cláusula errada.",
+      "Peça que a resposta traga **o trecho copiado** do contrato junto do número da cláusula. Fica mais fácil conferir, e ele erra menos."
     ],
     [
       "As respostas ficaram longas demais.",
@@ -250,7 +252,7 @@
     ],
     [
       "O PDF não subiu.",
-      "Tente de novo com a rede do evento instável; se insistir em falhar, copie o texto da programação e cole dentro das próprias instruções."
+      "Tente de novo com a rede do evento instável; se insistir em falhar, copie o texto do contrato e cole dentro das próprias instruções."
     ],
     [
       "O Gem não guardou o arquivo.",

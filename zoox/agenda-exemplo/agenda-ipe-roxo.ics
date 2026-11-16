@@ -1,0 +1,213 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Inteli Exec//Agenda de exemplo//PT-BR
+CALSCALE:GREGORIAN
+X-WR-CALNAME:Agenda de exemplo (Helena Prado)
+X-WR-TIMEZONE:America/Sao_Paulo
+BEGIN:VEVENT
+UID:ipe-roxo-0@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261116T083000
+DTEND;TZID=America/Sao_Paulo:20261116T093000
+SUMMARY:Reunião semanal da diretoria
+LOCATION:Sala do conselho
+DESCRIPTION:Preparar: Trazer os números de entrega da semana passada.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-1@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261116T100000
+DTEND;TZID=America/Sao_Paulo:20261116T110000
+SUMMARY:1:1 com Rafael Souza (gerente de logística)
+LOCATION:Sala da diretoria
+DESCRIPTION:Preparar: Rever o atraso das rotas do interior.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-2@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261116T120000
+DTEND;TZID=America/Sao_Paulo:20261116T133000
+SUMMARY:Almoço
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-3@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261116T140000
+DTEND;TZID=America/Sao_Paulo:20261116T170000
+SUMMARY:Visita ao CD de Jundiaí
+LOCATION:CD Jundiaí (1h de deslocamento incluída)
+DESCRIPTION:Preparar: Checklist de segurança assinado pelo gerente do CD.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-4@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261117T080000
+DTEND;TZID=America/Sao_Paulo:20261117T090000
+SUMMARY:Café com fornecedor de embalagens (Plastimax)
+LOCATION:Escritório
+DESCRIPTION:Preparar: Proposta de reajuste de 2027 que eles mandaram.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-5@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261117T093000
+DTEND;TZID=America/Sao_Paulo:20261117T110000
+SUMMARY:Comitê de compras
+LOCATION:Sala do conselho
+DESCRIPTION:Preparar: Aprovar o pedido de paletes do 1º trimestre.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-6@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261117T100000
+DTEND;TZID=America/Sao_Paulo:20261117T103000
+SUMMARY:Call com a Kodama: dúvidas sobre a minuta
+LOCATION:Online
+DESCRIPTION:Preparar: Lista de dúvidas do jurídico sobre as cláusulas 3, 10 e 14.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-7@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261117T120000
+DTEND;TZID=America/Sao_Paulo:20261117T130000
+SUMMARY:Almoço
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-8@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261117T140000
+DTEND;TZID=America/Sao_Paulo:20261117T153000
+SUMMARY:Revisão dos indicadores do trimestre
+LOCATION:Sala da diretoria
+DESCRIPTION:Preparar: Painel de OTIF e ruptura por região.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-9@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261117T160000
+DTEND;TZID=America/Sao_Paulo:20261117T170000
+SUMMARY:Entrevista: coordenador(a) de TI
+LOCATION:Online
+DESCRIPTION:Preparar: Currículo e o caso técnico enviados pelo RH.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-10@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261118T090000
+DTEND;TZID=America/Sao_Paulo:20261118T110000
+SUMMARY:Jurídico: análise do contrato Kodama
+LOCATION:Sala do jurídico
+DESCRIPTION:Preparar: Minuta impressa com os comentários da diretoria.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-11@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261118T113000
+DTEND;TZID=America/Sao_Paulo:20261118T120000
+SUMMARY:Aprovar a escala de fim de ano dos CDs
+LOCATION:Sala da diretoria
+DESCRIPTION:Preparar: Escala proposta pelo RH.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-12@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261118T120000
+DTEND;TZID=America/Sao_Paulo:20261118T133000
+SUMMARY:Almoço com cliente (Supermercados Serra Azul)
+LOCATION:Restaurante, centro de Campinas
+DESCRIPTION:Preparar: Histórico de pedidos do cliente em 2026.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-13@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261118T150000
+DTEND;TZID=America/Sao_Paulo:20261118T160000
+SUMMARY:1:1 com o CFO
+LOCATION:Sala do CFO
+DESCRIPTION:Preparar: Orçamento de operações 2027, versão 2.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-14@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261118T170000
+DTEND;TZID=America/Sao_Paulo:20261118T180000
+SUMMARY:Particular
+CLASS:PRIVATE
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-15@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;VALUE=DATE:20261119
+DTEND;VALUE=DATE:20261120
+SUMMARY:Inventário anual do CD Campinas (o dia todo no CD)
+LOCATION:CD Campinas
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-16@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261119T080000
+DTEND;TZID=America/Sao_Paulo:20261119T120000
+SUMMARY:Inventário: acompanhamento presencial
+LOCATION:CD Campinas
+DESCRIPTION:Preparar: Botas e colete; a auditoria externa chega às 8h.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-17@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261119T130000
+DTEND;TZID=America/Sao_Paulo:20261119T140000
+SUMMARY:Almoço
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-18@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261119T143000
+DTEND;TZID=America/Sao_Paulo:20261119T150000
+SUMMARY:Ponto rápido com o RH
+LOCATION:Online
+DESCRIPTION:Preparar: Duas promoções pendentes da logística.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-19@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261119T163000
+DTEND;TZID=America/Sao_Paulo:20261119T173000
+SUMMARY:Preparação para a assinatura, com o CEO
+LOCATION:Sala do CEO
+DESCRIPTION:Preparar: Resumo dos riscos do contrato Kodama, uma página.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-20@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261120T083000
+DTEND;TZID=America/Sao_Paulo:20261120T093000
+SUMMARY:Diretoria: decisão sobre o contrato Kodama
+LOCATION:Sala do conselho
+DESCRIPTION:Preparar: Recomendação final: assinar, renegociar ou não assinar.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-21@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261120T100000
+DTEND;TZID=America/Sao_Paulo:20261120T110000
+SUMMARY:Assinatura do contrato Kodama
+LOCATION:Sala do conselho
+DESCRIPTION:Preparar: Versão final revisada pelo jurídico.
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-22@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261120T120000
+DTEND;TZID=America/Sao_Paulo:20261120T130000
+SUMMARY:Almoço
+END:VEVENT
+BEGIN:VEVENT
+UID:ipe-roxo-23@inteli-exec
+DTSTAMP:20261116T120000Z
+DTSTART;TZID=America/Sao_Paulo:20261120T150000
+DTEND;TZID=America/Sao_Paulo:20261120T160000
+SUMMARY:Fechamento semanal com os gerentes
+LOCATION:Online
+DESCRIPTION:Preparar: Pendências da semana de cada CD.
+END:VEVENT
+END:VCALENDAR

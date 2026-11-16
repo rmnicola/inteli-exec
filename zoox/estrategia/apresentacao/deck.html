@@ -66,12 +66,7 @@
 .slide.agenda .qr-canto span { font-size: 28px; color: var(--texto-suave); }
 
 /* O fecho: o QR grande e o que levar para casa */
-#leve-o-seu .centro { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 36px; }
-#leve-o-seu .qr { width: 460px; height: 460px; padding: 28px; border-radius: 24px; background: var(--branco); }
-#leve-o-seu .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
-#leve-o-seu .link-site { font-family: var(--f-destaque); font-weight: 700; font-size: 36px; color: var(--roxo); }
-#leve-o-seu .frase-fim { font-weight: 800; font-size: 44px; text-align: center; max-width: 1100px; line-height: 1.2; }
 
 /* ---- O arco: uma coluna por produto, e a linha do risco atravessando as três ---- */
 #arco .rotulo-termo { left: 120px; top: 110px; }
@@ -116,6 +111,20 @@
 .a-definir .opcoes-d { font-size: 32px; line-height: 1.35; color: var(--texto-suave); }
 .a-definir .selo-d { position: absolute; left: 120px; bottom: 70px; font-family: var(--f-destaque); font-weight: 700; font-size: 28px;
   text-transform: uppercase; color: var(--coral-texto); }
+  /* Slides institucionais: a imagem oficial ocupa o slide inteiro */
+  #inst-quem-somos .inst, #inst-unidades .inst, #inst-parceiros .inst { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* ---- Placeholder dos slides do Egon ---- */
+.slide[data-modelo="placeholder-egon"] .centro-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+  border: 4px dashed var(--cinza-escuro); margin: 200px 120px 120px; border-radius: 24px; }
+.slide[data-modelo="placeholder-egon"] .tit-ph { font-family: var(--f-capitulo); font-size: 88px; }
+.slide[data-modelo="placeholder-egon"] .sub-ph { font-size: 36px; color: var(--texto-suave); }
+/* ---- Obrigado: três QR codes, um para cada porta de entrada da educação continuada do Inteli ---- */
+#obrigado .tit-ob { position: absolute; left: 120px; top: 96px; font-family: var(--f-capitulo); font-size: 104px; line-height: 1; }
+#obrigado .sub-ob { position: absolute; left: 124px; top: 228px; font-size: 34px; color: var(--texto-suave); }
+#obrigado .qrs { position: absolute; left: 120px; right: 120px; top: 320px; display: flex; gap: 50px; }
+#obrigado .qr-c { flex: 1; height: 500px; border-radius: 24px; background: var(--branco); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+#obrigado .qr-c img { width: 300px; height: 300px; image-rendering: pixelated; margin-bottom: 18px; }
+#obrigado .qr-c b { font-size: 36px; font-weight: 800; }
 </style>
 </head>
 <body>
@@ -131,142 +140,49 @@
     <p class="rodape">Inteli Room<br>Zoox Data Revolution 2026</p>
   </section>
 
-  <!-- Site do curso: QR code e link -->
-  <section class="slide" id="site-curso" data-modelo="qr-do-site">
-    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="centro">
-      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/"></div>
-      <p class="link-site">rmnicola.github.io/inteli-exec/zoox</p>
-    </div>
-    <aside class="notas">Aqui ficam as três sessões de hoje, com os passos a passo das duas primeiras. Esta é a terceira: a que tem menos mão na massa e mais decisão.</aside>
+  <!-- Institucional Inteli Exec (slides oficiais, enviados pela Aline em 16/11) -->
+  <section class="slide sem-numero" id="inst-quem-somos" data-modelo="slide-institucional">
+    <img class="inst" src="assets/institucional-quem-somos.jpg" alt="Quem somos: Inteli, organização sem fins lucrativos que forma os futuros líderes de tecnologia">
+    <aside class="notas">Slide institucional do Inteli Exec. Fala institucional (não é do professor).</aside>
+  </section>
+
+  <section class="slide sem-numero" id="inst-unidades" data-modelo="slide-institucional">
+    <img class="inst" src="assets/institucional-unidades.jpg" alt="Unidades de negócio do Inteli: Graduação, Educação Continuada e Pesquisa Aplicada e de Fronteira">
+    <aside class="notas">Slide institucional do Inteli Exec: as unidades de negócio.</aside>
+  </section>
+
+  <section class="slide sem-numero" id="inst-parceiros" data-modelo="slide-institucional">
+    <img class="inst" src="assets/institucional-parceiros.jpg" alt="Parceiros do Inteli Exec e depoimentos de alunos; mais de 4.000 gestores e executivos capacitados">
+    <aside class="notas">Slide institucional do Inteli Exec: empresas parceiras e depoimentos.</aside>
   </section>
 
   <!-- Quem conduz: os três, num slide só -->
   <section class="slide" id="professor" data-modelo="quem-conduz-trio" data-max-palavras="60">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
     <p class="rotulo-termo" style="left:120px; top:110px">quem conduz · inteli</p>
-    <div class="trio"><div class="pessoa"><img src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola"><p class="nome-p">Rodrigo Nicola</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro mecatrônico, mestre pelo ITA</p><p class="linha-p">Veículos autônomos e aprendizado de máquina</p></div><div class="pessoa"><img src="assets/afonso-brandao.jpg" alt="Foto de Afonso Brandão"><p class="nome-p">Afonso Brandão</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro de produção e civil, mestre em materiais</p><p class="linha-p">Doutorando em engenharia da computação</p></div><div class="pessoa"><img src="assets/egon-daxbacher.jpg" alt="Foto de Egon Daxbacher"><p class="nome-p">Egon Daxbacher</p><p class="cargo-p">Coordenador do Adm Tech</p><p class="linha-p">Inovação e transformação digital</p><p class="linha-p">Passou por FCA, Petrobras e EY</p></div></div>
+    <div class="trio"><div class="pessoa"><img src="assets/egon-daxbacher.jpg" alt="Foto de Egon Daxbacher"><p class="nome-p">Egon Daxbacher</p><p class="cargo-p">Coordenador de Adm Tech</p><p class="linha-p">Graduado e mestre em Administração pela PUC-Rio</p><p class="linha-p">Doutor em Ciência da Computação</p></div><div class="pessoa"><img src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola"><p class="nome-p">Rodrigo Nicola</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro mecatrônico, mestre pelo ITA</p><p class="linha-p">Veículos autônomos e aprendizado de máquina</p></div><div class="pessoa"><img src="assets/afonso-brandao.jpg" alt="Foto de Afonso Brandão"><p class="nome-p">Afonso Brandão</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro de produção e civil, mestre em materiais</p><p class="linha-p">Doutorando em engenharia da computação</p></div></div>
     <aside class="notas">Trinta segundos no total, dez para cada um. Não leia os tópicos: diga só o que liga cada pessoa ao que a sala vai fazer hoje.</aside>
   </section>
 
-  <!-- Agenda: o mapa -->
-  <section class="slide agenda curta" id="agenda-mapa" data-modelo="agenda" data-agora="0" data-max-palavras="40">
+  <!-- PLACEHOLDER: o conteúdo desta sessão é do Egon; os slides dele entram aqui -->
+  <section class="slide" id="egon-conteudo" data-modelo="placeholder-egon">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>as três sessões</span></div>
-    <aside class="notas">Agora: o mapa.</aside>
+    <p class="rotulo-termo" style="left:120px; top:110px">egon · slides a receber</p>
+    <div class="centro-ph"><p class="tit-ph">Estratégia e governança</p><p class="sub-ph">os slides do Egon entram aqui</p></div>
+    <aside class="notas">Placeholder: a sessão inteira é conduzida pelo Egon, que manda os slides.</aside>
   </section>
 
-  <!-- O mapa: dois lados, valor e exposição -->
-  <section class="slide" id="mapa" data-modelo="duas-listas" data-max-palavras="90">
+  <!-- Obrigado: fecho, com três QR codes da educação continuada do Inteli -->
+  <section class="slide sem-numero" id="obrigado" data-modelo="obrigado-com-qrs" data-max-palavras="30">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo">o mapa</p>
-    <div class="lados">
-      <div class="lado"><p class="cab-l">Onde a IA cria valor</p><ul>
-        <li>O que se repete toda semana: ler, resumir, redigir</li>
-        <li>O que trava esperando alguém ler</li>
-        <li>O que cinco pessoas fazem de cinco jeitos</li>
-        <li>O que ninguém faz hoje porque não dá tempo</li>
-      </ul></div>
-      <div class="lado risco"><p class="cab-l">Onde ela cria exposição</p><ul>
-        <li>O que decide sobre pessoas: crédito, contratação, preço</li>
-        <li>O que sai para fora sem alguém ler</li>
-        <li>O que depende de dado que não pode sair daqui</li>
-        <li>O que ninguém sabe conferir depois</li>
-      </ul></div>
+    <p class="tit-ob">Obrigado!</p>
+    <p class="sub-ob">Para continuar com o Inteli:</p>
+    <div class="qrs">
+      <div class="qr-c"><img src="assets/qr-ai-for-business.png" alt="QR code para www.inteli.edu.br/ai-for-business"><b>AI for Business</b></div>
+      <div class="qr-c"><img src="assets/qr-mba.png" alt="QR code para www.inteli.edu.br/mba-ia-e-dados-para-negocios"><b>MBA em IA e Dados</b></div>
+      <div class="qr-c"><img src="assets/qr-empresas.png" alt="QR code para www.inteli.edu.br/solucoes-para-sua-empresa"><b>Programas sob medida</b></div>
     </div>
-    <aside class="notas">O mapa é a única moldura da sessão, e ela é simples de propósito: todo caso de uso cai de um lado, do outro, ou dos dois. O que dá dinheiro e o que dá dor de cabeça costumam ser o mesmo processo visto de ângulos diferentes — por isso as duas colunas não são opostas. Peça que pensem num processo da empresa deles enquanto você lê: na prática daqui a pouco eles vão colocá-lo no mapa.</aside>
-  </section>
-
-  <!-- Agenda: o que já deu errado -->
-  <section class="slide agenda curta" id="agenda-errado" data-modelo="agenda" data-agora="1" data-max-palavras="40">
-    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>as três sessões</span></div>
-    <aside class="notas">Agora: o que já deu errado.</aside>
-  </section>
-
-  <!-- A definir: o que já deu errado -->
-  <section class="slide a-definir" id="casos" data-modelo="bloco-a-definir" data-max-palavras="80">
-    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo" style="left:120px; top:110px">o que já deu errado</p>
-    <div class="quadro-d"><p class="pergunta-d">Que casos a gente conta aqui?</p><p class='opcoes-d'><b>A.</b> casos públicos de IA que deu errado, com nome e data</p><p class='opcoes-d'><b>B.</b> o caso fictício da Horizonte, que já existe no Ferramentas em Ação</p><p class='opcoes-d'><b>C.</b> o que acabou de acontecer na sessão anterior: metade da sala bloqueada pelo TI</p></div>
-    <p class="selo-d">ainda não decidimos</p>
-    <aside class="notas">Bloco a combinar com o Afonso. A opção C é a mais barata e a mais forte: o bloqueio acontece de verdade na sessão 2, na frente deles, e já levanta a pergunta certa — quem decidiu isso, e quando? A opção A dá peso, mas exige curadoria e envelhece rápido. A B reaproveita material pronto, mas é ficção, e numa plateia C-level ficção vale menos que o que eles acabaram de viver. Minha sugestão: C como espinha, com um ou dois casos de A para dar escala.</aside>
-  </section>
-
-  <!-- Agenda: a prática -->
-  <section class="slide agenda curta" id="agenda-pratica" data-modelo="agenda" data-agora="2" data-max-palavras="40">
-    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="qr-canto"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"><span>as três sessões</span></div>
-    <aside class="notas">Agora: a prática.</aside>
-  </section>
-
-  <!-- A definir: a prática, reduzida -->
-  <section class="slide a-definir" id="pratica" data-modelo="bloco-a-definir" data-max-palavras="80">
-    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo" style="left:120px; top:110px">a prática, reduzida</p>
-    <div class="quadro-d"><p class="pergunta-d">O que a plateia faz com as mãos, em 12 minutos?</p><p class='opcoes-d'><b>A.</b> põe um processo da própria empresa no mapa das duas colunas, no papel</p><p class='opcoes-d'><b>B.</b> escolhe uma das nove linhas da lista e escreve quem decide e até quando</p><p class='opcoes-d'><b>C.</b> as duas, seis minutos cada</p></div>
-    <p class="selo-d">ainda não decidimos</p>
-    <aside class="notas">Bloco a combinar. A opção A conecta com o slide do mapa e é fácil de fazer em papel; a B produz um compromisso com nome e data, que é o que sobra depois do evento. A C é a que eu faria: o mapa dá o diagnóstico, a lista dá a ação, e as duas juntas cabem em doze minutos se cada uma tiver uma folha só.</aside>
-  </section>
-
-  <!-- A lista que o C-level leva embora -->
-  <section class="slide" id="listas" data-modelo="tres-listas" data-max-palavras="90">
-    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo" style="left:120px; top:110px">o que você leva</p>
-    <div class="colunas-l">
-      <div class="col-l"><p class="cab-l">Decidir</p><ul>
-        <li>Quem pode conectar o quê</li>
-        <li>Que dado pode sair da empresa</li>
-        <li>Quem aprova uma exceção</li>
-      </ul></div>
-      <div class="col-l"><p class="cab-l">Proibir</p><ul>
-        <li>O que nunca roda sem uma pessoa no meio</li>
-        <li>Que dado nunca entra num prompt</li>
-        <li>Que decisão a IA não toma</li>
-      </ul></div>
-      <div class="col-l"><p class="cab-l">Medir</p><ul>
-        <li>Quanto se usa, e onde</li>
-        <li>Quantas vezes alguém precisou corrigir</li>
-        <li>O que piorou desde que ligamos</li>
-      </ul></div>
-    </div>
-    <aside class="notas">O entregável da sessão. Nove linhas, e nenhuma delas pede um comitê: cada uma pede uma pessoa com nome e uma data. Se der tempo, peça que escolham UMA das nove para resolver até o fim do mês — é a única coisa que sobrevive ao evento. A coluna de medir é a que todo mundo esquece, e é a que mostra se a governança está funcionando ou só escrita.</aside>
-  </section>
-
-  <!-- O arco dos três produtos: o que cada um faz com o risco -->
-  <section class="slide" id="arco" data-modelo="arco-dos-produtos" data-max-palavras="130">
-    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo">o risco, três vezes</p>
-    <div class="colunas">
-      <div class="col">
-        <div class="cab"><p class="nome">Essencial na Prática</p><p class="foco">fundamento · ferramentas simples</p></div>
-        <div class="faixa"><p class="rot">o risco acontece</p><p class="txt">Uma pergunta que vai dar errado na dinâmica, consertada junto com a turma.</p></div>
-        <div class="faixa pratica"><p class="rot">prática</p><p class="txt">o dia inteiro</p></div>
-      </div>
-      <div class="col">
-        <div class="cab"><p class="nome">Ferramentas em Ação</p><p class="foco">ferramentas · conectividade</p></div>
-        <div class="faixa"><p class="rot">o risco ganha um momento</p><p class="txt">O que muda quando a IA tem acesso e ação — e como mitigar.</p></div>
-        <div class="faixa pratica"><p class="rot">prática</p><p class="txt">dois dias</p></div>
-      </div>
-      <div class="col agora">
-        <div class="cab"><p class="nome">Estratégia e Governança</p><p class="foco">riscos · oportunidades</p></div>
-        <div class="faixa"><p class="rot">o risco é o assunto</p><p class="txt">O que decidir, o que proibir e o que medir antes de escalar.</p></div>
-        <div class="faixa pratica"><p class="rot">prática</p><p class="txt">bem reduzida</p></div>
-      </div>
-    </div>
-    <p class="legenda-arco">O mapa da transformação para o C-Level</p>
-    <aside class="notas">O eixo que saiu da conversa com o Afonso: o risco não é um módulo de um curso só, é um fio que atravessa os três produtos, com profundidade crescente. No Essencial ele é experiência (acontece com você e a gente conserta). No Ferramentas é prática de mitigação (ganha um momento próprio, depois de a IA ter acesso e ação). No Estratégia é decisão (é o assunto, e a prática encolhe). Isso também responde "por que fazer os três": cada um resolve o risco numa camada que o anterior não alcança.</aside>
-  </section>
-
-  <!-- Fecho: o QR fica na tela enquanto o professor provoca -->
-  <section class="slide" id="leve-o-seu" data-modelo="qr-do-site" data-max-palavras="30">
-    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="centro">
-      <p class="frase-fim">Comece pela lista, não pela ferramenta.</p>
-      <div class="qr"><img src="assets/qr-site.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox"></div>
-      <p class="link-site">rmnicola.github.io/inteli-exec/zoox</p>
-    </div>
-    <aside class="notas">Dois minutos, com o QR na tela. O que eles levam: as três listas. O que vale dizer: nenhuma dessas decisões precisa de um comitê de seis meses — precisa de uma pessoa com nome, uma data e um número. Convide para conversar no happy hour e para os cursos.</aside>
+    <aside class="notas">Obrigado. Três portas para continuar: o AI for Business, com as três formações para executivos (Essencial na Prática, Ferramentas em Ação, Estratégia e Governança); o MBA em IA e Dados para Negócios, com início em fevereiro de 2027; e os programas sob medida para empresas. Convide para o happy hour e para levar um caso real para a conversa.</aside>
   </section>
 
 </main>
