@@ -225,6 +225,13 @@
 #fotos-btg .f2 { left: 818px; top: 128px; width: 560px; --r: 3deg; z-index: 1; }
 #fotos-btg .f3 { left: 196px; top: 506px; width: 560px; --r: 2.5deg; z-index: 3; }
 #fotos-btg .f4 { left: 852px; top: 462px; width: 610px; --r: -3deg; z-index: 4; }
+/* ---- Fotos do evento: a chamada à esquerda, o QR da galeria à direita ---- */
+#fotos-evento .chamada-f { position: absolute; left: 120px; top: 0; bottom: 0; width: 700px; display: flex; flex-direction: column; justify-content: center; gap: 36px; }
+#fotos-evento .chamada-f p { font-weight: 800; font-size: 96px; line-height: 1.05; }
+#fotos-evento .chamada-f span { font-family: var(--f-destaque); font-weight: 700; font-size: 32px; color: var(--roxo); }
+#fotos-evento .qr-f { position: absolute; right: 140px; top: 0; bottom: 0; margin: auto 0; width: 560px; height: 560px; padding: 30px;
+  border-radius: 24px; background: var(--branco); box-sizing: content-box; }
+#fotos-evento .qr-f img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
 </style>
 </head>
 <body>
@@ -501,6 +508,14 @@
       <div class="lin passo" data-passo="3"><b>Repetição</b><span>reversível, baixo risco</span></div><div class="cel pode passo" data-passo="3">pode</div><div class="cel pode passo" data-passo="3">pode</div><div class="cel uso passo" data-passo="3"><b>possível</b><span>só com trava técnica</span></div>
     </div>
     <aside class="notas">A versão da tabela do Egon (A Interseção da Governança): cruza a natureza da decisão com a autonomia da máquina. Uma linha por passo. 1 Julgamento, ambíguo e de alto impacto: o humano decide sempre, HITL obrigatório. 2 Análise, risco médio: a IA pode decidir com o humano supervisionando, HOTL recomendado. 3 Repetição, reversível e de baixo risco: dá para tirar o humano do circuito, mas só com uma trava técnica ativa. A regra que fica: quanto mais julgamento, mais perto de você.</aside>
+  </section>
+
+  <!-- Fotos do evento: galeria da SuaFoto, com as fotos publicadas em tempo real (QR enviado pela Julia) -->
+  <section class="slide" id="fotos-evento" data-modelo="qr-com-chamada">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <div class="chamada-f"><p>Pegue suas fotos aqui</p><span>suafoto.net/fotos/intelinozdr2026</span></div>
+    <div class="qr-f"><img src="assets/qr-fotos.png" alt="QR code para suafoto.net/fotos/intelinozdr2026"></div>
+    <aside class="notas">As fotos do evento saem nesta galeria em tempo real. Escaneie, clique em “Sua Foto” e tire uma selfie: a galeria acha as fotos em que você aparece.</aside>
   </section>
 
   <!-- Obrigado: fecho, com três QR codes da educação continuada do Inteli -->
