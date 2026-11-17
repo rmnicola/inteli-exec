@@ -217,6 +217,14 @@
 #quando-usar .cel.uso { background: var(--roxo); color: var(--branco); }
 #quando-usar .cel.uso b { font-size: 34px; font-weight: 800; }
 #quando-usar .cel.uso span { font-size: 28px; color: var(--cinza-medio); }
+/* ---- Fotos da turma BTG Embaixadores: mural sem texto; cada foto numa moldura branca, girada e sobreposta ---- */
+#fotos-btg .foto { position: absolute; margin: 0; padding: 14px; background: var(--branco); border-radius: 6px;
+  box-shadow: 0 18px 44px rgba(46, 38, 64, .22); transform: rotate(var(--r)); }
+#fotos-btg .foto img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 2px; }
+#fotos-btg .f1 { left: 104px; top: 146px; width: 660px; --r: -4deg; z-index: 2; }
+#fotos-btg .f2 { left: 818px; top: 128px; width: 560px; --r: 3deg; z-index: 1; }
+#fotos-btg .f3 { left: 196px; top: 506px; width: 560px; --r: 2.5deg; z-index: 3; }
+#fotos-btg .f4 { left: 852px; top: 462px; width: 610px; --r: -3deg; z-index: 4; }
 </style>
 </head>
 <body>
@@ -265,6 +273,16 @@
     <p class="rotulo-termo" style="left:120px; top:110px">quem conduz · inteli</p>
     <div class="trio"><div class="pessoa"><img src="assets/rodrigo-nicola.jpg" alt="Foto de Rodrigo Nicola"><p class="nome-p">Rodrigo Nicola</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro mecatrônico, mestre pelo ITA</p><p class="linha-p">Veículos autônomos e aprendizado de máquina</p></div><div class="pessoa"><img src="assets/afonso-brandao.jpg" alt="Foto de Afonso Brandão"><p class="nome-p">Afonso Brandão</p><p class="cargo-p">Professor</p><p class="linha-p">Engenheiro de produção e civil, mestre em materiais</p><p class="linha-p">Doutorando em engenharia da computação</p></div><div class="pessoa"><img src="assets/egon-daxbacher.jpg" alt="Foto de Egon Daxbacher"><p class="nome-p">Egon Daxbacher</p><p class="cargo-p">Coordenador de Adm Tech</p><p class="linha-p">Graduado e mestre em Administração pela PUC-Rio</p><p class="linha-p">Doutor em Ciência da Computação</p></div></div>
     <aside class="notas">Trinta segundos no total, dez para cada um. Não leia os tópicos: diga só o que liga cada pessoa ao que a sala vai fazer hoje.</aside>
+  </section>
+
+  <!-- Turma BTG Embaixadores: mural de quatro fotos (Kaká, Fábio Gurgel, professor Hoc, Manu), sem texto no slide -->
+  <section class="slide" id="fotos-btg" data-modelo="mural-de-fotos">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <figure class="foto f1"><img src="assets/foto-kaka.jpg" alt="Rodrigo Nicola e Afonso Brandão com Kaká, que segura o certificado de conclusão"></figure>
+    <figure class="foto f2"><img src="assets/foto-fabio-gurgel.jpg" alt="Rodrigo Nicola e Afonso Brandão com Fábio Gurgel, que segura o certificado de conclusão"></figure>
+    <figure class="foto f3"><img src="assets/foto-hoc.jpg" alt="Rodrigo Nicola e Afonso Brandão entregando o certificado de conclusão ao professor Hoc"></figure>
+    <figure class="foto f4"><img src="assets/foto-manu.jpg" alt="Rodrigo Nicola e Afonso Brandão com Manu, que segura o certificado de conclusão"></figure>
+    <aside class="notas">A turma BTG Embaixadores do AI for Business, em setembro: o Kaká, o Fábio Gurgel, o professor Hoc e a Manu recebendo o certificado. Dez segundos: é para mostrar quem já passou por aqui, não para contar a história.</aside>
   </section>
 
   <!-- Agenda: a estrutura de um prompt -->
