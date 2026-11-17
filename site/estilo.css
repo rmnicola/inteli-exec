@@ -247,3 +247,14 @@ p code, li code { background: var(--fundo-fraco); border: 1px solid var(--borda-
   padding: 0.1rem 0.5rem; border-radius: 4px; background: var(--fundo-forte); color: var(--texto-invertido);
   font: var(--t-pequeno)/1.6 var(--fonte); white-space: nowrap;
 }
+
+/* Abas de um guia em partes (montar · testar): uma parte por vez, na mesma página. */
+.abas { display: flex; flex-wrap: wrap; gap: 0 2rem; border-bottom: 1px solid var(--borda-fraca); margin-bottom: 2rem; }
+.parte + .parte { margin-top: 3rem; }
+html.com-abas .parte + .parte { margin-top: 0; }
+.abas button { font: inherit; font-weight: 700; padding: 0.5rem 0; margin-bottom: -1px; border: 0; border-bottom: 3px solid transparent;
+  background: none; color: var(--texto); cursor: pointer; }
+.abas button:hover { color: var(--texto-forte); }
+.abas button[aria-selected="true"] { color: var(--texto-forte); border-bottom-color: var(--destaque); }
+.abas button:focus-visible { outline: 2px solid var(--texto-forte); outline-offset: 2px; }
+html:not(.com-abas) .abas { display: none; }

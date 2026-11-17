@@ -26,144 +26,14 @@
   ],
   "resumo": "Montar no {app} um assistente ligado à sua agenda, que diz o que você tem pela frente, o que precisa preparar e onde cabe aquilo que nunca entra na semana.",
   "contexto": "Escolha o seu aplicativo no seletor acima. Você vai precisar da sua agenda — do Google ou do Outlook — e de uns minutos.\n\nNão pode ou não quer conectar a sua? Use a [agenda de exemplo](../ferramentas/agenda-ipe-roxo.pdf): a semana da Helena Prado, diretora de operações de uma distribuidora fictícia. O passo 5 explica como.",
-  "passos": [
-    {
-      "titulo": "Crie o assistente",
-      "variantes": {
-        "gemini": {
-          "texto": [
-            "Em [gemini.google.com](https://gemini.google.com), abra **Gems** na barra da esquerda e clique em **Novo Gem**. Dê um nome: *Minha agenda*."
-          ],
-          "aviso": "A janela de prévia **não salva sozinha**. Clique em **Salvar** no fim. Gems funcionam em conta gratuita."
-        },
-        "chatgpt": {
-          "texto": [
-            "Em [chatgpt.com](https://chatgpt.com), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Minha agenda*."
-          ],
-          "aviso": "Projetos funcionam em conta gratuita; o conector da agenda (passo 3) costuma pedir plano pago."
-        },
-        "claude": {
-          "texto": [
-            "Em [claude.ai](https://claude.ai), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Minha agenda*."
-          ],
-          "aviso": "O plano gratuito permite até cinco projetos."
-        },
-        "copilot": {
-          "texto": [
-            "No Microsoft 365 Copilot, abra **Agentes** e clique em **Novo agente**. Dê um nome: *Minha agenda*."
-          ],
-          "aviso": "O criador de agentes pede **conta de trabalho ou escolar com licença do Microsoft 365 Copilot**. Sem ela, cole as instruções do próximo passo direto na conversa e use a agenda de exemplo (passo 5)."
-        }
-      }
-    },
-    {
-      "titulo": "Escreva as instruções",
-      "texto": [
-        "Seis partes: **papel**, **tarefa**, **exemplo**, **regras**, **formato** e **extras**. Copie, cole e troque o que quiser — o horário comercial, por exemplo, é o seu."
-      ],
-      "arquivo": "Instruções",
-      "codigo": "# PAPEL\nVocê é o assistente de agenda de um executivo. Quem pergunta é o dono da agenda, com pouco tempo e muitas reuniões.\n\n# TAREFA\nLer a minha agenda para (1) dizer o que eu tenho e o que preciso preparar e (2) achar horários livres para o que eu pedir.\n\n# EXEMPLO\nPedido: \"Ache 1 hora para eu revisar o orçamento esta semana.\"\nResposta: \"Quarta, das 13h30 às 14h30, entre o almoço e o 1:1 com o CFO. Quer que eu reserve?\"\n\n# REGRAS\n- Use SOMENTE o que está na agenda. Não invente compromisso, horário nem participante.\n- Horário comercial: das 8h às 18h. Não ofereça o horário do almoço nem um horário colado em deslocamento.\n- Compromisso marcado como particular: não mostre o conteúdo e não marque nada por cima.\n- NUNCA crie, mova, aceite ou recuse um evento sem eu confirmar aqui na conversa.\n\n# FORMATO\n- Agenda: dia a dia, com o horário, o compromisso e uma linha do que preparar.\n- Horários livres: no máximo três opções, com dia, início e fim.\n\n# EXTRAS\n- Se dois compromissos se sobrepõem, avise.\n- Se você não conseguir ler a agenda, diga isso. Não responda de memória.",
-      "depois": [
-        "Cole no campo de **instruções** do assistente e salve.",
-        "Repare na última regra das *regras*: é ela que decide se o assistente pode mexer na sua agenda sozinho."
-      ]
-    },
-    {
-      "titulo": "Ligue a agenda (só a agenda)",
-      "variantes": {
-        "claude": {
-          "texto": [
-            "Em **Configurações → Conectores**, procure **Google Agenda** (o oficial, marcado como do Google) e clique em conectar. Escolha a conta e aprove.",
-            "Dentro da conversa do projeto, o botão **+ → Conectores** liga e desliga o conector."
-          ],
-          "aviso": "Os conectores do Claude podem exigir **plano pago** conforme a conta. Se o Google Agenda não aparecer para você, vá para a agenda de exemplo do passo 5."
-        },
-        "gemini": {
-          "texto": [
-            "O Gemini já enxerga a Agenda da **conta Google** em que você está logado. Confira em **Configurações → Apps** que o **Google Agenda** está ligado."
-          ],
-          "aviso": "Funciona em **conta gratuita**. Numa conta Google Workspace da empresa, depende do que o administrador liberou: se não aparecer, passo 5."
-        },
-        "chatgpt": {
-          "texto": [
-            "Em **Configurações → Aplicativos e conectores**, procure **Google Agenda** ou **Outlook Calendar** e clique em conectar. Faça login e aprove.",
-            "Confirme que aparece como conectado antes da primeira pergunta."
-          ],
-          "aviso": "Os conectores do ChatGPT costumam exigir **plano pago (Plus ou superior)**. Em conta gratuita, vá direto para o passo 5."
-        },
-        "copilot": {
-          "texto": [
-            "O Copilot já enxerga o seu calendário do Outlook: não há conector para ligar. Confirme que você está no Copilot da conta da empresa, e não na pessoal."
-          ],
-          "aviso": "Vale com **licença do Microsoft 365 Copilot**. Sem ela, passo 5."
-        }
-      }
-    },
-    {
-      "titulo": "Antes de clicar em “permitir”, leia a tela",
-      "texto": [
-        "A tela de consentimento diz exatamente **o que você está entregando**. Repare em três coisas: **quem** está pedindo (o aplicativo certo, não um parecido), **o que** ele vai poder fazer (só ler a agenda? criar e editar eventos?) e **por quanto tempo**.",
-        "Se ela pede mais do que você quer dar, pare e use a agenda de exemplo. Não conectar também é uma decisão — e é o assunto da conversa do fim."
-      ]
-    },
-    {
-      "titulo": "Sem conectar: a agenda de exemplo",
-      "texto": [
-        "O TI bloqueou, o aplicativo pede plano pago, ou você não quer abrir a sua agenda? Baixe a [agenda de exemplo](../ferramentas/agenda-ipe-roxo.pdf) — a semana da Helena Prado, diretora de operações da Ipê Roxo, uma distribuidora de alimentos fictícia — e **anexe o PDF** ao assistente, como documento.",
-        "Como a semana dela é de 16 a 20 de novembro, avise o assistente na primeira mensagem:"
-      ],
-      "arquivo": "Prompt",
-      "codigo": "Use a agenda anexada como se fosse a minha. Considere que hoje é terça, 17 de novembro de 2026, e que agora são 9h.",
-      "depois": [
-        "Quer ver o assistente lendo uma agenda de verdade, sem expor a sua? Crie uma agenda **nova e vazia** no Google Agenda ou no Outlook e importe nela o [arquivo .ics](../ferramentas/agenda-ipe-roxo.ics) — os mesmos compromissos. Nunca importe na sua agenda principal.",
-        "Outra saída, com a sua própria agenda: tire um print da sua semana e cole na conversa."
-      ]
-    },
-    {
-      "titulo": "Peça o dia, a semana e um espaço",
-      "texto": [
-        "Mande os pedidos abaixo, **um de cada vez**:"
-      ],
-      "arquivo": "Pedidos",
-      "codigo": "O que eu tenho hoje, e o que preciso preparar para cada compromisso?\n\nQuais são os três compromissos mais importantes da semana, e por quê?\n\nAche duas janelas de 1h30 esta semana para eu escrever o planejamento de 2027, longe de reunião.",
-      "depois": [
-        "Troque o último pelo que **nunca** cabe na sua semana: estudar, ligar para um cliente, pensar.",
-        "Na agenda de exemplo, repare: terça às 10h há **dois compromissos ao mesmo tempo** — ele avisou? E as janelas de 1h30 que existem de verdade são quarta 13h30–15h e sexta 13h–15h ou 16h–18h. Quinta às 15h está livre, mas a Helena passa o dia no CD."
-      ]
-    },
-    {
-      "titulo": "Confira, sempre na agenda",
-      "texto": [
-        "Abra a agenda (a sua ou o PDF) do lado da conversa. Os horários batem? Ele inventou algum compromisso, ou alguém numa reunião? A janela que ele achou está mesmo livre, ou ele ignorou um evento do dia inteiro?",
-        "Se errou, não conserte a resposta: **conserte a instrução** e pergunte de novo, numa conversa nova."
-      ]
-    },
-    {
-      "titulo": "Agora, o pedido que mexe na agenda",
-      "texto": [
-        "Mande:"
-      ],
-      "arquivo": "Prompt",
-      "codigo": "Pode marcar a primeira janela.",
-      "depois": [
-        "Repare no que acontece. Com a última regra, ele deve **confirmar** antes. Em alguns aplicativos o conector só lê e ele não consegue marcar; em outros, ele marca de verdade.",
-        "Quem decidiu se ele podia mexer na sua agenda: você, a instrução, o aplicativo ou o TI? Guarde a resposta — é a conversa do fim da sessão."
-      ],
-      "aviso": "Se você usou a sua agenda de verdade e ele marcou, apague o evento depois."
-    },
-    {
-      "titulo": "Avançado: o mesmo por baixo, num harness",
-      "texto": [
-        "O que você ligou em dois cliques é, por baixo, um servidor que expõe a sua agenda como **ferramenta**. Num harness de desktop — Claude Desktop, Codex, Antigravity, Copilot no VS Code — isso se configura à mão, por MCP, e aí você escolhe exatamente quais ferramentas o agente enxerga: só *ler eventos*, ou também *criar*.",
-        "É esse o caminho quando o assistente precisa alcançar os sistemas da empresa, e não só a sua agenda."
-      ],
-      "aviso": "Os harnesses de desktop quase todos pedem conta paga — Codex e Cowork pedem plano, o Antigravity tem camada gratuita com cota pequena."
-    }
-  ],
   "problemas": [
     [
       "Aparece “acesso bloqueado” ou “o administrador precisa aprovar”.",
       "É a política da sua empresa, não um defeito. Use a agenda de exemplo do passo 5 — e anote: essa decisão é exatamente o assunto da conversa do fim."
+    ],
+    [
+      "Não quero dar acesso à minha agenda.",
+      "Não dê. A agenda de exemplo chega ao mesmo exercício, e a decisão de não conectar é uma resposta legítima — é metade do assunto desta sessão."
     ],
     [
       "Ele respondeu sem olhar a agenda.",
@@ -180,11 +50,154 @@
     [
       "Ele mostrou o conteúdo de um compromisso particular.",
       "Reforce nas *regras*: *“compromisso particular: diga só que o horário está ocupado”*."
-    ],
-    [
-      "Não quero dar acesso à minha agenda.",
-      "Não dê. A agenda de exemplo chega ao mesmo exercício, e a decisão de não conectar é uma resposta legítima — é metade do assunto desta sessão."
     ]
   ],
-  "fechamento": "O assistente que você montou fica no ar: abra uma conversa nova toda segunda de manhã e peça a semana."
+  "fechamento": "O assistente que você montou fica no ar: abra uma conversa nova toda segunda de manhã e peça a semana.",
+  "partes": [
+    {
+      "id": "montar",
+      "titulo": "Parte 1 · Montar e conectar",
+      "passos": [
+        {
+          "titulo": "Crie o assistente",
+          "variantes": {
+            "gemini": {
+              "texto": [
+                "Em [gemini.google.com](https://gemini.google.com), abra **Gems** na barra da esquerda e clique em **Novo Gem**. Dê um nome: *Minha agenda*."
+              ],
+              "aviso": "A janela de prévia **não salva sozinha**. Clique em **Salvar** no fim. Gems funcionam em conta gratuita."
+            },
+            "chatgpt": {
+              "texto": [
+                "Em [chatgpt.com](https://chatgpt.com), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Minha agenda*."
+              ],
+              "aviso": "Projetos funcionam em conta gratuita; o conector da agenda (passo 3) costuma pedir plano pago."
+            },
+            "claude": {
+              "texto": [
+                "Em [claude.ai](https://claude.ai), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Minha agenda*."
+              ],
+              "aviso": "O plano gratuito permite até cinco projetos."
+            },
+            "copilot": {
+              "texto": [
+                "No Microsoft 365 Copilot, abra **Agentes** e clique em **Novo agente**. Dê um nome: *Minha agenda*."
+              ],
+              "aviso": "O criador de agentes pede **conta de trabalho ou escolar com licença do Microsoft 365 Copilot**. Sem ela, cole as instruções do próximo passo direto na conversa e use a agenda de exemplo (passo 5)."
+            }
+          }
+        },
+        {
+          "titulo": "Escreva as instruções",
+          "texto": [
+            "Seis partes: **papel**, **tarefa**, **exemplo**, **regras**, **formato** e **extras**. Copie, cole e troque o que quiser — o horário comercial, por exemplo, é o seu."
+          ],
+          "arquivo": "Instruções",
+          "codigo": "# PAPEL\nVocê é o assistente de agenda de um executivo. Quem pergunta é o dono da agenda, com pouco tempo e muitas reuniões.\n\n# TAREFA\nLer a minha agenda para (1) dizer o que eu tenho e o que preciso preparar e (2) achar horários livres para o que eu pedir.\n\n# EXEMPLO\nPedido: \"Ache 1 hora para eu revisar o orçamento esta semana.\"\nResposta: \"Quarta, das 13h30 às 14h30, entre o almoço e o 1:1 com o CFO. Quer que eu reserve?\"\n\n# REGRAS\n- Use SOMENTE o que está na agenda. Não invente compromisso, horário nem participante.\n- Horário comercial: das 8h às 18h. Não ofereça o horário do almoço nem um horário colado em deslocamento.\n- Compromisso marcado como particular: não mostre o conteúdo e não marque nada por cima.\n- NUNCA crie, mova, aceite ou recuse um evento sem eu confirmar aqui na conversa.\n\n# FORMATO\n- Agenda: dia a dia, com o horário, o compromisso e uma linha do que preparar.\n- Horários livres: no máximo três opções, com dia, início e fim.\n\n# EXTRAS\n- Se dois compromissos se sobrepõem, avise.\n- Se você não conseguir ler a agenda, diga isso. Não responda de memória.",
+          "depois": [
+            "Cole no campo de **instruções** do assistente e salve.",
+            "Repare na última regra das *regras*: é ela que decide se o assistente pode mexer na sua agenda sozinho."
+          ]
+        },
+        {
+          "titulo": "Ligue a agenda (só a agenda)",
+          "variantes": {
+            "claude": {
+              "texto": [
+                "Em **Configurações → Conectores**, procure **Google Agenda** (o oficial, marcado como do Google) e clique em conectar. Escolha a conta e aprove.",
+                "Dentro da conversa do projeto, o botão **+ → Conectores** liga e desliga o conector."
+              ],
+              "aviso": "Os conectores do Claude podem exigir **plano pago** conforme a conta. Se o Google Agenda não aparecer para você, vá para a agenda de exemplo do passo 5."
+            },
+            "gemini": {
+              "texto": [
+                "O Gemini já enxerga a Agenda da **conta Google** em que você está logado. Confira em **Configurações → Apps** que o **Google Agenda** está ligado."
+              ],
+              "aviso": "Funciona em **conta gratuita**. Numa conta Google Workspace da empresa, depende do que o administrador liberou: se não aparecer, passo 5."
+            },
+            "chatgpt": {
+              "texto": [
+                "Em **Configurações → Aplicativos e conectores**, procure **Google Agenda** ou **Outlook Calendar** e clique em conectar. Faça login e aprove.",
+                "Confirme que aparece como conectado antes da primeira pergunta."
+              ],
+              "aviso": "Os conectores do ChatGPT costumam exigir **plano pago (Plus ou superior)**. Em conta gratuita, vá direto para o passo 5."
+            },
+            "copilot": {
+              "texto": [
+                "O Copilot já enxerga o seu calendário do Outlook: não há conector para ligar. Confirme que você está no Copilot da conta da empresa, e não na pessoal."
+              ],
+              "aviso": "Vale com **licença do Microsoft 365 Copilot**. Sem ela, passo 5."
+            }
+          }
+        },
+        {
+          "titulo": "Antes de clicar em “permitir”, leia a tela",
+          "texto": [
+            "A tela de consentimento diz exatamente **o que você está entregando**. Repare em três coisas: **quem** está pedindo (o aplicativo certo, não um parecido), **o que** ele vai poder fazer (só ler a agenda? criar e editar eventos?) e **por quanto tempo**.",
+            "Se ela pede mais do que você quer dar, pare e use a agenda de exemplo. Não conectar também é uma decisão — e é o assunto da conversa do fim."
+          ]
+        },
+        {
+          "titulo": "Sem conectar: a agenda de exemplo",
+          "texto": [
+            "O TI bloqueou, o aplicativo pede plano pago, ou você não quer abrir a sua agenda? Baixe a [agenda de exemplo](../ferramentas/agenda-ipe-roxo.pdf) — a semana da Helena Prado, diretora de operações da Ipê Roxo, uma distribuidora de alimentos fictícia — e **anexe o PDF** ao assistente, como documento.",
+            "Como a semana dela é de 16 a 20 de novembro, avise o assistente na primeira mensagem:"
+          ],
+          "arquivo": "Prompt",
+          "codigo": "Use a agenda anexada como se fosse a minha. Considere que hoje é terça, 17 de novembro de 2026, e que agora são 9h.",
+          "depois": [
+            "Quer ver o assistente lendo uma agenda de verdade, sem expor a sua? Crie uma agenda **nova e vazia** no Google Agenda ou no Outlook e importe nela o [arquivo .ics](../ferramentas/agenda-ipe-roxo.ics) — os mesmos compromissos. Nunca importe na sua agenda principal.",
+            "Outra saída, com a sua própria agenda: tire um print da sua semana e cole na conversa."
+          ]
+        },
+        {
+          "titulo": "Avançado: o mesmo por baixo, num harness",
+          "texto": [
+            "O que você ligou em dois cliques é, por baixo, um servidor que expõe a sua agenda como **ferramenta**. Num harness de desktop — Claude Desktop, Codex, Antigravity, Copilot no VS Code — isso se configura à mão, por MCP, e aí você escolhe exatamente quais ferramentas o agente enxerga: só *ler eventos*, ou também *criar*.",
+            "É esse o caminho quando o assistente precisa alcançar os sistemas da empresa, e não só a sua agenda."
+          ],
+          "aviso": "Os harnesses de desktop quase todos pedem conta paga — Codex e Cowork pedem plano, o Antigravity tem camada gratuita com cota pequena."
+        }
+      ]
+    },
+    {
+      "id": "testes",
+      "titulo": "Parte 2 · Perguntar e conferir",
+      "texto": "Com o assistente pronto, abra o documento ao lado e confira cada resposta nele.",
+      "passos": [
+        {
+          "titulo": "Peça o dia, a semana e um espaço",
+          "texto": [
+            "Mande os pedidos abaixo, **um de cada vez**:"
+          ],
+          "arquivo": "Pedidos",
+          "codigo": "O que eu tenho hoje, e o que preciso preparar para cada compromisso?\n\nQuais são os três compromissos mais importantes da semana, e por quê?\n\nAche duas janelas de 1h30 esta semana para eu escrever o planejamento de 2027, longe de reunião.",
+          "depois": [
+            "Troque o último pelo que **nunca** cabe na sua semana: estudar, ligar para um cliente, pensar.",
+            "Na agenda de exemplo, repare: terça às 10h há **dois compromissos ao mesmo tempo** — ele avisou? E as janelas de 1h30 que existem de verdade são quarta 13h30–15h e sexta 13h–15h ou 16h–18h. Quinta às 15h está livre, mas a Helena passa o dia no CD."
+          ]
+        },
+        {
+          "titulo": "Confira, sempre na agenda",
+          "texto": [
+            "Abra a agenda (a sua ou o PDF) do lado da conversa. Os horários batem? Ele inventou algum compromisso, ou alguém numa reunião? A janela que ele achou está mesmo livre, ou ele ignorou um evento do dia inteiro?",
+            "Se errou, não conserte a resposta: **conserte a instrução** e pergunte de novo, numa conversa nova."
+          ]
+        },
+        {
+          "titulo": "Agora, o pedido que mexe na agenda",
+          "texto": [
+            "Mande:"
+          ],
+          "arquivo": "Prompt",
+          "codigo": "Pode marcar a primeira janela.",
+          "depois": [
+            "Repare no que acontece. Com a última regra, ele deve **confirmar** antes. Em alguns aplicativos o conector só lê e ele não consegue marcar; em outros, ele marca de verdade.",
+            "Quem decidiu se ele podia mexer na sua agenda: você, a instrução, o aplicativo ou o TI? Guarde a resposta — é a conversa do fim da sessão."
+          ],
+          "aviso": "Se você usou a sua agenda de verdade e ele marcou, apague o evento depois."
+        }
+      ]
+    }
+  ]
 }

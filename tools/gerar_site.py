@@ -341,6 +341,26 @@ SELETOR = """<script>
 </script>"""
 
 
+ABAS = """<script>
+/* Abas de um guia em partes: mostra uma parte por vez. A aba vem do #<id> do endereço, senão é a primeira.
+   Um link para #<id> dentro da página também troca de aba. */
+(() => {
+  const raiz = document.documentElement, botoes = [...document.querySelectorAll(".abas button")];
+  const ids = botoes.map(b => b.dataset.parte);
+  const mostrar = (id, rolar) => {
+    if (!ids.includes(id)) id = ids[0];
+    raiz.dataset.parte = id;
+    botoes.forEach(b => b.setAttribute("aria-selected", b.dataset.parte === id ? "true" : "false"));
+    if (rolar) document.querySelector(".abas").scrollIntoView({ block: "start" });
+  };
+  raiz.classList.add("com-abas");
+  mostrar(location.hash.slice(1), false);
+  botoes.forEach(b => b.addEventListener("click", () => { history.replaceState(null, "", location.search + "#" + b.dataset.parte); mostrar(b.dataset.parte, false); }));
+  addEventListener("hashchange", () => mostrar(location.hash.slice(1), true));
+})();
+</script>"""
+
+
 def gerar_preparacao(site: dict, curso: dict, prep: dict) -> str:
     """Passo a passo no padrão Steps do Starlight: círculos numerados ligados por uma linha.
 
@@ -352,7 +372,10 @@ def gerar_preparacao(site: dict, curso: dict, prep: dict) -> str:
     Num passo, `"variantes": {id: {campos}}` troca esses campos conforme a opção escolhida, de qualquer eixo;
     `{chave}` em qualquer texto (por exemplo `{app}` ou `{persona}`) vira o rótulo da opção escolhida naquele eixo.
     Um problema com um terceiro item (o id de uma opção) só aparece quando ela está escolhida.
-    O link `<nome>/?app=<id>&persona=<id>` abre o guia já numa combinação."""
+    O link `<nome>/?app=<id>&persona=<id>` abre o guia já numa combinação.
+
+    Em vez de `"passos"`, o guia pode ter `"partes": [{"id", "titulo", "texto"?, "passos"}]`: guias distintos
+    (por exemplo, montar e testar) na mesma página, cada um com título, âncora `#<id>` e numeração própria."""
     eixos = prep.get("eixos") or ([{"chave": "app", "rotulo": "Aplicativo", "opcoes": prep["variantes"]}]
                                   if prep.get("variantes") else [])
     de_id = {o["id"]: (e, o) for e in eixos for o in e["opcoes"]}
@@ -429,8 +452,28 @@ def gerar_preparacao(site: dict, curso: dict, prep: dict) -> str:
 {por_variante(lambda d: f"<p>{inline(d['resumo'])}</p>", {"resumo": prep["resumo"], "variantes": prep.get("variantes_resumo", {})})}
 {f"<p>{inline(prep['contexto'])}</p>" if prep.get('contexto') else ''}
 </section>"""
-    etapas = [f'<li class="etapa" id="passo-{n}">{por_variante(gerar_passo, passo)}</li>' for n, passo in enumerate(prep["passos"], 1)]
-    partes = [estilo + topo, f'<section class="secao"><ol class="etapas">{"".join(etapas)}</ol></section>']
+    partes = [estilo + topo]
+    if prep.get("partes"):
+        # Guia em partes (por exemplo, montar e testar): o mesmo tutorial, numa página só, com uma aba por parte.
+        # Cada parte tem âncora própria (#<id>, que abre a aba) e a numeração dos passos recomeçando do 1.
+        # Sem JavaScript (ou na impressão), as partes aparecem uma embaixo da outra.
+        abas = "".join(f'<button type="button" role="tab" data-parte="{escape(p["id"])}" aria-selected="{"true" if k == 0 else "false"}">'
+                       f'{escape(p["titulo"])}</button>' for k, p in enumerate(prep["partes"]))
+        ocultar = "".join(f'html.com-abas:not([data-parte="{escape(p["id"])}"]) .parte[data-parte="{escape(p["id"])}"] {{ display: none; }}'
+                          for p in prep["partes"])
+        blocos = [f'<nav class="abas" role="tablist" aria-label="Partes do guia">{abas}</nav>']
+        for parte in prep["partes"]:
+            pid = escape(parte["id"])
+            etapas = [f'<li class="etapa" id="{pid}-passo-{n}">{por_variante(gerar_passo, passo)}</li>'
+                      for n, passo in enumerate(parte["passos"], 1)]
+            intro = f"<p>{inline(parte['texto'])}</p>" if parte.get("texto") else ""
+            blocos.append(f'<div class="parte" role="tabpanel" id="{pid}" data-parte="{pid}">'
+                          f'<h2>{escape(parte["titulo"])}</h2>{intro}<ol class="etapas">{"".join(etapas)}</ol></div>')
+        partes.append(f'<style>@media screen {{ {ocultar} }}</style><section class="secao">{"".join(blocos)}</section>')
+        partes.append(ABAS)
+    else:
+        etapas = [f'<li class="etapa" id="passo-{n}">{por_variante(gerar_passo, passo)}</li>' for n, passo in enumerate(prep["passos"], 1)]
+        partes.append(f'<section class="secao"><ol class="etapas">{"".join(etapas)}</ol></section>')
     if prep.get("problemas"):
         itens = []
         for problema in prep["problemas"]:

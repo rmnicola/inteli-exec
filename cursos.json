@@ -151,7 +151,7 @@
           "apresentacao": "assistente/apresentacao/dist/index.html",
           "materiais": [
             {
-              "rotulo": "Montando um assistente em 20 minutos",
+              "rotulo": "Monte e teste o seu assistente",
               "tipo": "passo a passo",
               "link": "../montar-assistente/"
             },

@@ -1,5 +1,5 @@
 {
-  "titulo": "Montando um assistente em 20 minutos",
+  "titulo": "Monte e teste o seu assistente",
   "eixos": [
     {
       "chave": "app",
@@ -38,218 +38,9 @@
       ]
     }
   ],
-  "resumo": "Transformar o {app} num assistente que analisa um contrato antes da assinatura — com instruções escritas uma vez, no formato CREATE, e o contrato anexado — e que diz “o contrato não trata disso” quando a resposta não está lá.",
+  "resumo": "Comparar, no {app}, um prompt genérico com um prompt bem feito sobre o mesmo contrato, e transformar o bem feito num assistente — com as instruções salvas e o contrato anexado.",
   "contexto": "**O caso (fictício):** você está na diretoria da **Ipê Roxo**, uma distribuidora de alimentos. A **Kodama** mandou a minuta de um contrato de transformação digital de R$ 4,8 milhões, e a assinatura é na sexta. Antes, você precisa saber o que está assinando.\n\nEscolha o seu aplicativo no seletor acima. O caminho **No chat** funciona em conta gratuita e é o da sala; o caminho **Na pasta** é para quem já tem um aplicativo de desktop instalado. Você vai precisar de uma coisa só: o PDF do [contrato](../assistente/contrato-ipe-roxo-kodama.pdf).",
-  "passos": [
-    {
-      "titulo": "Baixe o contrato",
-      "texto": [
-        "Baixe o PDF do [contrato da Kodama](../assistente/contrato-ipe-roxo-kodama.pdf). É o único arquivo que você precisa.",
-        "Dá para ler agora: são duas páginas e dezessete cláusulas. Isso importa, porque daqui a pouco você vai conferir as respostas do assistente contra ele."
-      ]
-    },
-    {
-      "titulo": "Crie o assistente",
-      "variantes": {
-        "gemini": {
-          "texto": [
-            "Em [gemini.google.com](https://gemini.google.com), abra **Gems** na barra da esquerda e clique em **Novo Gem**. Dê um nome: *Contrato Kodama*."
-          ],
-          "aviso": "A janela de prévia **não salva sozinha**. Clique em **Salvar** no fim."
-        },
-        "chatgpt": {
-          "texto": [
-            "Em [chatgpt.com](https://chatgpt.com), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Contrato Kodama*.",
-            "Criar um GPT personalizado não existe mais em conta pessoal — o Projeto é o equivalente: tem instruções fixas e arquivos."
-          ]
-        },
-        "claude": {
-          "texto": [
-            "Em [claude.ai](https://claude.ai), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Contrato Kodama*."
-          ],
-          "aviso": "O plano gratuito permite até cinco projetos."
-        },
-        "copilot": {
-          "texto": [
-            "No Microsoft 365 Copilot, abra **Agentes** e clique em **Novo agente**. Dê um nome: *Contrato Kodama*."
-          ],
-          "aviso": "O criador de agentes pede **conta de trabalho ou escolar com licença do Microsoft 365 Copilot**. Em conta pessoal gratuita ele não deixa anexar arquivos. Sem a licença, pule para o passo 5: você cola as instruções e anexa o PDF direto na conversa do Copilot. Funciona igual — só não fica salvo para a próxima vez."
-        },
-        "pasta": {
-          "texto": [
-            "Este passo é só do caminho **No chat**. Na pasta, o lugar das instruções é outro: siga para o próximo."
-          ],
-          "aviso": ""
-        }
-      }
-    },
-    {
-      "titulo": "Instale o aplicativo de desktop",
-      "variantes": {
-        "chat": {
-          "texto": [
-            "Este passo é só do caminho **Na pasta**. No chat, siga para o próximo."
-          ],
-          "aviso": ""
-        },
-        "gemini": {
-          "texto": [
-            "Da casa do Gemini, o aplicativo que trabalha em pastas é o **Antigravity**: baixe em [antigravity.google/download](https://antigravity.google/download) e entre com a sua conta Google."
-          ],
-          "aviso": "O Antigravity funciona em **conta gratuita**, com uma cota diária de pedidos que é pequena e já foi reduzida mais de uma vez. Se a cota acabar no meio do workshop, volte ao caminho do chat."
-        },
-        "chatgpt": {
-          "texto": [
-            "Da casa do ChatGPT, o aplicativo que trabalha em pastas é o **Codex**. Instale pelo site do Codex e entre com a sua conta."
-          ],
-          "aviso": "O Codex **exige plano pago do ChatGPT**. Em conta gratuita ele não abre: use o caminho do chat."
-        },
-        "claude": {
-          "texto": [
-            "Da casa do Claude, o aplicativo que trabalha em pastas é o **Claude Desktop**, no modo **Cowork**. Baixe em [claude.ai/download](https://claude.ai/download)."
-          ],
-          "aviso": "O Cowork **depende do plano da sua conta** — ele saiu como prévia para o plano Max. Se não aparecer no aplicativo, use o caminho do chat."
-        },
-        "copilot": {
-          "texto": [
-            "Da casa do Copilot, o que trabalha em pastas é o **GitHub Copilot no VS Code**, em *agent mode*: instale o [VS Code](https://code.visualstudio.com), entre com a conta do GitHub e troque o modo do chat para **Agent**."
-          ],
-          "aviso": "O agent mode funciona em **conta gratuita do GitHub**, com uso limitado de chat e de agente por mês. É o caminho com mais instalação: se você nunca abriu o VS Code, faça o do chat primeiro."
-        }
-      }
-    },
-    {
-      "titulo": "Prepare a pasta",
-      "variantes": {
-        "chat": {
-          "texto": [
-            "Também é só do caminho **Na pasta**. Siga para o próximo."
-          ]
-        },
-        "pasta": {
-          "texto": [
-            "Crie uma pasta no computador, por exemplo `contrato`, e ponha o PDF do contrato dentro dela.",
-            "Abra **a pasta** no aplicativo — não o arquivo solto — e autorize o acesso quando ele pedir."
-          ],
-          "aviso": "Dê acesso só a essa pasta. O agente pode criar, editar e apagar arquivos no que você liberar."
-        }
-      }
-    },
-    {
-      "titulo": "Escreva as instruções",
-      "texto": [
-        "São as seis partes do **CREATE**: *character* (papel), *request* (tarefa), *examples* (exemplos), *adjustments* (regras), *type of output* (formato) e *extras*. Copie e cole."
-      ],
-      "arquivo": "Instruções",
-      "codigo": "# CHARACTER (papel)\nVocê é analista de contratos da diretoria da Ipê Roxo Distribuição de Alimentos. Quem pergunta é um executivo da Ipê Roxo que precisa decidir se assina este contrato. Você está do lado da Ipê Roxo.\n\n# REQUEST (tarefa)\nAvaliar o contrato anexado antes da assinatura: responder às perguntas sobre ele e apontar o que é arriscado para a Ipê Roxo.\n\n# EXAMPLES (exemplos)\nPergunta: \"A Kodama pode passar o serviço para outra empresa?\"\nResposta: \"Pode. Ela subcontrata parte dos serviços sem aviso prévio (Cláusula 8.1). Risco: médio. Negociar: aviso prévio e aprovação da Ipê Roxo.\"\n\n# ADJUSTMENTS (regras)\n- Use SOMENTE o contrato anexado. Não complete lacunas com o que costuma haver em contratos.\n- Cite sempre o número da cláusula.\n- Nada de introdução (\"ótima pergunta\"), nada de emoji.\n\n# TYPE OF OUTPUT (formato)\n- Comece pela resposta direta, em até duas frases, com a cláusula.\n- Quando pedirem uma lista de riscos, responda numa tabela: cláusula | o que diz | risco (alto, médio, baixo) | o que negociar.\n\n# EXTRAS\n- Se a resposta não estiver no contrato, responda exatamente: \"O contrato não trata disso.\" e diga, em uma frase, por que isso importa para a Ipê Roxo.\n- Você não decide se a Ipê Roxo assina. Se perguntarem, liste os pontos em aberto e diga que a decisão é do executivo, com o jurídico.",
-      "variantes": {
-        "chat": {
-          "depois": [
-            "Cole no campo de **instruções** do assistente que você acabou de criar e salve."
-          ]
-        },
-        "pasta": {
-          "depois": [
-            "Mande isso ao agente como primeira mensagem, pedindo que ele guarde as regras num arquivo da pasta e as siga daqui em diante."
-          ]
-        }
-      }
-    },
-    {
-      "titulo": "Anexe o contrato",
-      "variantes": {
-        "pasta": {
-          "texto": [
-            "O PDF já está na pasta: o agente lê de lá. Peça que ele abra o arquivo antes de responder qualquer coisa."
-          ]
-        },
-        "gemini": {
-          "texto": [
-            "Na seção **Conhecimento** do Gem, clique em **Adicionar arquivos** e envie o PDF. Depois clique em **Salvar**.",
-            "Ele fica guardado ali e vale em toda conversa: você não anexa de novo a cada pergunta."
-          ]
-        },
-        "chatgpt": {
-          "texto": [
-            "Nos **arquivos do projeto**, envie o PDF do contrato.",
-            "Ele fica guardado ali e vale em toda conversa do projeto: você não anexa de novo a cada pergunta."
-          ]
-        },
-        "claude": {
-          "texto": [
-            "No **conhecimento do projeto**, envie o PDF do contrato.",
-            "Ele fica guardado ali e vale em toda conversa do projeto: você não anexa de novo a cada pergunta."
-          ]
-        },
-        "copilot": {
-          "texto": [
-            "Na base de conhecimento do agente, envie o PDF do contrato.",
-            "Sem a licença do Microsoft 365 Copilot, anexe o PDF direto na conversa e cole as instruções antes da primeira pergunta: funciona igual, só não fica salvo."
-          ]
-        }
-      }
-    },
-    {
-      "titulo": "Faça as perguntas de teste",
-      "texto": [
-        "Abra uma conversa no assistente e mande as perguntas abaixo, **uma de cada vez**. Confira cada resposta olhando o PDF: a cláusula citada diz mesmo aquilo?"
-      ],
-      "arquivo": "Perguntas",
-      "codigo": "Quanto a Ipê Roxo vai pagar no total?\n\nEm quanto tempo fica pronto?\n\nSe quisermos sair do contrato no meio, quanto custa?\n\nO que acontece com os nossos dados?\n\nListe os pontos que mais favorecem a Kodama.",
-      "depois": [
-        "Repare na primeira: os R$ 4,8 milhões estão na Cláusula 3.1, mas a 3.2 cobra a licença **à parte**, todo mês. O assistente parou no 4,8?",
-        "A última obriga o assistente a ler o contrato inteiro. Peça a tabela e confira duas ou três cláusulas no PDF."
-      ]
-    },
-    {
-      "titulo": "Agora a pergunta que não tem resposta",
-      "texto": [
-        "Mande esta:"
-      ],
-      "arquivo": "Prompt",
-      "codigo": "Qual é a multa se a Kodama atrasar a entrega?",
-      "depois": [
-        "O contrato **não prevê multa nenhuma para atraso da Kodama** — e ainda diz que os prazos são estimados (Cláusula 2.2).",
-        "Se o seu assistente respondeu “2% mais juros de 1% ao mês”, ele inventou: copiou a Cláusula 5, que é a multa **da Ipê Roxo** por atrasar pagamento. As palavras certas, na cláusula errada.",
-        "Se ele respondeu “o contrato não trata disso”, foi **a sua instrução** que fez isso — a parte dos *extras*. É a parte que quase todo mundo esquece de escrever, e é a que separa um assistente que você pode usar de um que você precisa conferir.",
-        "Agora mande a última: **“Posso assinar?”** Um bom assistente não decide por você: lista o que está em aberto e devolve a decisão. Quem assina é você."
-      ]
-    },
-    {
-      "titulo": "Conserte a instrução, não a resposta",
-      "texto": [
-        "Inventou? Volte ao campo de instruções e reforce os *extras*: escreva a frase exata que ele deve responder, entre aspas, e acrescente o que ele não pode inventar.",
-        "Abra uma conversa **nova** e pergunte de novo. Em alguns aplicativos a instrução alterada só vale a partir da próxima conversa.",
-        "Mude **uma coisa por vez**. Trocando três linhas de uma vez, você não sabe qual delas resolveu."
-      ],
-      "aviso": "Este é o ciclo inteiro: perguntar, conferir contra o documento, ajustar a instrução, perguntar de novo. Serve para qualquer assistente que você montar depois deste."
-    },
-    {
-      "titulo": "Troque o documento pelo seu",
-      "texto": [
-        "O assistente que você montou não tem nada de específico sobre a Kodama: ele tem um papel, uma tarefa, um exemplo, regras, um formato e um documento.",
-        "Troque o contrato por um documento do seu trabalho — um contrato de verdade, uma política, um manual, a ata de uma reunião — ajuste o papel e o exemplo nas instruções e teste com as perguntas que **você** recebe toda semana.",
-        "Leve o seu caso para a conversa: é isso que a gente faz no curso completo."
-      ]
-    }
-  ],
   "problemas": [
-    [
-      "Ele responde coisas que não estão no contrato.",
-      "A parte dos *extras* está fraca ou não existe. Escreva a frase exata que ele deve responder, entre aspas, dentro da instrução."
-    ],
-    [
-      "Ele cita a cláusula errada.",
-      "Peça que a resposta traga **o trecho copiado** do contrato junto do número da cláusula. Fica mais fácil conferir, e ele erra menos."
-    ],
-    [
-      "As respostas ficaram longas demais.",
-      "Acrescente um limite explícito: *“Responda em no máximo três frases.”* Limite em número funciona melhor que “seja breve”."
-    ],
-    [
-      "Mudei a instrução e nada mudou.",
-      "Abra uma conversa nova dentro do assistente: a que já estava aberta pode seguir com a instrução antiga."
-    ],
     [
       "O PDF não subiu.",
       "Tente de novo com a rede do evento instável; se insistir em falhar, copie o texto do contrato e cole dentro das próprias instruções."
@@ -268,7 +59,245 @@
       "O agente não enxerga o arquivo.",
       "Confira que você abriu a **pasta**, e não o PDF solto, e que autorizou o acesso quando ele pediu.",
       "pasta"
+    ],
+    [
+      "Ele responde coisas que não estão no contrato.",
+      "A parte dos *extras* está fraca ou não existe. Escreva a frase exata que ele deve responder, entre aspas, dentro da instrução."
+    ],
+    [
+      "Ele cita a cláusula errada.",
+      "Peça que a resposta traga **o trecho copiado** do contrato junto do número da cláusula. Fica mais fácil conferir, e ele erra menos."
+    ],
+    [
+      "As respostas ficaram longas demais.",
+      "Acrescente um limite explícito: *“Responda em no máximo três frases.”* Limite em número funciona melhor que “seja breve”."
+    ],
+    [
+      "Mudei a instrução e nada mudou.",
+      "Abra uma conversa nova dentro do assistente: a que já estava aberta pode seguir com a instrução antiga."
     ]
   ],
-  "fechamento": "Este guia fica no ar depois do evento: rmnicola.github.io/inteli-exec/zoox"
+  "fechamento": "Este guia fica no ar depois do evento: rmnicola.github.io/inteli-exec/zoox",
+  "partes": [
+    {
+      "id": "montar",
+      "titulo": "Parte 1 · Montar o assistente",
+      "passos": [
+        {
+          "titulo": "Baixe o contrato",
+          "texto": [
+            "Baixe o PDF do [contrato da Kodama](../assistente/contrato-ipe-roxo-kodama.pdf). É o único arquivo que você precisa.",
+            "Dá para ler agora: são duas páginas e dezessete cláusulas. Isso importa, porque daqui a pouco você vai conferir as respostas do assistente contra ele."
+          ]
+        },
+        {
+          "titulo": "Instale o aplicativo de desktop",
+          "variantes": {
+            "chat": {
+              "texto": [
+                "Este passo é só do caminho **Na pasta**. No chat, siga para o próximo."
+              ],
+              "aviso": ""
+            },
+            "gemini": {
+              "texto": [
+                "Da casa do Gemini, o aplicativo que trabalha em pastas é o **Antigravity**: baixe em [antigravity.google/download](https://antigravity.google/download) e entre com a sua conta Google."
+              ],
+              "aviso": "O Antigravity funciona em **conta gratuita**, com uma cota diária de pedidos que é pequena e já foi reduzida mais de uma vez. Se a cota acabar no meio do workshop, volte ao caminho do chat."
+            },
+            "chatgpt": {
+              "texto": [
+                "Da casa do ChatGPT, o aplicativo que trabalha em pastas é o **Codex**. Instale pelo site do Codex e entre com a sua conta."
+              ],
+              "aviso": "O Codex **exige plano pago do ChatGPT**. Em conta gratuita ele não abre: use o caminho do chat."
+            },
+            "claude": {
+              "texto": [
+                "Da casa do Claude, o aplicativo que trabalha em pastas é o **Claude Desktop**, no modo **Cowork**. Baixe em [claude.ai/download](https://claude.ai/download)."
+              ],
+              "aviso": "O Cowork **depende do plano da sua conta** — ele saiu como prévia para o plano Max. Se não aparecer no aplicativo, use o caminho do chat."
+            },
+            "copilot": {
+              "texto": [
+                "Da casa do Copilot, o que trabalha em pastas é o **GitHub Copilot no VS Code**, em *agent mode*: instale o [VS Code](https://code.visualstudio.com), entre com a conta do GitHub e troque o modo do chat para **Agent**."
+              ],
+              "aviso": "O agent mode funciona em **conta gratuita do GitHub**, com uso limitado de chat e de agente por mês. É o caminho com mais instalação: se você nunca abriu o VS Code, faça o do chat primeiro."
+            }
+          }
+        },
+        {
+          "titulo": "Prepare a pasta",
+          "variantes": {
+            "chat": {
+              "texto": [
+                "Também é só do caminho **Na pasta**. Siga para o próximo."
+              ]
+            },
+            "pasta": {
+              "texto": [
+                "Crie uma pasta no computador, por exemplo `contrato`, e ponha o PDF do contrato dentro dela.",
+                "Abra **a pasta** no aplicativo — não o arquivo solto — e autorize o acesso quando ele pedir."
+              ],
+              "aviso": "Dê acesso só a essa pasta. O agente pode criar, editar e apagar arquivos no que você liberar."
+            }
+          }
+        },
+        {
+          "titulo": "Primeiro, um prompt simples",
+          "texto": [
+            "Abra uma conversa nova no {app}, **anexe o PDF do contrato** e mande só isto:"
+          ],
+          "arquivo": "Prompt",
+          "codigo": "Leia este contrato e avalie.",
+          "depois": [
+            "Leia a resposta com calma e guarde-a. Ela cita o número das cláusulas? Está do lado de quem — da Ipê Roxo ou de ninguém? Pegou a licença de R$ 38 mil por mês, escondida na Cláusula 3.2?",
+            "Não é culpa do modelo: ninguém disse a ele quem ele é, para quem trabalha, o que procurar nem em que formato responder."
+          ],
+          "variantes": {
+            "pasta": {
+              "texto": [
+                "Abra o agente na pasta do contrato e mande só isto:"
+              ]
+            }
+          }
+        },
+        {
+          "titulo": "Agora, o prompt bem feito",
+          "texto": [
+            "Abra **outra** conversa, anexe o contrato de novo e cole o prompt abaixo. São as seis partes do **CREATE**: *character* (papel), *request* (tarefa), *examples* (exemplos), *adjustments* (regras), *type of output* (formato) e *extras*."
+          ],
+          "arquivo": "Prompt",
+          "codigo": "# CHARACTER (papel)\nVocê é analista de contratos da diretoria da Ipê Roxo Distribuição de Alimentos. Quem pergunta é um executivo da Ipê Roxo que precisa decidir se assina este contrato. Você está do lado da Ipê Roxo.\n\n# REQUEST (tarefa)\nAvaliar o contrato anexado antes da assinatura: responder às perguntas sobre ele e apontar o que é arriscado para a Ipê Roxo.\n\n# EXAMPLES (exemplos)\nPergunta: \"A Kodama pode passar o serviço para outra empresa?\"\nResposta: \"Pode. Ela subcontrata parte dos serviços sem aviso prévio (Cláusula 8.1). Risco: médio. Negociar: aviso prévio e aprovação da Ipê Roxo.\"\n\n# ADJUSTMENTS (regras)\n- Use SOMENTE o contrato anexado. Não complete lacunas com o que costuma haver em contratos.\n- Cite sempre o número da cláusula.\n- Nada de introdução (\"ótima pergunta\"), nada de emoji.\n\n# TYPE OF OUTPUT (formato)\n- Comece pela resposta direta, em até duas frases, com a cláusula.\n- Quando pedirem uma lista de riscos, responda numa tabela: cláusula | o que diz | risco (alto, médio, baixo) | o que negociar.\n\n# EXTRAS\n- Se a resposta não estiver no contrato, responda exatamente: \"O contrato não trata disso.\" e diga, em uma frase, por que isso importa para a Ipê Roxo.\n- Você não decide se a Ipê Roxo assina. Se perguntarem, liste os pontos em aberto e diga que a decisão é do executivo, com o jurídico.\n\n# PEDIDO\nAvalie o contrato anexado: quais são os cinco maiores riscos para a Ipê Roxo?",
+          "depois": [
+            "Compare com a primeira resposta. Mesmo modelo, mesmo contrato: o que mudou foi só o que você escreveu.",
+            "Repare em três coisas: agora ele cita a cláusula, fala do lado da Ipê Roxo e responde numa tabela que dá para levar para a reunião."
+          ],
+          "variantes": {
+            "pasta": {
+              "texto": [
+                "Numa conversa **nova** com o agente, cole o prompt abaixo. São as seis partes do **CREATE**: *character* (papel), *request* (tarefa), *examples* (exemplos), *adjustments* (regras), *type of output* (formato) e *extras*."
+              ]
+            }
+          }
+        },
+        {
+          "titulo": "Transforme em assistente",
+          "texto": [
+            "Agora deixe esse prompt salvo, para não colar tudo de novo a cada conversa: ele vira as **instruções** de um assistente, e o contrato fica anexado nele."
+          ],
+          "arquivo": "Instruções",
+          "codigo": "# CHARACTER (papel)\nVocê é analista de contratos da diretoria da Ipê Roxo Distribuição de Alimentos. Quem pergunta é um executivo da Ipê Roxo que precisa decidir se assina este contrato. Você está do lado da Ipê Roxo.\n\n# REQUEST (tarefa)\nAvaliar o contrato anexado antes da assinatura: responder às perguntas sobre ele e apontar o que é arriscado para a Ipê Roxo.\n\n# EXAMPLES (exemplos)\nPergunta: \"A Kodama pode passar o serviço para outra empresa?\"\nResposta: \"Pode. Ela subcontrata parte dos serviços sem aviso prévio (Cláusula 8.1). Risco: médio. Negociar: aviso prévio e aprovação da Ipê Roxo.\"\n\n# ADJUSTMENTS (regras)\n- Use SOMENTE o contrato anexado. Não complete lacunas com o que costuma haver em contratos.\n- Cite sempre o número da cláusula.\n- Nada de introdução (\"ótima pergunta\"), nada de emoji.\n\n# TYPE OF OUTPUT (formato)\n- Comece pela resposta direta, em até duas frases, com a cláusula.\n- Quando pedirem uma lista de riscos, responda numa tabela: cláusula | o que diz | risco (alto, médio, baixo) | o que negociar.\n\n# EXTRAS\n- Se a resposta não estiver no contrato, responda exatamente: \"O contrato não trata disso.\" e diga, em uma frase, por que isso importa para a Ipê Roxo.\n- Você não decide se a Ipê Roxo assina. Se perguntarem, liste os pontos em aberto e diga que a decisão é do executivo, com o jurídico.",
+          "variantes": {
+            "gemini": {
+              "texto": [
+                "Em [gemini.google.com](https://gemini.google.com), abra **Gems** na barra da esquerda e clique em **Novo Gem**. Dê um nome: *Contrato Kodama*.",
+                "Cole as instruções abaixo no campo de **instruções** — são as mesmas seis partes, sem o pedido do fim."
+              ],
+              "depois": [
+                "Na seção **Conhecimento** do Gem, clique em **Adicionar arquivos** e envie o PDF. Depois clique em **Salvar**.",
+                "Ele fica guardado ali e vale em toda conversa: você não anexa de novo a cada pergunta.",
+                "Abra uma conversa no assistente e faça um teste rápido: *“Quanto a Ipê Roxo vai pagar no total?”*. Os testes de verdade estão na [parte 2](#testes), logo abaixo."
+              ],
+              "aviso": "A janela de prévia **não salva sozinha**. Clique em **Salvar** no fim."
+            },
+            "chatgpt": {
+              "texto": [
+                "Em [chatgpt.com](https://chatgpt.com), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Contrato Kodama*.",
+                "Criar um GPT personalizado não existe mais em conta pessoal — o Projeto é o equivalente: tem instruções fixas e arquivos.",
+                "Cole as instruções abaixo no campo de **instruções** — são as mesmas seis partes, sem o pedido do fim."
+              ],
+              "depois": [
+                "Nos **arquivos do projeto**, envie o PDF do contrato.",
+                "Ele fica guardado ali e vale em toda conversa do projeto: você não anexa de novo a cada pergunta.",
+                "Abra uma conversa no assistente e faça um teste rápido: *“Quanto a Ipê Roxo vai pagar no total?”*. Os testes de verdade estão na [parte 2](#testes), logo abaixo."
+              ]
+            },
+            "claude": {
+              "texto": [
+                "Em [claude.ai](https://claude.ai), abra **Projetos** na barra da esquerda e clique em **Novo projeto**. Dê um nome: *Contrato Kodama*.",
+                "Cole as instruções abaixo no campo de **instruções** — são as mesmas seis partes, sem o pedido do fim."
+              ],
+              "depois": [
+                "No **conhecimento do projeto**, envie o PDF do contrato.",
+                "Ele fica guardado ali e vale em toda conversa do projeto: você não anexa de novo a cada pergunta.",
+                "Abra uma conversa no assistente e faça um teste rápido: *“Quanto a Ipê Roxo vai pagar no total?”*. Os testes de verdade estão na [parte 2](#testes), logo abaixo."
+              ],
+              "aviso": "O plano gratuito permite até cinco projetos."
+            },
+            "copilot": {
+              "texto": [
+                "No Microsoft 365 Copilot, abra **Agentes** e clique em **Novo agente**. Dê um nome: *Contrato Kodama*.",
+                "Cole as instruções abaixo no campo de **instruções** — são as mesmas seis partes, sem o pedido do fim."
+              ],
+              "depois": [
+                "Na base de conhecimento do agente, envie o PDF do contrato.",
+                "Sem a licença do Microsoft 365 Copilot, anexe o PDF direto na conversa e cole as instruções antes da primeira pergunta: funciona igual, só não fica salvo.",
+                "Abra uma conversa no assistente e faça um teste rápido: *“Quanto a Ipê Roxo vai pagar no total?”*. Os testes de verdade estão na [parte 2](#testes), logo abaixo."
+              ],
+              "aviso": "O criador de agentes pede **conta de trabalho ou escolar com licença do Microsoft 365 Copilot**. Em conta pessoal gratuita ele não deixa anexar arquivos. Sem a licença, fique com o prompt bem feito do passo anterior: colar as instruções e anexar o PDF direto na conversa do Copilot funciona igual — só não fica salvo para a próxima vez."
+            },
+            "pasta": {
+              "texto": [
+                "Na pasta, o assistente é o próprio agente com as regras guardadas num arquivo. Mande as instruções abaixo e peça que ele as guarde num arquivo da pasta, por exemplo `INSTRUCOES.md`, e as siga daqui em diante."
+              ],
+              "depois": [
+                "O contrato já está na pasta. Teste rápido: *“Quanto a Ipê Roxo vai pagar no total?”*. Os testes de verdade estão na [parte 2](#testes), logo abaixo."
+              ],
+              "aviso": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "testes",
+      "titulo": "Parte 2 · Testar o assistente",
+      "texto": "Com o assistente pronto, abra o documento ao lado e confira cada resposta nele.",
+      "passos": [
+        {
+          "titulo": "Faça as perguntas de teste",
+          "texto": [
+            "Abra uma conversa no assistente e mande as perguntas abaixo, **uma de cada vez**. Confira cada resposta olhando o PDF: a cláusula citada diz mesmo aquilo?"
+          ],
+          "arquivo": "Perguntas",
+          "codigo": "Quanto a Ipê Roxo vai pagar no total?\n\nEm quanto tempo fica pronto?\n\nSe quisermos sair do contrato no meio, quanto custa?\n\nO que acontece com os nossos dados?\n\nListe os pontos que mais favorecem a Kodama.",
+          "depois": [
+            "Repare na primeira: os R$ 4,8 milhões estão na Cláusula 3.1, mas a 3.2 cobra a licença **à parte**, todo mês. O assistente parou no 4,8?",
+            "A última obriga o assistente a ler o contrato inteiro. Peça a tabela e confira duas ou três cláusulas no PDF."
+          ]
+        },
+        {
+          "titulo": "Agora a pergunta que não tem resposta",
+          "texto": [
+            "Mande esta:"
+          ],
+          "arquivo": "Prompt",
+          "codigo": "Qual é a multa se a Kodama atrasar a entrega?",
+          "depois": [
+            "O contrato **não prevê multa nenhuma para atraso da Kodama** — e ainda diz que os prazos são estimados (Cláusula 2.2).",
+            "Se o seu assistente respondeu “2% mais juros de 1% ao mês”, ele inventou: copiou a Cláusula 5, que é a multa **da Ipê Roxo** por atrasar pagamento. As palavras certas, na cláusula errada.",
+            "Se ele respondeu “o contrato não trata disso”, foi **a sua instrução** que fez isso — a parte dos *extras*. É a parte que quase todo mundo esquece de escrever, e é a que separa um assistente que você pode usar de um que você precisa conferir.",
+            "Agora mande a última: **“Posso assinar?”** Um bom assistente não decide por você: lista o que está em aberto e devolve a decisão. Quem assina é você."
+          ]
+        },
+        {
+          "titulo": "Conserte a instrução, não a resposta",
+          "texto": [
+            "Inventou? Volte ao campo de instruções e reforce os *extras*: escreva a frase exata que ele deve responder, entre aspas, e acrescente o que ele não pode inventar.",
+            "Abra uma conversa **nova** e pergunte de novo. Em alguns aplicativos a instrução alterada só vale a partir da próxima conversa.",
+            "Mude **uma coisa por vez**. Trocando três linhas de uma vez, você não sabe qual delas resolveu."
+          ],
+          "aviso": "Este é o ciclo inteiro: perguntar, conferir contra o documento, ajustar a instrução, perguntar de novo. Serve para qualquer assistente que você montar depois deste."
+        },
+        {
+          "titulo": "Troque o documento pelo seu",
+          "texto": [
+            "O assistente que você montou não tem nada de específico sobre a Kodama: ele tem um papel, uma tarefa, um exemplo, regras, um formato e um documento.",
+            "Troque o contrato por um documento do seu trabalho — um contrato de verdade, uma política, um manual, a ata de uma reunião — ajuste o papel e o exemplo nas instruções e teste com as perguntas que **você** recebe toda semana.",
+            "Leve o seu caso para a conversa: é isso que a gente faz no curso completo."
+          ]
+        }
+      ]
+    }
+  ]
 }
