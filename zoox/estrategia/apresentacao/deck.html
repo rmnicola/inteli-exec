@@ -125,6 +125,8 @@
 #obrigado .qr-c { flex: 1; height: 500px; border-radius: 24px; background: var(--branco); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
 #obrigado .qr-c img { width: 300px; height: 300px; image-rendering: pixelated; margin-bottom: 18px; }
 #obrigado .qr-c b { font-size: 36px; font-weight: 800; }
+/* ---- Slides do Egon: cada um é uma imagem pronta (Gemini Notebook), ocupando o slide inteiro ---- */
+.slide.egon > img.img-egon { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 </style>
 </head>
 <body>
@@ -164,12 +166,175 @@
     <aside class="notas">Trinta segundos no total, dez para cada um. Não leia os tópicos: diga só o que liga cada pessoa ao que a sala vai fazer hoje.</aside>
   </section>
 
-  <!-- PLACEHOLDER: o conteúdo desta sessão é do Egon; os slides dele entram aqui -->
-  <section class="slide" id="egon-conteudo" data-modelo="placeholder-egon">
-    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo" style="left:120px; top:110px">egon · slides a receber</p>
-    <div class="centro-ph"><p class="tit-ph">Estratégia e governança</p><p class="sub-ph">os slides do Egon entram aqui</p></div>
-    <aside class="notas">Placeholder: a sessão inteira é conduzida pelo Egon, que manda os slides.</aside>
+  <!-- Slides do Egon (Governança de IA no C-Level, enviados em 16/11): imagens prontas, uma por slide -->
+  <section class="slide egon sem-numero" id="egon-01" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-01.jpg" alt="Estratégia e Governança: o mapa da transformação para o C-level">
+    <aside class="notas">Slide do Egon (1 de 34): Estratégia e Governança: o mapa da transformação para o C-level.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-02" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-02.jpg" alt="Antes de começar: levante a mão quem tem IA rodando na empresa">
+    <aside class="notas">Slide do Egon (2 de 34): Antes de começar: levante a mão quem tem IA rodando na empresa.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-03" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-03.jpg" alt="O paradoxo de 2026">
+    <aside class="notas">Slide do Egon (3 de 34): O paradoxo de 2026.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-04" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-04.jpg" alt="1 de 5: adoção não é valor">
+    <aside class="notas">Slide do Egon (4 de 34): 1 de 5: adoção não é valor.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-05" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-05.jpg" alt="2 de 5: o clube dos que lucram não está crescendo">
+    <aside class="notas">Slide do Egon (5 de 34): 2 de 5: o clube dos que lucram não está crescendo.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-06" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-06.jpg" alt="3 de 5: a distância entre grandes e médias está aumentando">
+    <aside class="notas">Slide do Egon (6 de 34): 3 de 5: a distância entre grandes e médias está aumentando.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-07" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-07.jpg" alt="4 de 5: o valor está migrando dos copilotos para os agentes">
+    <aside class="notas">Slide do Egon (7 de 34): 4 de 5: o valor está migrando dos copilotos para os agentes.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-08" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-08.jpg" alt="5 de 5: a governança está atrasada em relação à adoção">
+    <aside class="notas">Slide do Egon (8 de 34): 5 de 5: a governança está atrasada em relação à adoção.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-09" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-09.jpg" alt="O mapa da transformação: quatro camadas, quatro decisões do C-level">
+    <aside class="notas">Slide do Egon (9 de 34): O mapa da transformação: quatro camadas, quatro decisões do C-level.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-10" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-10.jpg" alt="Por que o mapa é do CEO">
+    <aside class="notas">Slide do Egon (10 de 34): Por que o mapa é do CEO.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-11" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-11.jpg" alt="A anatomia do sucesso em IA exige três camadas de validação">
+    <aside class="notas">Slide do Egon (11 de 34): A anatomia do sucesso em IA exige três camadas de validação.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-12" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-12.jpg" alt="TCAO: o custo total de ter IA em produção">
+    <aside class="notas">Slide do Egon (12 de 34): TCAO: o custo total de ter IA em produção.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-13" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-13.jpg" alt="O portão: em cada portão, três decisões possíveis">
+    <aside class="notas">Slide do Egon (13 de 34): O portão: em cada portão, três decisões possíveis.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-14" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-14.jpg" alt="Camada 3 em detalhe: a escada de autonomia dos agentes">
+    <aside class="notas">Slide do Egon (14 de 34): Camada 3 em detalhe: a escada de autonomia dos agentes.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-15" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-15.jpg" alt="Autonomia da máquina: quem detém o controle? (HITL, HOTL, HOoTL)">
+    <aside class="notas">Slide do Egon (15 de 34): Autonomia da máquina: quem detém o controle? (HITL, HOTL, HOoTL).</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-16" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-16.jpg" alt="O mapa mental do líder: delegar, supervisionar, reter">
+    <aside class="notas">Slide do Egon (16 de 34): O mapa mental do líder: delegar, supervisionar, reter.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-17" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-17.jpg" alt="A interseção da governança: natureza da decisão × autonomia da máquina">
+    <aside class="notas">Slide do Egon (17 de 34): A interseção da governança: natureza da decisão × autonomia da máquina.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-18" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-18.jpg" alt="E no Brasil: o Marco Legal da IA ainda não é lei">
+    <aside class="notas">Slide do Egon (18 de 34): E no Brasil: o Marco Legal da IA ainda não é lei.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-19" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-19.jpg" alt="O ponto cego: Shadow AI e o vazamento duplo">
+    <aside class="notas">Slide do Egon (19 de 34): O ponto cego: Shadow AI e o vazamento duplo.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-20" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-20.jpg" alt="Controles técnicos: guardrails e RAG">
+    <aside class="notas">Slide do Egon (20 de 34): Controles técnicos: guardrails e RAG.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-21" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-21.jpg" alt="O filtro final: o teste reputacional">
+    <aside class="notas">Slide do Egon (21 de 34): O filtro final: o teste reputacional.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-22" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-22.jpg" alt="Sua vez: 16 minutos, três rodadas, um time">
+    <aside class="notas">Slide do Egon (22 de 34): Sua vez: 16 minutos, três rodadas, um time.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-23" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-23.jpg" alt="Rodada 1: ambição">
+    <aside class="notas">Slide do Egon (23 de 34): Rodada 1: ambição.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-24" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-24.jpg" alt="Rodada 2: portfólio e autonomia">
+    <aside class="notas">Slide do Egon (24 de 34): Rodada 2: portfólio e autonomia.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-25" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-25.jpg" alt="Rodada 3: regras de uso">
+    <aside class="notas">Slide do Egon (25 de 34): Rodada 3: regras de uso.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-26" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-26.jpg" alt="Feche o seu mapa">
+    <aside class="notas">Slide do Egon (26 de 34): Feche o seu mapa.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-27" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-27.jpg" alt="O verdadeiro gargalo não é a tecnologia">
+    <aside class="notas">Slide do Egon (27 de 34): O verdadeiro gargalo não é a tecnologia.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-28" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-28.jpg" alt="O paradoxo da adoção">
+    <aside class="notas">Slide do Egon (28 de 34): O paradoxo da adoção.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-29" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-29.jpg" alt="Quebrando o paradoxo da adoção">
+    <aside class="notas">Slide do Egon (29 de 34): Quebrando o paradoxo da adoção.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-30" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-30.jpg" alt="Três topologias para organizar o time de IA">
+    <aside class="notas">Slide do Egon (30 de 34): Três topologias para organizar o time de IA.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-31" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-31.jpg" alt="O motor de execução: roadmap de governança em 90 dias">
+    <aside class="notas">Slide do Egon (31 de 34): O motor de execução: roadmap de governança em 90 dias.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-32" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-32.jpg" alt="Feche o seu mapa">
+    <aside class="notas">Slide do Egon (32 de 34): Feche o seu mapa.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-33" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-33.jpg" alt="Robustez da inferência">
+    <aside class="notas">Slide do Egon (33 de 34): Robustez da inferência.</aside>
+  </section>
+
+  <section class="slide egon sem-numero" id="egon-34" data-modelo="slide-do-egon">
+    <img class="img-egon" src="assets/egon/egon-34.jpg" alt="A IA vai tomar decisões na sua empresa de qualquer jeito">
+    <aside class="notas">Slide do Egon (34 de 34): A IA vai tomar decisões na sua empresa de qualquer jeito.</aside>
   </section>
 
   <!-- Obrigado: fecho, com três QR codes da educação continuada do Inteli -->

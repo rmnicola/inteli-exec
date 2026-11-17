@@ -96,11 +96,6 @@
 #conectores .esq { left: 120px; } #conectores .dir { left: 1160px; }
 #conectores .l1 { top: 140px; } #conectores .l2 { top: 370px; } #conectores .l3 { top: 600px; }
 
-/* ---- Placeholders dos slides do Egon ---- */
-.slide[data-modelo="placeholder-egon"] .centro-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
-  border: 4px dashed var(--cinza-escuro); margin: 200px 120px 120px; border-radius: 24px; }
-.slide[data-modelo="placeholder-egon"] .tit-ph { font-family: var(--f-capitulo); font-size: 88px; }
-.slide[data-modelo="placeholder-egon"] .sub-ph { font-size: 36px; color: var(--texto-suave); }
 
 /* ---- Atividade com cronômetro: a seta passa do passo 1 ao 2 antes de trocar de slide; o cronômetro só funciona no HTML ---- */
 .atividade .rotulo-termo { left: 120px; top: 110px; }
@@ -153,10 +148,6 @@
 .atividade:not([data-estado]) .e1, .atividade[data-estado="0"] .e1,
 .atividade[data-estado="1"] .e2, .atividade[data-estado="2"] .e3 { border-color: var(--coral); background: var(--branco); }
 
-/* Agenda curta de três momentos: o QR do site fica no canto, para quem chegou atrasado */
-.slide.agenda .qr-canto { position: absolute; right: 90px; bottom: 90px; width: 220px; text-align: center; }
-.slide.agenda .qr-canto img { display: block; width: 180px; height: 180px; margin: 0 auto 8px; image-rendering: pixelated; }
-.slide.agenda .qr-canto span { font-size: 28px; color: var(--texto-suave); }
 
 /* O fecho: o QR grande e o que levar para casa */
 
@@ -177,6 +168,25 @@
 #obrigado .qr-c { flex: 1; height: 500px; border-radius: 24px; background: var(--branco); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
 #obrigado .qr-c img { width: 300px; height: 300px; image-rendering: pixelated; margin-bottom: 18px; }
 #obrigado .qr-c b { font-size: 36px; font-weight: 800; }
+/* ---- Humano no circuito: os três níveis de autonomia (conteúdo do slide do Egon) como diagrama.
+   A IA e a ação ficam sempre no mesmo lugar; "você" muda de posição a cada nível. Conteúdo em LOOPS ---- */
+.slide.loop .nome-l { position: absolute; left: 116px; top: 150px; font-family: var(--f-capitulo); font-size: 84px; line-height: 1; }
+.slide.loop .din { position: absolute; left: 120px; top: 254px; font-size: 34px; color: var(--texto-suave); }
+.slide.loop svg.diag { position: absolute; inset: 0; width: 1600px; height: 900px; }
+/* ---- Quando usar cada um: a versão da tabela do Egon (natureza da decisão × autonomia); uma linha por passo ---- */
+#quando-usar .tit-q { position: absolute; left: 116px; top: 130px; font-family: var(--f-capitulo); font-size: 76px; line-height: 1; }
+#quando-usar .grade-q { position: absolute; left: 120px; right: 120px; top: 270px; display: grid; grid-template-columns: 360px repeat(3, 1fr);
+  grid-template-rows: 56px repeat(3, 150px); gap: 16px; }
+#quando-usar .cab { display: grid; place-items: center; font-family: var(--f-destaque); font-weight: 700; font-size: 32px; color: var(--coral-texto); }
+#quando-usar .lin { display: flex; flex-direction: column; justify-content: center; }
+#quando-usar .lin b { font-size: 40px; font-weight: 800; }
+#quando-usar .lin span { font-size: 28px; color: var(--texto-suave); }
+#quando-usar .cel { border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 16px; }
+#quando-usar .cel.pode { background: var(--branco); border: 3px solid var(--verde); font-size: 30px; font-weight: 700; color: var(--verde-escuro); }
+#quando-usar .cel.nao { background: var(--branco); border: 3px dashed var(--coral); font-size: 30px; font-weight: 700; color: var(--coral-texto); }
+#quando-usar .cel.uso { background: var(--roxo); color: var(--branco); }
+#quando-usar .cel.uso b { font-size: 34px; font-weight: 800; }
+#quando-usar .cel.uso span { font-size: 28px; color: var(--cinza-medio); }
 </style>
 </head>
 <body>
@@ -229,7 +239,6 @@
   <!-- Agenda: o que é um harness -->
   <section class="slide agenda curta" id="agenda-harness" data-modelo="agenda" data-agora="0" data-max-palavras="40">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="qr-canto"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar"><span>o passo a passo</span></div>
     <aside class="notas">Agora: o que é um agente e o que é um harness.</aside>
   </section>
 
@@ -241,10 +250,10 @@
       <p class="titulo-c">ReAct: Synergizing Reasoning and Acting in Language Models</p>
       <p class="autores-l">Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao<br><span class="borrado">Princeton University · Google Research, Brain team</span></p>
       <p class="resumo-t">ABSTRACT</p>
-      <p class="resumo-x resumo-grifos" lang="en"><span class="t1">While large language models (LLMs) have demonstrated impressive performance across tasks in language understanding and interactive decision making, their abilities for reasoning (e.g. chain-of-thought prompting) and acting (e.g. action plan generation) have primarily been studied as separate topics.</span> <span class="t2">In this paper, we explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner,</span> <span>allowing for greater synergy between the two: reasoning traces help the model induce, track, and update action plans as well as handle exceptions, while actions allow it to interface with and gather additional information from external sources such as knowledge bases or environments. We apply our approach, named ReAct, to a diverse set of language and decision making tasks and demonstrate its effectiveness over state-of-the-art baselines in addition to improved human interpretability and trustworthiness.</span></p>
-      <span class="marcadores" style="display:none"><i class="passo" data-passo="1"></i><i class="passo" data-passo="2"></i></span>
+      <p class="resumo-x resumo-grifos" lang="en"><span>While large language models (LLMs) have demonstrated impressive performance across tasks in language understanding and interactive decision making,</span> <span class="t1">their abilities for reasoning (e.g. chain-of-thought prompting) and acting (e.g. action plan generation) have primarily been studied as separate topics.</span> <span>In this paper,</span> <span class="t2">we explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner, allowing for greater synergy between the two:</span> <span>reasoning traces help the model induce, track, and update action plans as well as handle exceptions, while</span> <span class="t3">actions allow it to interface with and gather additional information from external sources such as knowledge bases or environments.</span> <span>We apply our approach, named ReAct, to a diverse set of language and decision making tasks and demonstrate its effectiveness over state-of-the-art baselines in addition to improved human interpretability and trustworthiness.</span></p>
+      <span class="marcadores" style="display:none"><i class="passo" data-passo="1"></i><i class="passo" data-passo="2"></i><i class="passo" data-passo="3"></i></span>
     </div>
-    <aside class="notas">Yao et al. (2022), "ReAct: Synergizing Reasoning and Acting in Language Models", ICLR 2023. Passos: 1 até ali, raciocinar (pensar passo a passo) e agir (planejar e executar ações) eram estudados separadamente · 2 a proposta: o modelo pensa e age de forma intercalada; as ações buscam informação fora dele (bases de conhecimento, ambientes), o que reduz a alucinação: em vez de inventar, ele consulta. É a base do que hoje chamamos de agente.</aside>
+    <aside class="notas">Yao et al. (2022), "ReAct: Synergizing Reasoning and Acting in Language Models", ICLR 2023. O grifo marca a mensagem em três passos; o resto do abstract fica desfocado. 1 Até ali, raciocinar (pensar passo a passo) e agir (planejar e executar ações) eram estudados separadamente · 2 A proposta: o modelo pensa e age de forma intercalada · 3 E é a ação que deixa ele buscar informação fora de si, em bases de conhecimento e sistemas: em vez de inventar, ele consulta. É a base do que hoje chamamos de agente.</aside>
   </section>
 
   <!-- Sem agir: a pergunta do próximo slide para um modelo que só prevê o próximo texto -->
@@ -274,15 +283,15 @@
       <b class="pe passo" data-passo="1">pensa</b><span class="passo" data-passo="1">Preciso ver a agenda da semana.</span>
       <b class="ac passo" data-passo="2">age</b><span class="passo" data-passo="2"><code>ler_agenda("esta semana")</code></span>
       <b class="ob passo" data-passo="3">observa</b><span class="passo" data-passo="3">livre: terça 16h, quinta 8h e 14h</span>
-      <b class="pe passo" data-passo="4">pensa</b><span class="passo" data-passo="4">Orçamento pede foco: e a quinta?</span>
-      <b class="ac passo" data-passo="5">age</b><span class="passo" data-passo="5"><code>ler_agenda("quinta")</code></span>
-      <b class="ob passo" data-passo="6">observa</b><span class="passo" data-passo="6">quinta 8h: nada em volta</span>
+      <b class="pe passo" data-passo="4">pensa</b><span class="passo" data-passo="4">Qual tem mais folga em volta?</span>
+      <b class="ac passo" data-passo="5">age</b><span class="passo" data-passo="5"><code>ler_agenda("terça", "quinta")</code></span>
+      <b class="ob passo" data-passo="6">observa</b><span class="passo" data-passo="6">terça 16h colada; quinta 8h livre</span>
       <b class="pe passo" data-passo="7">pensa</b><span class="passo" data-passo="7">Quinta às 8h. Reservo o horário.</span>
       <b class="ac passo" data-passo="8">age</b><span class="passo" data-passo="8"><code>criar_evento("quinta 8h")</code></span>
       <b class="ob passo" data-passo="9">observa</b><span class="passo" data-passo="9">evento criado</span>
       <p class="re passo" data-passo="10">Reservei quinta, das 8h às 9h.</p>
     </div>
-    <aside class="notas">O ciclo do ReAct, com um pedido do tipo que vamos fazer hoje. Um agente pensa, age (usa uma ferramenta), observa o resultado e decide o próximo passo, até responder. A cada linha do rastro, o nó correspondente acende. 1 a 3: ele lê a agenda da semana e acha três buracos · 4 a 6: decide sozinho que orçamento pede um horário sem nada em volta, e olha a quinta de perto · 7 a 9: reserva o horário. Repare: ninguém pediu para ele criar o evento, ele decidiu. É bom ou é ruim? Guarde a pergunta: é a conversa do fim da sessão. 10: a resposta · 11: o nome desse ciclo: agente. Ponte para o próximo slide: para ler a agenda e criar o evento, alguém precisa dar a ele essas ferramentas. Isso é o harness.</aside>
+    <aside class="notas">O ciclo do ReAct, com um pedido do tipo que vamos fazer hoje. Um agente pensa, age (usa uma ferramenta), observa o resultado e decide o próximo passo, até responder. A cada linha do rastro, o nó correspondente acende. 1 a 3: ele lê a agenda da semana e acha três buracos · 4 a 6: decide sozinho que revisar orçamento pede um horário com folga em volta, e lê terça e quinta de perto: a terça às 16h está colada em outra reunião, a quinta às 8h está livre · 7 a 9: reserva o horário. Repare: ninguém pediu para ele criar o evento, ele decidiu. É bom ou é ruim? Guarde a pergunta: é a conversa do fim da sessão. 10: a resposta · 11: o nome desse ciclo: agente. Ponte para o próximo slide: para ler a agenda e criar o evento, alguém precisa dar a ele essas ferramentas. Isso é o harness.</aside>
   </section>
 
   <!-- Harness, para executivos: o modelo sozinho só escreve; o aplicativo em volta dele lê, faz e acessa -->
@@ -320,7 +329,6 @@
   <!-- Agenda: conectar -->
   <section class="slide agenda curta" id="agenda-conectar" data-modelo="agenda" data-agora="1" data-max-palavras="40">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="qr-canto"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar"><span>o passo a passo</span></div>
     <aside class="notas">Agora: montar o assistente e ligar a agenda.</aside>
   </section>
 
@@ -347,7 +355,6 @@
   <!-- Agenda: perguntar e conferir -->
   <section class="slide agenda curta" id="agenda-perguntar" data-modelo="agenda" data-agora="2" data-max-palavras="40">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <div class="qr-canto"><img src="assets/qr-guia.png" alt="QR code para rmnicola.github.io/inteli-exec/zoox/conectar-e-perguntar"><span>o passo a passo</span></div>
     <aside class="notas">Agora: perguntar e conferir.</aside>
   </section>
 
@@ -367,28 +374,33 @@
     <aside class="notas">Agora: o Egon conduz a conversa de risco.</aside>
   </section>
 
-  <!-- PLACEHOLDER: slide do Egon a receber (Human in the loop) -->
-  <section class="slide" id="egon-in-the-loop" data-modelo="placeholder-egon">
+  <!-- Humano no circuito: os três níveis de autonomia, do slide do Egon (Autonomia da Máquina), no estilo do deck; conteúdo em LOOPS -->
+  <section class="slide loop" id="in-the-loop" data-modelo="nivel-de-autonomia" data-nivel="0" data-max-palavras="50">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo" style="left:120px; top:110px">egon · slide a receber</p>
-    <div class="centro-ph"><p class="tit-ph">Human in the loop</p><p class="sub-ph">a pessoa aprova cada decisão</p></div>
-    <aside class="notas">Placeholder: o Egon vai mandar este slide. Conversa de risco a partir do “pode marcar a primeira janela” da atividade: quem decidiu se ele podia mexer na agenda?</aside>
+    <aside class="notas">Human in the loop: o humano decide; a IA sugere ou prepara opções. Ação autônoma nula. É o assistente de agenda com a regra das instruções: ele acha a janela e pergunta antes de marcar.</aside>
   </section>
 
-  <!-- PLACEHOLDER: slide do Egon a receber (Human out of the loop) -->
-  <section class="slide" id="egon-out-of-the-loop" data-modelo="placeholder-egon">
+  <section class="slide loop" id="on-the-loop" data-modelo="nivel-de-autonomia" data-nivel="1" data-max-palavras="50">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo" style="left:120px; top:110px">egon · slide a receber</p>
-    <div class="centro-ph"><p class="tit-ph">Human out of the loop</p><p class="sub-ph">a máquina decide sozinha</p></div>
-    <aside class="notas">Placeholder: o Egon vai mandar este slide. Conversa de risco a partir do “pode marcar a primeira janela” da atividade: quem decidiu se ele podia mexer na agenda?</aside>
+    <aside class="notas">Human on the loop: a IA decide e age; o humano supervisiona em tempo real e pode intervir ou bloquear a qualquer momento. Ação autônoma parcial. É o assistente que marca o horário e você vê o evento aparecer: dá para desfazer, mas ele já fez. Lembre do ciclo do ReAct: ninguém pediu para ele criar o evento.</aside>
   </section>
 
-  <!-- PLACEHOLDER: slide do Egon a receber (Human on the loop) -->
-  <section class="slide" id="egon-on-the-loop" data-modelo="placeholder-egon">
+  <section class="slide loop" id="out-of-the-loop" data-modelo="nivel-de-autonomia" data-nivel="2" data-max-palavras="50">
     <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
-    <p class="rotulo-termo" style="left:120px; top:110px">egon · slide a receber</p>
-    <div class="centro-ph"><p class="tit-ph">Human on the loop</p><p class="sub-ph">a pessoa supervisiona e pode intervir</p></div>
-    <aside class="notas">Placeholder: o Egon vai mandar este slide. Conversa de risco a partir do “pode marcar a primeira janela” da atividade: quem decidiu se ele podia mexer na agenda?</aside>
+    <aside class="notas">Human out of the loop: a IA decide e age sem supervisão na hora; a revisão é só depois do fato. Ação autônoma total. Um assistente que aceita e recusa convites sozinho estaria aqui. Feche: quem, na sua empresa, decide em que nível cada conexão fica?</aside>
+  </section>
+
+  <!-- Quando usar cada um: versão da tabela do Egon (A Interseção da Governança) -->
+  <section class="slide" id="quando-usar" data-modelo="matriz-de-autonomia" data-max-palavras="60">
+    <img class="logo" src="../../../design-system/assets/img/logo-exec-escuro-coral.png" alt="inteli EXEC">
+    <p class="tit-q">Quando usar cada um</p>
+    <div class="grade-q">
+      <div></div><div class="cab">HITL</div><div class="cab">HOTL</div><div class="cab">HOoTL</div>
+      <div class="lin passo" data-passo="1"><b>Julgamento</b><span>ambíguo, alto impacto</span></div><div class="cel uso passo" data-passo="1"><b>obrigatório</b><span>você decide sempre</span></div><div class="cel nao passo" data-passo="1">não</div><div class="cel nao passo" data-passo="1">não</div>
+      <div class="lin passo" data-passo="2"><b>Análise</b><span>risco médio</span></div><div class="cel pode passo" data-passo="2">pode</div><div class="cel uso passo" data-passo="2"><b>recomendado</b><span>a IA decide, você supervisiona</span></div><div class="cel nao passo" data-passo="2">não</div>
+      <div class="lin passo" data-passo="3"><b>Repetição</b><span>reversível, baixo risco</span></div><div class="cel pode passo" data-passo="3">pode</div><div class="cel pode passo" data-passo="3">pode</div><div class="cel uso passo" data-passo="3"><b>possível</b><span>só com trava técnica</span></div>
+    </div>
+    <aside class="notas">A versão da tabela do Egon (A Interseção da Governança): cruza a natureza da decisão com a autonomia da máquina. Uma linha por passo. 1 Julgamento, ambíguo e de alto impacto: o humano decide sempre, HITL obrigatório. 2 Análise, risco médio: a IA pode decidir com o humano supervisionando, HOTL recomendado. 3 Repetição, reversível e de baixo risco: dá para tirar o humano do circuito, mas só com uma trava técnica ativa. A regra que fica: quanto mais julgamento, mais perto de você.</aside>
   </section>
 
   <!-- Obrigado: fecho, com três QR codes da educação continuada do Inteli -->
@@ -479,6 +491,62 @@ for (const t of document.querySelectorAll(".timer[data-tempos]")) {
     if (Number.isFinite(e) && e !== etapa) carregar(e);
   }).observe(slide, { attributes: true, attributeFilter: ["data-estado"] });
 }
+</script>
+<script>
+/* Humano no circuito: os três níveis de autonomia da máquina, definidos UMA vez aqui (conteúdo do slide do Egon).
+   Cada slide .loop declara só o seu nível em data-nivel (0, 1 ou 2). A IA e a ação não se mexem; "você" muda de lugar. */
+const LOOPS = [
+  { sigla: "HITL", nome: "Human in the loop", din: "Você decide. A IA sugere ou prepara opções.", auto: "nula" },
+  { sigla: "HOTL", nome: "Human on the loop", din: "A IA decide e age. Você acompanha e pode intervir.", auto: "parcial" },
+  { sigla: "HOoTL", nome: "Human out of the loop", din: "A IA decide e age sozinha. Você revisa depois.", auto: "total" },
+];
+(() => {
+  const Y = 640, ROXO = "#2e2640", CORAL = "#ff4545", TXT = "#d63333", SUAVE = "#5b5568";
+  const txt = (x, y, t, o = {}) => `<text x="${x}" y="${y}" text-anchor="${o.a || "middle"}" font-family="${o.f || "Manrope"}" font-weight="${o.w || 700}" font-size="${o.s || 28}" fill="${o.c || SUAVE}">${t}</text>`;
+  /* seta com a ponta desenhada à mão (triângulo no fim), na horizontal ou na vertical */
+  const seta = (x1, y1, x2, y2, o = {}) => {
+    const c = o.c || ROXO, w = o.w || 6, h = 26, dx = Math.sign(x2 - x1), dy = Math.sign(y2 - y1);
+    const bx = x2 - dx * h, by = y2 - dy * h;
+    const ponta = dx ? `${x2},${y2} ${bx},${y2 - 13} ${bx},${y2 + 13}` : `${x2},${y2} ${x2 - 13},${by} ${x2 + 13},${by}`;
+    return `<path d="M${x1},${y1} L${bx},${by}" stroke="${c}" stroke-width="${w}" fill="none"${o.d ? ` stroke-dasharray="${o.d}"` : ""}/><polygon points="${ponta}" fill="${c}"/>`;
+  };
+  /* Os ícones do jogo da imitação (Essencial na Prática): a pessoa na mesa é "você"; o robô é a IA. viewBox 200 × 300, desenhados a 75% */
+  const PELE = "#caced6", VERDE = "#89cea5", CINZA = "#b2b6bf";
+  const ICONE = {
+    voce: `<path d="M28 300 V236 Q28 176 100 176 Q172 176 172 236 V300 Z" fill="${VERDE}"/><circle cx="100" cy="104" r="50" fill="${PELE}"/>
+           <path d="M52 98 Q52 50 100 50 Q148 50 148 98 Q138 72 100 70 Q62 72 52 98 Z" fill="${VERDE}"/><rect x="20" y="262" width="160" height="38" rx="6" fill="${CINZA}"/>`,
+    ia: `<line x1="100" y1="22" x2="100" y2="52" stroke="${ROXO}" stroke-width="6"/><circle cx="100" cy="18" r="10" fill="${CORAL}"/>
+         <rect x="44" y="52" width="112" height="100" rx="18" fill="${PELE}" stroke="${ROXO}" stroke-width="6"/>
+         <circle cx="78" cy="96" r="11" fill="${ROXO}"/><circle cx="122" cy="96" r="11" fill="${ROXO}"/><rect x="72" y="124" width="56" height="10" rx="5" fill="${ROXO}"/>
+         <rect x="30" y="170" width="140" height="130" rx="18" fill="${ROXO}"/><rect x="70" y="200" width="60" height="40" rx="6" fill="${PELE}"/>`,
+  };
+  const icone = (tipo, x, y, apagado) => `<svg x="${x - 75}" y="${y - 112}" width="150" height="225" viewBox="0 0 200 300" opacity="${apagado ? 0.4 : 1}">${ICONE[tipo]}</svg>`;
+  const voce = (x, y, apagado) => icone("voce", x, y, apagado);
+  const base = (n) =>
+    icone("ia", 300, Y) +
+    `<rect x="1150" y="${Y - 75}" width="330" height="150" rx="24" fill="${ROXO}"/>${txt(1315, Y - 8, "a ação", { s: 40, w: 800, c: "#ffffff" })}` +
+    txt(1315, Y + 38, "marcar · enviar · aprovar", { s: 28, w: 400, c: "#caced6" });
+  const desenho = [
+    // HITL: você no meio do caminho
+    () => seta(372, Y, 722, Y, { d: "14 12" }) + txt(547, Y - 26, "sugere") + voce(800, Y) +
+          seta(878, Y, 1138, Y, { c: CORAL, m: "c" }) + txt(1008, Y - 26, "decide e faz", { c: TXT }),
+    // HOTL: a IA faz; você acima, acompanhando, com a mão no freio
+    () => seta(372, Y, 1138, Y, { c: CORAL, m: "c" }) + txt(765, Y + 52, "decide e faz", { c: TXT }) +
+          voce(765, 420) + txt(675, 430, "acompanha", { a: "end" }) +
+          `<path d="M765,536 L765,640" stroke="${ROXO}" stroke-width="5" stroke-dasharray="10 9" fill="none"/><circle cx="765" cy="${Y}" r="14" fill="${ROXO}"/>` + txt(790, 590, "pode parar", { a: "start", c: ROXO }),
+    // HOoTL: a IA faz sozinha; você, apagado, só revisa depois
+    () => seta(372, Y, 1138, Y, { c: CORAL, m: "c" }) + txt(765, Y + 52, "decide e faz", { c: TXT }) +
+          seta(1315, Y - 80, 1315, 492, { w: 5, d: "10 9" }) + voce(1315, 368, true) + txt(1225, 378, "revisa depois", { a: "end" }),
+  ];
+  const defs = "";
+  for (const s of document.querySelectorAll(".slide.loop")) {
+    const n = parseInt(s.dataset.nivel, 10), l = LOOPS[n];
+    s.insertAdjacentHTML("beforeend",
+      `<p class="nome-l">${l.nome}</p><p class="din">${l.din}</p>` +
+      `<svg class="diag" viewBox="0 0 1600 900" aria-hidden="true">${defs}${base(n)}${desenho[n]()}</svg>`
+    );
+  }
+})();
 </script>
 <script src="../../../design-system/js/deck.js"></script>
 </body>
